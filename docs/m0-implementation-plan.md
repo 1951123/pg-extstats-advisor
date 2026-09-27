@@ -63,9 +63,11 @@ copies unaffected contributions.
 1. Define typed IDs, candidates, designs, moves, workload records, and immutable
    evaluation states.
 2. Implement manifest/schema validation, blob hashing, and acquisition provenance.
-3. Implement the PostgreSQL backend-local repository, design activation, and
-   regression tests in the tracked patch.
-4. Prove the patch applies to pristine 16.14 and build/install from scratch.
+3. **Complete (M0-A):** implement the PostgreSQL backend-local repository,
+   ordered design activation, visibility/load hooks, and integration tests in
+   the tracked patch.
+4. **Complete (M0-A):** prove forward/reverse patch validation and pristine 16.14
+   build/install from scratch.
 5. Create one isolated acquisition fixture and freeze MCV/FD native payloads.
 6. Implement workload parsing, positive-truth validation, and conservative
    candidate-query incidence.
