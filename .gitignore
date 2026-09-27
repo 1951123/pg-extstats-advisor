@@ -1,0 +1,34 @@
+.build/
+.venv/
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# Local PostgreSQL state and generated experiment data
+.data/
+pgdata/
+data/
+payload-repositories/
+experiments/scratch/
+*.log
+*.pid
+*.tmp
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+config.local.*
+credentials.*
+
+# Editors and operating systems
+.idea/
+.vscode/
+*~
+.DS_Store

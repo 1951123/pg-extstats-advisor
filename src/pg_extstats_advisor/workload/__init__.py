@@ -1,0 +1,1 @@
+"""Workload component boundary."""

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pg-extstats-advisor"
+version = "0.0.1"
+description = "Offline PostgreSQL extended-statistics physical-design advisor"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "Proprietary research prototype"}
+authors = [{name = "HUMAN ACTION REQUIRED"}]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<9",
+  "ruff>=0.8,<1",
+]
+postgres = [
+  "psycopg[binary]>=3.2,<4",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pg_extstats_advisor"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100

@@ -1,0 +1,1 @@
+"""Incidence component boundary."""
