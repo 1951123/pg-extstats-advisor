@@ -7,6 +7,7 @@
 - Establish immutable upstream, read-only reference, tracked-patch, and disposable
   build discipline.
 - Audit the legacy overlay and specify its minimal migration.
+- Track a pristine-based API-contract patch without claiming M0 capability.
 
 ## M0 — native evaluator vertical slice
 

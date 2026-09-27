@@ -1,0 +1,49 @@
+diff --git a/src/include/statistics/hypothetical.h b/src/include/statistics/hypothetical.h
+new file mode 100644
+index 0000000..4bb8666
+--- /dev/null
++++ b/src/include/statistics/hypothetical.h
+@@ -0,0 +1,42 @@
++/*-------------------------------------------------------------------------
++ *
++ * hypothetical.h
++ *    Backend-local hypothetical extended-statistics state.
++ *
++ * This bootstrap header fixes the internal boundary for the advisor overlay.
++ * Implementations and planner/loader hooks are introduced with M0 tests.
++ *
++ *-------------------------------------------------------------------------
++ */
++#ifndef HYPOTHETICAL_H
++#define HYPOTHETICAL_H
++
++#include "postgres.h"
++
++#include "nodes/pg_list.h"
++
++typedef enum HypotheticalExtStatsKind
++{
++	HYPOTHETICAL_EXTSTATS_MCV,
++	HYPOTHETICAL_EXTSTATS_DEPENDENCIES
++} HypotheticalExtStatsKind;
++
++/* Reset all repository and active-design state in the current backend. */
++extern void hypothetical_extstats_reset(void);
++
++/* Copy and validate one native serialized payload into backend-local state. */
++extern void hypothetical_extstats_register(Oid statoid, Oid relid,
++											HypotheticalExtStatsKind kind,
++											const bytea *payload);
++
++/* Replace the active design; ordered_oids defines effective precedence. */
++extern void hypothetical_extstats_activate(List *ordered_oids);
++
++/* Filter and reorder catalog definitions for the registered relation. */
++extern List *hypothetical_extstats_filter(Oid relid, List *catalog_oids);
++
++/* Return a registered native payload, or false when the overlay is inactive. */
++extern bool hypothetical_extstats_payload(Oid statoid,
++										  HypotheticalExtStatsKind kind,
++										  const bytea **payload);
++
++#endif							/* HYPOTHETICAL_H */

@@ -65,3 +65,7 @@ The `.venv/` directory is local and ignored. Dependency declarations belong in
 
 This bootstrap contains architecture and build preparation only. M0 implementation
 has not started.
+
+The tracked PostgreSQL patch currently fixes only the internal overlay API
+contract; it does not yet provide hypothetical evaluation. See
+`docs/legacy-prototype-audit.md` and `docs/m0-implementation-plan.md`.
