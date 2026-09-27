@@ -66,6 +66,8 @@ The `.venv/` directory is local and ignored. Dependency declarations belong in
 This bootstrap contains architecture and build preparation only. M0 implementation
 has not started.
 
-The tracked PostgreSQL patch now implements the M0-A backend-local overlay and
-its narrow SQL test surface. External workload/evaluator implementation has not
-started. See `docs/m0-postgres-overlay.md` and `docs/m0-implementation-plan.md`.
+The tracked PostgreSQL patch implements the M0-A backend-local overlay. M0-B adds
+the minimal external native evaluator, repository validation, conservative
+incidence, and exact query-level reuse for a small fixed workload. Search and
+general workload ingestion have not started. See `docs/m0-postgres-overlay.md`,
+`docs/m0-external-evaluator.md`, and `docs/m0-implementation-plan.md`.

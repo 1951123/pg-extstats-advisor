@@ -75,6 +75,11 @@ copies unaffected contributions.
 8. Implement full-design and move evaluation with query-level reuse.
 9. Run the correctness matrix below against physical/native states.
 
+M0-B is complete for the small fixed vertical slice: typed records, repository
+validation, conservative incidence, native session adapter, strict CE extraction,
+full-design evaluation, and exact query-local move reuse are implemented and
+tested. General workload ingestion and acquisition remain later M0 work.
+
 ## Correctness matrix
 
 - empty design;
