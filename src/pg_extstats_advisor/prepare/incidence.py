@@ -69,7 +69,7 @@ def derive_incidence(ingested: IngestedWorkload, catalog: CandidateCatalog) -> I
             tuple((key, frozenset(value)) for key, value in mapping.items()),
             frozenset(ingested.workload.by_id),
         ),
-        ingested.workload.digest,
+        ingested.effective_workload_digest or ingested.workload.digest,
         candidate_catalog_digest(catalog.candidates),
         ordered_edges,
         fallback_count,

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -51,6 +52,34 @@ class QueryInspection:
 class IngestedWorkload:
     workload: Workload
     inspections: tuple[QueryInspection, ...]
+    raw_query_count: int = 0
+    excluded_query_ids: tuple[str, ...] = ()
+    objective_membership_policy: str = "require_all_positive"
+    raw_source_path: str | None = None
+    raw_source_sha256: str | None = None
+    raw_workload_digest: str | None = None
+    effective_workload_digest: str | None = None
+
+
+OBJECTIVE_MEMBERSHIP_POLICIES = {"require_all_positive", "positive_truth_only"}
+
+
+def _records_digest(records: list[dict[str, Any]], policy: str) -> str:
+    value = {
+        "objective_membership_policy": policy,
+        "queries": [
+            {
+                "query_id": str(record["query_id"]),
+                "sql": str(record["sql"]),
+                "truth": float(record["truth"]),
+                "target_relation": str(record["target_relation"]),
+            }
+            for record in records
+        ],
+    }
+    return hashlib.sha256(
+        json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
 
 
 def _relation(connection: Connection[Any], value: str) -> RelationMetadata:
@@ -81,7 +110,16 @@ def _inspect_sql(
     return analysis.predicate_columns, analysis.derivation_mode
 
 
-def ingest_workload(path: Path, connection: Connection[Any]) -> IngestedWorkload:
+def ingest_workload(
+    path: Path,
+    connection: Connection[Any],
+    *,
+    objective_membership_policy: str = "require_all_positive",
+) -> IngestedWorkload:
+    if objective_membership_policy not in OBJECTIVE_MEMBERSHIP_POLICIES:
+        raise ValueError(
+            "objective_membership_policy must be require_all_positive or positive_truth_only"
+        )
     raw = json.loads(path.read_text())
     if (
         raw.get("schema_version") != 1
@@ -90,6 +128,9 @@ def ingest_workload(path: Path, connection: Connection[Any]) -> IngestedWorkload
     ):
         raise ValueError("invalid workload file")
     queries, inspections, seen = [], [], set()
+    excluded: list[str] = []
+    records = [dict(record) for record in raw["queries"]]
+    raw_source = raw.get("source_provenance", {})
     for record in raw["queries"]:
         query_id = str(record["query_id"])
         if query_id in seen:
@@ -100,6 +141,17 @@ def ingest_workload(path: Path, connection: Connection[Any]) -> IngestedWorkload
             float(record["truth"]),
             str(record["target_relation"]),
         )
+        if not math.isfinite(truth):
+            raise ValueError(f"non-finite truth is invalid for objective query: {query_id}")
+        if truth < 0:
+            raise ValueError(f"negative truth is invalid for objective query: {query_id}")
+        if truth == 0:
+            if objective_membership_policy == "positive_truth_only":
+                excluded.append(query_id)
+                continue
+            raise ValueError(
+                f"non-positive truth requires explicit positive_truth_only policy: {query_id}"
+            )
         metadata = _relation(connection, target)
         columns, mode = _inspect_sql(sql, target, metadata)
         query = WorkloadQuery(
@@ -113,4 +165,24 @@ def ingest_workload(path: Path, connection: Connection[Any]) -> IngestedWorkload
         queries.append(query)
         analysis = analyze_query(sql, target, metadata)
         inspections.append(QueryInspection(query.query_id, metadata, columns, mode, analysis.parser, analysis.parser_version, analysis.analysis_version))
-    return IngestedWorkload(Workload(str(raw["workload_id"]), tuple(queries)), tuple(inspections))
+    workload = Workload(str(raw["workload_id"]), tuple(queries))
+    excluded_set = set(excluded)
+    effective_digest = (
+        workload.digest
+        if objective_membership_policy == "require_all_positive" and not excluded
+        else _records_digest(
+            [record for record in records if str(record["query_id"]) not in excluded_set],
+            objective_membership_policy,
+        )
+    )
+    return IngestedWorkload(
+        workload,
+        tuple(inspections),
+        raw_query_count=len(records),
+        excluded_query_ids=tuple(excluded),
+        objective_membership_policy=objective_membership_policy,
+        raw_source_path=(str(raw_source["path"]) if raw_source.get("path") else None),
+        raw_source_sha256=(str(raw_source["sha256"]) if raw_source.get("sha256") else None),
+        raw_workload_digest=_records_digest(records, "raw"),
+        effective_workload_digest=effective_digest,
+    )

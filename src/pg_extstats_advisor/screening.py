@@ -6,10 +6,12 @@ import csv
 import hashlib
 import json
 import math
+import time
 from pathlib import Path
 from typing import Any
 
 from pg_extstats_advisor.analysis.singleton import (
+    classify_improvement,
     deterministic_order,
     percentile_from_rank,
     top_fraction_count,
@@ -27,6 +29,11 @@ RANKING_SEMANTICS = (
     "ascending candidate precedence",
     "ascending candidate ID",
 )
+UNPRICED_RANKING_SEMANTICS = (
+    "descending singleton improvement",
+    "ascending candidate precedence",
+    "ascending candidate ID",
+)
 
 
 def _canonical_digest(value: dict[str, Any]) -> str:
@@ -34,6 +41,10 @@ def _canonical_digest(value: dict[str, Any]) -> str:
     return hashlib.sha256(
         json.dumps(canonical, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
+
+
+def _workload_digest(prepared: Any) -> str:
+    return str(getattr(prepared, "effective_workload_digest", None) or prepared.workload.digest)
 
 
 def _write(path: Path, value: dict[str, Any]) -> None:
@@ -65,7 +76,6 @@ def _candidate_rows_from_csv(path: Path) -> list[dict[str, str]]:
         "precedence_rank",
         "mechanism",
         "realization_state",
-        "maintenance_cost_numeric",
         "singleton_objective",
         "singleton_improvement",
     }
@@ -92,26 +102,41 @@ def _profile_rows(
         objective = float(row["singleton_objective"])
         if not math.isclose(improvement, baseline_objective - objective, rel_tol=0.0, abs_tol=1e-9):
             raise ValueError(f"singleton improvement mismatch for {candidate_id}")
-        cost = model.estimate_candidate(candidate)
-        if float(row["maintenance_cost_numeric"]) != float(cost):
-            raise ValueError(f"singleton maintenance cost mismatch for {candidate_id}")
-        normalized.append(
-            {
-                "candidate_id": candidate_id,
-                "precedence_rank": candidate.precedence_rank,
-                "mechanism": candidate.mechanism.value,
-                "relation": candidate.relation_name,
-                "columns": list(candidate.attributes),
-                "realization_state": by_payload[candidate.candidate_id].state.value,
-                "maintenance_cost": str(cost),
-                "maintenance_cost_numeric": float(cost),
-                "singleton_objective": objective,
-                "singleton_improvement": improvement,
-                "relative_improvement": improvement / baseline_objective,
-                "incidence_query_count": len(prepared.incidence.by_candidate[candidate.candidate_id]),
-            }
-        )
-    ranked = deterministic_order(normalized, "singleton_improvement")
+        if model is None:
+            cost = None
+            if row.get("maintenance_cost_numeric") not in (None, "", "unavailable"):
+                raise ValueError(f"unpriced profile contains a maintenance cost for {candidate_id}")
+        else:
+            cost = model.estimate_candidate(candidate)
+            if float(row["maintenance_cost_numeric"]) != float(cost):
+                raise ValueError(f"singleton maintenance cost mismatch for {candidate_id}")
+        normalized_row = {
+            "candidate_id": candidate_id,
+            "precedence_rank": candidate.precedence_rank,
+            "mechanism": candidate.mechanism.value,
+            "relation": candidate.relation_name,
+            "columns": list(candidate.attributes),
+            "realization_state": by_payload[candidate.candidate_id].state.value,
+            "maintenance_cost": str(cost) if cost is not None else None,
+            "maintenance_cost_numeric": float(cost) if cost is not None else None,
+            "maintenance_cost_status": "available" if cost is not None else "unavailable",
+            "singleton_objective": objective,
+            "singleton_improvement": improvement,
+            "relative_improvement": improvement / baseline_objective,
+            "incidence_query_count": len(prepared.incidence.by_candidate[candidate.candidate_id]),
+        }
+        for key in (
+            "affected_query_count", "improved_query_count", "unchanged_query_count",
+            "worsened_query_count", "elapsed_seconds", "planner_calls",
+        ):
+            if key in row:
+                normalized_row[key] = row[key]
+        normalized.append(normalized_row)
+    ranked = deterministic_order(
+        normalized,
+        "singleton_improvement",
+        None if model is None else "maintenance_cost_numeric",
+    )
     return [
         {
             **row,
@@ -153,15 +178,16 @@ def build_singleton_profile_from_csv(
     value = {
         "format_version": PROFILE_FORMAT_VERSION,
         "artifact_type": "singleton-profile",
-        "workload_digest": prepared.workload.digest,
+        "workload_digest": _workload_digest(prepared),
         "candidate_catalog_digest": prepared.candidate_catalog_digest,
         "incidence_digest": prepared.incidence_digest,
         "repository_digest": prepared.repository.digest,
-        "maintenance_model_digest": model.digest,
+        "maintenance_model_digest": model.digest if model is not None else None,
+        "maintenance_cost_status": "available" if model is not None else "unavailable_for_DMV",
         "evaluator_provenance": provenance,
         "candidate_count": len(rows),
         "baseline_objective": baseline,
-        "ranking_semantics": list(RANKING_SEMANTICS),
+        "ranking_semantics": list(RANKING_SEMANTICS if model is not None else UNPRICED_RANKING_SEMANTICS),
         "candidates": _profile_rows(rows, prepared, model, baseline),
     }
     value["digest"] = _canonical_digest(value)
@@ -187,18 +213,37 @@ def build_singleton_profile_native(
     baseline_state = evaluator.evaluate_design(Design(()))
     rows: list[dict[str, Any]] = []
     for candidate in prepared.catalog.candidates:
+        before_calls = evaluator.adapter.planner_calls_total
+        started = time.perf_counter()
         state = evaluator.evaluate_move(
             Design(()), Move.add_candidate(candidate.candidate_id), baseline_state
         )
+        elapsed = time.perf_counter() - started
+        baseline_by_query = baseline_state.by_query()
+        candidate_by_query = state.by_query()
+        changes = [
+            classify_improvement(
+                baseline_by_query[qid].contribution, candidate_by_query[qid].contribution
+            )
+            for qid in baseline_by_query
+        ]
         rows.append(
             {
                 "candidate_id": str(candidate.candidate_id),
                 "precedence_rank": candidate.precedence_rank,
                 "mechanism": candidate.mechanism.value,
                 "realization_state": prepared.repository.by_candidate[candidate.candidate_id].state.value,
-                "maintenance_cost_numeric": float(model.estimate_candidate(candidate)),
+                "maintenance_cost_numeric": (
+                    float(model.estimate_candidate(candidate)) if model is not None else None
+                ),
                 "singleton_objective": state.aggregate_objective,
                 "singleton_improvement": baseline_state.aggregate_objective - state.aggregate_objective,
+                "affected_query_count": len(state.affected_query_ids),
+                "improved_query_count": changes.count("positive"),
+                "unchanged_query_count": changes.count("zero"),
+                "worsened_query_count": changes.count("negative"),
+                "elapsed_seconds": elapsed,
+                "planner_calls": evaluator.adapter.planner_calls_total - before_calls,
             }
         )
     return build_singleton_profile_from_rows(
@@ -211,6 +256,9 @@ def build_singleton_profile_native(
             "postgres_version": evaluator.adapter.postgres_version,
             "patch_commit": prepared.repository.patch_commit,
             "native_singleton_evaluations": len(rows),
+            "planner_calls": evaluator.adapter.planner_calls_total,
+            "affected_query_replans": sum(int(row["affected_query_count"]) for row in rows),
+            "total_singleton_elapsed_seconds": sum(float(row["elapsed_seconds"]) for row in rows),
         },
     )
 
@@ -226,15 +274,16 @@ def build_singleton_profile_from_rows(
     value = {
         "format_version": PROFILE_FORMAT_VERSION,
         "artifact_type": "singleton-profile",
-        "workload_digest": prepared.workload.digest,
+        "workload_digest": _workload_digest(prepared),
         "candidate_catalog_digest": prepared.candidate_catalog_digest,
         "incidence_digest": prepared.incidence_digest,
         "repository_digest": prepared.repository.digest,
-        "maintenance_model_digest": model.digest,
+        "maintenance_model_digest": model.digest if model is not None else None,
+        "maintenance_cost_status": "available" if model is not None else "unavailable_for_DMV",
         "evaluator_provenance": evaluator_provenance,
         "candidate_count": len(rows),
         "baseline_objective": baseline_objective,
-        "ranking_semantics": list(RANKING_SEMANTICS),
+        "ranking_semantics": list(RANKING_SEMANTICS if model is not None else UNPRICED_RANKING_SEMANTICS),
         "candidates": _profile_rows(rows, prepared, model, baseline_objective),
     }
     value["digest"] = _canonical_digest(value)
@@ -245,11 +294,11 @@ def validate_profile(profile: dict[str, Any], prepared: Any, model: Any) -> None
     if profile.get("digest") != _canonical_digest(profile):
         raise ValueError("singleton profile digest mismatch")
     expected = {
-        "workload_digest": prepared.workload.digest,
+        "workload_digest": _workload_digest(prepared),
         "candidate_catalog_digest": prepared.candidate_catalog_digest,
         "incidence_digest": prepared.incidence_digest,
         "repository_digest": prepared.repository.digest,
-        "maintenance_model_digest": model.digest,
+        "maintenance_model_digest": model.digest if model is not None else None,
     }
     if any(profile.get(key) != value for key, value in expected.items()):
         raise ValueError("singleton profile lineage mismatch")
@@ -266,6 +315,8 @@ def build_candidate_set(
     *,
     top_fraction: float,
 ) -> dict[str, Any]:
+    if model is None:
+        raise ValueError("screening requires a validated maintenance cost model")
     validate_profile(profile, prepared, model)
     if not math.isfinite(top_fraction) or not 0 < top_fraction <= 1:
         raise ValueError("top_fraction must be finite and in (0, 1]")
@@ -281,7 +332,7 @@ def build_candidate_set(
         "artifact_type": "screened-candidate-set",
         "raw_candidate_catalog_digest": prepared.candidate_catalog_digest,
         "singleton_profile_digest": profile["digest"],
-        "workload_digest": prepared.workload.digest,
+        "workload_digest": _workload_digest(prepared),
         "incidence_digest": prepared.incidence_digest,
         "repository_digest": prepared.repository.digest,
         "maintenance_model_digest": model.digest,
@@ -312,7 +363,7 @@ def validate_candidate_set(
         raise ValueError("screened candidate-set digest mismatch")
     expected = {
         "raw_candidate_catalog_digest": prepared.candidate_catalog_digest,
-        "workload_digest": prepared.workload.digest,
+        "workload_digest": _workload_digest(prepared),
         "incidence_digest": prepared.incidence_digest,
         "repository_digest": prepared.repository.digest,
         "maintenance_model_digest": model.digest,

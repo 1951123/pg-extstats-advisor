@@ -1,0 +1,21 @@
+{
+  "affected_query_replans": 35692,
+  "analysis_version": "pg16-mvp-v2",
+  "candidate_elapsed_seconds": {
+    "p0": 0.12115266899490962,
+    "p10": 0.12626753490258125,
+    "p100": 0.14731258500250988,
+    "p25": 0.1293510965006135,
+    "p50": 0.13305464449877036,
+    "p75": 0.13655897974967957,
+    "p90": 0.14266396499515394,
+    "p95": 0.14378403699811315,
+    "p99": 0.14728039715228078
+  },
+  "native_evaluations": 72,
+  "parser": "pglast",
+  "parser_version": "v7.18",
+  "planner_calls": 37655,
+  "total_singleton_candidates": 72,
+  "total_singleton_elapsed_seconds": 9.616985327986185
+}

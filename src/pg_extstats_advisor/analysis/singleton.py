@@ -40,9 +40,19 @@ def linear_quantile(values: Iterable[float], probability: float) -> float | None
 def deterministic_order(
     rows: Sequence[Mapping[str, Any]],
     value_key: str,
-    cost_key: str = "maintenance_cost_numeric",
+    cost_key: str | None = "maintenance_cost_numeric",
 ) -> list[Mapping[str, Any]]:
-    """Rank rows by value, cost, precedence, then candidate identity."""
+    """Rank rows by value, optionally cost, precedence, then candidate identity."""
+
+    if cost_key is None:
+        return sorted(
+            rows,
+            key=lambda row: (
+                -float(row[value_key]),
+                int(row["precedence_rank"]),
+                str(row["candidate_id"]),
+            ),
+        )
 
     return sorted(
         rows,

@@ -138,6 +138,17 @@ statistics remained after cleanup. This integrates the development lifecycle
 without changing screening, search, CE semantics, or the unresolved
 authoritative M2.7/M3 status.
 
+## M2.15 DMV onboarding and singleton profiling — complete, development-only
+
+The authoritative DMV source was retained as 1,965 raw queries and explicitly
+preprocessed with `truth > 0`, excluding `dmv.173` and `dmv.943` for an
+effective 1,963-query CE workload. The complete 36-pair/72-candidate universe
+was acquired on source-built PostgreSQL 16.14, including native
+`ABSENT_NATIVE` realizations, and profiled with the frozen native evaluator.
+DMV has no accepted maintenance model, so singleton ranking is explicitly
+unpriced and no Census calibration is transferred. No budget search or
+screening fraction was run; the next DMV decision remains pending.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,

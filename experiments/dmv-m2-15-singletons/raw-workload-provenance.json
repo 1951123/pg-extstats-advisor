@@ -1,0 +1,15 @@
+{
+  "effective_query_count": 1963,
+  "effective_workload_digest": "e790933cfc4f0f42d92807170b76cec080621c5b463dab83e23474a0a51151d8",
+  "excluded_count": 2,
+  "excluded_query_ids": [
+    "dmv.173",
+    "dmv.943"
+  ],
+  "exclusion_reason": "truth == 0",
+  "objective_membership_policy": "positive_truth_only",
+  "raw_query_count": 1965,
+  "raw_source_path": "/root/projects/extended-stats-optim-v2/benchmarks/DMV/queries/dmv.sql",
+  "raw_source_sha256": "1953dc96e00c8caeeb9d363070853d27a6548ce43ab14772d8e7637af9c2cd22",
+  "raw_workload_digest": "6b02d70dc063e1efd577c319de551b7d9f620092142e53486d30dc4eb04af504"
+}

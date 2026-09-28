@@ -1,0 +1,869 @@
+{
+  "candidates": [
+    {
+      "attributes": [
+        "record_type",
+        "registration_class"
+      ],
+      "backend_oid": 38841,
+      "candidate_id": "cand_c614cf6de073226f0aa4",
+      "mechanism": "mcv",
+      "precedence_rank": 0,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "state"
+      ],
+      "backend_oid": 38842,
+      "candidate_id": "cand_f5f353d914b36187882c",
+      "mechanism": "mcv",
+      "precedence_rank": 1,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "county"
+      ],
+      "backend_oid": 38843,
+      "candidate_id": "cand_ea5acfb9a4e9bf9c4ee2",
+      "mechanism": "mcv",
+      "precedence_rank": 2,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "body_type"
+      ],
+      "backend_oid": 38844,
+      "candidate_id": "cand_f94acad130c4ac5b3553",
+      "mechanism": "mcv",
+      "precedence_rank": 3,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "fuel_type"
+      ],
+      "backend_oid": 38845,
+      "candidate_id": "cand_6ca6020979af5e5766a4",
+      "mechanism": "mcv",
+      "precedence_rank": 4,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 38846,
+      "candidate_id": "cand_08a7c0809e27527cb40f",
+      "mechanism": "mcv",
+      "precedence_rank": 5,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38847,
+      "candidate_id": "cand_e25a986fe1b364e78595",
+      "mechanism": "mcv",
+      "precedence_rank": 6,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38848,
+      "candidate_id": "cand_bc69a49224dd80292b07",
+      "mechanism": "mcv",
+      "precedence_rank": 7,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "state"
+      ],
+      "backend_oid": 38849,
+      "candidate_id": "cand_4818ce79b7b4b07709c2",
+      "mechanism": "mcv",
+      "precedence_rank": 8,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "county"
+      ],
+      "backend_oid": 38850,
+      "candidate_id": "cand_9f93544dce1d63b0f711",
+      "mechanism": "mcv",
+      "precedence_rank": 9,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "body_type"
+      ],
+      "backend_oid": 38851,
+      "candidate_id": "cand_c6f83d66ce3d1e079f11",
+      "mechanism": "mcv",
+      "precedence_rank": 10,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "fuel_type"
+      ],
+      "backend_oid": 38852,
+      "candidate_id": "cand_1f420ce5268e234e658c",
+      "mechanism": "mcv",
+      "precedence_rank": 11,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 38853,
+      "candidate_id": "cand_67f23918cdad906be4ea",
+      "mechanism": "mcv",
+      "precedence_rank": 12,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38854,
+      "candidate_id": "cand_7513ba127d94672ed612",
+      "mechanism": "mcv",
+      "precedence_rank": 13,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38855,
+      "candidate_id": "cand_b8a5e9986c1d9a33b825",
+      "mechanism": "mcv",
+      "precedence_rank": 14,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "state",
+        "county"
+      ],
+      "backend_oid": 38856,
+      "candidate_id": "cand_93041865e5a926191d54",
+      "mechanism": "mcv",
+      "precedence_rank": 15,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "state",
+        "body_type"
+      ],
+      "backend_oid": 38857,
+      "candidate_id": "cand_f9cdb92e50791f0d58b6",
+      "mechanism": "mcv",
+      "precedence_rank": 16,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "state",
+        "fuel_type"
+      ],
+      "backend_oid": 38858,
+      "candidate_id": "cand_2408bc6708d3e202809c",
+      "mechanism": "mcv",
+      "precedence_rank": 17,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "state",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 38859,
+      "candidate_id": "cand_560443d79842b416ea0d",
+      "mechanism": "mcv",
+      "precedence_rank": 18,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "state",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38860,
+      "candidate_id": "cand_72a4065afe7511935b18",
+      "mechanism": "mcv",
+      "precedence_rank": 19,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "state",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38861,
+      "candidate_id": "cand_0fdc909a2a3cf9718db9",
+      "mechanism": "mcv",
+      "precedence_rank": 20,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "county",
+        "body_type"
+      ],
+      "backend_oid": 38862,
+      "candidate_id": "cand_7531356383a7948fede1",
+      "mechanism": "mcv",
+      "precedence_rank": 21,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "county",
+        "fuel_type"
+      ],
+      "backend_oid": 38863,
+      "candidate_id": "cand_d0bacba4d271fabbb378",
+      "mechanism": "mcv",
+      "precedence_rank": 22,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "county",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 38864,
+      "candidate_id": "cand_323246ee68602507a57d",
+      "mechanism": "mcv",
+      "precedence_rank": 23,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "county",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38865,
+      "candidate_id": "cand_1f373962efd7e5718e85",
+      "mechanism": "mcv",
+      "precedence_rank": 24,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "county",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38866,
+      "candidate_id": "cand_6161166747fb16ce38eb",
+      "mechanism": "mcv",
+      "precedence_rank": 25,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "body_type",
+        "fuel_type"
+      ],
+      "backend_oid": 38867,
+      "candidate_id": "cand_0275ee8f6b218bf6a5a1",
+      "mechanism": "mcv",
+      "precedence_rank": 26,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "body_type",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 38868,
+      "candidate_id": "cand_799d0072c9c0e8bc7bb8",
+      "mechanism": "mcv",
+      "precedence_rank": 27,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "body_type",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38869,
+      "candidate_id": "cand_5005700887020f58d09a",
+      "mechanism": "mcv",
+      "precedence_rank": 28,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "body_type",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38870,
+      "candidate_id": "cand_b18e2586ffe14b36f703",
+      "mechanism": "mcv",
+      "precedence_rank": 29,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 38871,
+      "candidate_id": "cand_7bad1214667cfa5a9e86",
+      "mechanism": "mcv",
+      "precedence_rank": 30,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38872,
+      "candidate_id": "cand_d81088ebd0b428f317e8",
+      "mechanism": "mcv",
+      "precedence_rank": 31,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38873,
+      "candidate_id": "cand_2cc7a6ce91fea1a3633f",
+      "mechanism": "mcv",
+      "precedence_rank": 32,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "scofflaw_indicator",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38874,
+      "candidate_id": "cand_a5d58adc88429a8a1a93",
+      "mechanism": "mcv",
+      "precedence_rank": 33,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "scofflaw_indicator",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38875,
+      "candidate_id": "cand_4647f51bb46042cafc21",
+      "mechanism": "mcv",
+      "precedence_rank": 34,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "suspension_indicator",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38876,
+      "candidate_id": "cand_4766516fe513466787e9",
+      "mechanism": "mcv",
+      "precedence_rank": 35,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "registration_class"
+      ],
+      "backend_oid": 38877,
+      "candidate_id": "cand_850ffdf5fc1ceee3e08d",
+      "mechanism": "fd",
+      "precedence_rank": 36,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "state"
+      ],
+      "backend_oid": 38878,
+      "candidate_id": "cand_9a47b4882350bf5fccf9",
+      "mechanism": "fd",
+      "precedence_rank": 37,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "county"
+      ],
+      "backend_oid": 38879,
+      "candidate_id": "cand_6b0e7e9b7d7eb883405b",
+      "mechanism": "fd",
+      "precedence_rank": 38,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "body_type"
+      ],
+      "backend_oid": 38880,
+      "candidate_id": "cand_0715050eb032f5528139",
+      "mechanism": "fd",
+      "precedence_rank": 39,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "fuel_type"
+      ],
+      "backend_oid": 38881,
+      "candidate_id": "cand_79ef5e4c653bbbb46dec",
+      "mechanism": "fd",
+      "precedence_rank": 40,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 38882,
+      "candidate_id": "cand_835deeb29a9e7947a98b",
+      "mechanism": "fd",
+      "precedence_rank": 41,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38883,
+      "candidate_id": "cand_b6cafc68143c6fa37e85",
+      "mechanism": "fd",
+      "precedence_rank": 42,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "record_type",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38884,
+      "candidate_id": "cand_f002ec4adfff3911240b",
+      "mechanism": "fd",
+      "precedence_rank": 43,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "state"
+      ],
+      "backend_oid": 38885,
+      "candidate_id": "cand_d17d4fee04bca1295fdb",
+      "mechanism": "fd",
+      "precedence_rank": 44,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "county"
+      ],
+      "backend_oid": 38886,
+      "candidate_id": "cand_aea8cd0109869655caf1",
+      "mechanism": "fd",
+      "precedence_rank": 45,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "body_type"
+      ],
+      "backend_oid": 38887,
+      "candidate_id": "cand_c7f3b001bf1756cd2ed9",
+      "mechanism": "fd",
+      "precedence_rank": 46,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "fuel_type"
+      ],
+      "backend_oid": 38888,
+      "candidate_id": "cand_a06f9852e67c463f73a2",
+      "mechanism": "fd",
+      "precedence_rank": 47,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 38889,
+      "candidate_id": "cand_044e770ab213d0ef37b1",
+      "mechanism": "fd",
+      "precedence_rank": 48,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38890,
+      "candidate_id": "cand_01b1f84ca5c01d3f532f",
+      "mechanism": "fd",
+      "precedence_rank": 49,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38891,
+      "candidate_id": "cand_cfb64b0bf69c059cd760",
+      "mechanism": "fd",
+      "precedence_rank": 50,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "state",
+        "county"
+      ],
+      "backend_oid": 38892,
+      "candidate_id": "cand_bfad1c9b37411e1a5d68",
+      "mechanism": "fd",
+      "precedence_rank": 51,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "state",
+        "body_type"
+      ],
+      "backend_oid": 38893,
+      "candidate_id": "cand_6505783b203dc0346b49",
+      "mechanism": "fd",
+      "precedence_rank": 52,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "state",
+        "fuel_type"
+      ],
+      "backend_oid": 38894,
+      "candidate_id": "cand_7b08320f31dae1c5e9f4",
+      "mechanism": "fd",
+      "precedence_rank": 53,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "state",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 38895,
+      "candidate_id": "cand_867399ba1c9a9eab8364",
+      "mechanism": "fd",
+      "precedence_rank": 54,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "state",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38896,
+      "candidate_id": "cand_e95bcd15c94c80f62716",
+      "mechanism": "fd",
+      "precedence_rank": 55,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "state",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38897,
+      "candidate_id": "cand_0ffaccec3f557491b6ba",
+      "mechanism": "fd",
+      "precedence_rank": 56,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "county",
+        "body_type"
+      ],
+      "backend_oid": 38898,
+      "candidate_id": "cand_f457f7acd881e6884fac",
+      "mechanism": "fd",
+      "precedence_rank": 57,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "county",
+        "fuel_type"
+      ],
+      "backend_oid": 38899,
+      "candidate_id": "cand_5e3a909effbf6f7d6e21",
+      "mechanism": "fd",
+      "precedence_rank": 58,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "county",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 38900,
+      "candidate_id": "cand_cf35fb1b66d3371735fd",
+      "mechanism": "fd",
+      "precedence_rank": 59,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "county",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38901,
+      "candidate_id": "cand_4c7d493f98b0c50576d2",
+      "mechanism": "fd",
+      "precedence_rank": 60,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "county",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38902,
+      "candidate_id": "cand_663a31a8fc0678a2324b",
+      "mechanism": "fd",
+      "precedence_rank": 61,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "body_type",
+        "fuel_type"
+      ],
+      "backend_oid": 38903,
+      "candidate_id": "cand_bb3c9704bc50457d0385",
+      "mechanism": "fd",
+      "precedence_rank": 62,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "body_type",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 38904,
+      "candidate_id": "cand_a658273d38918de4ed71",
+      "mechanism": "fd",
+      "precedence_rank": 63,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "body_type",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38905,
+      "candidate_id": "cand_9e3965b9e6ab7faacc4e",
+      "mechanism": "fd",
+      "precedence_rank": 64,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "body_type",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38906,
+      "candidate_id": "cand_2bea04f8b2c85ff2a4e0",
+      "mechanism": "fd",
+      "precedence_rank": 65,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 38907,
+      "candidate_id": "cand_d033eb981110aa21d3df",
+      "mechanism": "fd",
+      "precedence_rank": 66,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38908,
+      "candidate_id": "cand_0ef1e644231e36b17de7",
+      "mechanism": "fd",
+      "precedence_rank": 67,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38909,
+      "candidate_id": "cand_dd4fa07161dcf5def8eb",
+      "mechanism": "fd",
+      "precedence_rank": 68,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "scofflaw_indicator",
+        "suspension_indicator"
+      ],
+      "backend_oid": 38910,
+      "candidate_id": "cand_86d407b8a724ee28f443",
+      "mechanism": "fd",
+      "precedence_rank": 69,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "scofflaw_indicator",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38911,
+      "candidate_id": "cand_5400d6d245a511006593",
+      "mechanism": "fd",
+      "precedence_rank": 70,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    },
+    {
+      "attributes": [
+        "suspension_indicator",
+        "revocation_indicator"
+      ],
+      "backend_oid": 38912,
+      "candidate_id": "cand_d102d0d6903dbc44935f",
+      "mechanism": "fd",
+      "precedence_rank": 71,
+      "relation_name": "public.dmv",
+      "relation_oid": 16389
+    }
+  ],
+  "digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73"
+}

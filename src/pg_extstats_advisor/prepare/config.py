@@ -31,6 +31,7 @@ class PreparationConfig:
     explicit_candidates: tuple[ExplicitCandidate, ...]
     statistics_target: int
     maintenance: tuple[tuple[str, Any], ...]
+    objective_membership_policy: str = "require_all_positive"
 
     @property
     def digest(self) -> str:
@@ -47,7 +48,14 @@ class PreparationConfig:
                 "source_dsn": sanitize(self.source_dsn),
                 "acquisition_dsn": sanitize(self.acquisition_dsn),
             },
-            "workload": {"path": str(self.workload_path)},
+            "workload": {
+                "path": str(self.workload_path),
+                **(
+                    {"objective_membership_policy": self.objective_membership_policy}
+                    if self.objective_membership_policy != "require_all_positive"
+                    else {}
+                ),
+            },
             "candidates": {
                 "mechanisms": self.mechanisms,
                 "max_candidate_arity": self.max_candidate_arity,
@@ -111,6 +119,12 @@ class PreparationConfig:
                 raise ValueError("explicit candidate mechanism must be mcv or fd")
             if len(item.columns) != 2:
                 raise ValueError("MVP explicit candidates must have exactly two columns")
+        policy = str(raw["workload"].get("objective_membership_policy", "require_all_positive"))
+        if policy not in {"require_all_positive", "positive_truth_only"}:
+            raise ValueError(
+                "workload.objective_membership_policy must be require_all_positive or "
+                "positive_truth_only"
+            )
         return cls(
             1,
             dsn("source_dsn"),
@@ -123,4 +137,5 @@ class PreparationConfig:
             explicit,
             target,
             tuple(sorted(raw["maintenance"].items())),
+            policy,
         )

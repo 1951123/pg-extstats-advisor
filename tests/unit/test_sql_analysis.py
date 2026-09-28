@@ -26,7 +26,8 @@ def test_ast_fallback_reasons(where, reason):
 
 
 def test_shape_rejection_and_multiple_statements():
-    with pytest.raises(ValueError):
-        analyze_query("SELECT count(*) FROM public.t WHERE a = 1", "public.t", metadata())
+    assert analyze_query(
+        "SELECT count(*) FROM public.t WHERE a = 1", "public.t", metadata()
+    ).derivation_mode == "precise-structural"
     with pytest.raises(ValueError, match="exactly one"):
         analyze_query("SELECT * FROM public.t WHERE a = 1; SELECT * FROM public.t", "public.t", metadata())

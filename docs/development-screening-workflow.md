@@ -34,6 +34,14 @@ first and choose its own explicit development fraction (or use the full
 candidate universe). Invalid or mismatched artifacts fail closed; the search
 path never silently recomputes a profile or falls back to the raw catalog.
 
+The MVP assumes a uniform statistics target across all candidates. The target
+is fixed before acquisition/search, is not a candidate decision variable, and
+is outside the maintenance-cost feature set. Target optimization and
+target-specific candidate variants are out of scope; keeping the target fixed
+avoids introducing sample-size coupling into the search space. A benchmark may
+run singleton profiling while maintenance cost is unavailable, but screened
+search still requires a validated maintenance model.
+
 The workflow performs no acquisition, `ANALYZE`, sampling, statistics DDL, or
 payload rebuild in the screened-search hot path. Recommendations remain
 deployable physical-statistics definitions and carry the candidate-set and

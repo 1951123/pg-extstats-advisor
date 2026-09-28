@@ -1,0 +1,38 @@
+{
+  "all_exact": true,
+  "checks": [
+    {
+      "candidate_id": "cand_f94acad130c4ac5b3553",
+      "exact": true,
+      "mechanism": "mcv",
+      "realization_state": "PRESENT"
+    },
+    {
+      "candidate_id": "cand_a06f9852e67c463f73a2",
+      "exact": true,
+      "mechanism": "fd",
+      "realization_state": "PRESENT"
+    },
+    {
+      "candidate_id": "cand_6b0e7e9b7d7eb883405b",
+      "exact": true,
+      "mechanism": "fd",
+      "realization_state": "ABSENT_NATIVE"
+    },
+    {
+      "candidate_id": "cand_5400d6d245a511006593",
+      "exact": true,
+      "mechanism": "fd",
+      "realization_state": "PRESENT"
+    },
+    {
+      "candidate_id": "cand_4647f51bb46042cafc21",
+      "exact": true,
+      "mechanism": "mcv",
+      "realization_state": "PRESENT"
+    }
+  ],
+  "elapsed_seconds": 5.3853771590002,
+  "empty": true,
+  "re_evaluated_against_full_reference": true
+}

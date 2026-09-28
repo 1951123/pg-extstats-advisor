@@ -1,0 +1,11 @@
+{
+  "digest": "unavailable",
+  "feature_schema": [
+    "mechanism",
+    "arity"
+  ],
+  "format_version": 1,
+  "model_type": "unpriced-singleton-profile",
+  "reason": "DMV has no accepted benchmark-specific maintenance model",
+  "status": "unavailable"
+}

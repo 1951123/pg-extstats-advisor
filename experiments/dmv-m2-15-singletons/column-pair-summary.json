@@ -1,0 +1,343 @@
+{
+  "mechanism_composition": {
+    "fd": 36,
+    "mcv": 36
+  },
+  "pair_count": 36,
+  "top100_pair_frequency": [
+    {
+      "candidate_count": 2,
+      "pair": [
+        "record_type",
+        "body_type"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "record_type",
+        "registration_class"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "record_type",
+        "state"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "record_type",
+        "county"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "registration_class",
+        "fuel_type"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "record_type",
+        "fuel_type"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "body_type",
+        "revocation_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "body_type",
+        "fuel_type"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "state",
+        "county"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "county",
+        "body_type"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "record_type",
+        "suspension_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "registration_class",
+        "county"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "body_type",
+        "suspension_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "county",
+        "revocation_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "fuel_type",
+        "revocation_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "state",
+        "scofflaw_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "state",
+        "revocation_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "state",
+        "suspension_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "fuel_type",
+        "suspension_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "state",
+        "body_type"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "suspension_indicator",
+        "revocation_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "state",
+        "fuel_type"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "county",
+        "scofflaw_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "county",
+        "fuel_type"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "body_type",
+        "scofflaw_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "registration_class",
+        "scofflaw_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "fuel_type",
+        "scofflaw_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "record_type",
+        "scofflaw_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "scofflaw_indicator",
+        "suspension_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "scofflaw_indicator",
+        "revocation_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "registration_class",
+        "state"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "county",
+        "suspension_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "record_type",
+        "revocation_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "registration_class",
+        "suspension_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "registration_class",
+        "revocation_indicator"
+      ]
+    },
+    {
+      "candidate_count": 2,
+      "pair": [
+        "registration_class",
+        "body_type"
+      ]
+    }
+  ],
+  "top20_singleton_pairs": [
+    [
+      "record_type",
+      "body_type"
+    ],
+    [
+      "record_type",
+      "registration_class"
+    ],
+    [
+      "record_type",
+      "state"
+    ],
+    [
+      "record_type",
+      "county"
+    ],
+    [
+      "registration_class",
+      "fuel_type"
+    ],
+    [
+      "record_type",
+      "fuel_type"
+    ],
+    [
+      "body_type",
+      "revocation_indicator"
+    ],
+    [
+      "body_type",
+      "fuel_type"
+    ],
+    [
+      "state",
+      "county"
+    ],
+    [
+      "county",
+      "body_type"
+    ],
+    [
+      "record_type",
+      "suspension_indicator"
+    ],
+    [
+      "registration_class",
+      "county"
+    ],
+    [
+      "body_type",
+      "suspension_indicator"
+    ],
+    [
+      "record_type",
+      "state"
+    ],
+    [
+      "county",
+      "revocation_indicator"
+    ],
+    [
+      "fuel_type",
+      "revocation_indicator"
+    ],
+    [
+      "state",
+      "scofflaw_indicator"
+    ],
+    [
+      "state",
+      "revocation_indicator"
+    ],
+    [
+      "state",
+      "suspension_indicator"
+    ],
+    [
+      "fuel_type",
+      "suspension_indicator"
+    ]
+  ]
+}

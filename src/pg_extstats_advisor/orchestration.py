@@ -117,8 +117,11 @@ def load_prepared_run(root: Path) -> PreparedRun:
     incidence_digest = _digest(edges)
     if incidence_digest != incidence_raw["digest"] or incidence_raw["total_edges"] != len(edges):
         raise ValueError("incidence artifact digest/count mismatch")
+    effective_workload_digest = str(
+        raw_workload.get("provenance", {}).get("effective_workload_digest", workload.digest)
+    )
     if (
-        incidence_raw["workload_digest"] != workload.digest
+        incidence_raw["workload_digest"] != effective_workload_digest
         or incidence_raw["candidate_catalog_digest"] != catalog_digest
     ):
         raise ValueError("incidence artifact lineage mismatch")
@@ -166,11 +169,17 @@ def load_prepared_run(root: Path) -> PreparedRun:
         str(summary["config_digest"]),
         catalog_digest,
         incidence_digest,
+        effective_workload_digest,
     )
 
 
 def load_maintenance_model(root: Path) -> MaintenanceCostModel:
     raw = json.loads((root / "maintenance-model.json").read_text())
+    if raw.get("model_type") == "unpriced-singleton-profile":
+        raise ValueError(
+            "maintenance cost unavailable for this run; singleton profiling may use "
+            "explicit unpriced mode, but search/screening requires a validated model"
+        )
     if raw.get("model_type") == "empirical-mechanism-count-v1":
         model = EmpiricalMechanismCountCostModel.from_artifact(raw)
         summary = json.loads((root / "prepare-summary.json").read_text())
@@ -185,6 +194,13 @@ def load_maintenance_model(root: Path) -> MaintenanceCostModel:
     if model.digest != raw["digest"]:
         raise ValueError("maintenance model digest mismatch")
     return model
+
+
+def load_optional_maintenance_model(root: Path) -> MaintenanceCostModel | None:
+    raw = json.loads((root / "maintenance-model.json").read_text())
+    if raw.get("model_type") == "unpriced-singleton-profile":
+        return None
+    return load_maintenance_model(root)
 
 
 def _visible_catalog_for_result(

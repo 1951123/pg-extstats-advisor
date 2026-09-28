@@ -1,0 +1,55 @@
+{
+  "acquisition_analyze_count": 1,
+  "candidate_catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+  "candidate_count": 72,
+  "completed_at": "2026-09-28T16:12:34.252336+00:00",
+  "config_digest": "603adbeafd625a03ad66fe90287665686aa6403d04b037ec0fa2a77a655176fb",
+  "fallback_query_count": 0,
+  "format_version": 1,
+  "incidence_digest": "ff320b0c6c54397ce361f4f83a625f9df34c05e5fa0423282d4169dbe2090d71",
+  "incidence_edge_count": 35692,
+  "patch_commit": "aab7b323cf3b89179235ae3d0b40c9ce6a3f4009238b83b90da4f4e8a5d55b34",
+  "postgres_version": "16.14",
+  "query_count": 1963,
+  "realization_state_counts": {
+    "ABSENT_NATIVE": 1,
+    "PRESENT": 71
+  },
+  "relation_compatibility": [
+    {
+      "acquisition_logical_fingerprint": "54504cd035d37e41df25660d68d92b5c6a7559c50c33fb5a5e84faffa17755f4",
+      "compatible": true,
+      "relation": "public.dmv",
+      "source_logical_fingerprint": "54504cd035d37e41df25660d68d92b5c6a7559c50c33fb5a5e84faffa17755f4"
+    }
+  ],
+  "relation_count": 1,
+  "repository_digest": "17d95816ff1fce59c96b92569a41864b1b4a4e35e5e440ff863ad93493605914",
+  "sql_analysis": {
+    "analysis_version": "pg16-mvp-v2",
+    "error_query_count": 0,
+    "fallback_query_count": 0,
+    "parser": "pglast",
+    "parser_version": "v7.18",
+    "precise_query_count": 1963,
+    "rejected_query_count": 0
+  },
+  "statistics_target": 100,
+  "upstream_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",
+  "workload_digest": "0e8ef80c0da0d6a9810b2e8f8910034f8a743804a3859b2c9b61d461b8d0bf4c",
+  "workload_provenance": {
+    "effective_query_count": 1963,
+    "effective_workload_digest": "e790933cfc4f0f42d92807170b76cec080621c5b463dab83e23474a0a51151d8",
+    "excluded_count": 2,
+    "excluded_query_ids": [
+      "dmv.173",
+      "dmv.943"
+    ],
+    "exclusion_reason": "truth == 0",
+    "objective_membership_policy": "positive_truth_only",
+    "raw_query_count": 1965,
+    "raw_source_path": "/root/projects/extended-stats-optim-v2/benchmarks/DMV/queries/dmv.sql",
+    "raw_source_sha256": "1953dc96e00c8caeeb9d363070853d27a6548ce43ab14772d8e7637af9c2cd22",
+    "raw_workload_digest": "6b02d70dc063e1efd577c319de551b7d9f620092142e53486d30dc4eb04af504"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "20": {
+    "mechanism": {
+      "fd": 5,
+      "mcv": 15
+    },
+    "realization": {
+      "PRESENT": 20
+    }
+  },
+  "50": {
+    "mechanism": {
+      "fd": 25,
+      "mcv": 25
+    },
+    "realization": {
+      "ABSENT_NATIVE": 1,
+      "PRESENT": 49
+    }
+  },
+  "72": {
+    "mechanism": {
+      "fd": 36,
+      "mcv": 36
+    },
+    "realization": {
+      "ABSENT_NATIVE": 1,
+      "PRESENT": 71
+    }
+  }
+}

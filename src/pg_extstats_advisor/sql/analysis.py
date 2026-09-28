@@ -82,8 +82,12 @@ def analyze_query(sql: str, declared_relation: str, metadata: Any) -> QueryAnaly
     if not isinstance(stmt, SelectStmt): raise ValueError("query must be SELECT")  # noqa: TRY004
     if stmt.withClause or stmt.op != SetOperation.SETOP_NONE or stmt.groupClause or stmt.havingClause or stmt.windowClause or stmt.distinctClause:
         raise ValueError("query is outside MVP single-relation SELECT scope")
-    if any(isinstance(target.val, FuncCall) for target in stmt.targetList):
-        raise ValueError("aggregate/function target is outside MVP scope")
+    for target in stmt.targetList:
+        value = target.val
+        if isinstance(value, FuncCall):
+            names = tuple(_name(item) for item in value.funcname)
+            if names != ("count",) or not value.agg_star:
+                raise ValueError("aggregate/function target is outside MVP scope")
     if _contains(stmt.targetList, SubLink) or _contains(stmt.whereClause, SubLink):
         raise ValueError("subqueries are outside MVP scope")
     if not stmt.fromClause or len(stmt.fromClause) != 1 or not isinstance(stmt.fromClause[0], RangeVar):

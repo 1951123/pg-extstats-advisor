@@ -17,6 +17,7 @@ from pg_extstats_advisor.orchestration import (
     execute_search_stage,
     execute_validation_stage,
     load_maintenance_model,
+    load_optional_maintenance_model,
     load_prepared_run,
 )
 from pg_extstats_advisor.prepare.artifacts import prepare_mvp
@@ -66,6 +67,11 @@ def _parser() -> argparse.ArgumentParser:
     profile.add_argument("--output", required=True, type=Path)
     profile.add_argument("--source-csv", type=Path)
     profile.add_argument("--acquisition-dsn")
+    profile.add_argument(
+        "--unpriced",
+        action="store_true",
+        help="profile singleton utility without a maintenance-cost model",
+    )
     screen = commands.add_parser(
         "screen-candidates", help="build a deterministic screened candidate-set artifact"
     )
@@ -140,7 +146,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"maintenance cost: {result.selected_maintenance_cost}")
         elif args.command == "singleton-profile":
             prepared = load_prepared_run(args.run_dir)
-            model = load_maintenance_model(args.run_dir)
+            model = load_optional_maintenance_model(args.run_dir) if args.unpriced else load_maintenance_model(args.run_dir)
             if args.source_csv is not None:
                 profile = build_singleton_profile_from_csv(
                     args.source_csv,

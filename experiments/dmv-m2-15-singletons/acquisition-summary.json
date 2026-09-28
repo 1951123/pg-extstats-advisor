@@ -1,0 +1,19 @@
+{
+  "analyze_count": 1,
+  "completed_at": "2026-09-28T16:12:34.093286+00:00",
+  "corrupt_count": 0,
+  "elapsed_seconds": 0.7623951435089111,
+  "mechanism_state_counts": {
+    "fd:ABSENT_NATIVE": 1,
+    "fd:PRESENT": 35,
+    "mcv:PRESENT": 36
+  },
+  "missing_count": 0,
+  "payloads_are_frozen_native": true,
+  "repository_digest": "17d95816ff1fce59c96b92569a41864b1b4a4e35e5e440ff863ad93493605914",
+  "started_at": "2026-09-28T16:12:33.330891+00:00",
+  "state_counts": {
+    "ABSENT_NATIVE": 1,
+    "PRESENT": 71
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "format_version": 1,
+  "stages": {
+    "prepare": {
+      "artifact_digest": "17d95816ff1fce59c96b92569a41864b1b4a4e35e5e440ff863ad93493605914",
+      "complete": true
+    }
+  }
+}

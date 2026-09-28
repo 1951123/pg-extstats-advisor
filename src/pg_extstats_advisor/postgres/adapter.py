@@ -55,7 +55,7 @@ class PostgresAdapter:
                 )
             elif frozen.state is NativePayloadState.ABSENT_NATIVE:
                 self.connection.execute(
-                    "SELECT pg_hypothetical_extstats_register_absent(%s,%s,%s)",
+                    "SELECT pg_hypothetical_extstats_register_absent(%s::oid,%s::oid,%s::\"char\")",
                     (candidate.backend_oid, candidate.relation_oid,
                      candidate.mechanism.postgres_code),
                 )

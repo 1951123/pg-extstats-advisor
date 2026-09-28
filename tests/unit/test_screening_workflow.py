@@ -161,3 +161,33 @@ def test_screening_rejects_lineage_mismatch() -> None:
             model,
             top_fraction=0.5,
         )
+
+
+def test_unpriced_singleton_profile_has_no_cost_tiebreak_and_cannot_screen() -> None:
+    prepared, _model = prepared_fixture()
+    profile = build_singleton_profile_from_rows(
+        [
+            {
+                "candidate_id": f"cand-{index}",
+                "precedence_rank": index,
+                "mechanism": "fd" if index == 1 else "mcv",
+                "realization_state": "PRESENT",
+                "maintenance_cost_numeric": None,
+                "singleton_objective": 9.0,
+                "singleton_improvement": 1.0,
+            }
+            for index in range(3)
+        ],
+        prepared,
+        None,
+        10.0,
+        evaluator_provenance={"mode": "test-unpriced", "native_singleton_evaluations": 0},
+    )
+    assert profile["maintenance_cost_status"] == "unavailable_for_DMV"
+    assert profile["ranking_semantics"] == [
+        "descending singleton improvement",
+        "ascending candidate precedence",
+        "ascending candidate ID",
+    ]
+    with pytest.raises(ValueError, match="maintenance cost model"):
+        build_candidate_set(profile, prepared, None, top_fraction=0.5)

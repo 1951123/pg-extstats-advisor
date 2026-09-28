@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "database": {
+    "source_dsn": "host=/root/projects/pg-extstats-advisor/.build/pg16.14-experiment-socket port=55436 dbname=pgextadv_exp16_dmv user=postgres",
+    "acquisition_dsn": "host=/root/projects/pg-extstats-advisor/.build/pg16.14-experiment-socket port=55436 dbname=pgextadv_exp16_dmv_m215_acq user=postgres"
+  },
+  "workload": {
+    "path": "experiments/dmv-m2-15-singletons/raw-workload.json",
+    "objective_membership_policy": "positive_truth_only"
+  },
+  "candidates": {
+    "mechanisms": ["mcv", "fd"],
+    "max_candidate_arity": 2,
+    "max_candidates_per_relation": null,
+    "explicit": []
+  },
+  "acquisition": {
+    "statistics_target": 100,
+    "output_path": "experiments/dmv-m2-15-singletons/prepared-run"
+  },
+  "maintenance": {
+    "type": "unpriced-singleton-profile",
+    "reason": "DMV has no accepted benchmark-specific maintenance model"
+  }
+}

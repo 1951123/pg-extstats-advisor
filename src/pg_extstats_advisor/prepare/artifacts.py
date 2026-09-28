@@ -35,6 +35,7 @@ class PreparedRun:
     config_digest: str
     candidate_catalog_digest: str
     incidence_digest: str
+    effective_workload_digest: str | None = None
 
 
 def _write(path: Path, value: Any) -> None:
@@ -55,7 +56,11 @@ def prepare_mvp(
     if root.exists():
         raise FileExistsError(f"preparation artifact directory exists: {root}")
     root.mkdir(parents=True)
-    ingested = ingest_workload(config.workload_path, source_connection)
+    ingested = ingest_workload(
+        config.workload_path,
+        source_connection,
+        objective_membership_policy=config.objective_membership_policy,
+    )
     catalog = generate_candidates(config, ingested)
     if not catalog.candidates:
         raise ValueError("candidate generation produced no candidates")
@@ -74,7 +79,8 @@ def prepare_mvp(
     incidence = derive_incidence(ingested, acquisition.repository.catalog)
     _write(root / "config.json", json.loads(config.canonical_json()))
     maintenance = dict(config.maintenance)
-    if maintenance.get("type", "preset-development") == "empirical-mechanism-count-v1":
+    maintenance_type = maintenance.get("type", "preset-development")
+    if maintenance_type == "empirical-mechanism-count-v1":
         artifact_path = Path(str(maintenance["artifact_path"]))
         artifact = json.loads(artifact_path.read_text())
         empirical = EmpiricalMechanismCountCostModel.from_artifact(artifact)
@@ -82,6 +88,22 @@ def prepare_mvp(
         for candidate in catalog.candidates:
             empirical.estimate_candidate(candidate)
         _write(root / "maintenance-model.json", artifact)
+    elif maintenance_type == "unpriced-singleton-profile":
+        _write(
+            root / "maintenance-model.json",
+            {
+                "format_version": 1,
+                "model_type": "unpriced-singleton-profile",
+                "status": "unavailable",
+                "reason": str(
+                    maintenance.get(
+                        "reason", "no accepted benchmark-specific maintenance model"
+                    )
+                ),
+                "feature_schema": ["mechanism", "arity"],
+                "digest": "unavailable",
+            },
+        )
     else:
         model = PresetMaintenanceCostModel(
             maintenance.get("base_mcv", "0"),
@@ -100,9 +122,7 @@ def prepare_mvp(
             "fitting_provenance": model.fitting_provenance,
             "digest": model.digest,
         })
-    _write(
-        root / "workload.json",
-        {
+    workload_artifact = {
             "workload_id": ingested.workload.workload_id,
             "digest": ingested.workload.digest,
             "queries": [
@@ -116,8 +136,21 @@ def prepare_mvp(
                 }
                 for q in ingested.workload.queries
             ],
-        },
-    )
+        }
+    if config.objective_membership_policy != "require_all_positive" or ingested.raw_source_path:
+        workload_artifact["provenance"] = {
+            "raw_source_path": ingested.raw_source_path,
+            "raw_source_sha256": ingested.raw_source_sha256,
+            "raw_query_count": ingested.raw_query_count,
+            "objective_membership_policy": ingested.objective_membership_policy,
+            "excluded_query_ids": list(ingested.excluded_query_ids),
+            "excluded_count": len(ingested.excluded_query_ids),
+            "exclusion_reason": "truth == 0" if ingested.excluded_query_ids else None,
+            "effective_query_count": len(ingested.workload.queries),
+            "raw_workload_digest": ingested.raw_workload_digest,
+            "effective_workload_digest": ingested.effective_workload_digest,
+        }
+    _write(root / "workload.json", workload_artifact)
     catalog_digest = candidate_catalog_digest(acquisition.repository.catalog.candidates)
     _write(
         root / "candidates.json",
@@ -166,6 +199,14 @@ def prepare_mvp(
             "parser": ingested.inspections[0].parser if ingested.inspections else "pglast",
             "parser_version": ingested.inspections[0].parser_version if ingested.inspections else "unknown",
             "analysis_version": ingested.inspections[0].analysis_version if ingested.inspections else "unknown",
+            "precise_query_count": sum(
+                item.derivation_mode == "precise-structural" for item in ingested.inspections
+            ),
+            "fallback_query_count": sum(
+                item.derivation_mode == "conservative-fallback" for item in ingested.inspections
+            ),
+            "rejected_query_count": 0,
+            "error_query_count": 0,
         },
         "acquisition_analyze_count": acquisition.analyze_count,
         "relation_compatibility": [
@@ -179,6 +220,10 @@ def prepare_mvp(
         ],
         "completed_at": datetime.now(UTC).isoformat(),
     }
+    if config.objective_membership_policy != "require_all_positive" or ingested.raw_source_path:
+        summary["effective_workload_digest"] = ingested.effective_workload_digest
+    if config.objective_membership_policy != "require_all_positive" or ingested.raw_source_path:
+        summary["workload_provenance"] = workload_artifact["provenance"]
     _write(root / "prepare-summary.json", summary)
     _write(
         root / "run-manifest.json",
@@ -199,4 +244,5 @@ def prepare_mvp(
         config.digest,
         catalog_digest,
         incidence.digest,
+        ingested.effective_workload_digest,
     )
