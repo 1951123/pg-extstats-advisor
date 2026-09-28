@@ -320,12 +320,23 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
             repository.catalog,
             cost_model,
             MaintenanceBudget(4, cost_model.unit),
-            SearchConfig(full_reference=True),
+            SearchConfig(full_reference=True, exact_bound_pruning=False),
+        ).run()
+        exhaustive = DeterministicBudgetSearch(
+            evaluator,
+            repository.catalog,
+            cost_model,
+            MaintenanceBudget(4, cost_model.unit),
+            SearchConfig(exact_bound_pruning=False),
         ).run()
         assert local.infeasible_moves_skipped_count > 0
         assert signature(local) == signature(reference)
+        assert signature(local) == signature(exhaustive)
         assert local.final_design == reference.final_design
+        assert local.final_design == exhaustive.final_design
         assert local.selected_objective == reference.selected_objective
+        assert local.selected_objective == exhaustive.selected_objective
+        assert local.selected_maintenance_cost == exhaustive.selected_maintenance_cost
 
         loose_planner_before = adapter.planner_calls_total
         loose1 = DeterministicBudgetSearch(

@@ -59,7 +59,7 @@ and diagnostic. The source-built PostgreSQL 16.14 Census rerun passed every
 predeclared gate and emitted the frozen empirical mechanism-count model. M3 remains
 future work.
 
-## M2.7 preflight parser migration — in progress
+## M2.7 preflight parser migration — complete
 
 Preparation SQL analysis is being migrated from handwritten lexical inspection to
 the PostgreSQL-compatible `pglast` AST parser. This preflight is not the
@@ -70,6 +70,21 @@ authoritative M2.7 search and does not mark M2.7 complete.
 The preparation repository now distinguishes `PRESENT` from PostgreSQL-native
 `ABSENT_NATIVE` realizations. This resolves the acquisition blocker but does
 not start or complete the M2.7 authoritative budget search.
+
+## M2.7 authoritative Census search — blocked by scale
+
+The authoritative Census preparation and one frozen acquisition passed, but the
+4506-candidate exact best-improvement search was interrupted during the initial
+10% greedy round after 215.04 seconds. The failed run is retained as historical
+evidence in `experiments/census-m2-7/search-failure.json`; M2.7 is not complete.
+
+## M2.8 exact search scalability hardening — active
+
+The exact q-error lower-bound path, exhaustive oracle, deterministic streaming
+neighborhoods, and incremental additive-cost checks are being validated against
+small fixtures and a controlled Census first-round profile. This milestone does
+not change the candidate universe, CE semantics, maintenance model, or M2.7
+status.
 
 ## M3 — plan/runtime validation
 

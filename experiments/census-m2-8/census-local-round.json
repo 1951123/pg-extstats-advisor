@@ -1,0 +1,17 @@
+{
+  "format_version": 1,
+  "scope": "Census 10% budget, one optimized local ADD/DROP/SWAP round after three greedy rounds",
+  "budget": "1146.45031219779468381",
+  "selected_count_before_local": 3,
+  "moves": 18015,
+  "bound_pruned": 17397,
+  "native_evaluated": 618,
+  "planner_calls": 5111,
+  "pruning_rate": 0.9656952539550375,
+  "elapsed_seconds": 28.196745952998754,
+  "accepted": true,
+  "objective_before": 1671.317096999538,
+  "objective_after": 1521.7271293414956,
+  "termination": "profile-only",
+  "note": "This is a scalability profile, not a resumed M2.7 budget search."
+}

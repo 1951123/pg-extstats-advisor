@@ -1,0 +1,83 @@
+{
+  "budget": "1146.45031219779468381",
+  "candidate_count": 4506,
+  "candidate_catalog_digest": "74727a871b3a601977885cbf96d25cda6e5ac38ef448d1815561bdc5988a425a",
+  "incidence_digest": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4",
+  "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+  "maintenance_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e",
+  "experiment": "M2.8 Exact Search Scalability Hardening",
+  "format_version": 1,
+  "m2_7_baseline": "dda623401040f0fda08de1200d2e36036a7c0400",
+  "previous_m2_7_interrupted_elapsed_seconds": 215.04,
+  "query_count": 468,
+  "results": [
+    {
+      "accepted_moves": 1,
+      "affected_query_replans": 1080,
+      "best_candidate": "cand_449fa599b32af3a5039b",
+      "best_cost": "1.747411898796996",
+      "best_design": [
+        "cand_449fa599b32af3a5039b"
+      ],
+      "best_objective": 2949.9782311993554,
+      "bound_pruned_incumbent": 4292,
+      "bound_pruned_no_improvement": 0,
+      "bound_pruned_total": 4292,
+      "budget": "1146.45031219779468381",
+      "budget_infeasible_skipped": 0,
+      "candidate_count": 4506,
+      "elapsed_seconds": 4.180974117000005,
+      "evaluator_calls": 215,
+      "feasible_moves": 4506,
+      "first_evaluated_winner_index": 209,
+      "mode": "pruned",
+      "native_evaluated_moves": 214,
+      "neighbor_planner_calls": 1080,
+      "planner_calls": 1548,
+      "query_count": 468,
+      "registration_calls": 4506,
+      "reused_query_evaluations": 99072,
+      "termination": "first-greedy-round-only",
+      "total_neighbor_moves_considered": 4506
+    },
+    {
+      "accepted_moves": 1,
+      "affected_query_replans": 19996,
+      "best_candidate": "cand_449fa599b32af3a5039b",
+      "best_cost": "1.747411898796996",
+      "best_design": [
+        "cand_449fa599b32af3a5039b"
+      ],
+      "best_objective": 2949.9782311993554,
+      "bound_pruned_incumbent": 0,
+      "bound_pruned_no_improvement": 0,
+      "bound_pruned_total": 0,
+      "budget": "1146.45031219779468381",
+      "budget_infeasible_skipped": 0,
+      "candidate_count": 4506,
+      "elapsed_seconds": 27.26889669999946,
+      "evaluator_calls": 4507,
+      "feasible_moves": 4506,
+      "first_evaluated_winner_index": 482,
+      "mode": "exhaustive",
+      "native_evaluated_moves": 4506,
+      "neighbor_planner_calls": 19996,
+      "planner_calls": 20464,
+      "query_count": 468,
+      "registration_calls": 4506,
+      "reused_query_evaluations": 2088812,
+      "termination": "first-greedy-round-only",
+      "total_neighbor_moves_considered": 4506
+    }
+  ],
+  "scope": "Census 10% first greedy ADD round only",
+  "comparison": {
+    "winner_equal": true,
+    "best_candidate": "cand_449fa599b32af3a5039b",
+    "best_objective_equal": true,
+    "best_cost_equal": true,
+    "pruning_rate": 0.9525077674212161,
+    "planner_call_reduction": 0.9459891978395679,
+    "elapsed_speedup": 6.522139562912637
+  }
+}

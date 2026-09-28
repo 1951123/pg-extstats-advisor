@@ -1,0 +1,46 @@
+{
+  "format_version": 1,
+  "scope": "Census 10% budget, first three greedy ADD rounds, optimized exact pruning",
+  "budget": "1146.45031219779468381",
+  "query_count": 468,
+  "candidate_count": 4506,
+  "rounds": [
+    {
+      "round": 1,
+      "moves": 4506,
+      "bound_pruned": 4292,
+      "native_evaluated": 214,
+      "planner_calls": 1080,
+      "elapsed_seconds": 3.205899260003207,
+      "best_candidate": "cand_449fa599b32af3a5039b",
+      "objective": 2949.9782311993554
+    },
+    {
+      "round": 2,
+      "moves": 4505,
+      "bound_pruned": 4233,
+      "native_evaluated": 272,
+      "planner_calls": 1353,
+      "elapsed_seconds": 4.89567256400187,
+      "best_candidate": "cand_57ecad07b9ddfc92cbe9",
+      "objective": 2085.776550877465
+    },
+    {
+      "round": 3,
+      "moves": 4504,
+      "bound_pruned": 4188,
+      "native_evaluated": 316,
+      "planner_calls": 1666,
+      "elapsed_seconds": 6.548633151000104,
+      "best_candidate": "cand_8800308d8e997ed3f8ad",
+      "objective": 1671.317096999538
+    }
+  ],
+  "final_design": [
+    "cand_449fa599b32af3a5039b",
+    "cand_8800308d8e997ed3f8ad",
+    "cand_57ecad07b9ddfc92cbe9"
+  ],
+  "total_elapsed_seconds": 14.650204975005181,
+  "note": "This is a profiling artifact, not a resumed M2.7 budget search."
+}

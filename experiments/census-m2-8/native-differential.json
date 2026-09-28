@@ -1,0 +1,17 @@
+{
+  "format_version": 1,
+  "fixture": "tests/integration/test_external_evaluator.py",
+  "postgres_version": "16.14",
+  "status": "passed",
+  "test_result": "1 passed",
+  "comparison": {
+    "optimized_exact_bound_pruning": true,
+    "exhaustive_reference": true,
+    "full_reference_exhaustive": true,
+    "selected_design_equal": true,
+    "selected_objective_equal": true,
+    "selected_cost_equal": true,
+    "accepted_trajectory_equal": true
+  },
+  "scope": "small physical native PostgreSQL fixture; disposable database"
+}

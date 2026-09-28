@@ -1,0 +1,29 @@
+{
+  "format_version": 1,
+  "milestone": "M2.8 Exact Search Scalability Hardening",
+  "status": "complete-first-round-gate",
+  "m2_7_status": "blocked-by-scale; not resumed",
+  "m3_started": false,
+  "fixture_differential": "passed",
+  "randomized_property_tests": {
+    "seed": 20260928,
+    "cases": 40,
+    "status": "passed"
+  },
+  "native_differential": "passed",
+  "census_first_round": {
+    "winner_exact": true,
+    "pruning_rate": 0.9525077674212161,
+    "planner_call_reduction": 0.9459891978395679,
+    "elapsed_speedup": 6.522139562912637
+  },
+  "census_local_profile": {
+    "moves": 18015,
+    "pruned": 17397,
+    "native_evaluated": 618,
+    "pruning_rate": 0.9656952539550374,
+    "elapsed_seconds": 28.196745952998754
+  },
+  "projection": "initial greedy and one measured local neighborhood are no longer obviously infeasible; complete M2.7 remains a separately reviewed run",
+  "pg_patch_changed": false
+}
