@@ -28,8 +28,7 @@ def qualified_relation_name(value: str) -> str:
 
 def statistics_name(candidate_id: str) -> str:
     safe = "".join(
-        char.lower() if char.isascii() and char.isalnum() else "_"
-        for char in candidate_id
+        char.lower() if char.isascii() and char.isalnum() else "_" for char in candidate_id
     )
     safe = safe.strip("_") or "candidate"
     digest = hashlib.sha256(candidate_id.encode()).hexdigest()[:10]
@@ -47,10 +46,7 @@ def _create_statement(candidate: Candidate, name: str) -> str:
     relation = qualified_relation_name(candidate.relation_name)
     schema = candidate.relation_name.split(".")[0] if "." in candidate.relation_name else "public"
     qualified_name = f"{quote_identifier(schema)}.{quote_identifier(name)}"
-    return (
-        f"CREATE STATISTICS {qualified_name} ({mechanism}) "
-        f"ON {attributes} FROM {relation}"
-    )
+    return f"CREATE STATISTICS {qualified_name} ({mechanism}) ON {attributes} FROM {relation}"
 
 
 def _digest_sql(statements: Iterable[str]) -> str:
@@ -75,7 +71,10 @@ def build_deployment_plan(
     names = tuple(statistics_name(str(item.candidate_id)) for item in candidates)
     if len(names) != len(set(names)):
         raise ValueError("generated statistics names collide")
-    creates = tuple(_create_statement(candidate, name) for candidate, name in zip(candidates, names, strict=True))
+    creates = tuple(
+        _create_statement(candidate, name)
+        for candidate, name in zip(candidates, names, strict=True)
+    )
     targets = (
         tuple(
             f"ALTER STATISTICS {quote_identifier(candidate.relation_name.split('.')[0] if '.' in candidate.relation_name else 'public')}.{quote_identifier(name)} SET STATISTICS {statistics_target}"
@@ -116,9 +115,7 @@ def build_search_deployment_plan(
     statistics_target: int | None = None,
     validation_relations: Iterable[str] = (),
 ) -> DeploymentPlan:
-    digest = candidate_catalog_digest(
-        [(item.candidate_id, item.precedence_rank) for item in catalog.candidates]
-    )
+    digest = candidate_catalog_digest(catalog.candidates)
     if digest != result.candidate_catalog_digest:
         raise ValueError("search result/candidate catalog lineage mismatch")
     if result.selected_state.design != result.selected_design:

@@ -70,9 +70,7 @@ class DeterministicBudgetSearch:
             return self.evaluator.evaluate_design(counterfactual)
         return self.evaluator.evaluate_move(current.design, move, current)
 
-    def _consider(
-        self, phase: str, current: EvaluationState, move: Move
-    ) -> _EvaluatedMove | None:
+    def _consider(self, phase: str, current: EvaluationState, move: Move) -> _EvaluatedMove | None:
         counterfactual = self.catalog.apply_move(current.design, move)
         before_cost = self.cost_model.estimate_design(current.design, self.catalog)
         after_cost = self.cost_model.estimate_design(counterfactual, self.catalog)
@@ -138,7 +136,9 @@ class DeterministicBudgetSearch:
         best = self._best(options)
         before_cost = self.cost_model.estimate_design(current.design, self.catalog)
         for option in options:
-            accepted = best is option and option.state.aggregate_objective < current.aggregate_objective
+            accepted = (
+                best is option and option.state.aggregate_objective < current.aggregate_objective
+            )
             self._trajectory.append(
                 MoveRecord(
                     phase,
@@ -177,7 +177,9 @@ class DeterministicBudgetSearch:
             unselected = self._ordered_ids(False, current.design)
             moves = [Move.add_candidate(item) for item in unselected]
             moves.extend(Move.drop_candidate(item) for item in selected)
-            moves.extend(Move.swap(outgoing, incoming) for outgoing in selected for incoming in unselected)
+            moves.extend(
+                Move.swap(outgoing, incoming) for outgoing in selected for incoming in unselected
+            )
             options = []
             for move in moves:
                 evaluated = self._consider("local", current, move)
@@ -196,9 +198,7 @@ class DeterministicBudgetSearch:
         current = self._greedy(current)
         current = self._local(current)
         cost = self.cost_model.estimate_design(current.design, self.catalog)
-        catalog_digest = candidate_catalog_digest(
-            [(item.candidate_id, item.precedence_rank) for item in self.catalog.candidates]
-        )
+        catalog_digest = candidate_catalog_digest(self.catalog.candidates)
         return SearchResult(
             selected_state=current,
             selected_design=current.design,

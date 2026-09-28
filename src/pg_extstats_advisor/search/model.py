@@ -9,7 +9,7 @@ from decimal import Decimal
 from typing import Protocol
 
 from pg_extstats_advisor.cost.model import MaintenanceBudget
-from pg_extstats_advisor.models import Design, EvaluationState, Move
+from pg_extstats_advisor.models import Candidate, Design, EvaluationState, Move
 
 
 class DesignEvaluator(Protocol):
@@ -63,6 +63,18 @@ class SearchResult:
     candidate_catalog_digest: str
 
 
-def candidate_catalog_digest(catalog_items: list[tuple[str, int]]) -> str:
-    encoded = json.dumps(catalog_items, separators=(",", ":")).encode()
+def candidate_catalog_digest(candidates: list[Candidate] | tuple[Candidate, ...]) -> str:
+    value = [
+        {
+            "candidate_id": item.candidate_id,
+            "relation_oid": item.relation_oid,
+            "relation_name": item.relation_name,
+            "mechanism": item.mechanism.value,
+            "attributes": item.attributes,
+            "definition": item.definition,
+            "precedence_rank": item.precedence_rank,
+        }
+        for item in candidates
+    ]
+    encoded = json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
     return hashlib.sha256(encoded).hexdigest()
