@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import time
 from datetime import UTC, datetime
 from typing import Any
 
 from psycopg import Connection
 
 from pg_extstats_advisor.deploy.model import CreatedStatistic, DeploymentPlan, DeploymentResult
+from pg_extstats_advisor.deploy.sql import quote_identifier
 
 
 class PhysicalDeployer:
@@ -55,8 +57,10 @@ class PhysicalDeployer:
                 )
             for statement in plan.target_statements:
                 self.connection.execute(statement)
+            analyze_started = time.perf_counter()
             for statement in plan.analyze_statements:
                 self.connection.execute(statement)
+            analyze_elapsed = time.perf_counter() - analyze_started
             self.connection.commit()
         except Exception:
             self.connection.rollback()
@@ -70,4 +74,28 @@ class PhysicalDeployer:
             started_at=started,
             completed_at=datetime.now(UTC).isoformat(),
             success=True,
+            analyze_elapsed_seconds=analyze_elapsed,
         )
+
+    def cleanup(self, deployment: DeploymentResult) -> tuple[str, ...]:
+        """Drop exactly the statistics created by one deployment."""
+
+        try:
+            for candidate, name in zip(
+                deployment.plan.ordered_candidates,
+                deployment.plan.statistics_names,
+                strict=True,
+            ):
+                schema = (
+                    candidate.relation_name.split(".")[0]
+                    if "." in candidate.relation_name
+                    else "public"
+                )
+                self.connection.execute(
+                    f"DROP STATISTICS IF EXISTS {quote_identifier(schema)}.{quote_identifier(name)}"
+                )
+            self.connection.commit()
+        except Exception:
+            self.connection.rollback()
+            raise
+        return deployment.plan.statistics_names

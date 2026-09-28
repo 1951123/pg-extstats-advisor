@@ -43,3 +43,4 @@ class DeploymentResult:
     started_at: str
     completed_at: str
     success: bool
+    analyze_elapsed_seconds: float | None = None

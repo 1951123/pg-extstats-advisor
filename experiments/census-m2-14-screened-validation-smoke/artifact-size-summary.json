@@ -1,0 +1,26 @@
+{
+  "artifact_type": "m2-14-artifact-size-audit",
+  "experimental_role": "development-smoke",
+  "files": {
+    "artifact-size-summary.json": 755,
+    "prefix-1/cleanup-result.json": 183,
+    "prefix-1/ddl.json": 536,
+    "prefix-1/design.json": 74,
+    "prefix-1/validation-result.json": 3530,
+    "prefix-10/cleanup-result.json": 660,
+    "prefix-10/ddl.json": 3111,
+    "prefix-10/design.json": 372,
+    "prefix-10/validation-result.json": 7020,
+    "prefix-5/cleanup-result.json": 395,
+    "prefix-5/ddl.json": 1680,
+    "prefix-5/design.json": 206,
+    "prefix-5/validation-result.json": 5079,
+    "protocol.json": 2947,
+    "report.md": 2642,
+    "summary.json": 17713
+  },
+  "format_version": 1,
+  "largest_new_artifact": "summary.json",
+  "largest_new_artifact_bytes": 17713,
+  "trajectory_persisted": false
+}

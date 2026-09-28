@@ -127,6 +127,17 @@ perform new singleton native evaluations. This workflow formalizes a
 development path and does not promote the screen to an authoritative M2.7
 optimization or a general screening policy.
 
+## M2.14 screened recommendation/deployment/validation smoke — complete, development-only
+
+The formal Census screened recommendation was exercised through deterministic
+`K=1`, `K=5`, and `K=10` prefixes using the normal deployment, fresh-ANALYZE,
+physical validation, and cleanup path. Frozen hypothetical objectives matched
+the persisted M2.13 trajectory exactly for all prefixes; fresh physical
+objectives and compact q-error drift summaries were recorded, and no smoke
+statistics remained after cleanup. This integrates the development lifecycle
+without changing screening, search, CE semantics, or the unresolved
+authoritative M2.7/M3 status.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,

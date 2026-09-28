@@ -1,0 +1,43 @@
+{
+  "analyze": [
+    "ANALYZE \"public\".\"climate\""
+  ],
+  "candidate_ids": [
+    "cand_449fa599b32af3a5039b",
+    "cand_57ecad07b9ddfc92cbe9",
+    "cand_8800308d8e997ed3f8ad",
+    "cand_ec94d4fcaa39e54f2f3f",
+    "cand_c9321427349837fbbce7",
+    "cand_50e40f909d08e40748f4",
+    "cand_6e828ab1e97b874ef25a",
+    "cand_4fa98ecd2ad6069efe03",
+    "cand_61bd8d15a2050d1f9514",
+    "cand_cef18d243e8dc73a4663"
+  ],
+  "create": [
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_61bd8d15a2050d1f9514_0221f16b8d\" (mcv) ON \"ddepart\", \"iriders\" FROM \"public\".\"climate\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_449fa599b32af3a5039b_e87cfb3fa5\" (mcv) ON \"idisabl1\", \"irspouse\" FROM \"public\".\"climate\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_8800308d8e997ed3f8ad_275550f8cf\" (mcv) ON \"idisabl2\", \"iyearsch\" FROM \"public\".\"climate\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_4fa98ecd2ad6069efe03_2ff8ec8993\" (mcv) ON \"dhour89\", \"iyearwrk\" FROM \"public\".\"climate\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_ec94d4fcaa39e54f2f3f_d6ad7a1963\" (mcv) ON \"imeans\", \"irlabor\" FROM \"public\".\"climate\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_50e40f909d08e40748f4_f439429ecf\" (mcv) ON \"imeans\", \"iworklwk\" FROM \"public\".\"climate\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_6e828ab1e97b874ef25a_ea34a4dd73\" (mcv) ON \"drearning\", \"irlabor\" FROM \"public\".\"climate\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_c9321427349837fbbce7_deca4d44c3\" (mcv) ON \"drearning\", \"dweek89\" FROM \"public\".\"climate\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_cef18d243e8dc73a4663_1c3ba5d434\" (mcv) ON \"irrelchld\", \"irspouse\" FROM \"public\".\"climate\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_57ecad07b9ddfc92cbe9_45221cc16c\" (mcv) ON \"irspouse\", \"iwork89\" FROM \"public\".\"climate\""
+  ],
+  "experimental_role": "development-smoke",
+  "sql_digest": "1e604183c960ae65e7705bd839c1888bae29833cbc776fe7ac5b6dde8dac7cd9",
+  "target": [
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_61bd8d15a2050d1f9514_0221f16b8d\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_449fa599b32af3a5039b_e87cfb3fa5\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_8800308d8e997ed3f8ad_275550f8cf\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_4fa98ecd2ad6069efe03_2ff8ec8993\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_ec94d4fcaa39e54f2f3f_d6ad7a1963\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_50e40f909d08e40748f4_f439429ecf\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_6e828ab1e97b874ef25a_ea34a4dd73\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_c9321427349837fbbce7_deca4d44c3\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_cef18d243e8dc73a4663_1c3ba5d434\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_57ecad07b9ddfc92cbe9_45221cc16c\" SET STATISTICS 100"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "dropped_statistics": [
+    "pgextadv_cand_449fa599b32af3a5039b_e87cfb3fa5"
+  ],
+  "experimental_role": "development-smoke",
+  "residual_statistics_count": 0,
+  "success": true
+}

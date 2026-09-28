@@ -1,0 +1,16 @@
+{
+  "analyze": [
+    "ANALYZE \"public\".\"climate\""
+  ],
+  "candidate_ids": [
+    "cand_449fa599b32af3a5039b"
+  ],
+  "create": [
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_449fa599b32af3a5039b_e87cfb3fa5\" (mcv) ON \"idisabl1\", \"irspouse\" FROM \"public\".\"climate\""
+  ],
+  "experimental_role": "development-smoke",
+  "sql_digest": "991626e5d72b777d729f03910fc5acd1a2429c91a459552a17f0d70a575e6f45",
+  "target": [
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_449fa599b32af3a5039b_e87cfb3fa5\" SET STATISTICS 100"
+  ]
+}

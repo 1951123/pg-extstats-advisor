@@ -1,0 +1,69 @@
+{
+  "baseline_repo_commit": "ec6283274f7153412ff51df131164eeef132bf13",
+  "build_recipe_digest": "543e2a3c97f6c17d9e1fc3c0fff9fb87a63d76794f6313b69fa8f103781e61a9",
+  "digest": "ee00316e72c9eaca576e6121cb5917c49e3b862980400ed06da8d162e4f9edb3",
+  "experiment": "M2.14-Screened-Recommendation-Deployment-Validation-Smoke",
+  "experimental_role": "development-smoke",
+  "format_version": 1,
+  "full_workload_query_count": 468,
+  "lifecycle": {
+    "analyze": 3,
+    "create": 16,
+    "drop": 16,
+    "hypothetical_evaluations": 3,
+    "residual_smoke_statistics_count": 0,
+    "search_native_evaluations": 0,
+    "singleton_native_evaluations": 0
+  },
+  "maintenance_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e",
+  "patch_sha256_after": "aab7b323cf3b89179235ae3d0b40c9ce6a3f4009238b83b90da4f4e8a5d55b34",
+  "patch_sha256_before": "aab7b323cf3b89179235ae3d0b40c9ce6a3f4009238b83b90da4f4e8a5d55b34",
+  "prefix_summaries": [
+    {
+      "a_exact_match": true,
+      "a_objective": 2949.9782311993554,
+      "a_vs_c_absolute_difference": -19.57358072936222,
+      "analyze_elapsed_seconds": 0.27676038399658864,
+      "c_objective": 2930.404650469993,
+      "cleanup_success": true,
+      "prefix_size": 1,
+      "validation_elapsed_seconds": 0.07130101700022351
+    },
+    {
+      "a_exact_match": true,
+      "a_objective": 1378.928138020749,
+      "a_vs_c_absolute_difference": -5.7052162405382205,
+      "analyze_elapsed_seconds": 0.2823198480036808,
+      "c_objective": 1373.2229217802108,
+      "cleanup_success": true,
+      "prefix_size": 5,
+      "validation_elapsed_seconds": 0.06901740600005724
+    },
+    {
+      "a_exact_match": true,
+      "a_objective": 1205.635813513518,
+      "a_vs_c_absolute_difference": 6.461846107748215,
+      "analyze_elapsed_seconds": 0.28916267699969467,
+      "c_objective": 1212.0976596212663,
+      "cleanup_success": true,
+      "prefix_size": 10,
+      "validation_elapsed_seconds": 0.07145725300506456
+    }
+  ],
+  "prefixes": [
+    1,
+    5,
+    10
+  ],
+  "raw_candidate_catalog_digest": "74727a871b3a601977885cbf96d25cda6e5ac38ef448d1815561bdc5988a425a",
+  "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+  "screened_candidate_catalog_digest": "c0c544c703682a13e7447a514f0610d251b4694cb92f2c8eeead3f3ee50880a8",
+  "screened_candidate_set_digest": "344c64191a6a6605026ad78db8fc41565f4eb2fc9d796b4c08842889e5f2a64a",
+  "search_hot_path_analyze": false,
+  "singleton_profile_digest": "bde72830a5a29488fcf147c90f51259c52be5d4b4f74c9e677b0776f860e7cbf",
+  "source_recommendation_digest": "d9672b5abae95cbfc11ed44c89bcd8eeda1b8ee65fbf94d81ce99e7a7c8065fc",
+  "source_search_result_digest": "6e130abb639e67f3f18df571c6af3fe2b3fa1970f45fba429890cfe4f8f23d27",
+  "status": "development-smoke-passed",
+  "validation_phase_fresh_analyze": true,
+  "workload_digest": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215"
+}

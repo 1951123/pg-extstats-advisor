@@ -1,0 +1,17 @@
+{
+  "dropped_statistics": [
+    "pgextadv_cand_61bd8d15a2050d1f9514_0221f16b8d",
+    "pgextadv_cand_449fa599b32af3a5039b_e87cfb3fa5",
+    "pgextadv_cand_8800308d8e997ed3f8ad_275550f8cf",
+    "pgextadv_cand_4fa98ecd2ad6069efe03_2ff8ec8993",
+    "pgextadv_cand_ec94d4fcaa39e54f2f3f_d6ad7a1963",
+    "pgextadv_cand_50e40f909d08e40748f4_f439429ecf",
+    "pgextadv_cand_6e828ab1e97b874ef25a_ea34a4dd73",
+    "pgextadv_cand_c9321427349837fbbce7_deca4d44c3",
+    "pgextadv_cand_cef18d243e8dc73a4663_1c3ba5d434",
+    "pgextadv_cand_57ecad07b9ddfc92cbe9_45221cc16c"
+  ],
+  "experimental_role": "development-smoke",
+  "residual_statistics_count": 0,
+  "success": true
+}
