@@ -131,7 +131,10 @@ def build_validation_result(
         raise ValueError("selected design lineage mismatch")
     if frozen.repository_digest != provenance.repository_digest:
         raise ValueError("frozen state/repository lineage mismatch")
-    if frozen.workload_digest != fresh.workload_digest or frozen.workload_digest != provenance.workload_digest:
+    if (
+        frozen.workload_digest != fresh.workload_digest
+        or frozen.workload_digest != provenance.workload_digest
+    ):
         raise ValueError("frozen/fresh workload lineage mismatch")
     frozen_by, fresh_by = frozen.by_query(), fresh.by_query()
     if set(frozen_by) != set(fresh_by):

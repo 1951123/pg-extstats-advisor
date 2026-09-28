@@ -1,4 +1,5 @@
 """Deploy component boundary."""
+
 """Physical deployment planning and execution."""
 
 from pg_extstats_advisor.deploy.model import DeploymentPlan, DeploymentResult

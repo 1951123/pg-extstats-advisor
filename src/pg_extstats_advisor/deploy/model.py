@@ -43,4 +43,3 @@ class DeploymentResult:
     started_at: str
     completed_at: str
     success: bool
-

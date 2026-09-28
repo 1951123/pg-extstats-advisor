@@ -1,0 +1,201 @@
+"""One-time physical acquisition of native MCV/FD payloads."""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import os
+import shutil
+import tempfile
+from dataclasses import dataclass
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
+
+from psycopg import Connection
+
+from pg_extstats_advisor.candidates.model import CandidateCatalog
+from pg_extstats_advisor.deploy.sql import qualified_relation_name, quote_identifier
+from pg_extstats_advisor.models import MechanismKind
+from pg_extstats_advisor.payloads.repository import PayloadRepository
+
+
+@dataclass(frozen=True, slots=True)
+class AcquisitionResult:
+    repository: PayloadRepository
+    analyzed_relations: tuple[str, ...]
+    analyze_count: int
+    created_statistics_names: tuple[str, ...]
+
+
+def _acquisition_name(candidate_id: str) -> str:
+    return f"pgextadv_acq_{hashlib.sha256(candidate_id.encode()).hexdigest()[:24]}"
+
+
+def _relation_fingerprint(connection: Connection[Any], relation: str) -> str:
+    row = connection.execute(
+        "SELECT current_database(),n.nspname,c.relname,c.oid,c.relfilenode,c.reltuples::bigint "
+        "FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE c.oid=to_regclass(%s)",
+        (relation,),
+    ).fetchone()
+    if row is None:
+        raise ValueError(f"acquisition relation missing: {relation}")
+    columns = connection.execute(
+        "SELECT attnum,attname,atttypid::regtype::text,attnotnull FROM pg_attribute "
+        "WHERE attrelid=%s AND attnum>0 AND NOT attisdropped ORDER BY attnum",
+        (row[3],),
+    ).fetchall()
+    exact_count = connection.execute(
+        f"SELECT count(*) FROM {qualified_relation_name(relation)}"
+    ).fetchone()[0]
+    value = {
+        "database": row[0],
+        "schema": row[1],
+        "relation": row[2],
+        "oid": row[3],
+        "relfilenode": row[4],
+        "reltuples": row[5],
+        "exact_rows": exact_count,
+        "columns": columns,
+    }
+    return hashlib.sha256(
+        json.dumps(value, sort_keys=True, default=str, separators=(",", ":")).encode()
+    ).hexdigest()
+
+
+def acquire_payloads(
+    connection: Connection[Any],
+    catalog: CandidateCatalog,
+    output_path: Path,
+    *,
+    statistics_target: int,
+    upstream_sha256: str,
+    patch_commit: str,
+    repository_id: str,
+) -> AcquisitionResult:
+    if output_path.exists():
+        raise FileExistsError(f"repository output already exists: {output_path}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = Path(tempfile.mkdtemp(prefix=f".{output_path.name}.", dir=output_path.parent))
+    created: list[tuple[str, str]] = []
+    started = datetime.now(UTC).isoformat()
+    try:
+        version = str(connection.execute("SHOW server_version").fetchone()[0])
+        actual: dict[str, tuple[int, int, str, str]] = {}
+        for candidate in catalog.candidates:
+            name = _acquisition_name(str(candidate.candidate_id))
+            schema = candidate.relation_name.split(".")[0]
+            mechanism = "mcv" if candidate.mechanism is MechanismKind.MCV else "dependencies"
+            attributes = ", ".join(quote_identifier(item) for item in candidate.attributes)
+            connection.execute(
+                f"CREATE STATISTICS {quote_identifier(schema)}.{quote_identifier(name)} ({mechanism}) "
+                f"ON {attributes} FROM {qualified_relation_name(candidate.relation_name)}"
+            )
+            connection.execute(
+                f"ALTER STATISTICS {quote_identifier(schema)}.{quote_identifier(name)} SET STATISTICS {statistics_target}"
+            )
+            row = connection.execute(
+                "SELECT e.oid,e.stxrelid,e.stxkind FROM pg_statistic_ext e JOIN pg_namespace n ON n.oid=e.stxnamespace "
+                "WHERE n.nspname=%s AND e.stxname=%s",
+                (schema, name),
+            ).fetchone()
+            if row is None or candidate.mechanism.postgres_code not in row[2]:
+                raise RuntimeError(
+                    f"acquisition definition validation failed: {candidate.candidate_id}"
+                )
+            actual[str(candidate.candidate_id)] = (int(row[0]), int(row[1]), str(row[2]), name)
+            created.append((schema, name))
+        relations = tuple(sorted({item.relation_name for item in catalog.candidates}))
+        for relation in relations:
+            connection.execute(f"ANALYZE {qualified_relation_name(relation)}")
+        payload_dir = temporary / "payloads"
+        payload_dir.mkdir()
+        records = []
+        fingerprints = {
+            relation: _relation_fingerprint(connection, relation) for relation in relations
+        }
+        for candidate in catalog.candidates:
+            oid, relation_oid, _kinds, name = actual[str(candidate.candidate_id)]
+            if candidate.mechanism is MechanismKind.MCV:
+                expression, extension = "pg_mcv_list_send(d.stxdmcv)", "mcv"
+                interpretation = {"sender": "pg_mcv_list_send", "postgres_type": "stxdmcv"}
+            else:
+                expression, extension = "pg_dependencies_send(d.stxddependencies)", "fd"
+                interpretation = {
+                    "sender": "pg_dependencies_send",
+                    "postgres_type": "stxddependencies",
+                }
+            row = connection.execute(
+                f"SELECT {expression} FROM pg_statistic_ext_data d WHERE d.stxoid=%s", (oid,)
+            ).fetchone()
+            if row is None or row[0] is None or not bytes(row[0]):
+                raise RuntimeError(f"missing/invalid native payload: {candidate.candidate_id}")
+            payload = bytes(row[0])
+            relative = Path("payloads") / f"{candidate.candidate_id}.{extension}.bin"
+            (temporary / relative).write_bytes(payload)
+            records.append(
+                {
+                    "candidate_id": candidate.candidate_id,
+                    "relation_oid": relation_oid,
+                    "relation_name": candidate.relation_name,
+                    "mechanism": candidate.mechanism.value,
+                    "attributes": candidate.attributes,
+                    "definition": {
+                        "statistics_name": name,
+                        "stxkind": candidate.mechanism.postgres_code,
+                        "attnums": dict(candidate.definition).get("attnums"),
+                    },
+                    "precedence_rank": candidate.precedence_rank,
+                    "backend_oid": oid,
+                    "payload_path": str(relative),
+                    "payload_size": len(payload),
+                    "payload_sha256": hashlib.sha256(payload).hexdigest(),
+                    "relation_fingerprint": fingerprints[candidate.relation_name],
+                    "interpretation": interpretation,
+                }
+            )
+        manifest = {
+            "format_version": 1,
+            "repository_id": repository_id,
+            "postgres_version": version,
+            "upstream_tarball_sha256": upstream_sha256,
+            "patch_commit": patch_commit,
+            "acquisition_provenance": {
+                "method": "physical CREATE STATISTICS plus relation-grouped ANALYZE",
+                "statistics_target": statistics_target,
+                "analyzed_relations": relations,
+                "analyze_count": len(relations),
+                "started_at": started,
+                "completed_at": datetime.now(UTC).isoformat(),
+            },
+            "candidates": records,
+        }
+        (temporary / "manifest.json").write_text(
+            json.dumps(manifest, sort_keys=True, indent=2) + "\n"
+        )
+        PayloadRepository.load(temporary)
+        connection.commit()
+        os.replace(temporary, output_path)
+        repository = PayloadRepository.load(output_path)
+        return AcquisitionResult(
+            repository, relations, len(relations), tuple(name for _, name in created)
+        )
+    except Exception:
+        connection.rollback()
+        for schema, name in reversed(created):
+            connection.execute(
+                f"DROP STATISTICS IF EXISTS {quote_identifier(schema)}.{quote_identifier(name)}"
+            )
+        connection.commit()
+        shutil.rmtree(temporary, ignore_errors=True)
+        raise
+
+
+def cleanup_acquisition(connection: Connection[Any], result: AcquisitionResult) -> None:
+    for frozen in result.repository.payloads:
+        name = str(dict(frozen.candidate.definition)["statistics_name"])
+        schema = frozen.candidate.relation_name.split(".")[0]
+        connection.execute(
+            f"DROP STATISTICS IF EXISTS {quote_identifier(schema)}.{quote_identifier(name)}"
+        )
+    connection.commit()

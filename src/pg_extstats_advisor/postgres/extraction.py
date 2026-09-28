@@ -16,9 +16,7 @@ def extract_target_estimate(plan_json: Any, target_relation: str) -> float:
 
     visit(plan_json[0]["Plan"])
     if len(matches) != 1:
-        raise ValueError(
-            f"target relation {target_relation!r} matched {len(matches)} plan nodes"
-        )
+        raise ValueError(f"target relation {target_relation!r} matched {len(matches)} plan nodes")
     estimate = matches[0].get("Plan Rows")
     if not isinstance(estimate, (int, float)):
         raise TypeError("target plan node has no numeric Plan Rows")

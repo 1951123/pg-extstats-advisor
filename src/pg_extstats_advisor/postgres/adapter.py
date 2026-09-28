@@ -66,11 +66,11 @@ class PostgresAdapter:
         try:
             oids = [by_id[item].candidate.backend_oid for item in design.candidate_ids]
         except KeyError as error:
-            raise ValueError(f"design references missing payload candidate {error.args[0]}") from error
+            raise ValueError(
+                f"design references missing payload candidate {error.args[0]}"
+            ) from error
         self.connection.execute("SELECT pg_hypothetical_extstats_activate(%s::oid[])", (oids,))
-        active = self.connection.execute(
-            "SELECT pg_hypothetical_extstats_active()"
-        ).fetchone()[0]
+        active = self.connection.execute("SELECT pg_hypothetical_extstats_active()").fetchone()[0]
         if list(active) != oids:
             raise RuntimeError("backend active design does not match requested design")
         self.activation_calls += 1
