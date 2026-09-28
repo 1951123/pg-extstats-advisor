@@ -32,8 +32,9 @@ validation DSN. See `docs/m2-5-c-cli.md`.
 
 M2.6 adds an offline `calibrate-maintenance` command and a fail-closed empirical
 mechanism-count model for fixed-target, arity-two MCV/FD candidates. Calibration
-is never triggered by search. The current Census run is retained as a rejected
-calibration and did not produce a model artifact. See
+is never triggered by search. The diagnostic apt PostgreSQL 16.15 run remains
+rejected; the authoritative source-built PostgreSQL 16.14 Census rerun passed all
+gates and emitted the frozen model. See
 `docs/m2-6-maintenance-calibration.md`.
 
 ## Current scope

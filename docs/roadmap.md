@@ -49,13 +49,15 @@ Artifact reload, frozen maintenance model, persisted search state, recommendatio
 explicit physical validation, acquisition cleanup, and non-interactive stage commands
 form the end-to-end MVP. M3 remains future work.
 
-## M2.6 — empirical aggregate maintenance calibration — implemented, calibration rejected
+## M2.6 — empirical aggregate maintenance calibration — complete
 
-The offline subsystem now provides deterministic arity-two MCV/FD aggregate
-configurations, repeated full-ANALYZE timing, transparent OLS, held-out mixed
-validation, predeclared gates, and a fail-closed empirical artifact type. The first
-isolated current-environment Census run failed the CV and R-squared gates, so it
-did not emit an accepted maintenance model. M3 remains future work.
+The offline subsystem provides deterministic arity-two MCV/FD aggregate
+configurations, repeated full-ANALYZE timing, same-count deterministic subsets,
+transparent OLS, held-out mixed validation, environment/build gates, and a
+fail-closed empirical artifact type. The apt PostgreSQL 16.15 run remains rejected
+and diagnostic. The source-built PostgreSQL 16.14 Census rerun passed every
+predeclared gate and emitted the frozen empirical mechanism-count model. M3 remains
+future work.
 
 ## M3 — plan/runtime validation
 

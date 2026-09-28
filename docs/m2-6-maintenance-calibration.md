@@ -62,17 +62,31 @@ Ordinary OLS confidence intervals are descriptive normal approximations; repeate
 measurements are not claimed to be independent experimental runs. A rejected run
 retains its complete report but does not emit `maintenance-model.json`.
 
-## Current Census calibration
+## Diagnostic PostgreSQL 16.15 calibration
 
-The current-environment run is stored under `calibration/census-m2-6/`. It used an
+The earlier run under `calibration/census-m2-6/` used an
 isolated clone of the fixed 2,458,285-row Census relation, PostgreSQL 16.15, target
 100, 136 MCV and 136 FD candidates, count levels 16/32/64/128, and nine measured
 repetitions per configuration.
 
-The run was correctly rejected. Maximum CV was 10.921% and fitting R-squared was
+It is diagnostic and non-authoritative because it used the Ubuntu apt installation,
+in addition to being rejected. Maximum CV was 10.921% and fitting R-squared was
 0.943833, failing their predeclared gates. Both slopes were positive and all held-out
 mixed predictions passed, with maximum relative error 5.408%. No empirical model
 artifact was emitted, and these rejected coefficients must not be used by search.
+
+## Authoritative PostgreSQL 16.14 rerun
+
+`calibration/census-pg16.14-m2-6-r1/` uses the frozen source-built release-like
+PostgreSQL 16.14 profile. It retains target 100, arity two, the original count
+levels and gates, increases measured repetitions to 15, and freezes three
+deterministic subsets per pure mechanism/count. A fifth predeclared gate requires
+maximum same-count subset-mean CV at most 10%.
+
+The rerun passed all gates and emitted an authoritative
+`empirical-mechanism-count-v1` artifact. Its weights are aggregate marginal slopes,
+remain specific to this relation/environment/target, and do not become universal
+PostgreSQL costs merely because the calibration was accepted.
 
 ## Portability boundary
 

@@ -10,7 +10,11 @@ from pathlib import Path
 import psycopg
 import pytest
 
-from pg_extstats_advisor.orchestration import execute_search_stage, load_search_result
+from pg_extstats_advisor.orchestration import (
+    execute_search_stage,
+    load_prepared_run,
+    load_search_result,
+)
 
 DSN = os.environ.get("PG_EXTSTATS_TEST_DSN")
 pytestmark = pytest.mark.skipif(not DSN, reason="requires patched PostgreSQL fixture")
@@ -127,4 +131,62 @@ def test_cli_stages_restart_and_cleanup(tmp_path: Path) -> None:
     assert "password=secret" not in artifacts
     with psycopg.connect(DSN) as connection:
         connection.execute("DROP TABLE cli_t")
+        connection.commit()
+
+
+def test_empirical_model_prepare_and_search_smoke(tmp_path: Path) -> None:
+    assert DSN is not None
+    with psycopg.connect(DSN) as connection:
+        connection.execute("CREATE TABLE empirical_smoke(a int,b int)")
+        connection.execute(
+            "INSERT INTO empirical_smoke SELECT g%10,g%10 FROM generate_series(1,1000) g"
+        )
+        connection.execute("ANALYZE empirical_smoke")
+        connection.commit()
+    workload = tmp_path / "workload.json"
+    workload.write_text(json.dumps({
+        "schema_version": 1,
+        "workload_id": "empirical-smoke-v1",
+        "queries": [{
+            "query_id": "q",
+            "sql": "SELECT * FROM public.empirical_smoke WHERE a=1 AND b=1",
+            "truth": 100,
+            "target_relation": "public.empirical_smoke",
+        }],
+    }))
+    root = tmp_path / "run"
+    model_path = Path(
+        "/root/projects/pg-extstats-advisor/calibration/"
+        "census-pg16.14-m2-6-r1/maintenance-model.json"
+    )
+    model_digest = json.loads(model_path.read_text())["digest"]
+    config = tmp_path / "config.json"
+    config.write_text(json.dumps({
+        "schema_version": 1,
+        "database": {"source_dsn": DSN, "acquisition_dsn": DSN},
+        "workload": {"path": str(workload)},
+        "candidates": {
+            "mechanisms": ["mcv", "fd"],
+            "max_candidate_arity": 2,
+            "max_candidates_per_relation": None,
+            "explicit": [],
+        },
+        "acquisition": {"statistics_target": 100, "output_path": str(root)},
+        "maintenance": {
+            "type": "empirical-mechanism-count-v1",
+            "artifact_path": str(model_path),
+        },
+    }))
+    env = dict(os.environ, PGEXT_ACQUISITION_DSN=DSN)
+    assert invoke("prepare", str(config), env=env).returncode == 0
+    searched = invoke("search", str(root), "--budget", "10", env=env)
+    assert searched.returncode == 0, searched.stderr
+    result = load_search_result(root)
+    assert result.cost_model_digest == model_digest
+    assert result.budget.unit == "milliseconds-per-analyze"
+    assert json.loads((root / "prepare-summary.json").read_text())["statistics_target"] == 100
+    assert all(len(candidate.attributes) == 2 for candidate in load_prepared_run(root).catalog.candidates)
+    assert invoke("cleanup-acquisition", str(root), env=env).returncode == 0
+    with psycopg.connect(DSN) as connection:
+        connection.execute("DROP TABLE empirical_smoke")
         connection.commit()
