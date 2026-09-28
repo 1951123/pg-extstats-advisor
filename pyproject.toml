@@ -12,6 +12,9 @@ license = {text = "Proprietary research prototype"}
 authors = [{name = "HUMAN ACTION REQUIRED"}]
 dependencies = []
 
+[project.scripts]
+pg-extstats-advisor = "pg_extstats_advisor.cli:main"
+
 [project.optional-dependencies]
 dev = [
   "pytest>=8.3,<9",
