@@ -135,6 +135,7 @@
         "accepted_p90": 0
       },
       "name": "bottom_50pct",
+      "positive_contextual_candidate_count": 196,
       "positive_contextual_evaluations": 3298,
       "positive_contextual_rate": 0.07750699161006792,
       "unique_candidates_observed": 1860
@@ -168,6 +169,7 @@
         "accepted_p90": 0
       },
       "name": "bottom_70pct",
+      "positive_contextual_candidate_count": 351,
       "positive_contextual_evaluations": 6193,
       "positive_contextual_rate": 0.10776432101343357,
       "unique_candidates_observed": 2570
@@ -201,6 +203,7 @@
         "accepted_p90": 0
       },
       "name": "bottom_80pct",
+      "positive_contextual_candidate_count": 697,
       "positive_contextual_evaluations": 13345,
       "positive_contextual_rate": 0.20364407684912483,
       "unique_candidates_observed": 2926
@@ -234,6 +237,7 @@
         "accepted_p90": 0
       },
       "name": "bottom_90pct",
+      "positive_contextual_candidate_count": 1085,
       "positive_contextual_evaluations": 21046,
       "positive_contextual_rate": 0.2798930751532722,
       "unique_candidates_observed": 3328
@@ -267,6 +271,7 @@
         "accepted_p90": 0
       },
       "name": "bottom_95pct",
+      "positive_contextual_candidate_count": 1291,
       "positive_contextual_evaluations": 25034,
       "positive_contextual_rate": 0.31078061376502136,
       "unique_candidates_observed": 3539
@@ -300,6 +305,7 @@
         "accepted_p90": 11
       },
       "name": "positive_at_or_above_median",
+      "positive_contextual_candidate_count": 710,
       "positive_contextual_evaluations": 13439,
       "positive_contextual_rate": 0.7312149736111867,
       "unique_candidates_observed": 734
@@ -333,6 +339,7 @@
         "accepted_p90": 0
       },
       "name": "positive_below_median",
+      "positive_contextual_candidate_count": 591,
       "positive_contextual_evaluations": 11845,
       "positive_contextual_rate": 0.8842851810377006,
       "unique_candidates_observed": 613
@@ -366,6 +373,7 @@
         "accepted_p90": 0
       },
       "name": "singleton_nonpositive",
+      "positive_contextual_candidate_count": 201,
       "positive_contextual_evaluations": 3372,
       "positive_contextual_rate": 0.062072012370223105,
       "unique_candidates_observed": 2412
@@ -429,11 +437,13 @@
           "accepted_p90": 0
         },
         "name": "fd_bottom_50pct",
+        "positive_contextual_candidate_count": 56,
         "positive_contextual_evaluations": 1069,
         "positive_contextual_rate": 0.05205492793143748,
         "unique_candidates_observed": 936
       },
       "name": "fd",
+      "positive_contextual_candidate_count": 443,
       "positive_contextual_evaluations": 9038,
       "positive_contextual_rate": 0.22100501283775523,
       "unique_candidates_observed": 1864
@@ -495,11 +505,13 @@
           "accepted_p90": 0
         },
         "name": "mcv_bottom_50pct",
+        "positive_contextual_candidate_count": 140,
         "positive_contextual_evaluations": 2229,
         "positive_contextual_rate": 0.10124914830797184,
         "unique_candidates_observed": 924
       },
       "name": "mcv",
+      "positive_contextual_candidate_count": 1059,
       "positive_contextual_evaluations": 19618,
       "positive_contextual_rate": 0.43399774351259873,
       "unique_candidates_observed": 1895
@@ -534,6 +546,7 @@
       "accepted_p90": 0
     },
     "name": "singleton_nonpositive",
+    "positive_contextual_candidate_count": 201,
     "positive_contextual_evaluations": 3372,
     "positive_contextual_rate": 0.062072012370223105,
     "unique_candidates_observed": 2412

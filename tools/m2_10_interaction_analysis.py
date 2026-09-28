@@ -205,6 +205,9 @@ def region_metrics(
         "unique_candidates_observed": len(observed_summary),
         "contextual_evaluations": len(observed_rows),
         "positive_contextual_evaluations": sum(row["contextual_improvement"] > 0 for row in observed_rows),
+        "positive_contextual_candidate_count": sum(
+            row["max_contextual_improvement"] > 0 for row in observed_summary
+        ),
         "positive_contextual_rate": (
             sum(row["contextual_improvement"] > 0 for row in observed_rows) / len(observed_rows)
             if observed_rows else 0.0
@@ -557,8 +560,9 @@ def write_report(summary: dict[str, Any], thresholds: dict[str, float], boundary
         ),
         "",
         (
-            f"For singleton-nonpositive candidates: observed {nonpositive['unique_candidates_observed']}, "
-            f"positive contextual evaluations {nonpositive['positive_contextual_evaluations']}, "
+        f"For singleton-nonpositive candidates: observed {nonpositive['unique_candidates_observed']}, "
+        f"candidates with any positive contextual rescue {nonpositive['positive_contextual_candidate_count']}, "
+        f"positive contextual evaluations {nonpositive['positive_contextual_evaluations']}, "
             f"accepted moves {nonpositive['accepted_count']}, and maximum contextual improvement "
             f"{nonpositive['distribution']['max_contextual_improvement']}."
         ),
