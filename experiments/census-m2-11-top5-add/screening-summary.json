@@ -1,0 +1,38 @@
+{
+  "format_version": 1,
+  "lineage": {
+    "incidence_digest": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4",
+    "m210_protocol_sha256": "12ddcd25da9310a752ec891c97ec38278c928a08774f61a1e795a93a673fa81f",
+    "m29_protocol_sha256": "07b092d12ab26257ecde4b47db41d538f531fa6c3e93e36457d7821788d58f7c",
+    "m29_results_sha256": "1fb459297e8373903eb57b4f70e4df77859f74c5e233b7e47fba69f17b03cc21",
+    "maintenance_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e",
+    "raw_candidate_catalog_digest": "74727a871b3a601977885cbf96d25cda6e5ac38ef448d1815561bdc5988a425a",
+    "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+    "workload_digest": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215"
+  },
+  "max_excluded_improvement": 1.5438843043848465,
+  "min_retained_improvement": 1.549639893785752,
+  "rank_768_boundary": {
+    "candidate_id": "cand_ea654d977d77db152ccf",
+    "excluded": true,
+    "singleton_improvement": 0.06053194589821942,
+    "singleton_rank": 768
+  },
+  "ranking": [
+    "descending singleton_improvement",
+    "ascending maintenance_cost_numeric",
+    "ascending precedence_rank",
+    "ascending candidate_id"
+  ],
+  "raw_candidate_count": 4506,
+  "retained_absent_native_count": 0,
+  "retained_count": 226,
+  "retained_fd_count": 12,
+  "retained_fraction": 0.05,
+  "retained_mcv_count": 214,
+  "retained_present_count": 226,
+  "screened_candidate_catalog_digest": "c0c544c703682a13e7447a514f0610d251b4694cb92f2c8eeead3f3ee50880a8",
+  "screened_total_maintenance_cost": "414.0398034077412444",
+  "singleton_cutoff_improvement": 1.549639893785752,
+  "singleton_cutoff_rank": 226
+}

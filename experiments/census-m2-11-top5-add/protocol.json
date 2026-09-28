@@ -1,0 +1,37 @@
+{
+  "budget": "414.0398034077412444",
+  "budget_semantics": "100% of screened-candidate universe total maintenance cost",
+  "exact_bound_pruning": true,
+  "experiment": "M2.11-Census-Top-5%-Singleton-Screening-ADD-only",
+  "forbidden_operations": [
+    "DROP",
+    "SWAP",
+    "ANALYZE",
+    "statistics DDL",
+    "M2.7 resume",
+    "M3"
+  ],
+  "format_version": 1,
+  "incidence_digest": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4",
+  "m210_protocol_digest": "12ddcd25da9310a752ec891c97ec38278c928a08774f61a1e795a93a673fa81f",
+  "m29_protocol_digest": "07b092d12ab26257ecde4b47db41d538f531fa6c3e93e36457d7821788d58f7c",
+  "maintenance_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e",
+  "performance_ceiling_seconds": 600.0,
+  "ranking_semantics": [
+    "descending singleton_improvement",
+    "ascending maintenance_cost_numeric",
+    "ascending precedence_rank",
+    "ascending candidate_id"
+  ],
+  "raw_candidate_catalog_digest": "74727a871b3a601977885cbf96d25cda6e5ac38ef448d1815561bdc5988a425a",
+  "raw_candidate_count": 4506,
+  "repo_commit": "5a9057976fdd5bb15ebc44722b90d0d4e189c1a0",
+  "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+  "retained_count": 226,
+  "retained_fraction": 0.05,
+  "screened_candidate_catalog_digest": "c0c544c703682a13e7447a514f0610d251b4694cb92f2c8eeead3f3ee50880a8",
+  "screening_rounding": "ceil(raw_count * retained_fraction)",
+  "search_mode": "ADD-only deterministic best-improvement",
+  "status": "development-non-authoritative",
+  "workload_digest": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215"
+}

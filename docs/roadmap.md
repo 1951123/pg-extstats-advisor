@@ -97,6 +97,16 @@ correctness-preserving pruning is still insufficient to complete the full Census
 multi-round search within the frozen ceiling. M2.8 does not change the candidate
 universe, CE semantics, maintenance model, or M2.7 status.
 
+## M2.11 Census development screening — complete, non-authoritative
+
+The frozen M2.9 singleton ranking was reused to retain Census's deterministic
+raw top five percent (226 of 4,506 candidates) for a development-only
+ADD-only feasibility run. The screened run reached an exact deterministic
+`add-local-optimum` within the predeclared ten-minute ceiling, and its repeated
+run matched the accepted sequence and final result. This does not complete or
+replace M2.7, establish a production screening threshold, or transfer the
+fraction to other benchmarks.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,

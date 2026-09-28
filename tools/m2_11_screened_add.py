@@ -545,6 +545,10 @@ def main() -> None:
         "comparison_to_m2_7_v2": comparison,
     }
     write_json(OUT_ROOT / "report-summary.json", final_summary)
+    selected_mcv = sum(item["mechanism"] == "mcv" for item in first_final["candidates"])
+    selected_fd = sum(item["mechanism"] == "fd" for item in first_final["candidates"])
+    round_times = [float(item["round_elapsed_seconds"]) for item in first["rounds"]]
+    pruning_rates = [float(item["prune_rate"]) for item in first["rounds"]]
     report = [
         "# M2.11 Census Top-5% Singleton Screening, ADD-only Search",
         "",
@@ -552,7 +556,9 @@ def main() -> None:
         "",
         f"The frozen M2.9 singleton ranking retained {summary['retained_count']} of {summary['raw_candidate_count']} candidates ({summary['retained_fraction']:.0%}) using ceil rounding. The screened-universe budget is {summary['screened_total_maintenance_cost']} maintenance units.",
         "",
-        f"The ADD-only search terminated at an add-local-optimum after {first_final['round_count']} rounds and {first_final['total_elapsed_seconds']:.3f}s. It selected {len(first_final['selected_design'])} candidates with objective {first_final['selected_objective']:.12f} (baseline {EXPECTED_BASELINE:.12f}).",
+        f"The screen contains {summary['retained_mcv_count']} MCV and {summary['retained_fd_count']} FD candidates, all in PRESENT state. The ADD-only search terminated at an add-local-optimum after {first_final['round_count']} rounds and {first_final['total_elapsed_seconds']:.3f}s. It selected {len(first_final['selected_design'])} candidates ({selected_mcv} MCV and {selected_fd} FD) with objective {first_final['selected_objective']:.12f} (baseline {EXPECTED_BASELINE:.12f}) and cost {first_final['selected_maintenance_cost']}.",
+        "",
+        f"Efficiency: {first_final['total_conceptual_add_moves']} conceptual ADD moves, {first_final['budget_infeasible_moves']} budget-infeasible, {first_final['bound_pruned_moves']} bound-pruned, {first_final['native_evaluated_moves']} natively evaluated, {first_final['planner_calls']} planner calls, and {first_final['pruning_rate']:.6%} overall pruning. Round elapsed mean/median/max was {statistics.fmean(round_times):.3f}/{statistics.median(round_times):.3f}/{max(round_times):.3f}s; lowest round pruning rate was {min(pruning_rates):.6%}.",
         "",
         f"The exact repeat matched the accepted sequence, final design, objective, cost, round count, and termination reason: {repeat_summary['exact_match']}.",
         "",
