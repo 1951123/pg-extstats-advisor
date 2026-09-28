@@ -270,9 +270,11 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
         assert local.final_design == reference.final_design
         assert local.selected_objective == reference.selected_objective
 
+        loose_planner_before = adapter.planner_calls_total
         loose1 = DeterministicBudgetSearch(
             evaluator, repository.catalog, cost_model, MaintenanceBudget(20, cost_model.unit)
         ).run()
+        loose_planner_calls = adapter.planner_calls_total - loose_planner_before
         loose2 = DeterministicBudgetSearch(
             evaluator, repository.catalog, cost_model, MaintenanceBudget(20, cost_model.unit)
         ).run()
@@ -304,6 +306,7 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
                         "accepted": [record.move.kind.value for record in loose1.trajectory if record.accepted],
                         "skipped": loose1.infeasible_moves_skipped_count,
                         "evaluator_calls": loose1.evaluator_calls_count,
+                        "planner_calls": loose_planner_calls,
                     },
                 },
                 sort_keys=True,

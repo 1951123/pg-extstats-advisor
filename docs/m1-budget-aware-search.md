@@ -75,11 +75,11 @@ full-reference equality, and repeatability.
 
 The real M0 5-query/6-candidate PostgreSQL fixture produced:
 
-| Budget | Final design | Cost | Objective | Evaluator calls | Skipped infeasible |
-|---:|---|---:|---:|---:|---:|
-| 0 | empty | 0 | 646.6666666666666 | 1 | 12 |
-| 4 | overlap_ab, mixed_mcv | 4 | 142.66666666666666 | 16 | 14 |
-| 20 | single_mcv, overlap_ab, fd_ab, mixed_mcv | 9 | 34.666666666666664 | 35 | 0 |
+| Budget | Final design | Cost | Objective | Evaluator calls | Planner calls | Skipped infeasible |
+|---:|---|---:|---:|---:|---:|---:|
+| 0 | empty | 0 | 646.6666666666666 | 1 | 5 | 12 |
+| 4 | overlap_ab, mixed_mcv | 4 | 142.66666666666666 | 16 | 23 | 14 |
+| 20 | single_mcv, overlap_ab, fd_ab, mixed_mcv | 9 | 34.666666666666664 | 35 | 45 | 0 |
 
 Budget zero made only the mandatory empty-design full evaluation; all 12
 neighborhood attempts were rejected before evaluator invocation. Intermediate
