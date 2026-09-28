@@ -1,0 +1,49 @@
+{
+  "experiment_status": "failed",
+  "failure_class": "performance-blocker",
+  "baseline_commit": "4cf85c4b83473090d63fb42fc940f8d76e3fa099",
+  "protocol": "experiments/census-m2-7/protocol.json",
+  "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+  "candidate_count": 4506,
+  "workload_query_count": 468,
+  "completed_budget_runs": [
+    {
+      "fraction": 0.0,
+      "run": 1,
+      "result": "experiments/census-m2-7/budgets/b000-run1/search/result.json"
+    },
+    {
+      "fraction": 0.0,
+      "run": 2,
+      "result": "experiments/census-m2-7/budgets/b000-run2/search/result.json"
+    }
+  ],
+  "completed_budget_result": {
+    "fraction": 0.0,
+    "selected_design": [],
+    "objective": 5586.930692724469,
+    "maintenance_cost": "0",
+    "evaluator_calls": 1,
+    "evaluated_moves": 0,
+    "infeasible_moves_skipped": 9012,
+    "accepted_moves": 0,
+    "termination": "one-move-local-optimum",
+    "repeatability": "exact across two independent runs"
+  },
+  "blocked_run": {
+    "fraction": 0.1,
+    "budget": "1146.45031219779468381",
+    "run": 1,
+    "elapsed_seconds_before_interrupt": 215.04,
+    "phase": "greedy-add",
+    "status": "interrupted-before-result-persistence",
+    "reason": "The first 10% search required thousands of native EXPLAIN calls and did not complete within the predefined reasonable-time gate."
+  },
+  "search_results_authoritative": false,
+  "budget_curve_complete": false,
+  "full_reference_control_run": false,
+  "physical_validation_run": false,
+  "no_new_analyze_during_search": true,
+  "algorithm_modified": false,
+  "cleanup": "Search was interrupted; acquisition database and frozen repository were retained for inspection."
+}

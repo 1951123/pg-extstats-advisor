@@ -1,0 +1,26 @@
+{
+  "experiment_status": "failed",
+  "failure_class": "performance-blocker",
+  "baseline_commit": "4cf85c4b83473090d63fb42fc940f8d76e3fa099",
+  "environment_authoritative": true,
+  "prepared_run_complete": true,
+  "candidate_count": 4506,
+  "mcv_count": 2253,
+  "fd_count": 2253,
+  "query_count": 468,
+  "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+  "incidence_digest": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4",
+  "realization_counts": {
+    "present_mcv": 2253,
+    "absent_mcv": 0,
+    "present_fd": 1144,
+    "absent_fd": 1109,
+    "missing_or_corrupt": 0
+  },
+  "completed_budget_fractions": [0.0],
+  "blocked_budget_fraction": 0.1,
+  "authoritative_budget_curve": false,
+  "full_reference_control": false,
+  "physical_validation": false,
+  "note": "Preparation and acquisition passed; the formal search stopped under the prescribed performance-blocker policy before the budget curve could be completed."
+}

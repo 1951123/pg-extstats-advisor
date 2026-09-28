@@ -2,7 +2,7 @@
   "schema_version": 1,
   "database": {
     "source_dsn": "host=/root/projects/pg-extstats-advisor/.build/pg16.14-experiment-socket port=55436 dbname=pgextadv_exp16_census user=postgres",
-    "acquisition_dsn": "host=/root/projects/pg-extstats-advisor/.build/pg16.14-experiment-socket port=55436 dbname=pgextadv_exp16_census_acq user=postgres"
+    "acquisition_dsn": "host=/root/projects/pg-extstats-advisor/.build/pg16.14-experiment-socket port=55436 dbname=pgextadv_exp16_census_m27_acq user=postgres"
   },
   "workload": {
     "path": "experiments/census-m2-7/workload.json"
