@@ -11,6 +11,7 @@ from typing import Any
 from psycopg import Connection
 
 from pg_extstats_advisor.candidates.model import CandidateCatalog
+from pg_extstats_advisor.cost.empirical import EmpiricalMechanismCountCostModel
 from pg_extstats_advisor.cost.preset import PresetMaintenanceCostModel
 from pg_extstats_advisor.incidence.index import IncidenceIndex
 from pg_extstats_advisor.payloads.repository import PayloadRepository
@@ -73,16 +74,23 @@ def prepare_mvp(
     incidence = derive_incidence(ingested, acquisition.repository.catalog)
     _write(root / "config.json", json.loads(config.canonical_json()))
     maintenance = dict(config.maintenance)
-    model = PresetMaintenanceCostModel(
-        maintenance.get("base_mcv", "0"),
-        maintenance.get("per_column_mcv", "1"),
-        maintenance.get("base_fd", "1"),
-        maintenance.get("per_column_fd", "1"),
-        str(maintenance.get("unit", "maintenance-cost-unit")),
-    )
-    _write(
-        root / "maintenance-model.json",
-        {
+    if maintenance.get("type", "preset-development") == "empirical-mechanism-count-v1":
+        artifact_path = Path(str(maintenance["artifact_path"]))
+        artifact = json.loads(artifact_path.read_text())
+        empirical = EmpiricalMechanismCountCostModel.from_artifact(artifact)
+        empirical.validate_runtime(config.statistics_target)
+        for candidate in catalog.candidates:
+            empirical.estimate_candidate(candidate)
+        _write(root / "maintenance-model.json", artifact)
+    else:
+        model = PresetMaintenanceCostModel(
+            maintenance.get("base_mcv", "0"),
+            maintenance.get("per_column_mcv", "1"),
+            maintenance.get("base_fd", "1"),
+            maintenance.get("per_column_fd", "1"),
+            str(maintenance.get("unit", "maintenance-cost-unit")),
+        )
+        _write(root / "maintenance-model.json", {
             "format_version": 1,
             "model_type": "preset-development",
             "model_version": model.model_version,
@@ -91,8 +99,7 @@ def prepare_mvp(
             "feature_schema": model.provenance.feature_schema,
             "fitting_provenance": model.fitting_provenance,
             "digest": model.digest,
-        },
-    )
+        })
     _write(
         root / "workload.json",
         {

@@ -10,6 +10,7 @@ from pathlib import Path
 
 import psycopg
 
+from pg_extstats_advisor.calibration import CalibrationConfig, run_calibration
 from pg_extstats_advisor.orchestration import (
     cleanup_acquisition_stage,
     execute_recommendation_stage,
@@ -32,6 +33,10 @@ def _parser() -> argparse.ArgumentParser:
         prog="pg-extstats-advisor", description="Offline PostgreSQL extended-statistics advisor"
     )
     commands = parser.add_subparsers(dest="command", required=True)
+    calibrate = commands.add_parser(
+        "calibrate-maintenance", help="run isolated aggregate ANALYZE calibration"
+    )
+    calibrate.add_argument("config", type=Path)
     prepare = commands.add_parser(
         "prepare", help="prepare frozen workload/candidate/payload artifacts"
     )
@@ -84,7 +89,13 @@ def _prepare(path: Path) -> PreparationConfig:
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
-        if args.command == "prepare":
+        if args.command == "calibrate-maintenance":
+            config = CalibrationConfig.load(args.config)
+            with psycopg.connect(config.dsn, autocommit=True) as connection:
+                report = run_calibration(config, connection)
+            print(f"calibration: {report['status']}")
+            print(f"report: {config.output_path / 'calibration-report.json'}")
+        elif args.command == "prepare":
             _prepare(args.config)
         elif args.command == "search":
             with psycopg.connect(_dsn(args.acquisition_dsn, "PGEXT_ACQUISITION_DSN")) as connection:
