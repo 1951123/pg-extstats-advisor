@@ -48,7 +48,7 @@ REPORT_PATH = OUT_ROOT / "report.md"
 PARTIAL_CHECKPOINT = ROOT / "experiments/census-m2-7/v2/budgets/b100-run1/checkpoint.json"
 EXPECTED_BASELINE = 5586.930692724469
 EXPECTED = {
-    "workload": "796ab606e825969ad91801c9795cd830ef40686568fe857d856921a8d42215",
+    "workload": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215",
     "catalog": "74727a871b3a601977885cbf96d25cda6e5ac38ef448d1815561bdc5988a425a",
     "incidence": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4",
     "repository": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
