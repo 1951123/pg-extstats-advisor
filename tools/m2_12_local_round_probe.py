@@ -134,15 +134,15 @@ def verify_lineage(prepared: Any, model: Any, final: dict[str, Any]) -> tuple[Ca
     calibration_provenance = load_json(M27_ROOT / "maintenance-model.json")["calibration_provenance"]
     if summary["postgres_version"] != "16.14" or not calibration_provenance["environment_authoritative"]:
         raise RuntimeError("PostgreSQL build provenance mismatch")
-    if not summary["postgres_binary_path"].endswith("postgresql-16.14-install/bin/postgres"):
+    if not calibration_provenance["postgres_binary_path"].endswith("postgresql-16.14-install/bin/postgres"):
         raise RuntimeError("unexpected PostgreSQL binary provenance")
     return screened_catalog, {
         "parser_provenance": json.dumps(summary["sql_analysis"], sort_keys=True),
         "pg_build_provenance": json.dumps(
             {
                 "postgres_version": summary["postgres_version"],
-                "postgres_binary_path": summary["postgres_binary_path"],
-                "pg_patch_sha256": summary["pg_patch_sha256"],
+                "postgres_binary_path": calibration_provenance["postgres_binary_path"],
+                "pg_patch_sha256": calibration_provenance["pg_patch_sha256"],
             },
             sort_keys=True,
         ),
