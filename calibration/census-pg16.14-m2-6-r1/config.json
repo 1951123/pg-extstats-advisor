@@ -1,0 +1,48 @@
+{
+  "build_provenance_path": "experiments/environment/postgresql-16.14-build.json",
+  "columns": [
+    "caseid",
+    "dage",
+    "dancstry1",
+    "dancstry2",
+    "iavail",
+    "icitizen",
+    "iclass",
+    "ddepart",
+    "idisabl1",
+    "idisabl2",
+    "ienglish",
+    "ifeb55",
+    "ifertil",
+    "dhispanic",
+    "dhour89",
+    "dhours",
+    "iimmigr"
+  ],
+  "count_levels": [
+    16,
+    32,
+    64,
+    128
+  ],
+  "database": {
+    "calibration_dsn": "host=/root/projects/pg-extstats-advisor/.build/pg16.14-experiment-socket port=55436 dbname=pgextadv_exp16_census_cal_r1 user=postgres"
+  },
+  "environment_description": "Authoritative source-built PostgreSQL 16.14 release-like profile in the dedicated pg16.14 experiment cluster; hardware provenance incomplete",
+  "expected_build_recipe_digest": "5819ddaea94ea0a6aab89afcfd5a6258189032a325125831d95ea79bcf09871a",
+  "gates": {
+    "max_cv": 0.1,
+    "max_heldout_relative_error": 0.15,
+    "max_same_count_subset_cv": 0.1,
+    "min_r_squared": 0.95
+  },
+  "output_path": "calibration/census-pg16.14-m2-6-r1",
+  "postgres_binary_path": "/root/projects/pg-extstats-advisor/.build/postgresql-16.14-install/bin/postgres",
+  "relation": "public.climate",
+  "repetitions": 15,
+  "require_postgres_version": "16.14",
+  "schema_version": 1,
+  "seed": 20260928,
+  "statistics_target": 100,
+  "subsets_per_count": 3
+}

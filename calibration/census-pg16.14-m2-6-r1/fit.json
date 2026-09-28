@@ -1,0 +1,31 @@
+{
+  "ci_caveat": "ordinary OLS approximation; repeated observations are not independent runs",
+  "coefficient_standard_errors": [
+    0.0019510640170794329,
+    3.153958574493258e-05,
+    3.153958574493258e-05
+  ],
+  "fd_seconds_per_object": 0.003341138088765342,
+  "intercept_seconds": 0.24726028360083113,
+  "max_relative_error": 0.23961884282640225,
+  "mcv_seconds_per_object": 0.001747411898796996,
+  "median_relative_error": 0.03629563786189775,
+  "model": "T=intercept+beta_mcv*n_mcv+beta_fd*n_fd",
+  "normal_approximation_95_percent_intervals": [
+    [
+      0.24343619812735545,
+      0.2510843690743068
+    ],
+    [
+      0.001685594310736928,
+      0.0018092294868570639
+    ],
+    [
+      0.003279320500705274,
+      0.0034029556768254096
+    ]
+  ],
+  "r_squared": 0.9680453803677885,
+  "rmse_seconds": 0.022725548465806,
+  "training_observations": 375
+}

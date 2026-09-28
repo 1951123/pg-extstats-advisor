@@ -1,0 +1,14 @@
+{
+  "ddl_included": false,
+  "dependent_variable": "full relation ANALYZE elapsed wall-clock seconds",
+  "execution_order": "deterministic seeded configuration shuffle",
+  "gates": {
+    "max_cv": 0.1,
+    "max_heldout_relative_error": 0.15,
+    "max_same_count_subset_cv": 0.1,
+    "min_r_squared": 0.95
+  },
+  "measured_repetitions": 15,
+  "seed": 20260928,
+  "warmup_count": 1
+}

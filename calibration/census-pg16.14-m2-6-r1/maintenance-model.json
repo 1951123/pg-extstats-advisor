@@ -1,0 +1,600 @@
+{
+  "calibration_provenance": {
+    "build_recipe_digest": "5819ddaea94ea0a6aab89afcfd5a6258189032a325125831d95ea79bcf09871a",
+    "cache_policy": "long-lived server; no cache flush; one untimed warmup per configuration",
+    "candidate_arity": 2,
+    "column_schema": [
+      {
+        "attnum": 1,
+        "name": "caseid",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 2,
+        "name": "dage",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 3,
+        "name": "dancstry1",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 4,
+        "name": "dancstry2",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 5,
+        "name": "iavail",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 6,
+        "name": "icitizen",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 7,
+        "name": "iclass",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 8,
+        "name": "ddepart",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 9,
+        "name": "idisabl1",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 10,
+        "name": "idisabl2",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 11,
+        "name": "ienglish",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 12,
+        "name": "ifeb55",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 13,
+        "name": "ifertil",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 14,
+        "name": "dhispanic",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 15,
+        "name": "dhour89",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 16,
+        "name": "dhours",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 17,
+        "name": "iimmigr",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 18,
+        "name": "dincome1",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 19,
+        "name": "dincome2",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 20,
+        "name": "dincome3",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 21,
+        "name": "dincome4",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 22,
+        "name": "dincome5",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 23,
+        "name": "dincome6",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 24,
+        "name": "dincome7",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 25,
+        "name": "dincome8",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 26,
+        "name": "dindustry",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 27,
+        "name": "ikorean",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 28,
+        "name": "ilang1",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 29,
+        "name": "ilooking",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 30,
+        "name": "imarital",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 31,
+        "name": "imay75880",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 32,
+        "name": "imeans",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 33,
+        "name": "imilitary",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 34,
+        "name": "imobility",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 35,
+        "name": "imobillim",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 36,
+        "name": "doccup",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 37,
+        "name": "iothrserv",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 38,
+        "name": "iperscare",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 39,
+        "name": "dpob",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 40,
+        "name": "dpoverty",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 41,
+        "name": "dpwgt1",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 42,
+        "name": "iragechld",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 43,
+        "name": "drearning",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 44,
+        "name": "irelat1",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 45,
+        "name": "irelat2",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 46,
+        "name": "iremplpar",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 47,
+        "name": "iriders",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 48,
+        "name": "irlabor",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 49,
+        "name": "irownchld",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 50,
+        "name": "drpincome",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 51,
+        "name": "irpob",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 52,
+        "name": "irrelchld",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 53,
+        "name": "irspouse",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 54,
+        "name": "irvetserv",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 55,
+        "name": "ischool",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 56,
+        "name": "isept80",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 57,
+        "name": "isex",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 58,
+        "name": "isubfam1",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 59,
+        "name": "isubfam2",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 60,
+        "name": "itmpabsnt",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 61,
+        "name": "dtravtime",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 62,
+        "name": "ivietnam",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 63,
+        "name": "dweek89",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 64,
+        "name": "iwork89",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 65,
+        "name": "iworklwk",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 66,
+        "name": "iwwii",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 67,
+        "name": "iyearsch",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 68,
+        "name": "iyearwrk",
+        "not_null": false,
+        "type": "integer"
+      },
+      {
+        "attnum": 69,
+        "name": "dyrsserv",
+        "not_null": false,
+        "type": "integer"
+      }
+    ],
+    "config_digest": "9aea3a42dcec4630ce4fe56ab9d1b5c9be9beb6cd3b38244c27cbeab3c365167",
+    "database_identity": "pgextadv_exp16_census_cal_r1",
+    "environment_authoritative": true,
+    "environment_description": "Authoritative source-built PostgreSQL 16.14 release-like profile in the dedicated pg16.14 experiment cluster; hardware provenance incomplete",
+    "fd_candidate_pool_size": 136,
+    "hardware_provenance_complete": false,
+    "mcv_candidate_pool_size": 136,
+    "mechanisms": [
+      "mcv",
+      "fd"
+    ],
+    "pg_patch_sha256": "357e11063a55ad7e9b75dadcf78aaa44ec61911e42b4707953022ae42ff048da",
+    "postgres_binary_path": "/root/projects/pg-extstats-advisor/.build/postgresql-16.14-install/bin/postgres",
+    "postgres_version": "16.14",
+    "relation_identity": "public.climate",
+    "relation_logical_fingerprint": "0a9390098b8c4eb29eb53c979f698e43e127bb39c34386fe32a5ca857c811f1d",
+    "relation_physical_fingerprint": "f098df85e56a34dfa0d97bdd50e04d4a1c94757a6867d90f476b17f91ffd6a30",
+    "reltuples": 2458285.0,
+    "repetitions": 15,
+    "repo_commit": "825b8d7e5610a55b92797e3dd5fe7455b305e5aa",
+    "row_count": 2458285,
+    "seed": 20260928,
+    "server_settings": {
+      "cpu_index_tuple_cost": "0.005",
+      "cpu_operator_cost": "0.0025",
+      "cpu_tuple_cost": "0.01",
+      "default_statistics_target": "100",
+      "effective_cache_size": "4GB",
+      "jit": "off",
+      "max_parallel_workers_per_gather": "2",
+      "random_page_cost": "4",
+      "work_mem": "4MB"
+    },
+    "statistics_target": 100,
+    "timing_clock": "time.perf_counter",
+    "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471"
+  },
+  "candidate_arity": 2,
+  "digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e",
+  "fit": {
+    "ci_caveat": "ordinary OLS approximation; repeated observations are not independent runs",
+    "coefficient_standard_errors": [
+      0.0019510640170794329,
+      3.153958574493258e-05,
+      3.153958574493258e-05
+    ],
+    "fd_seconds_per_object": 0.003341138088765342,
+    "intercept_seconds": 0.24726028360083113,
+    "max_relative_error": 0.23961884282640225,
+    "mcv_seconds_per_object": 0.001747411898796996,
+    "median_relative_error": 0.03629563786189775,
+    "model": "T=intercept+beta_mcv*n_mcv+beta_fd*n_fd",
+    "normal_approximation_95_percent_intervals": [
+      [
+        0.24343619812735545,
+        0.2510843690743068
+      ],
+      [
+        0.001685594310736928,
+        0.0018092294868570639
+      ],
+      [
+        0.003279320500705274,
+        0.0034029556768254096
+      ]
+    ],
+    "r_squared": 0.9680453803677885,
+    "rmse_seconds": 0.022725548465806,
+    "training_observations": 375
+  },
+  "format_version": 1,
+  "model_type": "empirical-mechanism-count-v1",
+  "model_version": "cal-9aea3a42dcec4630",
+  "parameters": {
+    "fd_ms_per_object": "3.3411380887653417",
+    "mcv_ms_per_object": "1.747411898796996"
+  },
+  "stability": {
+    "fd_aggregate_signal_seconds": 0.42766567536196376,
+    "gates": {
+      "fit_r_squared": {
+        "observed": 0.9680453803677885,
+        "operator": ">=",
+        "passed": true,
+        "threshold": 0.95
+      },
+      "heldout_max_relative_error": {
+        "observed": 0.029510642507355102,
+        "operator": "<=",
+        "passed": true,
+        "threshold": 0.15
+      },
+      "nonnegative_slopes": {
+        "observed": {
+          "fd": 0.003341138088765342,
+          "mcv": 0.001747411898796996
+        },
+        "operator": ">=",
+        "passed": true,
+        "threshold": 0
+      },
+      "same_count_subset_cv": {
+        "applicable": true,
+        "observed": 0.06342944779845201,
+        "operator": "<=",
+        "passed": true,
+        "threshold": 0.1
+      },
+      "within_configuration_cv": {
+        "observed": 0.08707138681785359,
+        "operator": "<=",
+        "passed": true,
+        "threshold": 0.1
+      }
+    },
+    "mcv_aggregate_signal_seconds": 0.22366872304601548,
+    "median_configuration_stddev_seconds": 0.014728695117899551,
+    "same_count_subset_variability": [
+      {
+        "count": 16,
+        "mean_seconds": 0.2678253484222902,
+        "mechanism": "mcv",
+        "subset_count": 3,
+        "subset_mean_cv": 0.046361977616325385
+      },
+      {
+        "count": 32,
+        "mean_seconds": 0.30151631313330857,
+        "mechanism": "mcv",
+        "subset_count": 3,
+        "subset_mean_cv": 0.023384046918969364
+      },
+      {
+        "count": 64,
+        "mean_seconds": 0.36519701973314417,
+        "mechanism": "mcv",
+        "subset_count": 3,
+        "subset_mean_cv": 0.06342944779845201
+      },
+      {
+        "count": 128,
+        "mean_seconds": 0.46921729784436245,
+        "mechanism": "mcv",
+        "subset_count": 3,
+        "subset_mean_cv": 0.026100430162829185
+      },
+      {
+        "count": 16,
+        "mean_seconds": 0.30560857851099477,
+        "mechanism": "fd",
+        "subset_count": 3,
+        "subset_mean_cv": 0.045878807104414686
+      },
+      {
+        "count": 32,
+        "mean_seconds": 0.3586880712666445,
+        "mechanism": "fd",
+        "subset_count": 3,
+        "subset_mean_cv": 0.028449915193236024
+      },
+      {
+        "count": 64,
+        "mean_seconds": 0.45501063288874216,
+        "mechanism": "fd",
+        "subset_count": 3,
+        "subset_mean_cv": 0.04727346937440852
+      },
+      {
+        "count": 128,
+        "mean_seconds": 0.6762281002667603,
+        "mechanism": "fd",
+        "subset_count": 3,
+        "subset_mean_cv": 0.04235258882074466
+      }
+    ]
+  },
+  "statistics_target": 100,
+  "unit": "milliseconds-per-analyze"
+}
