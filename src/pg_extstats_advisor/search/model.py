@@ -43,6 +43,7 @@ class MoveRecord:
 
 @dataclass(frozen=True, slots=True)
 class SearchResult:
+    selected_state: EvaluationState
     selected_design: Design
     selected_objective: float
     selected_maintenance_cost: Decimal

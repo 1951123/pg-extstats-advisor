@@ -200,6 +200,7 @@ class DeterministicBudgetSearch:
             [(item.candidate_id, item.precedence_rank) for item in self.catalog.candidates]
         )
         return SearchResult(
+            selected_state=current,
             selected_design=current.design,
             selected_objective=current.aggregate_objective,
             selected_maintenance_cost=cost,
