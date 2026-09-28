@@ -1,0 +1,70 @@
+{
+  "format_version": 1,
+  "experiment": "M2.9 Candidate Singleton Utility Profiling",
+  "status": "frozen-before-execution",
+  "repository_commit": "6dc1fca9a2e868b8c7dd4c148d099dd1bbbe312c",
+  "postgres": {
+    "version": "16.14",
+    "install": ".build/postgresql-16.14-install",
+    "patch_sha256": "aab7b323cf3b89179235ae3d0b40c9ce6a3f4009238b83b90da4f4e8a5d55b34"
+  },
+  "workload": {
+    "query_count": 468,
+    "digest": "796ab606e825969ad91801c9795cd830ef40686568fe857d856921a8d42215"
+  },
+  "candidate_catalog": {
+    "count": 4506,
+    "mcv_count": 2253,
+    "fd_count": 2253,
+    "digest": "74727a871b3a601977885cbf96d25cda6e5ac38ef448d1815561bdc5988a425a"
+  },
+  "incidence": {
+    "edge_count": 19996,
+    "digest": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4"
+  },
+  "repository": {
+    "digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+    "present_mcv": 2253,
+    "absent_native_mcv": 0,
+    "present_fd": 1144,
+    "absent_native_fd": 1109
+  },
+  "maintenance_model": {
+    "digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e"
+  },
+  "frozen_repository_root": "experiments/census-m2-7/budgets/b010-run1",
+  "singleton_definition": {
+    "baseline_design": [],
+    "candidate_design": "{c}",
+    "improvement": "F(empty) - F({c})",
+    "classification": "strict floating comparison; no epsilon and no clipping"
+  },
+  "evaluation_semantics": [
+    "authoritative frozen native payload repository",
+    "native PostgreSQL planner/CE",
+    "query-local affected replay",
+    "no ANALYZE",
+    "no statistics DDL",
+    "no maintenance measurement",
+    "ABSENT_NATIVE candidates are evaluated normally"
+  ],
+  "ranking_tie_break": [
+    "higher singleton improvement",
+    "lower maintenance cost",
+    "lower precedence rank",
+    "candidate ID"
+  ],
+  "retrospective_source": {
+    "protocol": "M2.7 protocol-v2",
+    "checkpoint": "experiments/census-m2-7/v2/budgets/b100-run1/checkpoint.json",
+    "accepted_count": 36,
+    "accepted_sequence_sha256": "aabb650c14db18432f04f4905d11d0bcc847367d4c213f22a789c5cf9d8e5e03"
+  },
+  "scope_exclusions": [
+    "no screening rule",
+    "no M2.7 resume",
+    "no M3",
+    "no candidate generation change",
+    "no ranking-based search"
+  ]
+}
