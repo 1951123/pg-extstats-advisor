@@ -30,6 +30,18 @@ the `(mechanism, arity)` feature schema. Its digest is SHA256 of canonical JSON.
 The integration fixture uses `(base_mcv=0, per_column_mcv=1, base_fd=1,
 per_column_fd=1)` only to exercise functionality.
 
+### Uniform statistics-target scope
+
+The MVP assumes a uniform statistics target across all candidates. The target is
+fixed before payload acquisition and search: it is not a candidate decision
+variable, does not participate in search, is not a maintenance-cost model
+feature, and cannot be optimized per candidate. The current maintenance model
+therefore retains only mechanism kind and arity as candidate features, while the
+additive design-cost abstraction remains unchanged. This scope keeps the MVP
+per-extstat maintenance model simple and avoids introducing sample-size coupling
+into the search space; it is an explicit assumption, not a claim that PostgreSQL
+maintenance cost is inherently independent of statistics target.
+
 ## Search boundary and provenance
 
 `DeterministicBudgetSearch` depends only on `CandidateCatalog`, the evaluator

@@ -42,6 +42,9 @@ class DeterministicBudgetSearch:
         self.cost_model = cost_model
         self.budget = budget
         self.config = config or SearchConfig()
+        self._reset_run_state()
+
+    def _reset_run_state(self) -> None:
         self._trajectory: list[MoveRecord] = []
         self._evaluated = 0
         self._skipped = 0
@@ -186,6 +189,7 @@ class DeterministicBudgetSearch:
             current = accepted
 
     def run(self) -> SearchResult:
+        self._reset_run_state()
         initial = Design(())
         self._calls += 1
         current = self.evaluator.evaluate_design(initial)

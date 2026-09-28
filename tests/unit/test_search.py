@@ -144,6 +144,33 @@ def test_local_drop_swap_contextual_and_repeatable() -> None:
     assert first.final_design == Design((CandidateId("C"), CandidateId("D")))
 
 
+def test_same_search_instance_can_run_twice_without_accumulating_state() -> None:
+    catalog, objectives = fixture()
+    evaluator = CatalogLandscapeEvaluator(objectives, catalog)
+    model = PresetMaintenanceCostModel(0, 1, 0, 1)
+    search = DeterministicBudgetSearch(
+        evaluator,
+        catalog,
+        model,
+        MaintenanceBudget(6, model.unit),
+    )
+
+    first = search.run()
+    first_fixture_calls = evaluator.full_calls + evaluator.move_calls
+    second = search.run()
+
+    assert second.trajectory == first.trajectory
+    assert second.selected_design == first.selected_design
+    assert second.selected_objective == first.selected_objective
+    assert second.selected_maintenance_cost == first.selected_maintenance_cost
+    assert second.evaluated_moves_count == first.evaluated_moves_count
+    assert second.infeasible_moves_skipped_count == first.infeasible_moves_skipped_count
+    assert second.evaluator_calls_count == first.evaluator_calls_count
+    assert second.accepted_moves_count == first.accepted_moves_count
+    assert second.termination_reason == first.termination_reason
+    assert evaluator.full_calls + evaluator.move_calls == 2 * first_fixture_calls
+
+
 def test_query_local_and_full_reference_choose_same_trajectory() -> None:
     local, _ = run(6, full_reference=False)
     reference, _ = run(6, full_reference=True)
