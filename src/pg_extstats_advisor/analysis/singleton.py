@@ -69,3 +69,32 @@ def recall_at(ranks: Iterable[int], cutoff: int) -> int:
     if cutoff < 0:
         raise ValueError("cutoff must be non-negative")
     return sum(1 for rank in ranks if rank <= cutoff)
+
+
+def top_fraction_count(total: int, fraction: float) -> int:
+    """Return the deterministic ceiling count for a top-fraction screen."""
+
+    if total < 0 or not math.isfinite(fraction) or not 0 < fraction <= 1:
+        raise ValueError("total must be non-negative and fraction must be in (0, 1]")
+    return math.ceil(total * fraction)
+
+
+def screen_singleton_rows(
+    rows: Sequence[Mapping[str, Any]], fraction: float
+) -> list[dict[str, Any]]:
+    """Retain a deterministic top singleton-utility fraction.
+
+    Ranking is exactly the M2.9 raw ordering: descending singleton improvement,
+    ascending maintenance cost, precedence rank, then candidate identity.
+    """
+
+    ordered = deterministic_order(rows, "singleton_improvement")
+    count = top_fraction_count(len(ordered), fraction)
+    return [
+        {
+            **dict(row),
+            "screening_rank": rank,
+            "singleton_percentile": percentile_from_rank(rank, len(ordered)),
+        }
+        for rank, row in enumerate(ordered[:count], start=1)
+    ]

@@ -417,7 +417,8 @@ class DeterministicBudgetSearch:
         self._calls += 1
         current = self.evaluator.evaluate_design(initial)
         current = self._greedy(current)
-        current = self._local(current)
+        if not self.config.add_only:
+            current = self._local(current)
         cost = self.cost_model.estimate_design(current.design, self.catalog)
         catalog_digest = candidate_catalog_digest(self.catalog.candidates)
         return SearchResult(
@@ -434,7 +435,9 @@ class DeterministicBudgetSearch:
             infeasible_moves_skipped_count=self._skipped,
             evaluator_calls_count=self._calls,
             accepted_moves_count=self._accepted,
-            termination_reason="one-move-local-optimum",
+            termination_reason=(
+                "add-local-optimum" if self.config.add_only else "one-move-local-optimum"
+            ),
             config=self.config,
             workload_digest=current.workload_digest,
             repository_digest=current.repository_digest,

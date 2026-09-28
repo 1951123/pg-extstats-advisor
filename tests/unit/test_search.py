@@ -229,6 +229,26 @@ def test_query_local_and_full_reference_choose_same_trajectory() -> None:
     assert local.selected_objective == reference.selected_objective
 
 
+def test_add_only_skips_local_phase_and_reports_add_optimum() -> None:
+    catalog, objectives = fixture()
+    evaluator = CatalogLandscapeEvaluator(objectives, catalog)
+    model = PresetMaintenanceCostModel(0, 1, 0, 1)
+    search = DeterministicBudgetSearch(
+        evaluator,
+        catalog,
+        model,
+        MaintenanceBudget(6, model.unit),
+        SearchConfig(add_only=True),
+    )
+
+    result = search.run()
+
+    assert result.termination_reason == "add-local-optimum"
+    assert all(record.phase == "greedy-add" for record in result.trajectory)
+    assert all(record.move.kind.value == "add" for record in result.trajectory)
+    assert all(record.move.drop is None for record in result.trajectory)
+
+
 def test_qerror_lower_bound_floor_and_unknown_query_guard() -> None:
     catalog, objectives = fixture()
     evaluator = CatalogLandscapeEvaluator(objectives, catalog)

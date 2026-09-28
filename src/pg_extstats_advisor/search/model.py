@@ -26,6 +26,7 @@ class SearchConfig:
     full_reference: bool = False
     exact_bound_pruning: bool = True
     record_pruned_moves: bool = False
+    add_only: bool = False
 
 
 @dataclass(frozen=True, slots=True)
