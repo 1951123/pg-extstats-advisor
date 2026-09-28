@@ -3,6 +3,10 @@ from decimal import Decimal
 import pytest
 
 from pg_extstats_advisor.candidates.model import CandidateCatalog
+from pg_extstats_advisor.cost.empirical import (
+    EmpiricalMechanismCountCostModel,
+    artifact_digest,
+)
 from pg_extstats_advisor.cost.model import MaintenanceBudget
 from pg_extstats_advisor.cost.preset import PresetMaintenanceCostModel
 from pg_extstats_advisor.models import Candidate, CandidateId, Design, MechanismKind
@@ -37,3 +41,31 @@ def test_cost_validation_digest_and_units() -> None:
         MaintenanceBudget(Decimal("NaN"), model1.unit)
     with pytest.raises(ValueError, match="units differ|does not match"):
         model1.is_feasible(Design(()), CandidateCatalog(()), MaintenanceBudget(0, "milliseconds"))
+
+
+def test_empirical_model_round_trip_scope_and_units() -> None:
+    raw = {
+        "format_version": 1,
+        "model_type": "empirical-mechanism-count-v1",
+        "model_version": "test",
+        "unit": "milliseconds-per-analyze",
+        "statistics_target": 100,
+        "candidate_arity": 2,
+        "parameters": {"mcv_ms_per_object": "1.25", "fd_ms_per_object": "2.50"},
+        "fit": {},
+        "stability": {},
+        "calibration_provenance": {},
+    }
+    raw["digest"] = artifact_digest(raw)
+    model = EmpiricalMechanismCountCostModel.from_artifact(raw)
+    assert model.estimate_candidate(candidate("m", MechanismKind.MCV, 2, 0)) == Decimal("1.25")
+    assert model.estimate_candidate(candidate("f", MechanismKind.FD, 2, 1)) == Decimal("2.50")
+    assert model.digest == raw["digest"]
+    model.validate_runtime(100)
+    with pytest.raises(ValueError, match="target"):
+        model.validate_runtime(1000)
+    with pytest.raises(ValueError, match="arity-2"):
+        model.estimate_candidate(candidate("bad", MechanismKind.MCV, 3, 2))
+    broken = dict(raw, digest="0" * 64)
+    with pytest.raises(ValueError, match="digest"):
+        EmpiricalMechanismCountCostModel.from_artifact(broken)

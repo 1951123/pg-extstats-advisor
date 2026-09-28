@@ -11,7 +11,8 @@ from typing import Any
 
 from psycopg import Connection
 
-from pg_extstats_advisor.cost.model import MaintenanceBudget
+from pg_extstats_advisor.cost.empirical import EmpiricalMechanismCountCostModel
+from pg_extstats_advisor.cost.model import MaintenanceBudget, MaintenanceCostModel
 from pg_extstats_advisor.cost.preset import PresetMaintenanceCostModel
 from pg_extstats_advisor.deploy.physical import PhysicalDeployer
 from pg_extstats_advisor.deploy.sql import build_search_deployment_plan
@@ -166,8 +167,13 @@ def load_prepared_run(root: Path) -> PreparedRun:
     )
 
 
-def load_maintenance_model(root: Path) -> PresetMaintenanceCostModel:
+def load_maintenance_model(root: Path) -> MaintenanceCostModel:
     raw = json.loads((root / "maintenance-model.json").read_text())
+    if raw.get("model_type") == "empirical-mechanism-count-v1":
+        model = EmpiricalMechanismCountCostModel.from_artifact(raw)
+        summary = json.loads((root / "prepare-summary.json").read_text())
+        model.validate_runtime(int(summary["statistics_target"]))
+        return model
     if raw.get("format_version") != 1 or raw.get("model_type") != "preset-development":
         raise ValueError("unsupported maintenance model artifact")
     p = raw["parameters"]
