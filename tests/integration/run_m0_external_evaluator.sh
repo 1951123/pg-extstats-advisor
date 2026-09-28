@@ -15,4 +15,4 @@ runuser -u postgres -- "$RUNTIME_ROOT/install/bin/pg_ctl" -D "$RUNTIME_ROOT/data
 trap 'runuser -u postgres -- "$RUNTIME_ROOT/install/bin/pg_ctl" -D "$RUNTIME_ROOT/data" stop -m fast >/dev/null' EXIT
 export PG_EXTSTATS_TEST_DSN="host=$RUNTIME_ROOT/socket port=$PORT dbname=postgres user=postgres"
 cd "$REPO_ROOT"
-.venv/bin/python -m pytest -q tests/integration/test_external_evaluator.py
+.venv/bin/python -m pytest -q tests/integration

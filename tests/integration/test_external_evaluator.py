@@ -74,7 +74,9 @@ def setup_fixture(connection: psycopg.Connection) -> dict[str, float]:
     for relation in ("m0_single", "m0_overlap", "m0_fd", "m0_mixed", "m0_unaffected"):
         connection.execute(f"ANALYZE {relation}")
     physical = {
-        "empty_single": plan_rows(connection, "SELECT * FROM m0_single WHERE a=1 AND b=1", "m0_single")
+        "empty_single": plan_rows(
+            connection, "SELECT * FROM m0_single WHERE a=1 AND b=1", "m0_single"
+        )
     }
     connection.execute("CREATE STATISTICS m0_single_ab (mcv) ON a,b FROM m0_single")
     connection.execute("CREATE STATISTICS m0_overlap_ab (mcv) ON a,b FROM m0_overlap")
@@ -90,9 +92,7 @@ def setup_fixture(connection: psycopg.Connection) -> dict[str, float]:
             connection, "SELECT * FROM m0_overlap WHERE a=1 AND b=1 AND c=1", "m0_overlap"
         ),
         fd=plan_rows(connection, "SELECT * FROM m0_fd WHERE a=1 AND b=1", "m0_fd"),
-        mixed=plan_rows(
-            connection, "SELECT * FROM m0_mixed WHERE a=1 AND b=1 AND c=1", "m0_mixed"
-        ),
+        mixed=plan_rows(connection, "SELECT * FROM m0_mixed WHERE a=1 AND b=1 AND c=1", "m0_mixed"),
     )
     connection.commit()
     return physical
@@ -182,11 +182,41 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
             for name in ("m0_single", "m0_overlap", "m0_fd", "m0_mixed", "m0_unaffected")
         }
         queries = (
-            WorkloadQuery(QueryId("q_single"), "SELECT * FROM m0_single WHERE a=1 AND b=1", 1000, "m0_single", frozenset({relation_oids["m0_single"]})),
-            WorkloadQuery(QueryId("q_overlap"), "SELECT * FROM m0_overlap WHERE a=1 AND b=1 AND c=1", 800, "m0_overlap", frozenset({relation_oids["m0_overlap"]})),
-            WorkloadQuery(QueryId("q_fd"), "SELECT * FROM m0_fd WHERE a=1 AND b=1", 100, "m0_fd", frozenset({relation_oids["m0_fd"]})),
-            WorkloadQuery(QueryId("q_mixed"), "SELECT * FROM m0_mixed WHERE a=1 AND b=1 AND c=1", 500, "m0_mixed", frozenset({relation_oids["m0_mixed"]})),
-            WorkloadQuery(QueryId("q_unaffected"), "SELECT * FROM m0_unaffected WHERE a=1 AND b=1", 1000, "m0_unaffected", frozenset({relation_oids["m0_unaffected"]})),
+            WorkloadQuery(
+                QueryId("q_single"),
+                "SELECT * FROM m0_single WHERE a=1 AND b=1",
+                1000,
+                "m0_single",
+                frozenset({relation_oids["m0_single"]}),
+            ),
+            WorkloadQuery(
+                QueryId("q_overlap"),
+                "SELECT * FROM m0_overlap WHERE a=1 AND b=1 AND c=1",
+                800,
+                "m0_overlap",
+                frozenset({relation_oids["m0_overlap"]}),
+            ),
+            WorkloadQuery(
+                QueryId("q_fd"),
+                "SELECT * FROM m0_fd WHERE a=1 AND b=1",
+                100,
+                "m0_fd",
+                frozenset({relation_oids["m0_fd"]}),
+            ),
+            WorkloadQuery(
+                QueryId("q_mixed"),
+                "SELECT * FROM m0_mixed WHERE a=1 AND b=1 AND c=1",
+                500,
+                "m0_mixed",
+                frozenset({relation_oids["m0_mixed"]}),
+            ),
+            WorkloadQuery(
+                QueryId("q_unaffected"),
+                "SELECT * FROM m0_unaffected WHERE a=1 AND b=1",
+                1000,
+                "m0_unaffected",
+                frozenset({relation_oids["m0_unaffected"]}),
+            ),
         )
         workload = Workload("m0-b-workload-v1", queries)
         incidence = IncidenceIndex(
@@ -208,7 +238,12 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
         empty = evaluator.evaluate_design(Design(()))
         assert empty.by_query()[QueryId("q_single")].estimate == physical["empty_single"]
         initial = repository.catalog.normalize_design(
-            {CandidateId("single_mcv"), CandidateId("overlap_ab"), CandidateId("fd_ab"), CandidateId("mixed_mcv")}
+            {
+                CandidateId("single_mcv"),
+                CandidateId("overlap_ab"),
+                CandidateId("fd_ab"),
+                CandidateId("mixed_mcv"),
+            }
         )
         current = evaluator.evaluate_design(initial)
         assert current.by_query()[QueryId("q_single")].estimate == physical["single"]
@@ -235,19 +270,27 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
             assert adapter.registration_calls == registrations_before
             current = local
 
-        mixed_design = repository.catalog.normalize_design({CandidateId("mixed_mcv"), CandidateId("mixed_fd")})
+        mixed_design = repository.catalog.normalize_design(
+            {CandidateId("mixed_mcv"), CandidateId("mixed_fd")}
+        )
         mixed = evaluator.evaluate_design(mixed_design)
         assert mixed.by_query()[QueryId("q_mixed")].estimate == physical["mixed"]
-        overlap_design = repository.catalog.normalize_design({CandidateId("overlap_ab"), CandidateId("overlap_bc")})
+        overlap_design = repository.catalog.normalize_design(
+            {CandidateId("overlap_ab"), CandidateId("overlap_bc")}
+        )
         overlap = evaluator.evaluate_design(overlap_design)
         assert overlap.by_query()[QueryId("q_overlap")].estimate == physical["overlap"]
         assert catalog_fingerprint(connection) == fingerprint
 
         with pytest.raises(ValueError, match="state/design mismatch"):
-            evaluator.evaluate_move(Design(()), Move.add_candidate(CandidateId("single_mcv")), current)
+            evaluator.evaluate_move(
+                Design(()), Move.add_candidate(CandidateId("single_mcv")), current
+            )
         bad_lineage = replace(current, repository_digest="wrong")
         with pytest.raises(ValueError, match="state/repository mismatch"):
-            evaluator.evaluate_move(current.design, Move.add_candidate(CandidateId("single_mcv")), bad_lineage)
+            evaluator.evaluate_move(
+                current.design, Move.add_candidate(CandidateId("single_mcv")), bad_lineage
+            )
 
         cost_model = PresetMaintenanceCostModel(0, 1, 1, 1)
         registrations = adapter.registration_calls
@@ -330,9 +373,7 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
             statistics_target=10000,
             validation_relations=validation_relations,
         )
-        empty_deployment = PhysicalDeployer(connection, "disposable-m2-cluster").deploy(
-            empty_plan
-        )
+        empty_deployment = PhysicalDeployer(connection, "disposable-m2-cluster").deploy(empty_plan)
         assert empty_deployment.created_statistics == ()
         assert len(empty_deployment.analyze_commands) == len(validation_relations)
         empty_physical = evaluate_physical(connection, workload, Design(()), repository.digest)
@@ -368,9 +409,7 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
             workload_digest=workload.digest,
             statistics_target=10000,
         )
-        mixed_deployment = PhysicalDeployer(connection, "disposable-m2-cluster").deploy(
-            mixed_plan
-        )
+        mixed_deployment = PhysicalDeployer(connection, "disposable-m2-cluster").deploy(mixed_plan)
         mixed_fingerprints = collect_fresh_payload_fingerprints(connection, mixed_deployment)
         assert {item.mechanism for item in mixed_fingerprints} == {"mcv", "fd"}
         for name in mixed_plan.statistics_names:
@@ -384,15 +423,11 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
             statistics_target=10000,
             validation_relations=validation_relations,
         )
-        selected_deployment = PhysicalDeployer(
-            connection, "disposable-m2-cluster"
-        ).deploy(selected_plan)
-        fresh = evaluate_physical(
-            connection, workload, local.selected_design, repository.digest
+        selected_deployment = PhysicalDeployer(connection, "disposable-m2-cluster").deploy(
+            selected_plan
         )
-        fresh_fingerprints = collect_fresh_payload_fingerprints(
-            connection, selected_deployment
-        )
+        fresh = evaluate_physical(connection, workload, local.selected_design, repository.digest)
+        fresh_fingerprints = collect_fresh_payload_fingerprints(connection, selected_deployment)
         provenance = ValidationProvenance(
             "working-tree-integration",
             repository.upstream_sha256,
@@ -421,9 +456,7 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
         validation = build_validation_result(
             frozen=local.selected_state,
             fresh=fresh,
-            frozen_fingerprints=frozen_payload_fingerprints(
-                repository, local.selected_design
-            ),
+            frozen_fingerprints=frozen_payload_fingerprints(repository, local.selected_design),
             fresh_fingerprints=fresh_fingerprints,
             deployment=selected_deployment,
             provenance=provenance,
@@ -471,9 +504,12 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
         ):
             connection.execute(f"DROP TABLE public.{quote_identifier(relation)}")
         connection.commit()
-        assert connection.execute(
-            "SELECT count(*) FROM pg_statistic_ext WHERE stxname LIKE 'pgextadv_%'"
-        ).fetchone()[0] == 0
+        assert (
+            connection.execute(
+                "SELECT count(*) FROM pg_statistic_ext WHERE stxname LIKE 'pgextadv_%'"
+            ).fetchone()[0]
+            == 0
+        )
         print(
             json.dumps(
                 {
@@ -487,7 +523,9 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
                         "design": local.final_design.candidate_ids,
                         "objective": local.selected_objective,
                         "cost": str(local.selected_maintenance_cost),
-                        "accepted": [record.move.kind.value for record in local.trajectory if record.accepted],
+                        "accepted": [
+                            record.move.kind.value for record in local.trajectory if record.accepted
+                        ],
                         "skipped": local.infeasible_moves_skipped_count,
                         "evaluator_calls": local.evaluator_calls_count,
                         "planner_calls": local_planner_calls,
@@ -496,7 +534,11 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
                         "design": loose1.final_design.candidate_ids,
                         "objective": loose1.selected_objective,
                         "cost": str(loose1.selected_maintenance_cost),
-                        "accepted": [record.move.kind.value for record in loose1.trajectory if record.accepted],
+                        "accepted": [
+                            record.move.kind.value
+                            for record in loose1.trajectory
+                            if record.accepted
+                        ],
                         "skipped": loose1.infeasible_moves_skipped_count,
                         "evaluator_calls": loose1.evaluator_calls_count,
                         "planner_calls": loose_planner_calls,

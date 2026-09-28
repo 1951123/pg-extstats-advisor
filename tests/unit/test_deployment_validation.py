@@ -29,7 +29,16 @@ from pg_extstats_advisor.validate.report import render_validation_report
 def catalog() -> CandidateCatalog:
     return CandidateCatalog(
         (
-            Candidate(CandidateId("mcv/a"), 1, "Odd Schema.Odd Table", MechanismKind.MCV, ("a", 'b"x'), (), 0, 10),
+            Candidate(
+                CandidateId("mcv/a"),
+                1,
+                "Odd Schema.Odd Table",
+                MechanismKind.MCV,
+                ("a", 'b"x'),
+                (),
+                0,
+                10,
+            ),
             Candidate(CandidateId("fd b"), 1, "public.t", MechanismKind.FD, ("b", "c"), (), 1, 11),
         )
     )
@@ -68,8 +77,8 @@ def test_sql_generation_is_safe_ordered_and_deterministic() -> None:
     )
     assert first == second
     assert first.ordered_candidates == items.candidates
-    assert "(mcv) ON \"a\", \"b\"\"x\"" in first.create_statements[0]
-    assert 'FROM \"Odd Schema\".\"Odd Table\"' in first.create_statements[0]
+    assert '(mcv) ON "a", "b""x"' in first.create_statements[0]
+    assert 'FROM "Odd Schema"."Odd Table"' in first.create_statements[0]
     assert "(dependencies)" in first.create_statements[1]
     assert statistics_name("mcv/a") == statistics_name("mcv/a")
     assert len(statistics_name("x" * 200)) <= 63
@@ -94,12 +103,27 @@ def test_validation_comparison_payloads_serialization_and_lineage() -> None:
     plan = build_deployment_plan(
         design, items, repository_digest="repo", workload_digest="workload"
     )
-    deployment = DeploymentResult(plan, (), plan.analyze_statements, "disposable", "16.14", "a", "b", True)
+    deployment = DeploymentResult(
+        plan, (), plan.analyze_statements, "disposable", "16.14", "a", "b", True
+    )
     frozen_fingerprint = PayloadFingerprint("mcv/a", "mcv", "old", "a" * 64, 4, 10, 1, "relation")
-    fresh_fingerprint = replace(frozen_fingerprint, definition_identity="new", payload_sha256="b" * 64, catalog_oid=20)
+    fresh_fingerprint = replace(
+        frozen_fingerprint, definition_identity="new", payload_sha256="b" * 64, catalog_oid=20
+    )
     provenance = ValidationProvenance(
-        "commit", "upstream", "patch", "workload", "repo", None, None, None, None,
-        plan.sql_digest, "disposable", None, "16.14"
+        "commit",
+        "upstream",
+        "patch",
+        "workload",
+        "repo",
+        None,
+        None,
+        None,
+        None,
+        plan.sql_digest,
+        "disposable",
+        None,
+        "16.14",
     )
     result = build_validation_result(
         frozen=state(design, 8, 1.25),

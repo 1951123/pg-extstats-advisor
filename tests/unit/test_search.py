@@ -128,7 +128,9 @@ def test_zero_intermediate_loose_budgets_and_precheck() -> None:
     assert intermediate.selected_maintenance_cost <= 4
     assert intermediate.infeasible_moves_skipped_count > 0
     assert intermediate_evaluator.move_calls == intermediate.evaluated_moves_count
-    assert "swap" in [record.move.kind.value for record in intermediate.trajectory if record.accepted]
+    assert "swap" in [
+        record.move.kind.value for record in intermediate.trajectory if record.accepted
+    ]
 
     loose, _ = run(10)
     assert loose.final_design != Design(tuple(CandidateId(item) for item in "ABCD"))

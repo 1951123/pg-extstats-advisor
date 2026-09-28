@@ -21,7 +21,9 @@ def test_q_error_and_deterministic_aggregation() -> None:
 def test_incidence_add_drop_swap_and_validation() -> None:
     q1, q2, q3 = QueryId("q1"), QueryId("q2"), QueryId("q3")
     s1, s2 = CandidateId("s1"), CandidateId("s2")
-    index = IncidenceIndex(((s1, frozenset({q1, q2})), (s2, frozenset({q2}))), frozenset({q1, q2, q3}))
+    index = IncidenceIndex(
+        ((s1, frozenset({q1, q2})), (s2, frozenset({q2}))), frozenset({q1, q2, q3})
+    )
     assert index.affected(Move.add_candidate(s1)) == {q1, q2}
     assert index.affected(Move.drop_candidate(s2)) == {q2}
     assert index.affected(Move.swap(s1, s2)) == {q1, q2}
