@@ -31,6 +31,7 @@
   "screened_candidate_set_digest": "344c64191a6a6605026ad78db8fc41565f4eb2fc9d796b4c08842889e5f2a64a",
   "search_mode": "add-only",
   "budget_mode": "candidate-set-total",
+  "screened_universe_total_budget": "414.0398034077412444",
   "search_result_digest": "6e130abb639e67f3f18df571c6af3fe2b3fa1970f45fba429890cfe4f8f23d27",
   "recommendation_digest": "d9672b5abae95cbfc11ed44c89bcd8eeda1b8ee65fbf94d81ce99e7a7c8065fc",
   "source_repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",

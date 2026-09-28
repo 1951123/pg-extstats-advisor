@@ -27,6 +27,9 @@ moves plus the terminating no-improvement round). The resulting search and
 recommendation digests are recorded in `protocol.json` and
 `reproduction-summary.json`.
 
+The `candidate-set-total` budget was `414.0398034077412444`; the selected
+design consumed `195.4027612476062514` of that budget.
+
 The observed profile-import plus screen wall-clock interval was `4.31 s`;
 the one formal search process took `361.68 s`, for `365.99 s` excluding the
 historical singleton profiling run. The search made `16,644` evaluator calls

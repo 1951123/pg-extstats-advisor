@@ -13,7 +13,7 @@
   "selected_count": 110,
   "selected_objective": 936.3584041825216,
   "selected_maintenance_cost": "195.4027612476062514",
-  "budget": "195.4027612476062514",
+  "budget": "414.0398034077412444",
   "accepted_moves": 110,
   "deterministic_add_rounds": 111,
   "termination_reason": "add-local-optimum",
