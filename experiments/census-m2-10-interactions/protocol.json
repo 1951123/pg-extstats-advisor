@@ -1,0 +1,61 @@
+{
+  "format_version": 1,
+  "experiment": "M2.10 Singleton Screening Interaction-Rescue Analysis",
+  "status": "frozen-before-replay",
+  "repository_commit": "d576e9cca43d8697ca7d824fb3cfaadc3709f30f",
+  "postgres": {
+    "version": "16.14",
+    "install": ".build/postgresql-16.14-install",
+    "patch_sha256": "aab7b323cf3b89179235ae3d0b40c9ce6a3f4009238b83b90da4f4e8a5d55b34"
+  },
+  "source_artifacts": {
+    "m2_9_protocol_sha256": "07b092d12ab26257ecde4b47db41d538f531fa6c3e93e36457d7821788d58f7c",
+    "m2_7_v2_protocol_sha256": "d07215ea172ac59813e50102cca5b4d53b373704f98f6eed5b6f011cf49287b9",
+    "m2_7_v2_checkpoint_sha256": "f7ae8203c90b13da2e736b445caaed3bb2532523e9ffe3bb0556e86f4c412886",
+    "m2_7_v2_checkpoint": "experiments/census-m2-7/v2/budgets/b100-run1/checkpoint.json",
+    "m2_9_singleton_results": "experiments/census-m2-9-singletons/singleton-results.csv"
+  },
+  "lineage": {
+    "workload_digest": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215",
+    "candidate_catalog_digest": "74727a871b3a601977885cbf96d25cda6e5ac38ef448d1815561bdc5988a425a",
+    "incidence_digest": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4",
+    "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+    "maintenance_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e",
+    "workload_queries": 468,
+    "candidate_count": 4506,
+    "mcv_count": 2253,
+    "fd_count": 2253
+  },
+  "replay": {
+    "required": true,
+    "reason": "M2.7-v2 checkpoint lacks per-native-evaluation ADD records",
+    "rounds": 36,
+    "phase": "greedy-add",
+    "run": 1,
+    "budget": "1146.45031219779468381",
+    "exact_bound_pruning": true,
+    "capture_only_native_evaluations": true,
+    "exclude_bound_pruned_moves": true,
+    "stop_before_round": 37,
+    "no_analyze": true,
+    "statistics_ddl": 0,
+    "verification": [
+      "accepted candidate ID equals frozen checkpoint",
+      "accepted objective equals frozen checkpoint",
+      "round selected-count and native-evaluation counts are checked"
+    ]
+  },
+  "interaction_definition": {
+    "singleton_improvement": "F(empty) - F({c})",
+    "contextual_improvement": "F(Y_t) - F(Y_t union {c})",
+    "interaction_gain": "contextual_improvement - singleton_improvement",
+    "observed_only": true
+  },
+  "screening_analysis": {
+    "singleton_rank_fractions": [0.01, 0.02, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.75, 1.0],
+    "low_percentile_regions": [0.5, 0.7, 0.8, 0.9, 0.95],
+    "absolute_regions": ["<=0", "positive-below-median", "top-positive"],
+    "no_threshold_selection": true,
+    "no_screened_search": true
+  }
+}
