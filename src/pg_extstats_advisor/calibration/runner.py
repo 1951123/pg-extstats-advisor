@@ -27,6 +27,7 @@ from pg_extstats_advisor.calibration.design import (
 )
 from pg_extstats_advisor.calibration.fit import (
     TimingRow,
+    assess_gates,
     coefficient_intervals,
     fit_aggregate,
 )
@@ -288,36 +289,14 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
         })
     max_cv = max(item["cv"] for item in summaries)
     max_heldout = max((item["relative_error"] for item in heldout), default=math.inf)
-    slopes_positive = fit.mcv_seconds_per_object >= 0 and fit.fd_seconds_per_object >= 0
-    gates = {
-        "within_configuration_cv": {
-            "passed": max_cv <= config.gates.max_cv,
-            "observed": max_cv,
-            "threshold": config.gates.max_cv,
-            "operator": "<=",
-        },
-        "fit_r_squared": {
-            "passed": fit.r_squared >= config.gates.min_r_squared,
-            "observed": fit.r_squared,
-            "threshold": config.gates.min_r_squared,
-            "operator": ">=",
-        },
-        "heldout_max_relative_error": {
-            "passed": max_heldout <= config.gates.max_heldout_relative_error,
-            "observed": max_heldout,
-            "threshold": config.gates.max_heldout_relative_error,
-            "operator": "<=",
-        },
-        "nonnegative_slopes": {
-            "passed": slopes_positive,
-            "observed": {
-                "mcv": fit.mcv_seconds_per_object,
-                "fd": fit.fd_seconds_per_object,
-            },
-            "threshold": 0,
-            "operator": ">=",
-        },
-    }
+    gates = assess_gates(
+        fit,
+        max_cv=max_cv,
+        cv_threshold=config.gates.max_cv,
+        max_heldout_relative_error=max_heldout,
+        heldout_threshold=config.gates.max_heldout_relative_error,
+        r_squared_threshold=config.gates.min_r_squared,
+    )
     fit_dict = {
         "model": "T=intercept+beta_mcv*n_mcv+beta_fd*n_fd",
         "training_observations": sum(item.role == "fit" for item in timing_rows),

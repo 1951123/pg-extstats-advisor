@@ -28,6 +28,47 @@ class FitResult:
     coefficient_standard_errors: tuple[float, float, float] | None
 
 
+def assess_gates(
+    fit: FitResult,
+    *,
+    max_cv: float,
+    cv_threshold: float,
+    max_heldout_relative_error: float,
+    heldout_threshold: float,
+    r_squared_threshold: float,
+) -> dict[str, dict[str, object]]:
+    """Apply predeclared acceptance thresholds without modifying observations."""
+    return {
+        "within_configuration_cv": {
+            "passed": max_cv <= cv_threshold,
+            "observed": max_cv,
+            "threshold": cv_threshold,
+            "operator": "<=",
+        },
+        "fit_r_squared": {
+            "passed": fit.r_squared >= r_squared_threshold,
+            "observed": fit.r_squared,
+            "threshold": r_squared_threshold,
+            "operator": ">=",
+        },
+        "heldout_max_relative_error": {
+            "passed": max_heldout_relative_error <= heldout_threshold,
+            "observed": max_heldout_relative_error,
+            "threshold": heldout_threshold,
+            "operator": "<=",
+        },
+        "nonnegative_slopes": {
+            "passed": fit.mcv_seconds_per_object >= 0 and fit.fd_seconds_per_object >= 0,
+            "observed": {
+                "mcv": fit.mcv_seconds_per_object,
+                "fd": fit.fd_seconds_per_object,
+            },
+            "threshold": 0,
+            "operator": ">=",
+        },
+    }
+
+
 def _inverse3(matrix: list[list[float]]) -> list[list[float]]:
     augmented = [row[:] + [float(i == j) for j in range(3)] for i, row in enumerate(matrix)]
     for column in range(3):

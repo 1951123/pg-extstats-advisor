@@ -6,7 +6,7 @@ import pytest
 
 from pg_extstats_advisor.calibration.config import CalibrationConfig
 from pg_extstats_advisor.calibration.design import candidate_pool, configuration_design
-from pg_extstats_advisor.calibration.fit import TimingRow, fit_aggregate
+from pg_extstats_advisor.calibration.fit import TimingRow, assess_gates, fit_aggregate
 from pg_extstats_advisor.cost.empirical import EmpiricalMechanismCountCostModel, artifact_digest
 from pg_extstats_advisor.models import Candidate, CandidateId, MechanismKind
 
@@ -84,4 +84,16 @@ def test_negative_slope_is_visible_for_rejection() -> None:
         for m, f in ((0, 0), (2, 0), (4, 0), (0, 2), (0, 4))
         for repeat in range(2)
     )
-    assert fit_aggregate(rows).mcv_seconds_per_object < 0
+    fit = fit_aggregate(rows)
+    assert fit.mcv_seconds_per_object < 0
+    gates = assess_gates(
+        fit,
+        max_cv=0.11,
+        cv_threshold=0.10,
+        max_heldout_relative_error=0.16,
+        heldout_threshold=0.15,
+        r_squared_threshold=0.95,
+    )
+    assert not gates["within_configuration_cv"]["passed"]
+    assert not gates["heldout_max_relative_error"]["passed"]
+    assert not gates["nonnegative_slopes"]["passed"]
