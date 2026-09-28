@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+import time
 from collections.abc import Iterable, Iterator
 from dataclasses import dataclass, replace
 from decimal import Decimal
@@ -325,11 +326,36 @@ class DeterministicBudgetSearch:
         current: EvaluationState,
         current_cost: Decimal,
         moves: Iterable[Move],
+        metrics: dict[str, dict[str, Any]] | None = None,
     ) -> _EvaluatedMove | None:
         best: _EvaluatedMove | None = None
         best_index: int | None = None
         for move in moves:
+            move_type = move.kind.value
+            metric = metrics.get(move_type) if metrics is not None else None
+            if metric is not None:
+                metric["conceptual_moves"] += 1
+                metric_started = time.perf_counter()
+                before_skipped = self._skipped
+                before_no_improvement = self._bound_pruned_no_improvement
+                before_incumbent = self._bound_pruned_incumbent
+                before_evaluated = self._evaluated
             evaluated = self._consider(phase, current, move, current_cost, best)
+            if metric is not None:
+                metric["infeasible"] += self._skipped - before_skipped
+                metric["no_improvement_bound_pruned"] += (
+                    self._bound_pruned_no_improvement - before_no_improvement
+                )
+                metric["incumbent_bound_pruned"] += (
+                    self._bound_pruned_incumbent - before_incumbent
+                )
+                metric["native_evaluated"] += self._evaluated - before_evaluated
+                metric["elapsed_seconds"] += time.perf_counter() - metric_started
+                if evaluated is not None:
+                    metric["planner_calls"] += len(evaluated.state.affected_query_ids)
+                    metric["best_objective"] = min(
+                        metric["best_objective"], evaluated.state.aggregate_objective
+                    )
             if evaluated is None:
                 continue
             index = len(self._trajectory)
@@ -363,6 +389,45 @@ class DeterministicBudgetSearch:
         )
         self._accepted += 1
         return best
+
+    def evaluate_one_local_round(
+        self,
+        current: EvaluationState,
+        current_cost: Decimal | None = None,
+    ) -> tuple[EvaluationState, Decimal, _EvaluatedMove | None, dict[str, dict[str, Any]]]:
+        """Evaluate exactly one complete ADD/DROP/SWAP local neighborhood.
+
+        The method deliberately does not reset state, apply a second round, or
+        perform any other phase. Callers supply the starting state and may
+        inspect the optional winner before deciding what to do next.
+        """
+
+        before_cost = (
+            self.cost_model.estimate_design(current.design, self.catalog)
+            if current_cost is None
+            else current_cost
+        )
+        metrics = {
+            move_type: {
+                "conceptual_moves": 0,
+                "infeasible": 0,
+                "no_improvement_bound_pruned": 0,
+                "incumbent_bound_pruned": 0,
+                "native_evaluated": 0,
+                "planner_calls": 0,
+                "elapsed_seconds": 0.0,
+                "best_objective": math.inf,
+            }
+            for move_type in (MoveKind.ADD.value, MoveKind.DROP.value, MoveKind.SWAP.value)
+        }
+        selected = self._ordered_ids(True, current.design)
+        unselected = self._ordered_ids(False, current.design)
+        winner = self._finish_streaming_round(
+            "local", current, before_cost, self._iter_local_moves(selected, unselected), metrics
+        )
+        after = winner.state if winner is not None else current
+        after_cost = winner.cost if winner is not None else before_cost
+        return after, after_cost, winner, metrics
 
     def _greedy(self, current: EvaluationState) -> EvaluationState:
         current_cost = self.cost_model.estimate_design(current.design, self.catalog)

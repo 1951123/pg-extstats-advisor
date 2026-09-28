@@ -249,6 +249,31 @@ def test_add_only_skips_local_phase_and_reports_add_optimum() -> None:
     assert all(record.move.drop is None for record in result.trajectory)
 
 
+def test_one_local_round_evaluates_each_move_type_once() -> None:
+    catalog, objectives = fixture()
+    evaluator = CatalogLandscapeEvaluator(objectives, catalog)
+    model = PresetMaintenanceCostModel(0, 1, 0, 1)
+    search = DeterministicBudgetSearch(
+        evaluator,
+        catalog,
+        model,
+        MaintenanceBudget(6, model.unit),
+    )
+    start = evaluator.evaluate_design(Design((CandidateId("A"),)))
+
+    after, cost, winner, metrics = search.evaluate_one_local_round(start)
+
+    assert winner is not None
+    assert winner.move == Move.add_candidate(CandidateId("B"))
+    assert after.design == Design((CandidateId("A"), CandidateId("B")))
+    assert cost == 4
+    assert {item.phase for item in search._trajectory} == {"local"}
+    assert metrics["add"]["conceptual_moves"] == 3
+    assert metrics["drop"]["conceptual_moves"] == 1
+    assert metrics["swap"]["conceptual_moves"] == 3
+    assert sum(item["native_evaluated"] for item in metrics.values()) == 7
+
+
 def test_qerror_lower_bound_floor_and_unknown_query_guard() -> None:
     catalog, objectives = fixture()
     evaluator = CatalogLandscapeEvaluator(objectives, catalog)
