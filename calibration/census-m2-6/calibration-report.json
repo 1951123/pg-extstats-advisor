@@ -1,4 +1,5 @@
 {
+  "authority_status": "rejected-diagnostic",
   "calibration_provenance": {
     "cache_policy": "long-lived server; no cache flush; one untimed warmup per configuration",
     "candidate_arity": 2,
@@ -420,7 +421,8 @@
     ],
     "config_digest": "3be851b49cbb92cad3cc648f81d796c2de07f79335a223d084ba155aca57234b",
     "database_identity": "pgextadv_calibration_census_m26",
-    "environment_description": "Local WSL2 PostgreSQL 16.15 installation; isolated database cloned from the fixed Census source database; hardware provenance incomplete",
+    "environment_authoritative": false,
+    "environment_description": "Local WSL2 PostgreSQL 16.15 apt installation; diagnostic only, outside the frozen source-built PostgreSQL 16.14 experimental environment; hardware provenance incomplete",
     "fd_candidate_pool_size": 136,
     "hardware_provenance_complete": false,
     "mcv_candidate_pool_size": 136,
