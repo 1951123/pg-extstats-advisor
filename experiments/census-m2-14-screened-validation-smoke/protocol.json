@@ -1,7 +1,7 @@
 {
   "baseline_repo_commit": "ec6283274f7153412ff51df131164eeef132bf13",
   "build_recipe_digest": "543e2a3c97f6c17d9e1fc3c0fff9fb87a63d76794f6313b69fa8f103781e61a9",
-  "digest": "7a358a9981e44c763de206259a0d25fcc058ef321793d4851617d6ee8b0f94a2",
+  "digest": "343a592bdbdd7758db9126e0a4cb3f2814896f38cfbf1d343f69e752447482cc",
   "experiment": "M2.14-Screened-Recommendation-Deployment-Validation-Smoke",
   "experimental_role": "development-smoke",
   "format_version": 1,
@@ -14,6 +14,18 @@
     "residual_smoke_statistics_count": 0,
     "search_native_evaluations": 0,
     "singleton_native_evaluations": 0
+  },
+  "aborted_runner_retries": 2,
+  "aborted_retry_lifecycle": {
+    "create": 7,
+    "analyze": 3,
+    "drop": 7,
+    "cleanup_verified": true
+  },
+  "total_physical_operations_including_aborted_retries": {
+    "create": 23,
+    "analyze": 6,
+    "drop": 23
   },
   "maintenance_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e",
   "patch_sha256_after": "aab7b323cf3b89179235ae3d0b40c9ce6a3f4009238b83b90da4f4e8a5d55b34",

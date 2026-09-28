@@ -24,6 +24,13 @@ drift, not a search or CE-semantics change. The B same-realization control was
 not run because the existing machinery has no separate low-cost control path;
 the protocol therefore uses the permitted A/C validation.
 
+The final successful protocol path totals 16 CREATE, 3 ANALYZE, and 16 DROP
+operations. Two earlier runner retries failed before report finalization (one
+after K=1 and one after K=5); their exact 7 CREATE, 3 ANALYZE, and 7 DROP
+operations were explicitly cleaned and are recorded as aborted retries, not
+as additional smoke results. Including them, the physical operation audit is
+23/6/23, with zero residual statistics.
+
 The formal recommendation digest, source search digest, screened artifact
 digest, singleton profile digest, raw catalog/workload/repository/model
 digests, PostgreSQL patch digest, and build recipe digest are recorded in

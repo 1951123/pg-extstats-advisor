@@ -16,6 +16,18 @@
     "singleton_native_evaluations": 0
   },
   "maintenance_model_mutation_count": 0,
+  "aborted_runner_retries": 2,
+  "aborted_retry_lifecycle": {
+    "create": 7,
+    "analyze": 3,
+    "drop": 7,
+    "cleanup_verified": true
+  },
+  "total_physical_operations_including_aborted_retries": {
+    "create": 23,
+    "analyze": 6,
+    "drop": 23
+  },
   "prefixes": [
     {
       "a_exact_match": true,
@@ -342,7 +354,7 @@
       "workload_query_count": 468
     }
   ],
-  "protocol_digest": "7a358a9981e44c763de206259a0d25fcc058ef321793d4851617d6ee8b0f94a2",
+  "protocol_digest": "343a592bdbdd7758db9126e0a4cb3f2814896f38cfbf1d343f69e752447482cc",
   "recommendation_ids_resolve": true,
   "screening_provenance_preserved": true,
   "selected_recommendation_count": 110
