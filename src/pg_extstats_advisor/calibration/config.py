@@ -16,6 +16,7 @@ class CalibrationGates:
     max_cv: float = 0.10
     min_r_squared: float = 0.95
     max_heldout_relative_error: float = 0.15
+    max_same_count_subset_cv: float = 0.10
 
 
 @dataclass(frozen=True, slots=True)
@@ -30,6 +31,11 @@ class CalibrationConfig:
     output_path: Path
     count_levels: tuple[int, ...]
     gates: CalibrationGates
+    subsets_per_count: int = 1
+    require_postgres_version: str | None = None
+    build_provenance_path: Path | None = None
+    expected_build_recipe_digest: str | None = None
+    postgres_binary_path: Path | None = None
     environment_description: str | None = None
 
     @property
@@ -54,7 +60,17 @@ class CalibrationConfig:
                     "max_cv": self.gates.max_cv,
                     "min_r_squared": self.gates.min_r_squared,
                     "max_heldout_relative_error": self.gates.max_heldout_relative_error,
+                    "max_same_count_subset_cv": self.gates.max_same_count_subset_cv,
                 },
+                "subsets_per_count": self.subsets_per_count,
+                "require_postgres_version": self.require_postgres_version,
+                "build_provenance_path": (
+                    str(self.build_provenance_path) if self.build_provenance_path else None
+                ),
+                "expected_build_recipe_digest": self.expected_build_recipe_digest,
+                "postgres_binary_path": (
+                    str(self.postgres_binary_path) if self.postgres_binary_path else None
+                ),
                 "environment_description": self.environment_description,
             },
             sort_keys=True,
@@ -92,13 +108,20 @@ class CalibrationConfig:
             float(gates.get("max_cv", 0.10)),
             float(gates.get("min_r_squared", 0.95)),
             float(gates.get("max_heldout_relative_error", 0.15)),
+            float(gates.get("max_same_count_subset_cv", 0.10)),
         )
         if any(value <= 0 for value in (
             parsed_gates.max_cv,
             parsed_gates.min_r_squared,
             parsed_gates.max_heldout_relative_error,
+            parsed_gates.max_same_count_subset_cv,
         )):
             raise ValueError("calibration gate thresholds must be positive")
+        subsets = int(raw.get("subsets_per_count", 1))
+        if subsets < 1:
+            raise ValueError("subsets_per_count must be positive")
+        build_path = raw.get("build_provenance_path")
+        binary_path = raw.get("postgres_binary_path")
         return cls(
             1,
             dsn,
@@ -110,5 +133,10 @@ class CalibrationConfig:
             Path(raw["output_path"]),
             levels,
             parsed_gates,
+            subsets,
+            raw.get("require_postgres_version"),
+            Path(build_path) if build_path else None,
+            raw.get("expected_build_recipe_digest"),
+            Path(binary_path) if binary_path else None,
             raw.get("environment_description"),
         )

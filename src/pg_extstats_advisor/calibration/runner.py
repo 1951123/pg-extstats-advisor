@@ -178,7 +178,35 @@ def _candidate_dict(candidate: CalibrationCandidate) -> dict[str, Any]:
     return asdict(candidate)
 
 
+def _verify_authoritative_environment(
+    config: CalibrationConfig, connection: Connection[Any]
+) -> dict[str, Any] | None:
+    actual_version = str(connection.execute("SHOW server_version").fetchone()[0])
+    if config.require_postgres_version and actual_version != config.require_postgres_version:
+        raise ValueError(
+            f"PostgreSQL version {actual_version} does not match required "
+            f"{config.require_postgres_version}"
+        )
+    if not config.build_provenance_path:
+        return None
+    build = json.loads(config.build_provenance_path.read_text())
+    if build.get("postgres_version") != actual_version:
+        raise ValueError("server version does not match build provenance")
+    if build.get("build_recipe_digest") != config.expected_build_recipe_digest:
+        raise ValueError("PostgreSQL build recipe digest mismatch")
+    if config.postgres_binary_path is None:
+        raise ValueError("authoritative calibration requires postgres_binary_path")
+    expected_path = Path(str(build["install_prefix"])) / "bin" / "postgres"
+    if config.postgres_binary_path.resolve() != expected_path.resolve():
+        raise ValueError("postgres binary path is outside the authoritative install prefix")
+    actual_binary_digest = hashlib.sha256(config.postgres_binary_path.read_bytes()).hexdigest()
+    if actual_binary_digest != build.get("postgres_binary_sha256"):
+        raise ValueError("postgres binary digest does not match build provenance")
+    return build
+
+
 def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> dict[str, Any]:
+    build_provenance = _verify_authoritative_environment(config, connection)
     root = config.output_path
     if root.exists():
         raise FileExistsError(f"calibration output directory exists: {root}")
@@ -193,7 +221,9 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
     if unknown:
         raise ValueError(f"unknown calibration columns: {sorted(unknown)}")
     pool = candidate_pool(columns)
-    configurations = configuration_design(pool, config.count_levels)
+    configurations = configuration_design(
+        pool, config.count_levels, config.subsets_per_count, config.seed
+    )
     run_id = f"cal-{uuid.uuid4().hex[:12]}"
     order = list(configurations)
     random.Random(config.seed).shuffle(order)
@@ -250,6 +280,7 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
             "role": item.role,
             "n_mcv": item.n_mcv,
             "n_fd": item.n_fd,
+            "subset_id": item.subset_id,
             **_summary(by_configuration[configuration_id]),
         })
     with (root / "configuration-summary.csv").open("w", newline="") as stream:
@@ -289,6 +320,24 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
         })
     max_cv = max(item["cv"] for item in summaries)
     max_heldout = max((item["relative_error"] for item in heldout), default=math.inf)
+    subset_group_cvs = []
+    for kind in ("mcv-only", "fd-only"):
+        counts = sorted({item["n_mcv"] or item["n_fd"] for item in summaries if item["configuration_kind"] == kind})
+        for count in counts:
+            means = [
+                item["mean_seconds"] for item in summaries
+                if item["configuration_kind"] == kind
+                and (item["n_mcv"] or item["n_fd"]) == count
+            ]
+            if len(means) > 1:
+                subset_group_cvs.append({
+                    "mechanism": "mcv" if kind == "mcv-only" else "fd",
+                    "count": count,
+                    "subset_count": len(means),
+                    "mean_seconds": statistics.fmean(means),
+                    "subset_mean_cv": statistics.stdev(means) / statistics.fmean(means),
+                })
+    max_subset_cv = max((item["subset_mean_cv"] for item in subset_group_cvs), default=None)
     gates = assess_gates(
         fit,
         max_cv=max_cv,
@@ -296,6 +345,8 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
         max_heldout_relative_error=max_heldout,
         heldout_threshold=config.gates.max_heldout_relative_error,
         r_squared_threshold=config.gates.min_r_squared,
+        same_count_subset_cv=max_subset_cv,
+        same_count_subset_threshold=config.gates.max_same_count_subset_cv,
     )
     fit_dict = {
         "model": "T=intercept+beta_mcv*n_mcv+beta_fd*n_fd",
@@ -315,7 +366,7 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
     median_stddev = statistics.median(item["stddev_seconds"] for item in summaries)
     stability = {
         "gates": gates,
-        "same_count_subset_gate": "not_applicable_one_deterministic_subset_per_count",
+        "same_count_subset_variability": subset_group_cvs,
         "mcv_aggregate_signal_seconds": fit.mcv_seconds_per_object * max_level,
         "fd_aggregate_signal_seconds": fit.fd_seconds_per_object * max_level,
         "median_configuration_stddev_seconds": median_stddev,
@@ -349,6 +400,21 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
         "config_digest": config.digest,
         "environment_description": config.environment_description,
         "hardware_provenance_complete": False,
+        "build_recipe_digest": (
+            build_provenance.get("build_recipe_digest") if build_provenance else None
+        ),
+        "postgres_binary_path": (
+            str(config.postgres_binary_path) if config.postgres_binary_path else None
+        ),
+        "environment_authoritative": build_provenance is not None,
+        "server_settings": {
+            name: connection.execute(sql.SQL("SHOW {}").format(sql.Identifier(name))).fetchone()[0]
+            for name in (
+                "jit", "max_parallel_workers_per_gather", "effective_cache_size", "work_mem",
+                "random_page_cost", "cpu_tuple_cost", "cpu_index_tuple_cost",
+                "cpu_operator_cost", "default_statistics_target",
+            )
+        },
     }
     _write_json(root / "config.json", json.loads(config.canonical_json()))
     _write_json(root / "protocol.json", {
@@ -369,6 +435,7 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
                 "role": item.role,
                 "n_mcv": item.n_mcv,
                 "n_fd": item.n_fd,
+                "subset_id": item.subset_id,
                 "candidate_ids": [candidate.candidate_id for candidate in item.mcv + item.fd],
             }
             for item in configurations
@@ -386,6 +453,10 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
         "stability": stability,
         "heldout": heldout,
         "calibration_provenance": provenance,
+        "authority_status": (
+            "authoritative" if accepted and build_provenance else
+            "rejected-authoritative-environment" if build_provenance else "diagnostic"
+        ),
         "completed_at": datetime.now(UTC).isoformat(),
     }
     _write_json(root / "calibration-report.json", report)

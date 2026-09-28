@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import itertools
+import random
 from dataclasses import dataclass
 
 
@@ -22,6 +23,7 @@ class CalibrationConfiguration:
     role: str
     mcv: tuple[CalibrationCandidate, ...]
     fd: tuple[CalibrationCandidate, ...]
+    subset_id: str = "s0"
 
     @property
     def n_mcv(self) -> int:
@@ -49,7 +51,10 @@ def candidate_pool(columns: tuple[str, ...]) -> tuple[CalibrationCandidate, ...]
 
 
 def configuration_design(
-    pool: tuple[CalibrationCandidate, ...], count_levels: tuple[int, ...] = ()
+    pool: tuple[CalibrationCandidate, ...],
+    count_levels: tuple[int, ...] = (),
+    subsets_per_count: int = 1,
+    seed: int = 0,
 ) -> tuple[CalibrationConfiguration, ...]:
     mcv = tuple(item for item in pool if item.mechanism == "mcv")
     fd = tuple(item for item in pool if item.mechanism == "fd")
@@ -65,14 +70,25 @@ def configuration_design(
         levels = tuple(sorted(set(proposed)))
     if len(levels) < 2:
         raise ValueError("calibration needs at least two distinct count levels")
+    if subsets_per_count < 1:
+        raise ValueError("subsets_per_count must be positive")
     configurations = [CalibrationConfiguration("empty", "empty", "fit", (), ())]
     for count in levels:
-        configurations.append(
-            CalibrationConfiguration(f"mcv-{count}", "mcv-only", "fit", mcv[:count], ())
-        )
-        configurations.append(
-            CalibrationConfiguration(f"fd-{count}", "fd-only", "fit", (), fd[:count])
-        )
+        for subset_index in range(subsets_per_count):
+            subset_id = f"s{subset_index}"
+            mcv_order = list(mcv)
+            fd_order = list(fd)
+            if subset_index:
+                random.Random(f"{seed}|mcv|{count}|{subset_index}").shuffle(mcv_order)
+                random.Random(f"{seed}|fd|{count}|{subset_index}").shuffle(fd_order)
+            configurations.append(CalibrationConfiguration(
+                f"mcv-{count}-{subset_id}", "mcv-only", "fit",
+                tuple(mcv_order[:count]), (), subset_id
+            ))
+            configurations.append(CalibrationConfiguration(
+                f"fd-{count}-{subset_id}", "fd-only", "fit",
+                (), tuple(fd_order[:count]), subset_id
+            ))
     small, large = levels[0], levels[-1]
     middle = levels[len(levels) // 2]
     mixed = ((small, small), (middle, large), (large, middle), (large, large))
@@ -84,6 +100,7 @@ def configuration_design(
                 "held-out",
                 mcv[:n_mcv],
                 fd[:n_fd],
+                "heldout",
             )
         )
     return tuple(configurations)

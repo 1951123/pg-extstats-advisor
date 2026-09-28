@@ -36,9 +36,11 @@ def assess_gates(
     max_heldout_relative_error: float,
     heldout_threshold: float,
     r_squared_threshold: float,
+    same_count_subset_cv: float | None = None,
+    same_count_subset_threshold: float = 0.10,
 ) -> dict[str, dict[str, object]]:
     """Apply predeclared acceptance thresholds without modifying observations."""
-    return {
+    result = {
         "within_configuration_cv": {
             "passed": max_cv <= cv_threshold,
             "observed": max_cv,
@@ -67,6 +69,17 @@ def assess_gates(
             "operator": ">=",
         },
     }
+    result["same_count_subset_cv"] = {
+        "passed": (
+            True if same_count_subset_cv is None
+            else same_count_subset_cv <= same_count_subset_threshold
+        ),
+        "observed": same_count_subset_cv,
+        "threshold": same_count_subset_threshold,
+        "operator": "<=",
+        "applicable": same_count_subset_cv is not None,
+    }
+    return result
 
 
 def _inverse3(matrix: list[list[float]]) -> list[list[float]]:

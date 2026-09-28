@@ -7,6 +7,7 @@ import pytest
 from pg_extstats_advisor.calibration.config import CalibrationConfig
 from pg_extstats_advisor.calibration.design import candidate_pool, configuration_design
 from pg_extstats_advisor.calibration.fit import TimingRow, assess_gates, fit_aggregate
+from pg_extstats_advisor.calibration.runner import _verify_authoritative_environment
 from pg_extstats_advisor.cost.empirical import EmpiricalMechanismCountCostModel, artifact_digest
 from pg_extstats_advisor.models import Candidate, CandidateId, MechanismKind
 
@@ -97,3 +98,36 @@ def test_negative_slope_is_visible_for_rejection() -> None:
     assert not gates["within_configuration_cv"]["passed"]
     assert not gates["heldout_max_relative_error"]["passed"]
     assert not gates["nonnegative_slopes"]["passed"]
+
+
+class _VersionConnection:
+    class _Result:
+        def __init__(self, version: str) -> None:
+            self.version = version
+
+        def fetchone(self) -> tuple[str]:
+            return (self.version,)
+
+    def __init__(self, version: str) -> None:
+        self.version = version
+
+    def execute(self, _query: str) -> _Result:
+        return self._Result(self.version)
+
+
+def test_authoritative_version_mismatch_rejected(tmp_path: Path) -> None:
+    config_path = tmp_path / "config.json"
+    config_path.write_text(json.dumps({
+        "schema_version": 1,
+        "database": {"calibration_dsn": "dbname=test"},
+        "relation": "public.t",
+        "columns": ["a", "b", "c"],
+        "statistics_target": 100,
+        "repetitions": 2,
+        "output_path": str(tmp_path / "out"),
+        "count_levels": [1, 3],
+        "require_postgres_version": "16.14",
+    }))
+    config = CalibrationConfig.load(config_path)
+    with pytest.raises(ValueError, match="does not match required"):
+        _verify_authoritative_environment(config, _VersionConnection("16.15"))  # type: ignore[arg-type]
