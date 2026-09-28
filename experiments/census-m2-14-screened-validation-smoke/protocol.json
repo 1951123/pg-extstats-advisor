@@ -1,7 +1,7 @@
 {
   "baseline_repo_commit": "ec6283274f7153412ff51df131164eeef132bf13",
   "build_recipe_digest": "543e2a3c97f6c17d9e1fc3c0fff9fb87a63d76794f6313b69fa8f103781e61a9",
-  "digest": "ee00316e72c9eaca576e6121cb5917c49e3b862980400ed06da8d162e4f9edb3",
+  "digest": "7a358a9981e44c763de206259a0d25fcc058ef321793d4851617d6ee8b0f94a2",
   "experiment": "M2.14-Screened-Recommendation-Deployment-Validation-Smoke",
   "experimental_role": "development-smoke",
   "format_version": 1,
@@ -22,7 +22,7 @@
     {
       "a_exact_match": true,
       "a_objective": 2949.9782311993554,
-      "a_vs_c_absolute_difference": -19.57358072936222,
+      "a_vs_c_absolute_difference": 19.57358072936222,
       "analyze_elapsed_seconds": 0.27676038399658864,
       "c_objective": 2930.404650469993,
       "cleanup_success": true,
@@ -32,7 +32,7 @@
     {
       "a_exact_match": true,
       "a_objective": 1378.928138020749,
-      "a_vs_c_absolute_difference": -5.7052162405382205,
+      "a_vs_c_absolute_difference": 5.7052162405382205,
       "analyze_elapsed_seconds": 0.2823198480036808,
       "c_objective": 1373.2229217802108,
       "cleanup_success": true,

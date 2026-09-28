@@ -21,7 +21,7 @@
       "a_exact_match": true,
       "a_expected_objective_from_m2_13_trajectory": 2949.9782311993554,
       "a_hypothetical_objective": 2949.9782311993554,
-      "a_vs_c_absolute_difference": -19.57358072936222,
+      "a_vs_c_absolute_difference": 19.57358072936222,
       "a_vs_c_improved_query_count": 265,
       "a_vs_c_max_absolute_qerror_delta": 7.75862068965516,
       "a_vs_c_median_qerror_delta": -0.0016717362762330712,
@@ -103,7 +103,7 @@
       "a_exact_match": true,
       "a_expected_objective_from_m2_13_trajectory": 1378.928138020749,
       "a_hypothetical_objective": 1378.928138020749,
-      "a_vs_c_absolute_difference": -5.7052162405382205,
+      "a_vs_c_absolute_difference": 5.7052162405382205,
       "a_vs_c_improved_query_count": 288,
       "a_vs_c_max_absolute_qerror_delta": 2.3282051282051284,
       "a_vs_c_median_qerror_delta": -0.004310904912671276,
@@ -342,7 +342,7 @@
       "workload_query_count": 468
     }
   ],
-  "protocol_digest": "ee00316e72c9eaca576e6121cb5917c49e3b862980400ed06da8d162e4f9edb3",
+  "protocol_digest": "7a358a9981e44c763de206259a0d25fcc058ef321793d4851617d6ee8b0f94a2",
   "recommendation_ids_resolve": true,
   "screening_provenance_preserved": true,
   "selected_recommendation_count": 110

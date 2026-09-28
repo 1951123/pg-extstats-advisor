@@ -10,8 +10,8 @@ deployment path:
 
 | K | accepted-order candidate IDs | mechanisms | A objective | A expected | A exact | C objective | A-C absolute | A-C relative |
 |---:|---|---|---:|---:|---|---:|---:|---:|
-| 1 | `cand_449fa599b32af3a5039b` | MCV | 2949.9782311993554 | 2949.9782311993554 | yes | 2930.404650469993 | -19.57358072936222 | -0.006635161074190132 |
-| 5 | `cand_449fa599b32af3a5039b`, `cand_57ecad07b9ddfc92cbe9`, `cand_8800308d8e997ed3f8ad`, `cand_ec94d4fcaa39e54f2f3f`, `cand_c9321427349837fbbce7` | all MCV | 1378.928138020749 | 1378.928138020749 | yes | 1373.2229217802108 | -5.7052162405382205 | -0.004137428255490696 |
+| 1 | `cand_449fa599b32af3a5039b` | MCV | 2949.9782311993554 | 2949.9782311993554 | yes | 2930.404650469993 | 19.57358072936222 | -0.006635161074190132 |
+| 5 | `cand_449fa599b32af3a5039b`, `cand_57ecad07b9ddfc92cbe9`, `cand_8800308d8e997ed3f8ad`, `cand_ec94d4fcaa39e54f2f3f`, `cand_c9321427349837fbbce7` | all MCV | 1378.928138020749 | 1378.928138020749 | yes | 1373.2229217802108 | 5.7052162405382205 | -0.004137428255490696 |
 | 10 | `cand_449fa599b32af3a5039b`, `cand_57ecad07b9ddfc92cbe9`, `cand_8800308d8e997ed3f8ad`, `cand_ec94d4fcaa39e54f2f3f`, `cand_c9321427349837fbbce7`, `cand_50e40f909d08e40748f4`, `cand_6e828ab1e97b874ef25a`, `cand_4fa98ecd2ad6069efe03`, `cand_61bd8d15a2050d1f9514`, `cand_cef18d243e8dc73a4663` | all MCV | 1205.635813513518 | 1205.635813513518 | yes | 1212.0976596212663 | 6.461846107748215 | 0.0053596998656806755 |
 
 The physical path created 1, 5, and 10 statistics respectively, ran one

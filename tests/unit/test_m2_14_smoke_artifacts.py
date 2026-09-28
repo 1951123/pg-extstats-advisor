@@ -64,6 +64,7 @@ def test_m2_14_a_recomputation_and_cleanup_artifacts_are_consistent() -> None:
         assert artifact["experimental_role"] == "development-smoke"
         assert artifact["workload_query_count"] == 468
         assert artifact["a_exact_match"] is True
+        assert artifact["a_vs_c_absolute_difference"] >= 0
         assert artifact["a_hypothetical_objective"] == accepted[prefix - 1].after_objective
         cleanup = json.loads(
             (M14 / f"prefix-{prefix}" / "cleanup-result.json").read_text()

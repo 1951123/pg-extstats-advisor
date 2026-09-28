@@ -3,6 +3,7 @@
   "a_expected_objective_from_m2_13_trajectory": 1205.635813513518,
   "a_hypothetical_objective": 1205.635813513518,
   "a_vs_c_absolute_difference": 6.461846107748215,
+  "a_vs_c_signed_drift": 6.461846107748215,
   "a_vs_c_improved_query_count": 241,
   "a_vs_c_max_absolute_qerror_delta": 5.689655172413794,
   "a_vs_c_median_qerror_delta": -0.00022804936641629414,
