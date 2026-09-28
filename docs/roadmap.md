@@ -1,6 +1,6 @@
 # Roadmap
 
-## Bootstrap — current
+## Bootstrap — complete
 
 - Establish a new Git history and package skeleton.
 - Freeze architecture, scope, and decisions.
@@ -9,7 +9,7 @@
 - Audit the legacy overlay and specify its minimal migration.
 - Track a pristine-based API-contract patch without claiming M0 capability.
 
-## M0 — native evaluator vertical slice
+## M0 — native evaluator vertical slice — complete
 
 1. Define typed workload, candidate, design, move, payload, and evaluation records.
 2. Implement a versioned native-payload repository and provenance manifest.
@@ -32,7 +32,7 @@ budget and a replaceable frozen cost-model interface. The current preset is
 development-only. Empirical maintenance measurement, fitting, and validation are
 a future experimental substage before production interpretation.
 
-## M2 — deployment loop
+## M2 — deployment loop — complete
 
 Emit deployable `CREATE STATISTICS`, run fresh `ANALYZE`, collect new native
 payloads, and separate semantic fidelity from realization drift.

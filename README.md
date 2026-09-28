@@ -8,6 +8,11 @@ replans only structurally affected workload queries, reuses unaffected objective
 contributions, and emits deployable recommendations. Search is a pluggable client
 of the evaluator rather than the system's semantic core.
 
+M0 native evaluation, M1 deterministic budget-aware search, and the M2 explicit
+recommend/deploy/fresh-ANALYZE/validate loop are implemented. Deployment is never
+automatic: callers render a typed plan and explicitly execute it in an isolated
+environment. See `docs/m2-deployment-validation.md`.
+
 ## Current scope
 
 - PostgreSQL 16.14.
@@ -63,9 +68,6 @@ The `.venv/` directory is local and ignored. Dependency declarations belong in
 - `tests/`: unit and PostgreSQL integration tests.
 - `experiments/`: isolated evidence produced after implementation begins.
 
-This bootstrap contains architecture and build preparation only. M0 implementation
-has not started.
-
 The tracked PostgreSQL patch implements the M0-A backend-local overlay. M0-B adds
 the minimal external native evaluator, repository validation, conservative
 incidence, and exact query-level reuse for a small fixed workload. Search and
@@ -76,3 +78,8 @@ M1 adds a deterministic contextual-greedy plus ADD/DROP/SWAP search client with
 a frozen, unit-aware maintenance budget. Its preset additive costs are strictly
 development fixtures, not measured PostgreSQL maintenance-cost results. See
 `docs/m1-budget-aware-search.md`.
+
+M2 adds deterministic deployable SQL, physical deployment with a uniform target,
+fresh native payload fingerprints and CE, and a structured comparison against the
+frozen hypothetical prediction. It does not add runtime validation or maintenance
+cost fitting.
