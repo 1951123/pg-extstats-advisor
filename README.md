@@ -71,3 +71,8 @@ the minimal external native evaluator, repository validation, conservative
 incidence, and exact query-level reuse for a small fixed workload. Search and
 general workload ingestion have not started. See `docs/m0-postgres-overlay.md`,
 `docs/m0-external-evaluator.md`, and `docs/m0-implementation-plan.md`.
+
+M1 adds a deterministic contextual-greedy plus ADD/DROP/SWAP search client with
+a frozen, unit-aware maintenance budget. Its preset additive costs are strictly
+development fixtures, not measured PostgreSQL maintenance-cost results. See
+`docs/m1-budget-aware-search.md`.

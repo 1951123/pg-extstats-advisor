@@ -24,10 +24,13 @@
 
 M0 deliberately excludes complete search.
 
-## M1 — deterministic search
+## M1 — deterministic search — complete
 
-Attach contextual ADD-only initialization and deterministic ADD/DROP/SWAP
-refinement as clients of the frozen evaluator API.
+Contextual ADD-only initialization and deterministic ADD/DROP/SWAP refinement
+are clients of the frozen evaluator API, with a typed recurring-maintenance
+budget and a replaceable frozen cost-model interface. The current preset is
+development-only. Empirical maintenance measurement, fitting, and validation are
+a future experimental substage before production interpretation.
 
 ## M2 — deployment loop
 
