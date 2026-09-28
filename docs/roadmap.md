@@ -59,6 +59,12 @@ and diagnostic. The source-built PostgreSQL 16.14 Census rerun passed every
 predeclared gate and emitted the frozen empirical mechanism-count model. M3 remains
 future work.
 
+## M2.7 preflight parser migration — in progress
+
+Preparation SQL analysis is being migrated from handwritten lexical inspection to
+the PostgreSQL-compatible `pglast` AST parser. This preflight is not the
+authoritative M2.7 search and does not mark M2.7 complete.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,

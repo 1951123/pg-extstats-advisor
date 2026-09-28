@@ -107,6 +107,10 @@ def test_sql_inspector_requires_complete_clause_proof() -> None:
         "a = 1 garbage",
         "(a = 1 OR b = 2)",
     ):
+        if "garbage" in where:
+            with pytest.raises(ValueError, match="SQL parse error"):
+                _inspect_sql(f"SELECT * FROM public.t WHERE {where}", "public.t", metadata)
+            continue
         columns, mode = _inspect_sql(f"SELECT * FROM public.t WHERE {where}", "public.t", metadata)
         assert mode == "conservative-fallback"
         value = IngestedWorkload(

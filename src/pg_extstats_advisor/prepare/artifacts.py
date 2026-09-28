@@ -154,6 +154,11 @@ def prepare_mvp(
         "relation_count": len(acquisition.analyzed_relations),
         "incidence_edge_count": len(incidence.edges),
         "fallback_query_count": incidence.fallback_query_count,
+        "sql_analysis": {
+            "parser": ingested.inspections[0].parser if ingested.inspections else "pglast",
+            "parser_version": ingested.inspections[0].parser_version if ingested.inspections else "unknown",
+            "analysis_version": ingested.inspections[0].analysis_version if ingested.inspections else "unknown",
+        },
         "acquisition_analyze_count": acquisition.analyze_count,
         "relation_compatibility": [
             {

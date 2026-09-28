@@ -10,7 +10,9 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = {text = "Proprietary research prototype"}
 authors = [{name = "HUMAN ACTION REQUIRED"}]
-dependencies = []
+dependencies = [
+  "pglast>=7.18,<8",
+]
 
 [project.scripts]
 pg-extstats-advisor = "pg_extstats_advisor.cli:main"
