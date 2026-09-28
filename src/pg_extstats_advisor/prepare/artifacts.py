@@ -65,6 +65,9 @@ def prepare_mvp(
         upstream_sha256=upstream_sha256,
         patch_commit=patch_commit,
         repository_id=f"prepared-{config.digest[:16]}",
+        source_relations=tuple(
+            {item.relation.qualified_name: item.relation for item in ingested.inspections}.values()
+        ),
     )
     incidence = derive_incidence(ingested, acquisition.repository.catalog)
     _write(root / "config.json", json.loads(config.canonical_json()))
@@ -123,6 +126,15 @@ def prepare_mvp(
         "incidence_edge_count": len(incidence.edges),
         "fallback_query_count": incidence.fallback_query_count,
         "acquisition_analyze_count": acquisition.analyze_count,
+        "relation_compatibility": [
+            {
+                "relation": relation,
+                "source_logical_fingerprint": source,
+                "acquisition_logical_fingerprint": acquired,
+                "compatible": compatible,
+            }
+            for relation, source, acquired, compatible in acquisition.compatibility
+        ],
         "completed_at": datetime.now(UTC).isoformat(),
     }
     _write(root / "prepare-summary.json", summary)

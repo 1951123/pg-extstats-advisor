@@ -18,6 +18,7 @@ from pg_extstats_advisor.candidates.model import CandidateCatalog
 from pg_extstats_advisor.deploy.sql import qualified_relation_name, quote_identifier
 from pg_extstats_advisor.models import MechanismKind
 from pg_extstats_advisor.payloads.repository import PayloadRepository
+from pg_extstats_advisor.prepare.workload import RelationMetadata
 
 
 @dataclass(frozen=True, slots=True)
@@ -26,6 +27,7 @@ class AcquisitionResult:
     analyzed_relations: tuple[str, ...]
     analyze_count: int
     created_statistics_names: tuple[str, ...]
+    compatibility: tuple[tuple[str, str, str, bool], ...]
 
 
 def _acquisition_name(candidate_id: str) -> str:
@@ -63,6 +65,27 @@ def _relation_fingerprint(connection: Connection[Any], relation: str) -> str:
     ).hexdigest()
 
 
+def _acquisition_logical_metadata(connection: Connection[Any], relation: str) -> RelationMetadata:
+    row = connection.execute(
+        "SELECT n.nspname,c.relname,c.oid FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace "
+        "WHERE c.oid=to_regclass(%s) AND c.relkind IN ('r','p')",
+        (relation,),
+    ).fetchone()
+    if row is None:
+        raise ValueError(f"acquisition relation missing: {relation}")
+    columns = connection.execute(
+        "SELECT attnum,attname,atttypid::regtype::text,attnotnull FROM pg_attribute "
+        "WHERE attrelid=%s AND attnum>0 AND NOT attisdropped ORDER BY attnum",
+        (row[2],),
+    ).fetchall()
+    return RelationMetadata(
+        str(row[0]),
+        str(row[1]),
+        int(row[2]),
+        tuple((int(a), str(b), str(c), bool(d)) for a, b, c, d in columns),
+    )
+
+
 def acquire_payloads(
     connection: Connection[Any],
     catalog: CandidateCatalog,
@@ -72,6 +95,7 @@ def acquire_payloads(
     upstream_sha256: str,
     patch_commit: str,
     repository_id: str,
+    source_relations: tuple[RelationMetadata, ...],
 ) -> AcquisitionResult:
     if output_path.exists():
         raise FileExistsError(f"repository output already exists: {output_path}")
@@ -81,6 +105,20 @@ def acquire_payloads(
     started = datetime.now(UTC).isoformat()
     try:
         version = str(connection.execute("SHOW server_version").fetchone()[0])
+        source_by_name = {item.qualified_name: item for item in source_relations}
+        relation_names = tuple(sorted({item.relation_name for item in catalog.candidates}))
+        compatibility = []
+        for relation in relation_names:
+            source = source_by_name.get(relation)
+            if source is None:
+                raise ValueError(f"source compatibility metadata missing: {relation}")
+            acquisition = _acquisition_logical_metadata(connection, relation)
+            compatible = source.logical_descriptor == acquisition.logical_descriptor
+            compatibility.append(
+                (relation, source.logical_fingerprint, acquisition.logical_fingerprint, compatible)
+            )
+            if not compatible:
+                raise ValueError(f"source/acquisition relation incompatible: {relation}")
         actual: dict[str, tuple[int, int, str, str]] = {}
         for candidate in catalog.candidates:
             name = _acquisition_name(str(candidate.candidate_id))
@@ -105,7 +143,7 @@ def acquire_payloads(
                 )
             actual[str(candidate.candidate_id)] = (int(row[0]), int(row[1]), str(row[2]), name)
             created.append((schema, name))
-        relations = tuple(sorted({item.relation_name for item in catalog.candidates}))
+        relations = relation_names
         for relation in relations:
             connection.execute(f"ANALYZE {qualified_relation_name(relation)}")
         payload_dir = temporary / "payloads"
@@ -167,6 +205,15 @@ def acquire_payloads(
                 "analyze_count": len(relations),
                 "started_at": started,
                 "completed_at": datetime.now(UTC).isoformat(),
+                "relation_compatibility": [
+                    {
+                        "relation": relation,
+                        "source_logical_fingerprint": source,
+                        "acquisition_logical_fingerprint": acquisition,
+                        "compatible": compatible,
+                    }
+                    for relation, source, acquisition, compatible in compatibility
+                ],
             },
             "candidates": records,
         }
@@ -178,7 +225,11 @@ def acquire_payloads(
         os.replace(temporary, output_path)
         repository = PayloadRepository.load(output_path)
         return AcquisitionResult(
-            repository, relations, len(relations), tuple(name for _, name in created)
+            repository,
+            relations,
+            len(relations),
+            tuple(name for _, name in created),
+            tuple(compatibility),
         )
     except Exception:
         connection.rollback()

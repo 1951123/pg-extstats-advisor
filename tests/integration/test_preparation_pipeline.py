@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+from dataclasses import replace
 from pathlib import Path
 
 import psycopg
@@ -10,9 +11,11 @@ import pytest
 from pg_extstats_advisor.evaluator.native import NativeEvaluator
 from pg_extstats_advisor.models import Design
 from pg_extstats_advisor.postgres.adapter import PostgresAdapter
-from pg_extstats_advisor.prepare.acquisition import cleanup_acquisition
+from pg_extstats_advisor.prepare.acquisition import acquire_payloads, cleanup_acquisition
 from pg_extstats_advisor.prepare.artifacts import prepare_mvp
+from pg_extstats_advisor.prepare.candidates import generate_candidates
 from pg_extstats_advisor.prepare.config import PreparationConfig
+from pg_extstats_advisor.prepare.workload import ingest_workload
 
 DSN = os.environ.get("PG_EXTSTATS_TEST_DSN")
 pytestmark = pytest.mark.skipif(not DSN, reason="requires patched PostgreSQL fixture")
@@ -64,6 +67,30 @@ def test_real_preparation_pipeline_feeds_native_evaluator(tmp_path: Path) -> Non
             (),
             1000,
             (("type", "preset-development"),),
+        )
+        inspected = ingest_workload(workload_path, source)
+        catalog = generate_candidates(config, inspected)
+        relation = inspected.inspections[0].relation
+        bad_columns = tuple(
+            (number, name, "text" if name == "b" else data_type, notnull)
+            for number, name, data_type, notnull in relation.columns
+        )
+        with pytest.raises(ValueError, match="source/acquisition relation incompatible"):
+            acquire_payloads(
+                acquisition,
+                catalog,
+                tmp_path / "must-not-exist",
+                statistics_target=1000,
+                upstream_sha256=UPSTREAM,
+                patch_commit="c052faa80abc9e3db5a9b6c035ef4d195f07436c",
+                repository_id="incompatible",
+                source_relations=(replace(relation, columns=bad_columns),),
+            )
+        assert (
+            acquisition.execute(
+                "SELECT count(*) FROM pg_statistic_ext WHERE stxname LIKE 'pgextadv_acq_%'"
+            ).fetchone()[0]
+            == 0
         )
         prepared = prepare_mvp(
             config,
