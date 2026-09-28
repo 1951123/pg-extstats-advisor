@@ -31,7 +31,7 @@ class Candidate:
     backend_oid: int
 
     def __post_init__(self) -> None:
-        if not self.candidate_id or self.relation_oid <= 0 or self.backend_oid <= 0:
+        if not self.candidate_id or self.relation_oid <= 0 or self.backend_oid < 0:
             raise ValueError("candidate identity and OIDs must be valid")
         if not self.relation_name or len(self.attributes) < 2:
             raise ValueError("candidate requires a relation and at least two attributes")

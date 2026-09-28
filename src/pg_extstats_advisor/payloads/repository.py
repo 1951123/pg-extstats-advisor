@@ -106,6 +106,8 @@ class PayloadRepository:
                 precedence_rank=int(record["precedence_rank"]),
                 backend_oid=int(record["backend_oid"]),
             )
+            if candidate.backend_oid == 0:
+                raise ValueError(f"acquired candidate has no backend OID: {candidate_id}")
             payloads.append(
                 FrozenPayload(
                     candidate=candidate,
