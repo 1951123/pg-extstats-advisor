@@ -1,0 +1,235 @@
+{
+  "absent_native": {
+    "negative": 0,
+    "nonzero_candidates": [],
+    "positive": 0,
+    "total": 1109,
+    "zero": 1109
+  },
+  "baseline_objective": 5586.930692724469,
+  "candidate_count": 4506,
+  "concentration": {
+    "candidates_needed_for_positive_utility_fraction": {
+      "50pct": 4,
+      "80pct": 12,
+      "90pct": 27,
+      "95pct": 94
+    },
+    "interpretation": "descriptive concentration of singleton utilities only",
+    "positive_candidate_count": 1571,
+    "positive_utility_total": 11192.053284596892,
+    "top_fraction_utility_share": {
+      "top_10pct": {
+        "candidate_count": 158,
+        "utility_share": 0.966852264340753
+      },
+      "top_1pct": {
+        "candidate_count": 16,
+        "utility_share": 0.8471762537461556
+      },
+      "top_20pct": {
+        "candidate_count": 315,
+        "utility_share": 0.9871065337584803
+      },
+      "top_50pct": {
+        "candidate_count": 786,
+        "utility_share": 0.9990765066227302
+      },
+      "top_5pct": {
+        "candidate_count": 79,
+        "utility_share": 0.9443718890637255
+      }
+    }
+  },
+  "coverage": {
+    "fd_candidates": 2253,
+    "mcv_candidates": 2253,
+    "missing_candidate_evaluations": 0,
+    "no_screening_rule": true,
+    "no_search_resume": true,
+    "total_candidates": 4506
+  },
+  "distribution": {
+    "ABSENT_NATIVE": {
+      "negative": 0,
+      "positive": 0,
+      "zero": 1109
+    },
+    "PRESENT": {
+      "negative": 1358,
+      "positive": 1571,
+      "zero": 468
+    },
+    "all": {
+      "negative": 1358,
+      "positive": 1571,
+      "zero": 1577
+    },
+    "fd": {
+      "negative": 259,
+      "positive": 469,
+      "zero": 1525
+    },
+    "mcv": {
+      "negative": 1099,
+      "positive": 1102,
+      "zero": 52
+    }
+  },
+  "experiment": "M2.9 Candidate Singleton Utility Profiling",
+  "format_version": 1,
+  "interpretation_boundary": "singleton utility is evidence about candidate usefulness in the empty-design context; singleton-zero is not proof of global contextual uselessness",
+  "lineage": {
+    "catalog": "74727a871b3a601977885cbf96d25cda6e5ac38ef448d1815561bdc5988a425a",
+    "incidence": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4",
+    "model": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e",
+    "repository": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+    "workload": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215"
+  },
+  "mechanism_comparison": {
+    "max_improvement": {
+      "fd": 7.364799157658126,
+      "mcv": 2636.9524615251134
+    },
+    "median_positive_improvement": {
+      "fd": 0.0065354424177712644,
+      "mcv": 0.11899701716583877
+    },
+    "positive_rate": {
+      "fd": 0.20816688859298713,
+      "mcv": 0.4891256102973813
+    }
+  },
+  "partial_run_retrospective": {
+    "accepted_count": 36,
+    "contextual_surprise_count": 0,
+    "contextual_surprises": [],
+    "cost_aware_recall": {
+      "100": 29,
+      "1000": 36,
+      "200": 35,
+      "50": 14,
+      "500": 35
+    },
+    "raw_recall": {
+      "100": 28,
+      "1000": 36,
+      "200": 35,
+      "50": 14,
+      "500": 35
+    },
+    "singleton_distribution": {
+      "negative": 0,
+      "positive": 36,
+      "zero": 0
+    }
+  },
+  "performance": {
+    "baseline_objective": 5586.930692724469,
+    "baseline_planner_calls": 468,
+    "candidate_catalog_digest": "74727a871b3a601977885cbf96d25cda6e5ac38ef448d1815561bdc5988a425a",
+    "candidate_count": 4506,
+    "incidence_digest": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4",
+    "maintenance_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e",
+    "max_candidate_elapsed_seconds": 0.019210057998861885,
+    "median_candidate_elapsed_seconds": 0.005255136498817592,
+    "missing_candidate_evaluations": 0,
+    "no_analyze": true,
+    "p95_candidate_elapsed_seconds": 0.007716982250713045,
+    "postgres_version": "16.14",
+    "profile_status": "complete",
+    "protocol_sha256": "07b092d12ab26257ecde4b47db41d538f531fa6c3e93e36457d7821788d58f7c",
+    "query_count": 468,
+    "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+    "spot_check": {
+      "all_exact": true,
+      "candidate_count": 4,
+      "purpose": "deterministic aggregate verification; not a second full profile",
+      "records": [
+        {
+          "candidate_id": "cand_9d13a2ab8575f27a140e",
+          "exact": true,
+          "expected_objective": 5586.875169172198,
+          "replayed_objective": 5586.875169172198
+        },
+        {
+          "candidate_id": "cand_8e074250df2d367b0af0",
+          "exact": true,
+          "expected_objective": 5586.930692724469,
+          "replayed_objective": 5586.930692724469
+        },
+        {
+          "candidate_id": "cand_d1bc63da1360a4b35cc3",
+          "exact": true,
+          "expected_objective": 5586.930692724469,
+          "replayed_objective": 5586.930692724469
+        },
+        {
+          "candidate_id": "cand_a1be68868bb641aaa03e",
+          "exact": true,
+          "expected_objective": 5587.777815247738,
+          "replayed_objective": 5587.777815247738
+        }
+      ]
+    },
+    "statistics_ddl": 0,
+    "total_affected_query_replans": 19996,
+    "total_elapsed_seconds": 26.816258775997994,
+    "total_native_evaluations": 4506,
+    "total_planner_calls": 20464,
+    "workload_digest": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215"
+  },
+  "protocol_sha256": "07b092d12ab26257ecde4b47db41d538f531fa6c3e93e36457d7821788d58f7c",
+  "quantiles": {
+    "ABSENT_NATIVE": {
+      "max": 0.0,
+      "p10": 0.0,
+      "p25": 0.0,
+      "p50": 0.0,
+      "p75": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0
+    },
+    "PRESENT": {
+      "max": 2636.9524615251134,
+      "p10": -0.39718142196725226,
+      "p25": -0.03231233654150856,
+      "p50": 0.0,
+      "p75": 0.041649594757473096,
+      "p90": 0.713937288246416,
+      "p95": 2.009172860697791,
+      "p99": 14.311914893617177
+    },
+    "all": {
+      "max": 2636.9524615251134,
+      "p10": -0.23057603484494393,
+      "p25": -0.004562250490380393,
+      "p50": 0.0,
+      "p75": 0.009519776740717134,
+      "p90": 0.3960609349342121,
+      "p95": 1.5482009964355257,
+      "p99": 9.249514984756155
+    },
+    "fd": {
+      "max": 7.364799157658126,
+      "p10": -0.00015855031779210535,
+      "p25": 0.0,
+      "p50": 0.0,
+      "p75": 0.0,
+      "p90": 0.008300859771043174,
+      "p95": 0.06347067440401594,
+      "p99": 0.6905247527343098
+    },
+    "mcv": {
+      "max": 2636.9524615251134,
+      "p10": -0.6741396678158706,
+      "p25": -0.08292059809718921,
+      "p50": 0.0,
+      "p75": 0.10533441099050833,
+      "p90": 1.4283925501709742,
+      "p95": 3.137950348620693,
+      "p99": 35.983221812136904
+    }
+  }
+}

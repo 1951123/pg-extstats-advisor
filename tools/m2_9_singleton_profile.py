@@ -261,11 +261,13 @@ def profile(dsn: str, resume: bool) -> tuple[list[dict[str, Any]], dict[str, Any
         total_elapsed = time.perf_counter() - started
         performance = {
             "profile_status": "complete",
+            "protocol_sha256": digest_file(PROTOCOL_PATH),
             "candidate_count": len(rows),
             "query_count": len(prepared.workload.queries),
             "baseline_objective": baseline.aggregate_objective,
             "baseline_planner_calls": len(prepared.workload.queries),
             "total_native_evaluations": len(rows),
+            "missing_candidate_evaluations": 0,
             "total_planner_calls": adapter.planner_calls_total,
             "total_affected_query_replans": sum(int(row["planner_calls"]) for row in rows),
             "total_elapsed_seconds": total_elapsed,
@@ -279,6 +281,11 @@ def profile(dsn: str, resume: bool) -> tuple[list[dict[str, Any]], dict[str, Any
                 float(row["elapsed_seconds"]) for row in rows
             ),
             "repository_digest": prepared.repository.digest,
+            "workload_digest": prepared.workload.digest,
+            "candidate_catalog_digest": EXPECTED["catalog"],
+            "incidence_digest": prepared.incidence_digest,
+            "maintenance_model_digest": model.digest,
+            "postgres_version": adapter.postgres_version,
             "no_analyze": True,
             "statistics_ddl": 0,
         }
@@ -318,7 +325,18 @@ def numeric_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def counts(rows: list[dict[str, Any]]) -> dict[str, int]:
-    counter = Counter(str(row["improvement_class"]) for row in rows)
+    counter = Counter(
+        str(row.get("improvement_class"))
+        if row.get("improvement_class")
+        else (
+            "positive"
+            if float(row["singleton_improvement"]) > 0
+            else "negative"
+            if float(row["singleton_improvement"]) < 0
+            else "zero"
+        )
+        for row in rows
+    )
     return {key: counter.get(key, 0) for key in ("positive", "zero", "negative")}
 
 
@@ -330,9 +348,9 @@ def quantiles(rows: list[dict[str, Any]]) -> dict[str, float | None]:
 
 
 def concentration(rows: list[dict[str, Any]]) -> dict[str, Any]:
-    positive = sorted(
-        (row for row in rows if row["singleton_improvement"] > 0),
-        key=lambda row: (-row["singleton_improvement"], row["precedence_rank"], row["candidate_id"]),
+    positive = deterministic_order(
+        [row for row in rows if row["singleton_improvement"] > 0],
+        "singleton_improvement",
     )
     total = sum(row["singleton_improvement"] for row in positive)
     shares: dict[str, Any] = {}
@@ -443,6 +461,13 @@ def retrospective(
                 "mechanism": row["mechanism"],
                 "realization_state": row["realization_state"],
                 "singleton_improvement": row["singleton_improvement"],
+                "improvement_class": (
+                    "positive"
+                    if row["singleton_improvement"] > 0
+                    else "negative"
+                    if row["singleton_improvement"] < 0
+                    else "zero"
+                ),
                 "singleton_rank_all": rank,
                 "singleton_percentile_all": percentile_from_rank(rank, len(rows)),
                 "singleton_rank_mechanism": mechanism_rank[row["mechanism"]][candidate_id],
@@ -489,7 +514,17 @@ def analyse(rows: list[dict[str, Any]], performance: dict[str, Any]) -> None:
     summary: dict[str, Any] = {
         "format_version": 1,
         "experiment": "M2.9 Candidate Singleton Utility Profiling",
+        "protocol_sha256": digest_file(PROTOCOL_PATH),
+        "lineage": EXPECTED,
         "candidate_count": len(rows),
+        "coverage": {
+            "total_candidates": len(rows),
+            "mcv_candidates": len(groups["mcv"]),
+            "fd_candidates": len(groups["fd"]),
+            "missing_candidate_evaluations": 4506 - len(rows),
+            "no_screening_rule": True,
+            "no_search_resume": True,
+        },
         "baseline_objective": EXPECTED_BASELINE,
         "distribution": {name: counts(group) for name, group in groups.items()},
         "quantiles": {name: quantiles(group) for name, group in groups.items()},
@@ -693,15 +728,82 @@ def write_report(summary: dict[str, Any], ranking: dict[str, Any], retrospective
     REPORT_PATH.write_text("\n".join(lines) + "\n")
 
 
+def spot_check(dsn: str, rows: list[dict[str, Any]]) -> dict[str, Any]:
+    prepared = load_prepared_run(M27_ROOT)
+    model = load_maintenance_model(M27_ROOT)
+    verify_lineage(prepared, model)
+    by_class = {
+        "top": rows[0],
+        "middle": rows[len(rows) // 2],
+    }
+    for label, predicate in (
+        ("zero", lambda row: row["improvement_class"] == "zero"),
+        ("negative", lambda row: row["improvement_class"] == "negative"),
+        ("absent", lambda row: row["realization_state"] == "ABSENT_NATIVE"),
+    ):
+        match = next((row for row in rows if predicate(row)), None)
+        if match is not None:
+            by_class[label] = match
+    selected = list({row["candidate_id"]: row for row in by_class.values()}.values())
+    records = []
+    with psycopg.connect(dsn) as connection:
+        adapter = PostgresAdapter(connection, prepared.repository)
+        evaluator = NativeEvaluator(
+            prepared.workload, prepared.repository, prepared.incidence, adapter
+        )
+        baseline = evaluator.evaluate_design(Design(()))
+        if baseline.aggregate_objective != EXPECTED_BASELINE:
+            raise RuntimeError("spot-check baseline mismatch")
+        for row in selected:
+            candidate_id = next(
+                item.candidate_id
+                for item in prepared.catalog.candidates
+                if str(item.candidate_id) == row["candidate_id"]
+            )
+            state = evaluator.evaluate_move(
+                Design(()), Move.add_candidate(candidate_id), baseline
+            )
+            records.append(
+                {
+                    "candidate_id": row["candidate_id"],
+                    "expected_objective": row["singleton_objective"],
+                    "replayed_objective": state.aggregate_objective,
+                    "exact": state.aggregate_objective == float(row["singleton_objective"]),
+                }
+            )
+    result = {
+        "candidate_count": len(records),
+        "records": records,
+        "all_exact": all(item["exact"] for item in records),
+        "purpose": "deterministic aggregate verification; not a second full profile",
+    }
+    performance = json.loads(PERFORMANCE_PATH.read_text())
+    performance["spot_check"] = result
+    write_json(PERFORMANCE_PATH, performance)
+    return result
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dsn", default=DEFAULT_DSN)
-    parser.add_argument("--phase", choices=("profile", "all"), default="all")
+    parser.add_argument("--phase", choices=("profile", "analyse", "verify", "all"), default="all")
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
-    rows, performance = profile(args.dsn, args.resume)
-    if args.phase == "all":
+    if args.phase == "analyse":
+        rows = load_rows()
+        performance = json.loads(PERFORMANCE_PATH.read_text())
         analyse(rows, performance)
+    elif args.phase == "verify":
+        rows = numeric_rows(load_rows())
+        result = spot_check(args.dsn, rows)
+        print(json.dumps(result, sort_keys=True))
+        return
+    else:
+        rows, performance = profile(args.dsn, args.resume)
+        if args.phase == "all":
+            spot_check(args.dsn, numeric_rows(rows))
+            performance = json.loads(PERFORMANCE_PATH.read_text())
+            analyse(rows, performance)
     print(json.dumps({"status": "complete", "candidates": len(rows)}, sort_keys=True))
 
 

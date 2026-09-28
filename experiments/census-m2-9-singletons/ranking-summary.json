@@ -1,0 +1,116 @@
+{
+  "cost_aware_pair_diagnostics": {
+    "100": {
+      "candidate_count": 100,
+      "duplicate_incidence_set_count": 1,
+      "mcv_fd_same_pair_count": 1,
+      "unique_column_pairs": 99
+    },
+    "500": {
+      "candidate_count": 500,
+      "duplicate_incidence_set_count": 23,
+      "mcv_fd_same_pair_count": 22,
+      "unique_column_pairs": 478
+    }
+  },
+  "cost_aware_top_composition": {
+    "100": {
+      "count": 100,
+      "mechanism": {
+        "fd": 1,
+        "mcv": 99
+      },
+      "realization_state": {
+        "PRESENT": 100
+      }
+    },
+    "500": {
+      "count": 500,
+      "mechanism": {
+        "fd": 29,
+        "mcv": 471
+      },
+      "realization_state": {
+        "PRESENT": 500
+      }
+    }
+  },
+  "cost_aware_top_diversity": {
+    "100": {
+      "candidate_count": 100,
+      "mean_affected_queries": 5.42,
+      "mean_pairwise_jaccard": 0.020282761647007822,
+      "overlapping_candidate_pairs": 788,
+      "total_coverage_count": 542,
+      "unique_affected_queries": 227
+    },
+    "500": {
+      "candidate_count": 500,
+      "mean_affected_queries": 4.752,
+      "mean_pairwise_jaccard": 0.009632183847182885,
+      "overlapping_candidate_pairs": 9434,
+      "total_coverage_count": 2376,
+      "unique_affected_queries": 408
+    }
+  },
+  "raw_pair_diagnostics": {
+    "100": {
+      "candidate_count": 100,
+      "duplicate_incidence_set_count": 2,
+      "mcv_fd_same_pair_count": 2,
+      "unique_column_pairs": 98
+    },
+    "500": {
+      "candidate_count": 500,
+      "duplicate_incidence_set_count": 32,
+      "mcv_fd_same_pair_count": 31,
+      "unique_column_pairs": 469
+    }
+  },
+  "raw_top_composition": {
+    "100": {
+      "count": 100,
+      "mechanism": {
+        "fd": 2,
+        "mcv": 98
+      },
+      "realization_state": {
+        "PRESENT": 100
+      }
+    },
+    "500": {
+      "count": 500,
+      "mechanism": {
+        "fd": 45,
+        "mcv": 455
+      },
+      "realization_state": {
+        "PRESENT": 500
+      }
+    }
+  },
+  "raw_top_diversity": {
+    "100": {
+      "candidate_count": 100,
+      "mean_affected_queries": 5.47,
+      "mean_pairwise_jaccard": 0.020709759172490197,
+      "overlapping_candidate_pairs": 803,
+      "total_coverage_count": 547,
+      "unique_affected_queries": 227
+    },
+    "500": {
+      "candidate_count": 500,
+      "mean_affected_queries": 4.78,
+      "mean_pairwise_jaccard": 0.00988646301821643,
+      "overlapping_candidate_pairs": 9688,
+      "total_coverage_count": 2390,
+      "unique_affected_queries": 402
+    }
+  },
+  "tie_break": [
+    "higher value",
+    "lower maintenance cost",
+    "lower precedence rank",
+    "candidate ID"
+  ]
+}

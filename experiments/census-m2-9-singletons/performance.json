@@ -1,0 +1,55 @@
+{
+  "baseline_objective": 5586.930692724469,
+  "baseline_planner_calls": 468,
+  "candidate_catalog_digest": "74727a871b3a601977885cbf96d25cda6e5ac38ef448d1815561bdc5988a425a",
+  "candidate_count": 4506,
+  "incidence_digest": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4",
+  "maintenance_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e",
+  "max_candidate_elapsed_seconds": 0.019210057998861885,
+  "median_candidate_elapsed_seconds": 0.005255136498817592,
+  "missing_candidate_evaluations": 0,
+  "no_analyze": true,
+  "p95_candidate_elapsed_seconds": 0.007716982250713045,
+  "postgres_version": "16.14",
+  "profile_status": "complete",
+  "protocol_sha256": "07b092d12ab26257ecde4b47db41d538f531fa6c3e93e36457d7821788d58f7c",
+  "query_count": 468,
+  "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+  "spot_check": {
+    "all_exact": true,
+    "candidate_count": 4,
+    "purpose": "deterministic aggregate verification; not a second full profile",
+    "records": [
+      {
+        "candidate_id": "cand_9d13a2ab8575f27a140e",
+        "exact": true,
+        "expected_objective": 5586.875169172198,
+        "replayed_objective": 5586.875169172198
+      },
+      {
+        "candidate_id": "cand_8e074250df2d367b0af0",
+        "exact": true,
+        "expected_objective": 5586.930692724469,
+        "replayed_objective": 5586.930692724469
+      },
+      {
+        "candidate_id": "cand_d1bc63da1360a4b35cc3",
+        "exact": true,
+        "expected_objective": 5586.930692724469,
+        "replayed_objective": 5586.930692724469
+      },
+      {
+        "candidate_id": "cand_a1be68868bb641aaa03e",
+        "exact": true,
+        "expected_objective": 5587.777815247738,
+        "replayed_objective": 5587.777815247738
+      }
+    ]
+  },
+  "statistics_ddl": 0,
+  "total_affected_query_replans": 19996,
+  "total_elapsed_seconds": 26.816258775997994,
+  "total_native_evaluations": 4506,
+  "total_planner_calls": 20464,
+  "workload_digest": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215"
+}
