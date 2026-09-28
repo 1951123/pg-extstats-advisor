@@ -11,6 +11,12 @@ import pytest
 
 from pg_extstats_advisor.cost.model import MaintenanceBudget
 from pg_extstats_advisor.cost.preset import PresetMaintenanceCostModel
+from pg_extstats_advisor.deploy.physical import PhysicalDeployer
+from pg_extstats_advisor.deploy.sql import (
+    build_deployment_plan,
+    build_search_deployment_plan,
+    quote_identifier,
+)
 from pg_extstats_advisor.evaluator.native import NativeEvaluator
 from pg_extstats_advisor.incidence.index import IncidenceIndex
 from pg_extstats_advisor.models import CandidateId, Design, Move, QueryId, WorkloadQuery
@@ -18,6 +24,14 @@ from pg_extstats_advisor.payloads.repository import PayloadRepository
 from pg_extstats_advisor.postgres.adapter import PostgresAdapter
 from pg_extstats_advisor.search.deterministic import DeterministicBudgetSearch
 from pg_extstats_advisor.search.model import SearchConfig
+from pg_extstats_advisor.validate.deployment import (
+    build_validation_result,
+    collect_fresh_payload_fingerprints,
+    evaluate_physical,
+    frozen_payload_fingerprints,
+)
+from pg_extstats_advisor.validate.model import ValidationProvenance
+from pg_extstats_advisor.validate.report import write_validation_report
 from pg_extstats_advisor.workload.model import Workload
 
 DSN = os.environ.get("PG_EXTSTATS_TEST_DSN")
@@ -281,6 +295,185 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
         assert loose1 == loose2
         assert adapter.registration_calls == registrations
         assert catalog_fingerprint(connection) == fingerprint
+
+        # M2 layer B: retain only the selected physical definitions acquired in R1.
+        selected_ids = set(local.selected_design.candidate_ids)
+        connection.execute("SELECT pg_hypothetical_extstats_reset()")
+        for frozen in repository.payloads:
+            if frozen.candidate.candidate_id not in selected_ids:
+                name = str(dict(frozen.candidate.definition)["statistics_name"])
+                connection.execute(f"DROP STATISTICS public.{quote_identifier(name)}")
+        connection.commit()
+        same_realization = evaluate_physical(
+            connection, workload, local.selected_design, repository.digest
+        )
+        assert same_realization.design == local.selected_state.design
+        for query_id, physical_evaluation in same_realization.by_query().items():
+            hypothetical_evaluation = local.selected_state.by_query()[query_id]
+            assert physical_evaluation.truth == hypothetical_evaluation.truth
+            assert physical_evaluation.estimate == hypothetical_evaluation.estimate
+            assert physical_evaluation.contribution == hypothetical_evaluation.contribution
+        assert same_realization.aggregate_objective == local.selected_state.aggregate_objective
+
+        # Remove R1 definitions. Empty physical planning still performs fresh ANALYZE.
+        for frozen in repository.payloads:
+            if frozen.candidate.candidate_id in selected_ids:
+                name = str(dict(frozen.candidate.definition)["statistics_name"])
+                connection.execute(f"DROP STATISTICS public.{quote_identifier(name)}")
+        connection.commit()
+        validation_relations = tuple(query.target_relation for query in workload.queries)
+        empty_plan = build_deployment_plan(
+            Design(()),
+            repository.catalog,
+            repository_digest=repository.digest,
+            workload_digest=workload.digest,
+            statistics_target=10000,
+            validation_relations=validation_relations,
+        )
+        empty_deployment = PhysicalDeployer(connection, "disposable-m2-cluster").deploy(
+            empty_plan
+        )
+        assert empty_deployment.created_statistics == ()
+        assert len(empty_deployment.analyze_commands) == len(validation_relations)
+        empty_physical = evaluate_physical(connection, workload, Design(()), repository.digest)
+        assert len(empty_physical.query_evaluations) == len(workload.queries)
+
+        # Exercise a single candidate, then explicit cleanup/recreate behavior.
+        single_design = repository.catalog.normalize_design({CandidateId("single_mcv")})
+        single_plan = build_deployment_plan(
+            single_design,
+            repository.catalog,
+            repository_digest=repository.digest,
+            workload_digest=workload.digest,
+            statistics_target=10000,
+        )
+        single_deployment = PhysicalDeployer(connection, "disposable-m2-cluster").deploy(
+            single_plan
+        )
+        assert len(collect_fresh_payload_fingerprints(connection, single_deployment)) == 1
+        with pytest.raises(psycopg.errors.DuplicateObject):
+            PhysicalDeployer(connection, "disposable-m2-cluster").deploy(single_plan)
+        for name in single_plan.statistics_names:
+            connection.execute(f"DROP STATISTICS public.{quote_identifier(name)}")
+        connection.commit()
+
+        # Exercise an MCV+FD physical design and verify both native payloads exist.
+        mixed_design = repository.catalog.normalize_design(
+            {CandidateId("mixed_mcv"), CandidateId("mixed_fd")}
+        )
+        mixed_plan = build_deployment_plan(
+            mixed_design,
+            repository.catalog,
+            repository_digest=repository.digest,
+            workload_digest=workload.digest,
+            statistics_target=10000,
+        )
+        mixed_deployment = PhysicalDeployer(connection, "disposable-m2-cluster").deploy(
+            mixed_plan
+        )
+        mixed_fingerprints = collect_fresh_payload_fingerprints(connection, mixed_deployment)
+        assert {item.mechanism for item in mixed_fingerprints} == {"mcv", "fd"}
+        for name in mixed_plan.statistics_names:
+            connection.execute(f"DROP STATISTICS public.{quote_identifier(name)}")
+        connection.commit()
+
+        # Deploy the actual M1-selected design, produce R2, and serialize drift evidence.
+        selected_plan = build_search_deployment_plan(
+            local,
+            repository.catalog,
+            statistics_target=10000,
+            validation_relations=validation_relations,
+        )
+        selected_deployment = PhysicalDeployer(
+            connection, "disposable-m2-cluster"
+        ).deploy(selected_plan)
+        fresh = evaluate_physical(
+            connection, workload, local.selected_design, repository.digest
+        )
+        fresh_fingerprints = collect_fresh_payload_fingerprints(
+            connection, selected_deployment
+        )
+        provenance = ValidationProvenance(
+            "working-tree-integration",
+            repository.upstream_sha256,
+            repository.patch_commit,
+            workload.digest,
+            repository.digest,
+            local.cost_model_digest,
+            str(local.budget.value),
+            local.budget.unit,
+            local.config.algorithm_version,
+            selected_plan.sql_digest,
+            selected_deployment.environment_identity,
+            selected_plan.statistics_target,
+            selected_deployment.postgres_version,
+            tuple(
+                (
+                    relation,
+                    connection.execute(
+                        f"SELECT count(*) FROM public.{quote_identifier(relation)}"
+                    ).fetchone()[0],
+                )
+                for relation in sorted(set(validation_relations))
+            ),
+            (("default_statistics_target", "10000"),),
+        )
+        validation = build_validation_result(
+            frozen=local.selected_state,
+            fresh=fresh,
+            frozen_fingerprints=frozen_payload_fingerprints(
+                repository, local.selected_design
+            ),
+            fresh_fingerprints=fresh_fingerprints,
+            deployment=selected_deployment,
+            provenance=provenance,
+            same_realization_control=same_realization,
+        )
+        report_path = tmp_path / "validation-report.json"
+        write_validation_report(validation, report_path)
+        assert json.loads(report_path.read_text())["aggregate"]["fresh_objective"] == (
+            fresh.aggregate_objective
+        )
+        print(
+            "M2_VALIDATION="
+            + json.dumps(
+                {
+                    "design": local.selected_design.candidate_ids,
+                    "frozen_objective": validation.aggregate.frozen_objective,
+                    "fresh_objective": validation.aggregate.fresh_objective,
+                    "objective_drift": validation.aggregate.absolute_objective_drift,
+                    "payload_same": sum(
+                        item.same_realization for item in validation.payload_comparisons
+                    ),
+                    "payload_changed": sum(
+                        not item.same_realization for item in validation.payload_comparisons
+                    ),
+                    "per_query": [
+                        {
+                            "query_id": item.query_id,
+                            "frozen": item.frozen_estimate,
+                            "fresh": item.fresh_estimate,
+                        }
+                        for item in validation.per_query
+                    ],
+                },
+                sort_keys=True,
+            )
+        )
+        for name in selected_plan.statistics_names:
+            connection.execute(f"DROP STATISTICS public.{quote_identifier(name)}")
+        for relation in (
+            "m0_single",
+            "m0_overlap",
+            "m0_fd",
+            "m0_mixed",
+            "m0_unaffected",
+        ):
+            connection.execute(f"DROP TABLE public.{quote_identifier(relation)}")
+        connection.commit()
+        assert connection.execute(
+            "SELECT count(*) FROM pg_statistic_ext WHERE stxname LIKE 'pgextadv_%'"
+        ).fetchone()[0] == 0
         print(
             json.dumps(
                 {
