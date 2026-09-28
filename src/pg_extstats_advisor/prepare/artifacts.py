@@ -11,6 +11,7 @@ from typing import Any
 from psycopg import Connection
 
 from pg_extstats_advisor.candidates.model import CandidateCatalog
+from pg_extstats_advisor.cost.preset import PresetMaintenanceCostModel
 from pg_extstats_advisor.incidence.index import IncidenceIndex
 from pg_extstats_advisor.payloads.repository import PayloadRepository
 from pg_extstats_advisor.prepare.acquisition import AcquisitionResult, acquire_payloads
@@ -71,6 +72,27 @@ def prepare_mvp(
     )
     incidence = derive_incidence(ingested, acquisition.repository.catalog)
     _write(root / "config.json", json.loads(config.canonical_json()))
+    maintenance = dict(config.maintenance)
+    model = PresetMaintenanceCostModel(
+        maintenance.get("base_mcv", "0"),
+        maintenance.get("per_column_mcv", "1"),
+        maintenance.get("base_fd", "1"),
+        maintenance.get("per_column_fd", "1"),
+        str(maintenance.get("unit", "maintenance-cost-unit")),
+    )
+    _write(
+        root / "maintenance-model.json",
+        {
+            "format_version": 1,
+            "model_type": "preset-development",
+            "model_version": model.model_version,
+            "unit": model.unit,
+            "parameters": dict(model.provenance.parameters),
+            "feature_schema": model.provenance.feature_schema,
+            "fitting_provenance": model.fitting_provenance,
+            "digest": model.digest,
+        },
+    )
     _write(
         root / "workload.json",
         {
@@ -138,6 +160,15 @@ def prepare_mvp(
         "completed_at": datetime.now(UTC).isoformat(),
     }
     _write(root / "prepare-summary.json", summary)
+    _write(
+        root / "run-manifest.json",
+        {
+            "format_version": 1,
+            "stages": {
+                "prepare": {"complete": True, "artifact_digest": acquisition.repository.digest}
+            },
+        },
+    )
     return PreparedRun(
         ingested.workload,
         acquisition.repository.catalog,

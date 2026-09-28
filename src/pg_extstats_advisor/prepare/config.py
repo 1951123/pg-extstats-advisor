@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -35,9 +37,16 @@ class PreparationConfig:
         return hashlib.sha256(self.canonical_json().encode()).hexdigest()
 
     def canonical_json(self) -> str:
+        def sanitize(dsn: str) -> str:
+            value = re.sub(r"(?i)(password\s*=\s*)[^\s]+", r"\1<redacted>", dsn)
+            return re.sub(r"(?i)(://[^:/@]+:)[^@]+@", r"\1<redacted>@", value)
+
         value = {
             "schema_version": self.schema_version,
-            "database": {"source_dsn": self.source_dsn, "acquisition_dsn": self.acquisition_dsn},
+            "database": {
+                "source_dsn": sanitize(self.source_dsn),
+                "acquisition_dsn": sanitize(self.acquisition_dsn),
+            },
             "workload": {"path": str(self.workload_path)},
             "candidates": {
                 "mechanisms": self.mechanisms,
@@ -69,6 +78,18 @@ class PreparationConfig:
         if required - raw.keys():
             raise ValueError(f"missing config sections: {sorted(required - raw.keys())}")
         database, candidates, acquisition = raw["database"], raw["candidates"], raw["acquisition"]
+
+        def dsn(name: str) -> str:
+            env_name = database.get(f"{name}_env")
+            if env_name:
+                try:
+                    return os.environ[str(env_name)]
+                except KeyError as error:
+                    raise ValueError(f"missing DSN environment variable: {env_name}") from error
+            if name not in database:
+                raise ValueError(f"missing database.{name} or database.{name}_env")
+            return str(database[name])
+
         mechanisms = tuple(candidates["mechanisms"])
         if not mechanisms or set(mechanisms) - {"mcv", "fd"}:
             raise ValueError("mechanisms must be a non-empty subset of mcv/fd")
@@ -87,8 +108,8 @@ class PreparationConfig:
         )
         return cls(
             1,
-            str(database["source_dsn"]),
-            str(database["acquisition_dsn"]),
+            dsn("source_dsn"),
+            dsn("acquisition_dsn"),
             Path(raw["workload"]["path"]),
             Path(acquisition["output_path"]),
             mechanisms,
