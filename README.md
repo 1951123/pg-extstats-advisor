@@ -13,6 +13,10 @@ recommend/deploy/fresh-ANALYZE/validate loop are implemented. Deployment is neve
 automatic: callers render a typed plan and explicitly execute it in an isolated
 environment. See `docs/m2-deployment-validation.md`.
 
+M2.5-A/B adds a Python preparation API for versioned supplied workloads,
+deterministic candidates, isolated one-time native-payload acquisition, and
+conservative incidence artifacts. CLI orchestration remains deferred to M2.5-C.
+
 ## Current scope
 
 - PostgreSQL 16.14.

@@ -37,6 +37,12 @@ a future experimental substage before production interpretation.
 Emit deployable `CREATE STATISTICS`, run fresh `ANALYZE`, collect new native
 payloads, and separate semantic fidelity from realization drift.
 
+## M2.5-A/B — MVP preparation — complete
+
+Versioned workload ingestion, deterministic automatic/explicit candidate generation,
+isolated native-payload acquisition, conservative incidence, and structured run
+artifacts now produce the existing evaluator inputs. M2.5-C CLI orchestration is future.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,
