@@ -1,0 +1,2453 @@
+{
+  "candidate_arity": 2,
+  "candidates": [
+    {
+      "candidate_id": "cal_dcfb2f7f1d2734b6",
+      "columns": [
+        "caseid",
+        "dage"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_dcfb2f7f1d2734b6"
+    },
+    {
+      "candidate_id": "cal_edb32e13ab79377f",
+      "columns": [
+        "caseid",
+        "dancstry1"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_edb32e13ab79377f"
+    },
+    {
+      "candidate_id": "cal_f571329a12cd2ec1",
+      "columns": [
+        "caseid",
+        "dancstry2"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_f571329a12cd2ec1"
+    },
+    {
+      "candidate_id": "cal_7b6f92a936865fd6",
+      "columns": [
+        "caseid",
+        "iavail"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_7b6f92a936865fd6"
+    },
+    {
+      "candidate_id": "cal_5c4fb597d1e0db42",
+      "columns": [
+        "caseid",
+        "icitizen"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_5c4fb597d1e0db42"
+    },
+    {
+      "candidate_id": "cal_91b58959fd773b99",
+      "columns": [
+        "caseid",
+        "iclass"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_91b58959fd773b99"
+    },
+    {
+      "candidate_id": "cal_2dc38e607badc3a8",
+      "columns": [
+        "caseid",
+        "ddepart"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_2dc38e607badc3a8"
+    },
+    {
+      "candidate_id": "cal_8f17ced79367a3c0",
+      "columns": [
+        "caseid",
+        "idisabl1"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_8f17ced79367a3c0"
+    },
+    {
+      "candidate_id": "cal_7c3d23337b9c81e2",
+      "columns": [
+        "caseid",
+        "idisabl2"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_7c3d23337b9c81e2"
+    },
+    {
+      "candidate_id": "cal_b6c45300cac01809",
+      "columns": [
+        "caseid",
+        "ienglish"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_b6c45300cac01809"
+    },
+    {
+      "candidate_id": "cal_1ea9d5ccbbc13c6a",
+      "columns": [
+        "caseid",
+        "ifeb55"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_1ea9d5ccbbc13c6a"
+    },
+    {
+      "candidate_id": "cal_8faddbda269a75cc",
+      "columns": [
+        "caseid",
+        "ifertil"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_8faddbda269a75cc"
+    },
+    {
+      "candidate_id": "cal_140328f3f7ab1dc8",
+      "columns": [
+        "caseid",
+        "dhispanic"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_140328f3f7ab1dc8"
+    },
+    {
+      "candidate_id": "cal_b82604dbf097daea",
+      "columns": [
+        "caseid",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_b82604dbf097daea"
+    },
+    {
+      "candidate_id": "cal_247bea57ee4dbe17",
+      "columns": [
+        "caseid",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_247bea57ee4dbe17"
+    },
+    {
+      "candidate_id": "cal_48ed225bdc3ffe28",
+      "columns": [
+        "caseid",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_48ed225bdc3ffe28"
+    },
+    {
+      "candidate_id": "cal_bdd1adc6ce00cdbe",
+      "columns": [
+        "dage",
+        "dancstry1"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_bdd1adc6ce00cdbe"
+    },
+    {
+      "candidate_id": "cal_413f6478ace8d709",
+      "columns": [
+        "dage",
+        "dancstry2"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_413f6478ace8d709"
+    },
+    {
+      "candidate_id": "cal_398772c83c8bd809",
+      "columns": [
+        "dage",
+        "iavail"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_398772c83c8bd809"
+    },
+    {
+      "candidate_id": "cal_e2d039ba0440846b",
+      "columns": [
+        "dage",
+        "icitizen"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_e2d039ba0440846b"
+    },
+    {
+      "candidate_id": "cal_5bd457c29966745b",
+      "columns": [
+        "dage",
+        "iclass"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_5bd457c29966745b"
+    },
+    {
+      "candidate_id": "cal_a7fde4da03ba9097",
+      "columns": [
+        "dage",
+        "ddepart"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_a7fde4da03ba9097"
+    },
+    {
+      "candidate_id": "cal_a231c2e8d8e193c1",
+      "columns": [
+        "dage",
+        "idisabl1"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_a231c2e8d8e193c1"
+    },
+    {
+      "candidate_id": "cal_158c4d938c0cef94",
+      "columns": [
+        "dage",
+        "idisabl2"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_158c4d938c0cef94"
+    },
+    {
+      "candidate_id": "cal_887758effb9a08b5",
+      "columns": [
+        "dage",
+        "ienglish"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_887758effb9a08b5"
+    },
+    {
+      "candidate_id": "cal_4ec069378b5f6ef6",
+      "columns": [
+        "dage",
+        "ifeb55"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_4ec069378b5f6ef6"
+    },
+    {
+      "candidate_id": "cal_c6ffa6fbe29b8b4b",
+      "columns": [
+        "dage",
+        "ifertil"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_c6ffa6fbe29b8b4b"
+    },
+    {
+      "candidate_id": "cal_7f2480a2b338740c",
+      "columns": [
+        "dage",
+        "dhispanic"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_7f2480a2b338740c"
+    },
+    {
+      "candidate_id": "cal_9416718d1e08e125",
+      "columns": [
+        "dage",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_9416718d1e08e125"
+    },
+    {
+      "candidate_id": "cal_0bff03d3f3c5cc35",
+      "columns": [
+        "dage",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_0bff03d3f3c5cc35"
+    },
+    {
+      "candidate_id": "cal_b86e38b18d09a5bf",
+      "columns": [
+        "dage",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_b86e38b18d09a5bf"
+    },
+    {
+      "candidate_id": "cal_c16406656deefe7d",
+      "columns": [
+        "dancstry1",
+        "dancstry2"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_c16406656deefe7d"
+    },
+    {
+      "candidate_id": "cal_e55e58f738cf9c8d",
+      "columns": [
+        "dancstry1",
+        "iavail"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_e55e58f738cf9c8d"
+    },
+    {
+      "candidate_id": "cal_832863364c3edcb0",
+      "columns": [
+        "dancstry1",
+        "icitizen"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_832863364c3edcb0"
+    },
+    {
+      "candidate_id": "cal_8f6dd849741ae832",
+      "columns": [
+        "dancstry1",
+        "iclass"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_8f6dd849741ae832"
+    },
+    {
+      "candidate_id": "cal_af95cedcb68fa209",
+      "columns": [
+        "dancstry1",
+        "ddepart"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_af95cedcb68fa209"
+    },
+    {
+      "candidate_id": "cal_d969566aff2e391d",
+      "columns": [
+        "dancstry1",
+        "idisabl1"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_d969566aff2e391d"
+    },
+    {
+      "candidate_id": "cal_d6abc3653ead6841",
+      "columns": [
+        "dancstry1",
+        "idisabl2"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_d6abc3653ead6841"
+    },
+    {
+      "candidate_id": "cal_d763146068bef1b8",
+      "columns": [
+        "dancstry1",
+        "ienglish"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_d763146068bef1b8"
+    },
+    {
+      "candidate_id": "cal_bb015a1306b16e8a",
+      "columns": [
+        "dancstry1",
+        "ifeb55"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_bb015a1306b16e8a"
+    },
+    {
+      "candidate_id": "cal_9dabe801772c128e",
+      "columns": [
+        "dancstry1",
+        "ifertil"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_9dabe801772c128e"
+    },
+    {
+      "candidate_id": "cal_3441b08526ba4dac",
+      "columns": [
+        "dancstry1",
+        "dhispanic"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_3441b08526ba4dac"
+    },
+    {
+      "candidate_id": "cal_d1a10ce3fe14b46e",
+      "columns": [
+        "dancstry1",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_d1a10ce3fe14b46e"
+    },
+    {
+      "candidate_id": "cal_2184b3f76f33afe0",
+      "columns": [
+        "dancstry1",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_2184b3f76f33afe0"
+    },
+    {
+      "candidate_id": "cal_6d1a49bb2ed6d987",
+      "columns": [
+        "dancstry1",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_6d1a49bb2ed6d987"
+    },
+    {
+      "candidate_id": "cal_72a0b3304416ad81",
+      "columns": [
+        "dancstry2",
+        "iavail"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_72a0b3304416ad81"
+    },
+    {
+      "candidate_id": "cal_dd2cb53117dafadf",
+      "columns": [
+        "dancstry2",
+        "icitizen"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_dd2cb53117dafadf"
+    },
+    {
+      "candidate_id": "cal_4748056341b3f0dd",
+      "columns": [
+        "dancstry2",
+        "iclass"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_4748056341b3f0dd"
+    },
+    {
+      "candidate_id": "cal_6ff01eb0aed052f2",
+      "columns": [
+        "dancstry2",
+        "ddepart"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_6ff01eb0aed052f2"
+    },
+    {
+      "candidate_id": "cal_3613c0107302f544",
+      "columns": [
+        "dancstry2",
+        "idisabl1"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_3613c0107302f544"
+    },
+    {
+      "candidate_id": "cal_115912e6f289edc1",
+      "columns": [
+        "dancstry2",
+        "idisabl2"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_115912e6f289edc1"
+    },
+    {
+      "candidate_id": "cal_4f6c30526eb48b07",
+      "columns": [
+        "dancstry2",
+        "ienglish"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_4f6c30526eb48b07"
+    },
+    {
+      "candidate_id": "cal_43131e774181e176",
+      "columns": [
+        "dancstry2",
+        "ifeb55"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_43131e774181e176"
+    },
+    {
+      "candidate_id": "cal_8640eb16781d077f",
+      "columns": [
+        "dancstry2",
+        "ifertil"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_8640eb16781d077f"
+    },
+    {
+      "candidate_id": "cal_1ad1270e2eff3234",
+      "columns": [
+        "dancstry2",
+        "dhispanic"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_1ad1270e2eff3234"
+    },
+    {
+      "candidate_id": "cal_9e7f41252a9b9de7",
+      "columns": [
+        "dancstry2",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_9e7f41252a9b9de7"
+    },
+    {
+      "candidate_id": "cal_c76e086d01aabcb2",
+      "columns": [
+        "dancstry2",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_c76e086d01aabcb2"
+    },
+    {
+      "candidate_id": "cal_97d82e5a2ccb45d8",
+      "columns": [
+        "dancstry2",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_97d82e5a2ccb45d8"
+    },
+    {
+      "candidate_id": "cal_4f58f22be0af0848",
+      "columns": [
+        "iavail",
+        "icitizen"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_4f58f22be0af0848"
+    },
+    {
+      "candidate_id": "cal_4c89ade6ddc2a0a1",
+      "columns": [
+        "iavail",
+        "iclass"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_4c89ade6ddc2a0a1"
+    },
+    {
+      "candidate_id": "cal_09db3030b76bb02f",
+      "columns": [
+        "iavail",
+        "ddepart"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_09db3030b76bb02f"
+    },
+    {
+      "candidate_id": "cal_e7b203c79dbbb935",
+      "columns": [
+        "iavail",
+        "idisabl1"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_e7b203c79dbbb935"
+    },
+    {
+      "candidate_id": "cal_dc5f5e1167d2c50a",
+      "columns": [
+        "iavail",
+        "idisabl2"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_dc5f5e1167d2c50a"
+    },
+    {
+      "candidate_id": "cal_3a745d69572c9aa1",
+      "columns": [
+        "iavail",
+        "ienglish"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_3a745d69572c9aa1"
+    },
+    {
+      "candidate_id": "cal_66487a95ac14f105",
+      "columns": [
+        "iavail",
+        "ifeb55"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_66487a95ac14f105"
+    },
+    {
+      "candidate_id": "cal_f6e2bda0937b3160",
+      "columns": [
+        "iavail",
+        "ifertil"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_f6e2bda0937b3160"
+    },
+    {
+      "candidate_id": "cal_77d5eddc4bcdc42c",
+      "columns": [
+        "iavail",
+        "dhispanic"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_77d5eddc4bcdc42c"
+    },
+    {
+      "candidate_id": "cal_e7ae44cb0dc1f496",
+      "columns": [
+        "iavail",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_e7ae44cb0dc1f496"
+    },
+    {
+      "candidate_id": "cal_f2deacd29faf1ee9",
+      "columns": [
+        "iavail",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_f2deacd29faf1ee9"
+    },
+    {
+      "candidate_id": "cal_79577346d1e2b5ae",
+      "columns": [
+        "iavail",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_79577346d1e2b5ae"
+    },
+    {
+      "candidate_id": "cal_0d04b71ab18bac7f",
+      "columns": [
+        "icitizen",
+        "iclass"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_0d04b71ab18bac7f"
+    },
+    {
+      "candidate_id": "cal_2c89749793f7cefb",
+      "columns": [
+        "icitizen",
+        "ddepart"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_2c89749793f7cefb"
+    },
+    {
+      "candidate_id": "cal_6f877cd00e8ddd89",
+      "columns": [
+        "icitizen",
+        "idisabl1"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_6f877cd00e8ddd89"
+    },
+    {
+      "candidate_id": "cal_730fda55e91ff664",
+      "columns": [
+        "icitizen",
+        "idisabl2"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_730fda55e91ff664"
+    },
+    {
+      "candidate_id": "cal_f8dd3fb7a79cdb5e",
+      "columns": [
+        "icitizen",
+        "ienglish"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_f8dd3fb7a79cdb5e"
+    },
+    {
+      "candidate_id": "cal_598d559d86f6f168",
+      "columns": [
+        "icitizen",
+        "ifeb55"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_598d559d86f6f168"
+    },
+    {
+      "candidate_id": "cal_8ae3a2a9da2e33cb",
+      "columns": [
+        "icitizen",
+        "ifertil"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_8ae3a2a9da2e33cb"
+    },
+    {
+      "candidate_id": "cal_6a13793daa5fdcb5",
+      "columns": [
+        "icitizen",
+        "dhispanic"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_6a13793daa5fdcb5"
+    },
+    {
+      "candidate_id": "cal_75b3ed2a8658efce",
+      "columns": [
+        "icitizen",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_75b3ed2a8658efce"
+    },
+    {
+      "candidate_id": "cal_68fb9bf4780597d9",
+      "columns": [
+        "icitizen",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_68fb9bf4780597d9"
+    },
+    {
+      "candidate_id": "cal_52a05749560f4357",
+      "columns": [
+        "icitizen",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_52a05749560f4357"
+    },
+    {
+      "candidate_id": "cal_66735ae861bc9da8",
+      "columns": [
+        "iclass",
+        "ddepart"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_66735ae861bc9da8"
+    },
+    {
+      "candidate_id": "cal_791130c97c353a4f",
+      "columns": [
+        "iclass",
+        "idisabl1"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_791130c97c353a4f"
+    },
+    {
+      "candidate_id": "cal_d427b986dc12b8d1",
+      "columns": [
+        "iclass",
+        "idisabl2"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_d427b986dc12b8d1"
+    },
+    {
+      "candidate_id": "cal_ac1f03292ee754d6",
+      "columns": [
+        "iclass",
+        "ienglish"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_ac1f03292ee754d6"
+    },
+    {
+      "candidate_id": "cal_a65559947886cbed",
+      "columns": [
+        "iclass",
+        "ifeb55"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_a65559947886cbed"
+    },
+    {
+      "candidate_id": "cal_c6b6c95cbc286bb8",
+      "columns": [
+        "iclass",
+        "ifertil"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_c6b6c95cbc286bb8"
+    },
+    {
+      "candidate_id": "cal_8fcd2ca57ddb0e59",
+      "columns": [
+        "iclass",
+        "dhispanic"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_8fcd2ca57ddb0e59"
+    },
+    {
+      "candidate_id": "cal_3088988e0c8ff7e1",
+      "columns": [
+        "iclass",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_3088988e0c8ff7e1"
+    },
+    {
+      "candidate_id": "cal_6239924684b889a0",
+      "columns": [
+        "iclass",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_6239924684b889a0"
+    },
+    {
+      "candidate_id": "cal_9581f2eccef1e18a",
+      "columns": [
+        "iclass",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_9581f2eccef1e18a"
+    },
+    {
+      "candidate_id": "cal_83ffae578e2d339d",
+      "columns": [
+        "ddepart",
+        "idisabl1"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_83ffae578e2d339d"
+    },
+    {
+      "candidate_id": "cal_a4fca563a72a87f9",
+      "columns": [
+        "ddepart",
+        "idisabl2"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_a4fca563a72a87f9"
+    },
+    {
+      "candidate_id": "cal_409e174130bd38c0",
+      "columns": [
+        "ddepart",
+        "ienglish"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_409e174130bd38c0"
+    },
+    {
+      "candidate_id": "cal_0a3f1094a9449623",
+      "columns": [
+        "ddepart",
+        "ifeb55"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_0a3f1094a9449623"
+    },
+    {
+      "candidate_id": "cal_3cea0689b167ffcd",
+      "columns": [
+        "ddepart",
+        "ifertil"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_3cea0689b167ffcd"
+    },
+    {
+      "candidate_id": "cal_53b02043d73e9e81",
+      "columns": [
+        "ddepart",
+        "dhispanic"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_53b02043d73e9e81"
+    },
+    {
+      "candidate_id": "cal_8f0453d14fc0d7b4",
+      "columns": [
+        "ddepart",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_8f0453d14fc0d7b4"
+    },
+    {
+      "candidate_id": "cal_03cbf25e9f94817d",
+      "columns": [
+        "ddepart",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_03cbf25e9f94817d"
+    },
+    {
+      "candidate_id": "cal_50f0c96bb34631f5",
+      "columns": [
+        "ddepart",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_50f0c96bb34631f5"
+    },
+    {
+      "candidate_id": "cal_3eddf3bcd172db54",
+      "columns": [
+        "idisabl1",
+        "idisabl2"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_3eddf3bcd172db54"
+    },
+    {
+      "candidate_id": "cal_9c0c98c576effe63",
+      "columns": [
+        "idisabl1",
+        "ienglish"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_9c0c98c576effe63"
+    },
+    {
+      "candidate_id": "cal_8e2f7af5f65803eb",
+      "columns": [
+        "idisabl1",
+        "ifeb55"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_8e2f7af5f65803eb"
+    },
+    {
+      "candidate_id": "cal_af600c590012923c",
+      "columns": [
+        "idisabl1",
+        "ifertil"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_af600c590012923c"
+    },
+    {
+      "candidate_id": "cal_bb0aada7e456cace",
+      "columns": [
+        "idisabl1",
+        "dhispanic"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_bb0aada7e456cace"
+    },
+    {
+      "candidate_id": "cal_5fcf12bd503199fa",
+      "columns": [
+        "idisabl1",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_5fcf12bd503199fa"
+    },
+    {
+      "candidate_id": "cal_c65fa1e74e5211f4",
+      "columns": [
+        "idisabl1",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_c65fa1e74e5211f4"
+    },
+    {
+      "candidate_id": "cal_b78bbc28e479d61d",
+      "columns": [
+        "idisabl1",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_b78bbc28e479d61d"
+    },
+    {
+      "candidate_id": "cal_954fe4682e3b3f08",
+      "columns": [
+        "idisabl2",
+        "ienglish"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_954fe4682e3b3f08"
+    },
+    {
+      "candidate_id": "cal_887420f675e49e3d",
+      "columns": [
+        "idisabl2",
+        "ifeb55"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_887420f675e49e3d"
+    },
+    {
+      "candidate_id": "cal_23aa837ef182f82d",
+      "columns": [
+        "idisabl2",
+        "ifertil"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_23aa837ef182f82d"
+    },
+    {
+      "candidate_id": "cal_dbda1269cc81f73f",
+      "columns": [
+        "idisabl2",
+        "dhispanic"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_dbda1269cc81f73f"
+    },
+    {
+      "candidate_id": "cal_6b6ef06610ba21e8",
+      "columns": [
+        "idisabl2",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_6b6ef06610ba21e8"
+    },
+    {
+      "candidate_id": "cal_471c6ceb42e9a04a",
+      "columns": [
+        "idisabl2",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_471c6ceb42e9a04a"
+    },
+    {
+      "candidate_id": "cal_358fd63d3376a536",
+      "columns": [
+        "idisabl2",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_358fd63d3376a536"
+    },
+    {
+      "candidate_id": "cal_1da2bda05d1cd775",
+      "columns": [
+        "ienglish",
+        "ifeb55"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_1da2bda05d1cd775"
+    },
+    {
+      "candidate_id": "cal_9b4c5bac67cc347e",
+      "columns": [
+        "ienglish",
+        "ifertil"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_9b4c5bac67cc347e"
+    },
+    {
+      "candidate_id": "cal_b677da114cedbf59",
+      "columns": [
+        "ienglish",
+        "dhispanic"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_b677da114cedbf59"
+    },
+    {
+      "candidate_id": "cal_a7fd00db2628d5e7",
+      "columns": [
+        "ienglish",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_a7fd00db2628d5e7"
+    },
+    {
+      "candidate_id": "cal_9331ab09270e95dd",
+      "columns": [
+        "ienglish",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_9331ab09270e95dd"
+    },
+    {
+      "candidate_id": "cal_f04a983b2ca06e4e",
+      "columns": [
+        "ienglish",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_f04a983b2ca06e4e"
+    },
+    {
+      "candidate_id": "cal_4b70fdeef858b8a3",
+      "columns": [
+        "ifeb55",
+        "ifertil"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_4b70fdeef858b8a3"
+    },
+    {
+      "candidate_id": "cal_9cd438afba8de267",
+      "columns": [
+        "ifeb55",
+        "dhispanic"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_9cd438afba8de267"
+    },
+    {
+      "candidate_id": "cal_7b0d0da79a22e1b5",
+      "columns": [
+        "ifeb55",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_7b0d0da79a22e1b5"
+    },
+    {
+      "candidate_id": "cal_108b7cad2763d291",
+      "columns": [
+        "ifeb55",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_108b7cad2763d291"
+    },
+    {
+      "candidate_id": "cal_4582cdf05d0ded01",
+      "columns": [
+        "ifeb55",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_4582cdf05d0ded01"
+    },
+    {
+      "candidate_id": "cal_cf6903fed0ee6e19",
+      "columns": [
+        "ifertil",
+        "dhispanic"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_cf6903fed0ee6e19"
+    },
+    {
+      "candidate_id": "cal_744c61f348ce9b02",
+      "columns": [
+        "ifertil",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_744c61f348ce9b02"
+    },
+    {
+      "candidate_id": "cal_9ad2243869746ad5",
+      "columns": [
+        "ifertil",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_9ad2243869746ad5"
+    },
+    {
+      "candidate_id": "cal_16cecab7644b319b",
+      "columns": [
+        "ifertil",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_16cecab7644b319b"
+    },
+    {
+      "candidate_id": "cal_3757bd013f55b04d",
+      "columns": [
+        "dhispanic",
+        "dhour89"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_3757bd013f55b04d"
+    },
+    {
+      "candidate_id": "cal_39ab35a6dd5c5ea1",
+      "columns": [
+        "dhispanic",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_39ab35a6dd5c5ea1"
+    },
+    {
+      "candidate_id": "cal_2adf734574126c64",
+      "columns": [
+        "dhispanic",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_2adf734574126c64"
+    },
+    {
+      "candidate_id": "cal_6984a672a45098b9",
+      "columns": [
+        "dhour89",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_6984a672a45098b9"
+    },
+    {
+      "candidate_id": "cal_935508a0a7c4516d",
+      "columns": [
+        "dhour89",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_935508a0a7c4516d"
+    },
+    {
+      "candidate_id": "cal_783a1870dcd7b6c3",
+      "columns": [
+        "dhours",
+        "iimmigr"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_783a1870dcd7b6c3"
+    },
+    {
+      "candidate_id": "cal_bdf085e6d92d7cd2",
+      "columns": [
+        "caseid",
+        "dage"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_bdf085e6d92d7cd2"
+    },
+    {
+      "candidate_id": "cal_226c5166b88d29ff",
+      "columns": [
+        "caseid",
+        "dancstry1"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_226c5166b88d29ff"
+    },
+    {
+      "candidate_id": "cal_a7e8dee69b9eea35",
+      "columns": [
+        "caseid",
+        "dancstry2"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_a7e8dee69b9eea35"
+    },
+    {
+      "candidate_id": "cal_f09a77ac0f8e02bb",
+      "columns": [
+        "caseid",
+        "iavail"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_f09a77ac0f8e02bb"
+    },
+    {
+      "candidate_id": "cal_57fe3a75a7bf4192",
+      "columns": [
+        "caseid",
+        "icitizen"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_57fe3a75a7bf4192"
+    },
+    {
+      "candidate_id": "cal_387cae50157d82c6",
+      "columns": [
+        "caseid",
+        "iclass"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_387cae50157d82c6"
+    },
+    {
+      "candidate_id": "cal_10371f09bc94eedc",
+      "columns": [
+        "caseid",
+        "ddepart"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_10371f09bc94eedc"
+    },
+    {
+      "candidate_id": "cal_2fd55ee82dee3691",
+      "columns": [
+        "caseid",
+        "idisabl1"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_2fd55ee82dee3691"
+    },
+    {
+      "candidate_id": "cal_7c355be91fca46e7",
+      "columns": [
+        "caseid",
+        "idisabl2"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_7c355be91fca46e7"
+    },
+    {
+      "candidate_id": "cal_e2e832247b1f948d",
+      "columns": [
+        "caseid",
+        "ienglish"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_e2e832247b1f948d"
+    },
+    {
+      "candidate_id": "cal_c290204f73ae2a82",
+      "columns": [
+        "caseid",
+        "ifeb55"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_c290204f73ae2a82"
+    },
+    {
+      "candidate_id": "cal_3fd7e62ca85d5658",
+      "columns": [
+        "caseid",
+        "ifertil"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_3fd7e62ca85d5658"
+    },
+    {
+      "candidate_id": "cal_e4751d81276290d6",
+      "columns": [
+        "caseid",
+        "dhispanic"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_e4751d81276290d6"
+    },
+    {
+      "candidate_id": "cal_fd334f4c3979a75c",
+      "columns": [
+        "caseid",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_fd334f4c3979a75c"
+    },
+    {
+      "candidate_id": "cal_87632977e161053f",
+      "columns": [
+        "caseid",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_87632977e161053f"
+    },
+    {
+      "candidate_id": "cal_035792c1c5400407",
+      "columns": [
+        "caseid",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_035792c1c5400407"
+    },
+    {
+      "candidate_id": "cal_11862658b910264b",
+      "columns": [
+        "dage",
+        "dancstry1"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_11862658b910264b"
+    },
+    {
+      "candidate_id": "cal_4d289f1e40c6b925",
+      "columns": [
+        "dage",
+        "dancstry2"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_4d289f1e40c6b925"
+    },
+    {
+      "candidate_id": "cal_77139dcd97d94d73",
+      "columns": [
+        "dage",
+        "iavail"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_77139dcd97d94d73"
+    },
+    {
+      "candidate_id": "cal_9f6d7a79862bc628",
+      "columns": [
+        "dage",
+        "icitizen"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_9f6d7a79862bc628"
+    },
+    {
+      "candidate_id": "cal_7e6ca46cbb7e3766",
+      "columns": [
+        "dage",
+        "iclass"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_7e6ca46cbb7e3766"
+    },
+    {
+      "candidate_id": "cal_ae6d0a1deadab19a",
+      "columns": [
+        "dage",
+        "ddepart"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_ae6d0a1deadab19a"
+    },
+    {
+      "candidate_id": "cal_4f665e775d186fcf",
+      "columns": [
+        "dage",
+        "idisabl1"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_4f665e775d186fcf"
+    },
+    {
+      "candidate_id": "cal_f66ad70acc9915f5",
+      "columns": [
+        "dage",
+        "idisabl2"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_f66ad70acc9915f5"
+    },
+    {
+      "candidate_id": "cal_8f76431d384c204b",
+      "columns": [
+        "dage",
+        "ienglish"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_8f76431d384c204b"
+    },
+    {
+      "candidate_id": "cal_f52dd4fdf4779d4d",
+      "columns": [
+        "dage",
+        "ifeb55"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_f52dd4fdf4779d4d"
+    },
+    {
+      "candidate_id": "cal_4be909f53e6c2677",
+      "columns": [
+        "dage",
+        "ifertil"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_4be909f53e6c2677"
+    },
+    {
+      "candidate_id": "cal_dd60356c7aa95ca1",
+      "columns": [
+        "dage",
+        "dhispanic"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_dd60356c7aa95ca1"
+    },
+    {
+      "candidate_id": "cal_120855e4a1a3f8d4",
+      "columns": [
+        "dage",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_120855e4a1a3f8d4"
+    },
+    {
+      "candidate_id": "cal_2250e377963c2510",
+      "columns": [
+        "dage",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_2250e377963c2510"
+    },
+    {
+      "candidate_id": "cal_1cf8785696024db8",
+      "columns": [
+        "dage",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_1cf8785696024db8"
+    },
+    {
+      "candidate_id": "cal_deaad4ab6fb32906",
+      "columns": [
+        "dancstry1",
+        "dancstry2"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_deaad4ab6fb32906"
+    },
+    {
+      "candidate_id": "cal_1b5599dc48013867",
+      "columns": [
+        "dancstry1",
+        "iavail"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_1b5599dc48013867"
+    },
+    {
+      "candidate_id": "cal_c11daa74448b2cfd",
+      "columns": [
+        "dancstry1",
+        "icitizen"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_c11daa74448b2cfd"
+    },
+    {
+      "candidate_id": "cal_593bdaf63aabe929",
+      "columns": [
+        "dancstry1",
+        "iclass"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_593bdaf63aabe929"
+    },
+    {
+      "candidate_id": "cal_3b495fcb7ca31d55",
+      "columns": [
+        "dancstry1",
+        "ddepart"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_3b495fcb7ca31d55"
+    },
+    {
+      "candidate_id": "cal_265dccbba1fc5dbb",
+      "columns": [
+        "dancstry1",
+        "idisabl1"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_265dccbba1fc5dbb"
+    },
+    {
+      "candidate_id": "cal_5946003ea1898d95",
+      "columns": [
+        "dancstry1",
+        "idisabl2"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_5946003ea1898d95"
+    },
+    {
+      "candidate_id": "cal_5d873d9d05dbb0e0",
+      "columns": [
+        "dancstry1",
+        "ienglish"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_5d873d9d05dbb0e0"
+    },
+    {
+      "candidate_id": "cal_5ac66cb4f82f4d40",
+      "columns": [
+        "dancstry1",
+        "ifeb55"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_5ac66cb4f82f4d40"
+    },
+    {
+      "candidate_id": "cal_7448f12e1e166edd",
+      "columns": [
+        "dancstry1",
+        "ifertil"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_7448f12e1e166edd"
+    },
+    {
+      "candidate_id": "cal_49f06c49fbf49365",
+      "columns": [
+        "dancstry1",
+        "dhispanic"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_49f06c49fbf49365"
+    },
+    {
+      "candidate_id": "cal_a06f34ea78e3b28c",
+      "columns": [
+        "dancstry1",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_a06f34ea78e3b28c"
+    },
+    {
+      "candidate_id": "cal_6d423bbc7e170980",
+      "columns": [
+        "dancstry1",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_6d423bbc7e170980"
+    },
+    {
+      "candidate_id": "cal_0b9654f3624ee060",
+      "columns": [
+        "dancstry1",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_0b9654f3624ee060"
+    },
+    {
+      "candidate_id": "cal_a92a0d085e380833",
+      "columns": [
+        "dancstry2",
+        "iavail"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_a92a0d085e380833"
+    },
+    {
+      "candidate_id": "cal_282eb633cb48c1dc",
+      "columns": [
+        "dancstry2",
+        "icitizen"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_282eb633cb48c1dc"
+    },
+    {
+      "candidate_id": "cal_4f1342492f82c3cc",
+      "columns": [
+        "dancstry2",
+        "iclass"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_4f1342492f82c3cc"
+    },
+    {
+      "candidate_id": "cal_bb79d841f77b8c3b",
+      "columns": [
+        "dancstry2",
+        "ddepart"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_bb79d841f77b8c3b"
+    },
+    {
+      "candidate_id": "cal_e5fb799bb01774d6",
+      "columns": [
+        "dancstry2",
+        "idisabl1"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_e5fb799bb01774d6"
+    },
+    {
+      "candidate_id": "cal_c831baf841dae035",
+      "columns": [
+        "dancstry2",
+        "idisabl2"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_c831baf841dae035"
+    },
+    {
+      "candidate_id": "cal_fbb568916ef4009a",
+      "columns": [
+        "dancstry2",
+        "ienglish"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_fbb568916ef4009a"
+    },
+    {
+      "candidate_id": "cal_0fa0afc6825682e7",
+      "columns": [
+        "dancstry2",
+        "ifeb55"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_0fa0afc6825682e7"
+    },
+    {
+      "candidate_id": "cal_3029403b1f480f05",
+      "columns": [
+        "dancstry2",
+        "ifertil"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_3029403b1f480f05"
+    },
+    {
+      "candidate_id": "cal_83bc32968a28570e",
+      "columns": [
+        "dancstry2",
+        "dhispanic"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_83bc32968a28570e"
+    },
+    {
+      "candidate_id": "cal_25e78dfb7ae0654c",
+      "columns": [
+        "dancstry2",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_25e78dfb7ae0654c"
+    },
+    {
+      "candidate_id": "cal_4ea622b4c368c99d",
+      "columns": [
+        "dancstry2",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_4ea622b4c368c99d"
+    },
+    {
+      "candidate_id": "cal_9fb568e0cf49fc30",
+      "columns": [
+        "dancstry2",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_9fb568e0cf49fc30"
+    },
+    {
+      "candidate_id": "cal_d32c8f0037eb9caf",
+      "columns": [
+        "iavail",
+        "icitizen"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_d32c8f0037eb9caf"
+    },
+    {
+      "candidate_id": "cal_e39ab7b39b3f5a94",
+      "columns": [
+        "iavail",
+        "iclass"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_e39ab7b39b3f5a94"
+    },
+    {
+      "candidate_id": "cal_9bfd463cab620fe4",
+      "columns": [
+        "iavail",
+        "ddepart"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_9bfd463cab620fe4"
+    },
+    {
+      "candidate_id": "cal_72ea3110f5907809",
+      "columns": [
+        "iavail",
+        "idisabl1"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_72ea3110f5907809"
+    },
+    {
+      "candidate_id": "cal_78b48e0d29cf5e8f",
+      "columns": [
+        "iavail",
+        "idisabl2"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_78b48e0d29cf5e8f"
+    },
+    {
+      "candidate_id": "cal_1308d269c1d889ca",
+      "columns": [
+        "iavail",
+        "ienglish"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_1308d269c1d889ca"
+    },
+    {
+      "candidate_id": "cal_b8ebf831fcedc3fc",
+      "columns": [
+        "iavail",
+        "ifeb55"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_b8ebf831fcedc3fc"
+    },
+    {
+      "candidate_id": "cal_95925e5a5e566430",
+      "columns": [
+        "iavail",
+        "ifertil"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_95925e5a5e566430"
+    },
+    {
+      "candidate_id": "cal_2515dbcebd9e9ac9",
+      "columns": [
+        "iavail",
+        "dhispanic"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_2515dbcebd9e9ac9"
+    },
+    {
+      "candidate_id": "cal_3b416dac1646c1f4",
+      "columns": [
+        "iavail",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_3b416dac1646c1f4"
+    },
+    {
+      "candidate_id": "cal_0bf2f250e6000724",
+      "columns": [
+        "iavail",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_0bf2f250e6000724"
+    },
+    {
+      "candidate_id": "cal_0ac5eef2a890f115",
+      "columns": [
+        "iavail",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_0ac5eef2a890f115"
+    },
+    {
+      "candidate_id": "cal_dab5659345cc9196",
+      "columns": [
+        "icitizen",
+        "iclass"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_dab5659345cc9196"
+    },
+    {
+      "candidate_id": "cal_0564139311e282a5",
+      "columns": [
+        "icitizen",
+        "ddepart"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_0564139311e282a5"
+    },
+    {
+      "candidate_id": "cal_b53aa943bf230ac1",
+      "columns": [
+        "icitizen",
+        "idisabl1"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_b53aa943bf230ac1"
+    },
+    {
+      "candidate_id": "cal_de43f2b34e5ea271",
+      "columns": [
+        "icitizen",
+        "idisabl2"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_de43f2b34e5ea271"
+    },
+    {
+      "candidate_id": "cal_fe68120bda7682aa",
+      "columns": [
+        "icitizen",
+        "ienglish"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_fe68120bda7682aa"
+    },
+    {
+      "candidate_id": "cal_4efba75a3c1e4894",
+      "columns": [
+        "icitizen",
+        "ifeb55"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_4efba75a3c1e4894"
+    },
+    {
+      "candidate_id": "cal_67f2dff5eb88bb4b",
+      "columns": [
+        "icitizen",
+        "ifertil"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_67f2dff5eb88bb4b"
+    },
+    {
+      "candidate_id": "cal_a57ca3c3cca40945",
+      "columns": [
+        "icitizen",
+        "dhispanic"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_a57ca3c3cca40945"
+    },
+    {
+      "candidate_id": "cal_155585116e634740",
+      "columns": [
+        "icitizen",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_155585116e634740"
+    },
+    {
+      "candidate_id": "cal_445b4de7ba3e4b1b",
+      "columns": [
+        "icitizen",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_445b4de7ba3e4b1b"
+    },
+    {
+      "candidate_id": "cal_29a9c03278971f74",
+      "columns": [
+        "icitizen",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_29a9c03278971f74"
+    },
+    {
+      "candidate_id": "cal_fcca1fbc4a2e1568",
+      "columns": [
+        "iclass",
+        "ddepart"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_fcca1fbc4a2e1568"
+    },
+    {
+      "candidate_id": "cal_4a496d7560f68d52",
+      "columns": [
+        "iclass",
+        "idisabl1"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_4a496d7560f68d52"
+    },
+    {
+      "candidate_id": "cal_301223ef786d52fc",
+      "columns": [
+        "iclass",
+        "idisabl2"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_301223ef786d52fc"
+    },
+    {
+      "candidate_id": "cal_6fb943acca6bd06e",
+      "columns": [
+        "iclass",
+        "ienglish"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_6fb943acca6bd06e"
+    },
+    {
+      "candidate_id": "cal_b25d87ee454ab4dd",
+      "columns": [
+        "iclass",
+        "ifeb55"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_b25d87ee454ab4dd"
+    },
+    {
+      "candidate_id": "cal_8b97b72e12a164b0",
+      "columns": [
+        "iclass",
+        "ifertil"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_8b97b72e12a164b0"
+    },
+    {
+      "candidate_id": "cal_239f9a982c61d52a",
+      "columns": [
+        "iclass",
+        "dhispanic"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_239f9a982c61d52a"
+    },
+    {
+      "candidate_id": "cal_2dd99f3b27d5059a",
+      "columns": [
+        "iclass",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_2dd99f3b27d5059a"
+    },
+    {
+      "candidate_id": "cal_6caf44fb3fef6422",
+      "columns": [
+        "iclass",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_6caf44fb3fef6422"
+    },
+    {
+      "candidate_id": "cal_73aa303fa6879f1e",
+      "columns": [
+        "iclass",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_73aa303fa6879f1e"
+    },
+    {
+      "candidate_id": "cal_9f361e7dec0a24e6",
+      "columns": [
+        "ddepart",
+        "idisabl1"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_9f361e7dec0a24e6"
+    },
+    {
+      "candidate_id": "cal_a6db1d6230f93d03",
+      "columns": [
+        "ddepart",
+        "idisabl2"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_a6db1d6230f93d03"
+    },
+    {
+      "candidate_id": "cal_7a28ba5345704ea7",
+      "columns": [
+        "ddepart",
+        "ienglish"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_7a28ba5345704ea7"
+    },
+    {
+      "candidate_id": "cal_36571eabd932859d",
+      "columns": [
+        "ddepart",
+        "ifeb55"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_36571eabd932859d"
+    },
+    {
+      "candidate_id": "cal_5ad0e555d2c88491",
+      "columns": [
+        "ddepart",
+        "ifertil"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_5ad0e555d2c88491"
+    },
+    {
+      "candidate_id": "cal_0fcfcc0359f26c40",
+      "columns": [
+        "ddepart",
+        "dhispanic"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_0fcfcc0359f26c40"
+    },
+    {
+      "candidate_id": "cal_98ee5c8dd9639115",
+      "columns": [
+        "ddepart",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_98ee5c8dd9639115"
+    },
+    {
+      "candidate_id": "cal_9ab8d4a0d7dadea4",
+      "columns": [
+        "ddepart",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_9ab8d4a0d7dadea4"
+    },
+    {
+      "candidate_id": "cal_c9ec12ffbe547313",
+      "columns": [
+        "ddepart",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_c9ec12ffbe547313"
+    },
+    {
+      "candidate_id": "cal_744eda7c060d77f0",
+      "columns": [
+        "idisabl1",
+        "idisabl2"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_744eda7c060d77f0"
+    },
+    {
+      "candidate_id": "cal_c8d6e33fc02fa1d0",
+      "columns": [
+        "idisabl1",
+        "ienglish"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_c8d6e33fc02fa1d0"
+    },
+    {
+      "candidate_id": "cal_b7034ce09bdc2a8a",
+      "columns": [
+        "idisabl1",
+        "ifeb55"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_b7034ce09bdc2a8a"
+    },
+    {
+      "candidate_id": "cal_e2570dc6802b80c9",
+      "columns": [
+        "idisabl1",
+        "ifertil"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_e2570dc6802b80c9"
+    },
+    {
+      "candidate_id": "cal_99e803646a04e094",
+      "columns": [
+        "idisabl1",
+        "dhispanic"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_99e803646a04e094"
+    },
+    {
+      "candidate_id": "cal_434a3e14bfc11e22",
+      "columns": [
+        "idisabl1",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_434a3e14bfc11e22"
+    },
+    {
+      "candidate_id": "cal_d2bfb14bf26ed729",
+      "columns": [
+        "idisabl1",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_d2bfb14bf26ed729"
+    },
+    {
+      "candidate_id": "cal_8711a080eac45918",
+      "columns": [
+        "idisabl1",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_8711a080eac45918"
+    },
+    {
+      "candidate_id": "cal_8c7c0e9c8633b33b",
+      "columns": [
+        "idisabl2",
+        "ienglish"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_8c7c0e9c8633b33b"
+    },
+    {
+      "candidate_id": "cal_2af3207e9e8b35d5",
+      "columns": [
+        "idisabl2",
+        "ifeb55"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_2af3207e9e8b35d5"
+    },
+    {
+      "candidate_id": "cal_795850bc9d4fae12",
+      "columns": [
+        "idisabl2",
+        "ifertil"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_795850bc9d4fae12"
+    },
+    {
+      "candidate_id": "cal_14a3a636fd43f0b6",
+      "columns": [
+        "idisabl2",
+        "dhispanic"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_14a3a636fd43f0b6"
+    },
+    {
+      "candidate_id": "cal_08a07fac228395dd",
+      "columns": [
+        "idisabl2",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_08a07fac228395dd"
+    },
+    {
+      "candidate_id": "cal_9ca7490af064918a",
+      "columns": [
+        "idisabl2",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_9ca7490af064918a"
+    },
+    {
+      "candidate_id": "cal_eca9ba88d6dc4881",
+      "columns": [
+        "idisabl2",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_eca9ba88d6dc4881"
+    },
+    {
+      "candidate_id": "cal_d84b63f56fdcfdb4",
+      "columns": [
+        "ienglish",
+        "ifeb55"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_d84b63f56fdcfdb4"
+    },
+    {
+      "candidate_id": "cal_547d0d0e29264368",
+      "columns": [
+        "ienglish",
+        "ifertil"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_547d0d0e29264368"
+    },
+    {
+      "candidate_id": "cal_d9ab973ade8986f6",
+      "columns": [
+        "ienglish",
+        "dhispanic"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_d9ab973ade8986f6"
+    },
+    {
+      "candidate_id": "cal_488d6465114bed11",
+      "columns": [
+        "ienglish",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_488d6465114bed11"
+    },
+    {
+      "candidate_id": "cal_cb6158d68bebc208",
+      "columns": [
+        "ienglish",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_cb6158d68bebc208"
+    },
+    {
+      "candidate_id": "cal_586a4057df6b2829",
+      "columns": [
+        "ienglish",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_586a4057df6b2829"
+    },
+    {
+      "candidate_id": "cal_ef002db244153524",
+      "columns": [
+        "ifeb55",
+        "ifertil"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_ef002db244153524"
+    },
+    {
+      "candidate_id": "cal_26abb35b28c7b61e",
+      "columns": [
+        "ifeb55",
+        "dhispanic"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_26abb35b28c7b61e"
+    },
+    {
+      "candidate_id": "cal_4d80381c3e490eaa",
+      "columns": [
+        "ifeb55",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_4d80381c3e490eaa"
+    },
+    {
+      "candidate_id": "cal_f3a2b0bc0c992d05",
+      "columns": [
+        "ifeb55",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_f3a2b0bc0c992d05"
+    },
+    {
+      "candidate_id": "cal_d2ec030e55d478e8",
+      "columns": [
+        "ifeb55",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_d2ec030e55d478e8"
+    },
+    {
+      "candidate_id": "cal_d98ddcda779a196c",
+      "columns": [
+        "ifertil",
+        "dhispanic"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_d98ddcda779a196c"
+    },
+    {
+      "candidate_id": "cal_4c0e55674f052f9a",
+      "columns": [
+        "ifertil",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_4c0e55674f052f9a"
+    },
+    {
+      "candidate_id": "cal_b1a840a84ae4b507",
+      "columns": [
+        "ifertil",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_b1a840a84ae4b507"
+    },
+    {
+      "candidate_id": "cal_509e13758db3fb94",
+      "columns": [
+        "ifertil",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_509e13758db3fb94"
+    },
+    {
+      "candidate_id": "cal_2d7e322cbd1f4628",
+      "columns": [
+        "dhispanic",
+        "dhour89"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_2d7e322cbd1f4628"
+    },
+    {
+      "candidate_id": "cal_e7cd45dd381e89eb",
+      "columns": [
+        "dhispanic",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_e7cd45dd381e89eb"
+    },
+    {
+      "candidate_id": "cal_c73d8f40b453b0ca",
+      "columns": [
+        "dhispanic",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_c73d8f40b453b0ca"
+    },
+    {
+      "candidate_id": "cal_570c03605fdcb36e",
+      "columns": [
+        "dhour89",
+        "dhours"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_570c03605fdcb36e"
+    },
+    {
+      "candidate_id": "cal_2cc012bf7f0806aa",
+      "columns": [
+        "dhour89",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_2cc012bf7f0806aa"
+    },
+    {
+      "candidate_id": "cal_0445623e490e8c86",
+      "columns": [
+        "dhours",
+        "iimmigr"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_0445623e490e8c86"
+    }
+  ]
+}

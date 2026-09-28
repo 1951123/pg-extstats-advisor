@@ -1,0 +1,42 @@
+{
+  "columns": [
+    "caseid",
+    "dage",
+    "dancstry1",
+    "dancstry2",
+    "iavail",
+    "icitizen",
+    "iclass",
+    "ddepart",
+    "idisabl1",
+    "idisabl2",
+    "ienglish",
+    "ifeb55",
+    "ifertil",
+    "dhispanic",
+    "dhour89",
+    "dhours",
+    "iimmigr"
+  ],
+  "count_levels": [
+    16,
+    32,
+    64,
+    128
+  ],
+  "database": {
+    "calibration_dsn": "dbname=pgextadv_calibration_census_m26"
+  },
+  "environment_description": "Local WSL2 PostgreSQL 16.15 installation; isolated database cloned from the fixed Census source database; hardware provenance incomplete",
+  "gates": {
+    "max_cv": 0.1,
+    "max_heldout_relative_error": 0.15,
+    "min_r_squared": 0.95
+  },
+  "output_path": "calibration/census-m2-6",
+  "relation": "public.climate",
+  "repetitions": 9,
+  "schema_version": 1,
+  "seed": 20260928,
+  "statistics_target": 100
+}

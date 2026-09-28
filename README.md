@@ -30,11 +30,18 @@ pg-extstats-advisor recommend run-dir
 Physical validation is a separate explicit command requiring an isolated
 validation DSN. See `docs/m2-5-c-cli.md`.
 
+M2.6 adds an offline `calibrate-maintenance` command and a fail-closed empirical
+mechanism-count model for fixed-target, arity-two MCV/FD candidates. Calibration
+is never triggered by search. The current Census run is retained as a rejected
+calibration and did not produce a model artifact. See
+`docs/m2-6-maintenance-calibration.md`.
+
 ## Current scope
 
 - PostgreSQL 16.14.
 - A fixed, supplied offline workload.
 - MCV and functional-dependency extended statistics.
+- Two-column candidates with one fixed uniform statistics target.
 - Base-relation cardinality-estimation objectives.
 - PostgreSQL-native planner and CE semantics.
 - Fixed, explicit effective precedence.

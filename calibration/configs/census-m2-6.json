@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "database": {
+    "calibration_dsn": "dbname=pgextadv_calibration_census_m26"
+  },
+  "relation": "public.climate",
+  "columns": [
+    "caseid",
+    "dage",
+    "dancstry1",
+    "dancstry2",
+    "iavail",
+    "icitizen",
+    "iclass",
+    "ddepart",
+    "idisabl1",
+    "idisabl2",
+    "ienglish",
+    "ifeb55",
+    "ifertil",
+    "dhispanic",
+    "dhour89",
+    "dhours",
+    "iimmigr"
+  ],
+  "statistics_target": 100,
+  "repetitions": 9,
+  "seed": 20260928,
+  "output_path": "calibration/census-m2-6",
+  "count_levels": [16, 32, 64, 128],
+  "gates": {
+    "max_cv": 0.10,
+    "min_r_squared": 0.95,
+    "max_heldout_relative_error": 0.15
+  },
+  "environment_description": "Local WSL2 PostgreSQL 16.15 installation; isolated database cloned from the fixed Census source database; hardware provenance incomplete"
+}

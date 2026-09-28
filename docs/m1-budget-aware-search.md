@@ -8,15 +8,14 @@ planner runtime, or evaluator runtime. A model is fitted or loaded and frozen
 before search; search never updates it.
 
 M1 uses development-only abstract `maintenance-cost-unit` values. They are not an
-empirical PostgreSQL cost claim. A future `maintenance-model.json` may record the
-model/version, unit, feature schema, fitted parameters, measurement digest,
-fitting procedure, and diagnostics.
+empirical PostgreSQL cost claim. M2.6 adds a separate frozen empirical artifact
+type with measurement provenance and diagnostics.
 
-## Preset model and budget
+## Development preset and empirical MVP model
 
 The replaceable `MaintenanceCostModel` interface estimates candidates and whole
-designs and performs unit-aware feasibility checks. The current additive preset
-is:
+designs and performs unit-aware feasibility checks. The legacy development preset
+is retained for tests and compatibility:
 
 ```text
 MCV cost = base_mcv + per_column_mcv * arity
@@ -32,12 +31,13 @@ per_column_fd=1)` only to exercise functionality.
 
 ### Uniform statistics-target scope
 
-The MVP assumes a uniform statistics target across all candidates. The target is
+The MVP assumes a uniform statistics target across all candidates and fixes every
+candidate to arity two. The target is
 fixed before payload acquisition and search: it is not a candidate decision
-variable, does not participate in search, is not a maintenance-cost model
-feature, and cannot be optimized per candidate. The current maintenance model
-therefore retains only mechanism kind and arity as candidate features, while the
-additive design-cost abstraction remains unchanged. This scope keeps the MVP
+feature, and cannot be optimized per candidate. The empirical MVP model uses one
+aggregate marginal weight for each mechanism; it does not decompose a fixed-arity
+slope into unidentifiable base and per-column terms. The additive design-cost
+abstraction remains unchanged. This scope keeps the MVP
 per-extstat maintenance model simple and avoids introducing sample-size coupling
 into the search space; it is an explicit assumption, not a claim that PostgreSQL
 maintenance cost is inherently independent of statistics target.
@@ -100,11 +100,10 @@ intermediate design/objective, final design, and final objective matched the
 full-reference search. Repeated loose-budget runs were identical. Registration
 remained six total calls, and catalogs remained unchanged.
 
-## Limitations and future fitting
+## Limitations
 
-The preset additive model is only a development baseline. Real `ANALYZE` costs
-may contain multi-statistics interactions. Future work will collect repeated,
-baseline-adjusted maintenance observations, fit and validate prediction error,
-freeze a versioned artifact, and then supply that immutable model to the same
-search interface. M1 adds no fitting, deployment, batching, global optimization,
-or runtime study.
+The preset additive model is only a development baseline. M2.6 implements offline
+aggregate calibration, held-out mixed validation, and a fail-closed empirical
+artifact boundary. The current Census calibration was rejected by predeclared
+stability and fit gates, so no accepted empirical artifact is available yet. See
+`docs/m2-6-maintenance-calibration.md`.

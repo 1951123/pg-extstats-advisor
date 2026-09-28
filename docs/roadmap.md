@@ -49,6 +49,14 @@ Artifact reload, frozen maintenance model, persisted search state, recommendatio
 explicit physical validation, acquisition cleanup, and non-interactive stage commands
 form the end-to-end MVP. M3 remains future work.
 
+## M2.6 — empirical aggregate maintenance calibration — implemented, calibration rejected
+
+The offline subsystem now provides deterministic arity-two MCV/FD aggregate
+configurations, repeated full-ANALYZE timing, transparent OLS, held-out mixed
+validation, predeclared gates, and a fail-closed empirical artifact type. The first
+isolated current-environment Census run failed the CV and R-squared gates, so it
+did not emit an accepted maintenance model. M3 remains future work.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,
