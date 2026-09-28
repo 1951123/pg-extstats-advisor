@@ -94,8 +94,8 @@ class PreparationConfig:
         if not mechanisms or set(mechanisms) - {"mcv", "fd"}:
             raise ValueError("mechanisms must be a non-empty subset of mcv/fd")
         max_arity = int(candidates["max_candidate_arity"])
-        if max_arity < 2:
-            raise ValueError("max_candidate_arity must be at least 2")
+        if max_arity != 2:
+            raise ValueError("MVP max_candidate_arity must equal 2")
         cap = candidates.get("max_candidates_per_relation")
         if cap is not None and int(cap) <= 0:
             raise ValueError("max_candidates_per_relation must be positive")
@@ -106,6 +106,11 @@ class PreparationConfig:
             ExplicitCandidate(str(item["relation"]), str(item["mechanism"]), tuple(item["columns"]))
             for item in candidates.get("explicit", [])
         )
+        for item in explicit:
+            if item.mechanism not in {"mcv", "fd"}:
+                raise ValueError("explicit candidate mechanism must be mcv or fd")
+            if len(item.columns) != 2:
+                raise ValueError("MVP explicit candidates must have exactly two columns")
         return cls(
             1,
             dsn("source_dsn"),

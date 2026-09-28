@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from pg_extstats_advisor.models import QueryId, WorkloadQuery
 from pg_extstats_advisor.prepare.candidates import generate_candidates
 from pg_extstats_advisor.prepare.config import PreparationConfig
@@ -13,7 +15,7 @@ from pg_extstats_advisor.prepare.workload import (
 from pg_extstats_advisor.workload.model import Workload
 
 
-def config(*, arity: int = 3, cap: int | None = None, mechanisms=("mcv", "fd")):
+def config(*, arity: int = 2, cap: int | None = None, mechanisms=("mcv", "fd")):
     return PreparationConfig(
         1,
         "source",
@@ -53,11 +55,8 @@ def test_candidate_generation_is_canonical_deterministic_and_capped() -> None:
     first = generate_candidates(config(), ingested())
     second = generate_candidates(config(), ingested())
     assert first == second
-    assert len(first.candidates) == 8
-    assert all(len(item.attributes) >= 2 for item in first.candidates)
-    assert {item.attributes for item in first.candidates if len(item.attributes) == 3} == {
-        ("a", "b", "c")
-    }
+    assert len(first.candidates) == 6
+    assert all(len(item.attributes) == 2 for item in first.candidates)
     assert len(generate_candidates(config(arity=2), ingested()).candidates) == 6
     capped = generate_candidates(config(cap=2), ingested())
     assert capped.candidates == first.candidates[:2]
@@ -65,6 +64,11 @@ def test_candidate_generation_is_canonical_deterministic_and_capped() -> None:
         item.mechanism.value
         for item in generate_candidates(config(mechanisms=("mcv",)), ingested()).candidates
     } == {"mcv"}
+
+
+def test_candidate_generation_rejects_non_mvp_arity() -> None:
+    with pytest.raises(ValueError, match="max_candidate_arity=2"):
+        generate_candidates(config(arity=3), ingested())
 
 
 def test_incidence_precise_and_fallback_are_conservative() -> None:

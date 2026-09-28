@@ -17,6 +17,8 @@ def _candidate_id(relation: str, mechanism: str, attributes: tuple[str, ...]) ->
 
 
 def generate_candidates(config: PreparationConfig, ingested: IngestedWorkload) -> CandidateCatalog:
+    if config.max_candidate_arity != 2:
+        raise ValueError("MVP candidate generation requires max_candidate_arity=2")
     relations = {item.relation.qualified_name: item.relation for item in ingested.inspections}
     specs: set[tuple[str, str, tuple[str, ...]]] = set()
     if config.explicit_candidates:
@@ -24,6 +26,8 @@ def generate_candidates(config: PreparationConfig, ingested: IngestedWorkload) -
             (item.relation, item.mechanism, item.columns) for item in config.explicit_candidates
         )
         for relation_name, mechanism, columns in source:
+            if len(columns) != 2:
+                raise ValueError("MVP explicit candidates must have exactly two columns")
             metadata = relations.get(relation_name)
             if metadata is None:
                 raise ValueError(
