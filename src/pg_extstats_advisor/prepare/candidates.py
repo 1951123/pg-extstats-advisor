@@ -39,6 +39,8 @@ def generate_candidates(config: PreparationConfig, ingested: IngestedWorkload) -
             if inspection.derivation_mode != "precise-structural":
                 continue
             metadata = inspection.relation
+            if len(inspection.predicate_columns) < 2:
+                continue
             ordered = _canonical_columns(metadata, tuple(inspection.predicate_columns))
             for arity in range(2, min(config.max_candidate_arity, len(ordered)) + 1):
                 for group in itertools.combinations(ordered, arity):
