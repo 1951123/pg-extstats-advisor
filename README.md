@@ -15,7 +15,20 @@ environment. See `docs/m2-deployment-validation.md`.
 
 M2.5-A/B adds a Python preparation API for versioned supplied workloads,
 deterministic candidates, isolated one-time native-payload acquisition, and
-conservative incidence artifacts. CLI orchestration remains deferred to M2.5-C.
+conservative incidence artifacts.
+
+M2.5-C provides restartable artifact-first orchestration:
+
+```bash
+export PGEXT_SOURCE_DSN='host=... dbname=...'
+export PGEXT_ACQUISITION_DSN='host=... dbname=...'
+pg-extstats-advisor prepare config.json
+pg-extstats-advisor search run-dir --budget 10
+pg-extstats-advisor recommend run-dir
+```
+
+Physical validation is a separate explicit command requiring an isolated
+validation DSN. See `docs/m2-5-c-cli.md`.
 
 ## Current scope
 

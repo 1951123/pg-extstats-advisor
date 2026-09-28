@@ -41,7 +41,13 @@ payloads, and separate semantic fidelity from realization drift.
 
 Versioned workload ingestion, deterministic automatic/explicit candidate generation,
 isolated native-payload acquisition, conservative incidence, and structured run
-artifacts now produce the existing evaluator inputs. M2.5-C CLI orchestration is future.
+artifacts now produce the existing evaluator inputs.
+
+## M2.5-C — restartable CLI orchestration — complete
+
+Artifact reload, frozen maintenance model, persisted search state, recommendation,
+explicit physical validation, acquisition cleanup, and non-interactive stage commands
+form the end-to-end MVP. M3 remains future work.
 
 ## M3 — plan/runtime validation
 
