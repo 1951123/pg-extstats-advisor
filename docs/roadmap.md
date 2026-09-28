@@ -107,6 +107,15 @@ run matched the accepted sequence and final result. This does not complete or
 replace M2.7, establish a production screening threshold, or transfer the
 fraction to other benchmarks.
 
+## M2.12 Census one-local-round probe — complete, non-authoritative
+
+Starting from the persisted M2.11 ADD-local optimum, one exact ADD/DROP/SWAP
+neighborhood over the 226-candidate screened catalog completed within the
+predeclared ten-minute ceiling and reproduced exactly. It found a small
+contextual SWAP improvement, but the SWAP pass dominated runtime. Census
+development therefore remains ADD-only by default; this probe does not run a
+second local round, change screening, or complete M2.7.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,

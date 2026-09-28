@@ -1,0 +1,29 @@
+{
+  "budget": "414.0398034077412444",
+  "experiment": "M2.12-Census-Top-5%-One-Local-ADD-DROP-SWAP-Round-Probe",
+  "format_version": 1,
+  "incidence_digest": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4",
+  "m211_final_result_digest": "7553a5e8037e9f33d2ca317775485c52bd42fc53eaf515acfca7e502c3b865cf",
+  "m211_protocol_digest": "a0d4c76370145f4150e94669c413e5014b3037465a20969bbc3fd18b3f2e62e5",
+  "maintenance_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e",
+  "neighborhood_order": [
+    "ADD",
+    "DROP",
+    "SWAP"
+  ],
+  "parser_provenance": "{\"analysis_version\": \"pg16-mvp-v2\", \"parser\": \"pglast\", \"parser_version\": \"v7.18\"}",
+  "performance_ceiling_seconds": 600.0,
+  "pg_build_provenance": "{\"pg_patch_sha256\": \"357e11063a55ad7e9b75dadcf78aaa44ec61911e42b4707953022ae42ff048da\", \"postgres_binary_path\": \"/root/projects/pg-extstats-advisor/.build/postgresql-16.14-install/bin/postgres\", \"postgres_version\": \"16.14\"}",
+  "repo_commit": "2e7e8c3ac8f3c68a44b5114ab14611294d115b49",
+  "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+  "scope": "exactly one complete local ADD/DROP/SWAP round; do not run a second round",
+  "screened_candidate_count": 226,
+  "screened_catalog_digest": "c0c544c703682a13e7447a514f0610d251b4694cb92f2c8eeead3f3ee50880a8",
+  "selected_count": 110,
+  "start_cost": "195.4027612476062514",
+  "start_design_digest": "5982babd7f661eadaf14eba21e49b3b631bd475eb06fcb20aa337a57b9b181ed",
+  "start_objective": 936.3584041825216,
+  "status": "development-non-authoritative",
+  "unselected_count": 116,
+  "workload_digest": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215"
+}

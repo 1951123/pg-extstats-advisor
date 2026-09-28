@@ -1,0 +1,38 @@
+{
+  "add": {
+    "best_objective": 936.3584041825216,
+    "conceptual_moves": 116,
+    "elapsed_seconds": 4.33234389302379,
+    "incumbent_bound_pruned": 0,
+    "infeasible": 0,
+    "native_evaluated": 116,
+    "no_improvement_bound_pruned": 0,
+    "planner_calls": 614,
+    "pruning_rate": 0.0,
+    "total_bound_pruned": 0
+  },
+  "drop": {
+    "best_objective": 932.4430040696262,
+    "conceptual_moves": 110,
+    "elapsed_seconds": 3.3998671989975264,
+    "incumbent_bound_pruned": 17,
+    "infeasible": 0,
+    "native_evaluated": 93,
+    "no_improvement_bound_pruned": 0,
+    "planner_calls": 481,
+    "pruning_rate": 0.15454545454545454,
+    "total_bound_pruned": 17
+  },
+  "swap": {
+    "best_objective": 932.026559804811,
+    "conceptual_moves": 12760,
+    "elapsed_seconds": 524.6669312703525,
+    "incumbent_bound_pruned": 198,
+    "infeasible": 0,
+    "native_evaluated": 12562,
+    "no_improvement_bound_pruned": 0,
+    "planner_calls": 126601,
+    "pruning_rate": 0.015517241379310345,
+    "total_bound_pruned": 198
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "absolute_improvement": 4.331844377710581,
+  "candidates": [
+    {
+      "candidate_id": "cand_0f6d24f9d2bd31d7fb7b",
+      "mechanism": "mcv",
+      "realization_state": "PRESENT",
+      "role": "outgoing",
+      "singleton_rank": 53
+    },
+    {
+      "candidate_id": "cand_25ad575ae2a9b8b250c6",
+      "mechanism": "mcv",
+      "realization_state": "PRESENT",
+      "role": "incoming",
+      "singleton_rank": 224
+    }
+  ],
+  "cost_after": "195.4027612476062514",
+  "cost_before": "195.4027612476062514",
+  "incoming_candidate": "cand_25ad575ae2a9b8b250c6",
+  "move_type": "swap",
+  "objective_after": 932.026559804811,
+  "objective_before": 936.3584041825216,
+  "outgoing_candidate": "cand_0f6d24f9d2bd31d7fb7b",
+  "relative_improvement": 0.004626267418929673
+}

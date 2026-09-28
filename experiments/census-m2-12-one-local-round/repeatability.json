@@ -1,0 +1,10 @@
+{
+  "exact": true,
+  "exact_best_move": true,
+  "exact_move_counts": true,
+  "exact_objective_and_cost": true,
+  "exact_pruning_counts": true,
+  "first_elapsed_seconds": 533.2453062839995,
+  "repeat_elapsed_seconds": 516.3165557019965,
+  "same_start_design": true
+}

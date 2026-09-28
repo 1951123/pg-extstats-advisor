@@ -274,6 +274,35 @@ def test_one_local_round_evaluates_each_move_type_once() -> None:
     assert sum(item["native_evaluated"] for item in metrics.values()) == 7
 
 
+def test_one_local_round_matches_first_round_of_full_local_phase() -> None:
+    catalog, objectives = fixture()
+    model = PresetMaintenanceCostModel(0, 1, 0, 1)
+    full_evaluator = CatalogLandscapeEvaluator(objectives, catalog)
+    full_search = DeterministicBudgetSearch(
+        full_evaluator,
+        catalog,
+        model,
+        MaintenanceBudget(6, model.unit),
+    )
+    start = full_evaluator.evaluate_design(Design((CandidateId("A"),)))
+    full_search._local(start)
+    first_accepted = next(record for record in full_search._trajectory if record.accepted)
+
+    probe_evaluator = CatalogLandscapeEvaluator(objectives, catalog)
+    probe_search = DeterministicBudgetSearch(
+        probe_evaluator,
+        catalog,
+        model,
+        MaintenanceBudget(6, model.unit),
+    )
+    probe_start = probe_evaluator.evaluate_design(Design((CandidateId("A"),)))
+    after, _, winner, _ = probe_search.evaluate_one_local_round(probe_start)
+
+    assert winner is not None
+    assert winner.move == first_accepted.move
+    assert after.aggregate_objective == first_accepted.after_objective
+
+
 def test_qerror_lower_bound_floor_and_unknown_query_guard() -> None:
     catalog, objectives = fixture()
     evaluator = CatalogLandscapeEvaluator(objectives, catalog)
