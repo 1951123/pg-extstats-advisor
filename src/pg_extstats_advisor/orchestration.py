@@ -239,15 +239,17 @@ def persist_search_result(root: Path, result: SearchResult) -> None:
             "accepted": r.accepted,
             "rejection_reason": r.rejection_reason,
             "affected_query_count": r.affected_query_count,
+            "lower_bound": r.lower_bound,
+            "incumbent_objective": r.incumbent_objective,
         }
         for r in result.trajectory
     ]
     _write(
         root / "search" / "trajectory.json",
-        {"format_version": 1, "records": trajectory, "digest": _digest(trajectory)},
+        {"format_version": 2, "records": trajectory, "digest": _digest(trajectory)},
     )
     value = {
-        "format_version": 1,
+        "format_version": 2,
         "selected_design": list(result.selected_design.candidate_ids),
         "selected_objective": result.selected_objective,
         "selected_maintenance_cost": str(result.selected_maintenance_cost),
@@ -259,6 +261,9 @@ def persist_search_result(root: Path, result: SearchResult) -> None:
         "infeasible_moves_skipped_count": result.infeasible_moves_skipped_count,
         "evaluator_calls_count": result.evaluator_calls_count,
         "accepted_moves_count": result.accepted_moves_count,
+        "total_neighbor_moves_considered": result.total_neighbor_moves_considered,
+        "bound_pruned_no_improvement_count": result.bound_pruned_no_improvement_count,
+        "bound_pruned_incumbent_count": result.bound_pruned_incumbent_count,
         "termination_reason": result.termination_reason,
         "config": asdict(result.config),
         "workload_digest": result.workload_digest,
@@ -273,6 +278,9 @@ def persist_search_result(root: Path, result: SearchResult) -> None:
 
 def load_search_result(root: Path) -> SearchResult:
     value = json.loads((root / "search" / "result.json").read_text())
+    result_format = int(value.get("format_version", 1))
+    if result_format not in (1, 2):
+        raise ValueError("unsupported search result format")
     stored = value.pop("digest")
     if _digest(value) != stored:
         raise ValueError("search result digest mismatch")
@@ -299,9 +307,15 @@ def load_search_result(root: Path) -> SearchResult:
             bool(r["accepted"]),
             r["rejection_reason"],
             r["affected_query_count"],
+            r.get("lower_bound"),
+            r.get("incumbent_objective"),
         )
         for r in trajectory_raw["records"]
     )
+    config_raw = dict(value["config"])
+    if result_format == 1 and "exact_bound_pruning" not in config_raw:
+        # Format-1 results predate the exact-bound path and are exhaustive.
+        config_raw["exact_bound_pruning"] = False
     state = _state(value["selected_state"])
     result = SearchResult(
         state,
@@ -318,10 +332,13 @@ def load_search_result(root: Path) -> SearchResult:
         int(value["evaluator_calls_count"]),
         int(value["accepted_moves_count"]),
         value["termination_reason"],
-        SearchConfig(**value["config"]),
+        SearchConfig(**config_raw),
         value["workload_digest"],
         value["repository_digest"],
         value["candidate_catalog_digest"],
+        int(value.get("total_neighbor_moves_considered", 0)),
+        int(value.get("bound_pruned_no_improvement_count", 0)),
+        int(value.get("bound_pruned_incumbent_count", 0)),
     )
     if (
         result.selected_state.design != result.selected_design

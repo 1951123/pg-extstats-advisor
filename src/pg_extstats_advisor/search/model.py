@@ -24,6 +24,8 @@ class DesignEvaluator(Protocol):
 class SearchConfig:
     algorithm_version: str = "contextual-greedy-local-v1"
     full_reference: bool = False
+    exact_bound_pruning: bool = True
+    record_pruned_moves: bool = False
 
 
 @dataclass(frozen=True, slots=True)
@@ -39,6 +41,8 @@ class MoveRecord:
     accepted: bool
     rejection_reason: str | None
     affected_query_count: int | None
+    lower_bound: float | None = None
+    incumbent_objective: float | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -61,6 +65,9 @@ class SearchResult:
     workload_digest: str
     repository_digest: str
     candidate_catalog_digest: str
+    total_neighbor_moves_considered: int = 0
+    bound_pruned_no_improvement_count: int = 0
+    bound_pruned_incumbent_count: int = 0
 
 
 def candidate_catalog_digest(candidates: list[Candidate] | tuple[Candidate, ...]) -> str:
