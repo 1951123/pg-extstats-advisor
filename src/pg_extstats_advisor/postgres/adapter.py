@@ -20,6 +20,7 @@ class PostgresAdapter:
         self.registered = False
         self.registration_calls = 0
         self.planner_called_query_ids: list[QueryId] = []
+        self.planner_calls_total = 0
         self.activation_calls = 0
         with self.connection.cursor(row_factory=tuple_row) as cursor:
             cursor.execute("SHOW server_version")
@@ -79,6 +80,7 @@ class PostgresAdapter:
 
     def estimate_query(self, query: WorkloadQuery) -> float:
         self.planner_called_query_ids.append(query.query_id)
+        self.planner_calls_total += 1
         row = self.connection.execute(f"EXPLAIN (FORMAT JSON) {query.sql}").fetchone()
         if row is None:
             raise RuntimeError("EXPLAIN returned no row")
