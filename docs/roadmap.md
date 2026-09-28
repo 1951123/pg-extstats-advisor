@@ -78,13 +78,24 @@ The authoritative Census preparation and one frozen acquisition passed, but the
 10% greedy round after 215.04 seconds. The failed run is retained as historical
 evidence in `experiments/census-m2-7/search-failure.json`; M2.7 is not complete.
 
-## M2.8 exact search scalability hardening — active
+## M2.7 protocol-v2 authoritative search — failed-performance
+
+Protocol-v2 reused the frozen Census repository and enabled the exact
+q-error-bound pruning path without changing the workload, candidates, incidence,
+repository, maintenance model, or search semantics. The 0% budget completed two
+exactly matching runs. The first 10% run reached the 1800-second per-budget
+ceiling after 36 greedy rounds; no later budget, repeat, full-reference control,
+or physical validation was started. The retained partial evidence is under
+`experiments/census-m2-7/v2/`, and no protocol-v2 budget curve is authoritative.
+
+## M2.8 exact search scalability hardening — first-round gate complete
 
 The exact q-error lower-bound path, exhaustive oracle, deterministic streaming
-neighborhoods, and incremental additive-cost checks are being validated against
-small fixtures and a controlled Census first-round profile. This milestone does
-not change the candidate universe, CE semantics, maintenance model, or M2.7
-status.
+neighborhoods, and incremental additive-cost checks passed the small-fixture and
+controlled Census first-round gates. The protocol-v2 result shows that this
+correctness-preserving pruning is still insufficient to complete the full Census
+multi-round search within the frozen ceiling. M2.8 does not change the candidate
+universe, CE semantics, maintenance model, or M2.7 status.
 
 ## M3 — plan/runtime validation
 

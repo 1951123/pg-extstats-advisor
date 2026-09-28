@@ -1,0 +1,3 @@
+fraction,budget,status,run1_objective,run2_objective,run1_selected_count,run2_selected_count,run1_cost,run2_cost,repeatability_exact,authoritative
+0.0,0E-16,complete,5586.930692724469,5586.930692724469,0,0,0,0,True,True
+0.1,1146.45031219779468381,failed-performance-partial,1078.5290139604795,,36,,62.906828356691856,,,False

@@ -18,6 +18,16 @@ payload-repositories/
 experiments/scratch/
 experiments/census-m2-7/prepared-run*/
 experiments/census-m2-7/budgets/
+experiments/census-m2-7/v2/budgets/*/search/
+experiments/census-m2-7/v2/full-reference-control/*/search/
+experiments/census-m2-7/v2/budgets/*/config.json
+experiments/census-m2-7/v2/budgets/*/workload.json
+experiments/census-m2-7/v2/budgets/*/candidates.json
+experiments/census-m2-7/v2/budgets/*/incidence.json
+experiments/census-m2-7/v2/budgets/*/prepare-summary.json
+experiments/census-m2-7/v2/budgets/*/run-manifest.json
+experiments/census-m2-7/v2/budgets/*/maintenance-model.json
+experiments/census-m2-7/v2/budgets/*/repository
 *.log
 *.pid
 *.tmp

@@ -1,0 +1,32 @@
+{
+  "format_version": 1,
+  "status": "failed-performance",
+  "rows": [
+    {
+      "fraction": 0.0,
+      "budget": "0E-16",
+      "status": "complete",
+      "run1_objective": 5586.930692724469,
+      "run2_objective": 5586.930692724469,
+      "run1_selected_count": 0,
+      "run2_selected_count": 0,
+      "run1_cost": "0",
+      "run2_cost": "0",
+      "repeatability_exact": true,
+      "authoritative": true
+    },
+    {
+      "fraction": 0.1,
+      "budget": "1146.45031219779468381",
+      "status": "failed-performance-partial",
+      "run1_objective": 1078.5290139604795,
+      "run2_objective": "",
+      "run1_selected_count": 36,
+      "run2_selected_count": "",
+      "run1_cost": "62.906828356691856",
+      "run2_cost": "",
+      "repeatability_exact": "",
+      "authoritative": false
+    }
+  ]
+}

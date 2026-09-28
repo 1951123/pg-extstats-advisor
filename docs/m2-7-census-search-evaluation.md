@@ -44,3 +44,25 @@ failure status. No budget curve, per-query matrix, local/full control, or
 physical validation is claimed. The frozen preparation artifacts remain useful
 for a future separately scoped scalability milestone, but this run does not
 support conclusions about Census budget-to-design behavior.
+
+## Protocol v2 — exact bound-pruned resumption
+
+Protocol-v1 exposed exhaustive-neighborhood scalability limits. M2.8 then
+introduced and differentially validated correctness-preserving exact bound
+pruning. Protocol-v2 resumes the identical Census optimization problem with
+that execution optimization; it does not change the optimizer's winner
+definition, workload, candidate universe, incidence, cost model, budget
+schedule, or physical semantics. The frozen protocol is
+`experiments/census-m2-7/protocol-v2.json`, with exact-pruned search enabled.
+
+Protocol-v2 reused the protocol-v1 frozen repository (digest
+`c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe`) and did
+not run another ANALYZE. The 0% budget was independently repeated and matched
+exactly. The first 10% run reached 36 greedy rounds but exceeded the frozen
+30-minute per-budget ceiling before completion. Its checkpoint and compact
+failure evidence are under `experiments/census-m2-7/v2/`; they are diagnostic,
+not an authoritative budget curve. No later budget, 25% full-reference
+control, or physical validation was started.
+
+Protocol-v2 therefore remains `failed-performance`; M2.7 is not complete and
+M3 remains out of scope.
