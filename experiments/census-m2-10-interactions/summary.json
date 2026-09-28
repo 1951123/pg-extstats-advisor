@@ -344,6 +344,40 @@
       "positive_contextual_rate": 0.8842851810377006,
       "unique_candidates_observed": 613
     },
+    "singleton_negative": {
+      "accepted_count": 0,
+      "candidate_population": 1358,
+      "contextual_evaluations": 27586,
+      "distribution": {
+        "evaluations": 27586,
+        "max_contextual_improvement": 3.705273137956283,
+        "max_interaction_gain": 510.578922031792,
+        "negative": 23233,
+        "negative_rate": 0.8422025665192489,
+        "p50_contextual_improvement": -0.05787779540378324,
+        "p90_contextual_improvement": 0.001978941705829129,
+        "p95_contextual_improvement": 0.07678277620061635,
+        "positive": 3292,
+        "positive_rate": 0.11933589501921264,
+        "zero": 1061,
+        "zero_rate": 0.038461538461538464
+      },
+      "large_contextual_candidate_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "large_contextual_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "name": "singleton_negative",
+      "positive_contextual_candidate_count": 195,
+      "positive_contextual_evaluations": 3292,
+      "positive_contextual_rate": 0.11933589501921264,
+      "unique_candidates_observed": 1153
+    },
     "singleton_nonpositive": {
       "accepted_count": 0,
       "candidate_population": 2935,
@@ -377,6 +411,40 @@
       "positive_contextual_evaluations": 3372,
       "positive_contextual_rate": 0.062072012370223105,
       "unique_candidates_observed": 2412
+    },
+    "singleton_zero_present": {
+      "accepted_count": 0,
+      "candidate_population": 468,
+      "contextual_evaluations": 7372,
+      "distribution": {
+        "evaluations": 7372,
+        "max_contextual_improvement": 0.0646790358346152,
+        "max_interaction_gain": 0.0646790358346152,
+        "negative": 87,
+        "negative_rate": 0.011801410743353228,
+        "p50_contextual_improvement": 0.0,
+        "p90_contextual_improvement": 0.0,
+        "p95_contextual_improvement": 0.0,
+        "positive": 80,
+        "positive_rate": 0.010851871947911014,
+        "zero": 7205,
+        "zero_rate": 0.9773467173087358
+      },
+      "large_contextual_candidate_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "large_contextual_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "name": "singleton_zero_present",
+      "positive_contextual_candidate_count": 6,
+      "positive_contextual_evaluations": 80,
+      "positive_contextual_rate": 0.010851871947911014,
+      "unique_candidates_observed": 354
     }
   },
   "mechanisms": {
@@ -896,6 +964,40 @@
       "retained_fraction": 1.0
     }
   ],
+  "singleton_negative": {
+    "accepted_count": 0,
+    "candidate_population": 1358,
+    "contextual_evaluations": 27586,
+    "distribution": {
+      "evaluations": 27586,
+      "max_contextual_improvement": 3.705273137956283,
+      "max_interaction_gain": 510.578922031792,
+      "negative": 23233,
+      "negative_rate": 0.8422025665192489,
+      "p50_contextual_improvement": -0.05787779540378324,
+      "p90_contextual_improvement": 0.001978941705829129,
+      "p95_contextual_improvement": 0.07678277620061635,
+      "positive": 3292,
+      "positive_rate": 0.11933589501921264,
+      "zero": 1061,
+      "zero_rate": 0.038461538461538464
+    },
+    "large_contextual_candidate_counts": {
+      "accepted_median": 0,
+      "accepted_p75": 0,
+      "accepted_p90": 0
+    },
+    "large_contextual_counts": {
+      "accepted_median": 0,
+      "accepted_p75": 0,
+      "accepted_p90": 0
+    },
+    "name": "singleton_negative",
+    "positive_contextual_candidate_count": 195,
+    "positive_contextual_evaluations": 3292,
+    "positive_contextual_rate": 0.11933589501921264,
+    "unique_candidates_observed": 1153
+  },
   "singleton_percentile_buckets": [
     {
       "accepted_move_count": 11,
@@ -1042,6 +1144,40 @@
       "zero_rate": 0.04355444305381727
     }
   ],
+  "singleton_zero_present": {
+    "accepted_count": 0,
+    "candidate_population": 468,
+    "contextual_evaluations": 7372,
+    "distribution": {
+      "evaluations": 7372,
+      "max_contextual_improvement": 0.0646790358346152,
+      "max_interaction_gain": 0.0646790358346152,
+      "negative": 87,
+      "negative_rate": 0.011801410743353228,
+      "p50_contextual_improvement": 0.0,
+      "p90_contextual_improvement": 0.0,
+      "p95_contextual_improvement": 0.0,
+      "positive": 80,
+      "positive_rate": 0.010851871947911014,
+      "zero": 7205,
+      "zero_rate": 0.9773467173087358
+    },
+    "large_contextual_candidate_counts": {
+      "accepted_median": 0,
+      "accepted_p75": 0,
+      "accepted_p90": 0
+    },
+    "large_contextual_counts": {
+      "accepted_median": 0,
+      "accepted_p75": 0,
+      "accepted_p90": 0
+    },
+    "name": "singleton_zero_present",
+    "positive_contextual_candidate_count": 6,
+    "positive_contextual_evaluations": 80,
+    "positive_contextual_rate": 0.010851871947911014,
+    "unique_candidates_observed": 354
+  },
   "surprise_counts": {
     "bottom_50pct": 20,
     "bottom_80pct": 20,

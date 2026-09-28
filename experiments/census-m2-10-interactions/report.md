@@ -23,6 +23,7 @@ Accepted contextual-improvement reference levels are median=5.544890, p75=9.2656
 For singleton-nonpositive candidates: observed 2412, candidates with any positive contextual rescue 201, positive contextual evaluations 3372, accepted moves 0, and maximum contextual improvement 3.705273137956283.
 
 ABSENT_NATIVE: observed 905, positive contextual evaluations 0, accepted 0, maximum contextual improvement 0.0. This is evidence for this trajectory only, not a pruning theorem.
+Among PRESENT singleton-zero candidates, observed 354 of 468; candidates with positive contextual rescue 6, accepted 0. Among singleton-negative candidates, observed 1153 of 1358; candidates with positive contextual rescue 195, accepted 0.
 
 ## Screening recall (retrospective only)
 

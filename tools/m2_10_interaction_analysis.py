@@ -406,6 +406,18 @@ def main() -> None:
         lambda row: row["singleton_improvement"] >= median_positive, thresholds,
         all_singleton_rows,
     )
+    regions["singleton_zero_present"] = region_metrics(
+        "singleton_zero_present", summaries, rows,
+        lambda row: row["realization_state"] == "PRESENT" and row["singleton_improvement"] == 0,
+        thresholds,
+        all_singleton_rows,
+    )
+    regions["singleton_negative"] = region_metrics(
+        "singleton_negative", summaries, rows,
+        lambda row: row["singleton_improvement"] < 0,
+        thresholds,
+        all_singleton_rows,
+    )
     mechanisms = {}
     for mechanism in ("mcv", "fd"):
         mech_rows = [row for row in rows if row["mechanism"] == mechanism]
@@ -479,6 +491,8 @@ def main() -> None:
         "low_singleton_regions": regions,
         "screening_recall": screening,
         "nonpositive_singleton": regions["singleton_nonpositive"],
+        "singleton_zero_present": regions["singleton_zero_present"],
+        "singleton_negative": regions["singleton_negative"],
         "absent_native": {
             "candidate_count": len(absent_population),
             "observed_count": len(absent),
@@ -560,9 +574,9 @@ def write_report(summary: dict[str, Any], thresholds: dict[str, float], boundary
         ),
         "",
         (
-        f"For singleton-nonpositive candidates: observed {nonpositive['unique_candidates_observed']}, "
-        f"candidates with any positive contextual rescue {nonpositive['positive_contextual_candidate_count']}, "
-        f"positive contextual evaluations {nonpositive['positive_contextual_evaluations']}, "
+            f"For singleton-nonpositive candidates: observed {nonpositive['unique_candidates_observed']}, "
+            f"candidates with any positive contextual rescue {nonpositive['positive_contextual_candidate_count']}, "
+            f"positive contextual evaluations {nonpositive['positive_contextual_evaluations']}, "
             f"accepted moves {nonpositive['accepted_count']}, and maximum contextual improvement "
             f"{nonpositive['distribution']['max_contextual_improvement']}."
         ),
@@ -572,6 +586,16 @@ def write_report(summary: dict[str, Any], thresholds: dict[str, float], boundary
             f"{absent['positive_contextual_count']}, accepted {absent['accepted_count']}, maximum "
             f"contextual improvement {absent['max_contextual_improvement']}. This is evidence for "
             "this trajectory only, not a pruning theorem."
+        ),
+        (
+            f"Among PRESENT singleton-zero candidates, observed {summary['singleton_zero_present']['unique_candidates_observed']} "
+            f"of {summary['singleton_zero_present']['candidate_population']}; candidates with positive contextual rescue "
+            f"{summary['singleton_zero_present']['positive_contextual_candidate_count']}, accepted "
+            f"{summary['singleton_zero_present']['accepted_count']}. Among singleton-negative candidates, "
+            f"observed {summary['singleton_negative']['unique_candidates_observed']} of "
+            f"{summary['singleton_negative']['candidate_population']}; candidates with positive contextual rescue "
+            f"{summary['singleton_negative']['positive_contextual_candidate_count']}, accepted "
+            f"{summary['singleton_negative']['accepted_count']}."
         ),
         "",
         "## Screening recall (retrospective only)",
