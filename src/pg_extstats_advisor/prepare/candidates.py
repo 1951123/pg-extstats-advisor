@@ -79,7 +79,7 @@ def generate_candidates(config: PreparationConfig, ingested: IngestedWorkload) -
 
 
 def _attnum(metadata: RelationMetadata, column: str) -> int:
-    by_name = {name: attnum for attnum, name, _ in metadata.columns}
+    by_name = {name: attnum for attnum, name, _, _ in metadata.columns}
     try:
         return by_name[column]
     except KeyError as error:

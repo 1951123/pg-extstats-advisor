@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from dataclasses import dataclass
@@ -22,11 +23,11 @@ _SHAPE = re.compile(
     r"(?:\s+(?:as\s+)?[A-Za-z_][\w$]*)?\s+where\s+(.+?)\s*;?\s*$",
     re.IGNORECASE | re.DOTALL,
 )
-_PREDICATE = re.compile(
-    r"^\s*(?:[A-Za-z_][\w$]*\.)?([A-Za-z_][\w$]*)\s*"
-    r"(?:=|<=|>=|<|>|in\s*\(|is\s+null\b)",
-    re.IGNORECASE,
-)
+_COLUMN = r"(?:[A-Za-z_][\w$]*\.)?([A-Za-z_][\w$]*)"
+_LITERAL = r"(?:[-+]?\d+(?:\.\d+)?|'(?:[^']|'')*'|true|false|null)"
+_SCALAR = re.compile(rf"{_COLUMN}\s*(?:=|<=|>=|<|>)\s*({_LITERAL})", re.IGNORECASE)
+_IN = re.compile(rf"{_COLUMN}\s+in\s*\(\s*{_LITERAL}(?:\s*,\s*{_LITERAL})*\s*\)", re.IGNORECASE)
+_IS_NULL = re.compile(rf"{_COLUMN}\s+is\s+null", re.IGNORECASE)
 
 
 @dataclass(frozen=True, slots=True)
@@ -34,11 +35,20 @@ class RelationMetadata:
     schema: str
     name: str
     oid: int
-    columns: tuple[tuple[int, str, str], ...]
+    columns: tuple[tuple[int, str, str, bool], ...]
 
     @property
     def qualified_name(self) -> str:
         return f"{self.schema}.{self.name}"
+
+    @property
+    def logical_descriptor(self) -> dict[str, Any]:
+        return {"qualified_relation": self.qualified_name, "columns": self.columns}
+
+    @property
+    def logical_fingerprint(self) -> str:
+        value = json.dumps(self.logical_descriptor, sort_keys=True, separators=(",", ":"))
+        return hashlib.sha256(value.encode()).hexdigest()
 
 
 @dataclass(frozen=True, slots=True)
@@ -64,7 +74,7 @@ def _relation(connection: Connection[Any], value: str) -> RelationMetadata:
     if row is None:
         raise ValueError(f"target relation does not exist: {value}")
     columns = connection.execute(
-        "SELECT attnum,attname,atttypid::regtype::text FROM pg_attribute "
+        "SELECT attnum,attname,atttypid::regtype::text,attnotnull FROM pg_attribute "
         "WHERE attrelid=%s AND attnum>0 AND NOT attisdropped ORDER BY attnum",
         (row[2],),
     ).fetchall()
@@ -72,8 +82,45 @@ def _relation(connection: Connection[Any], value: str) -> RelationMetadata:
         str(row[0]),
         str(row[1]),
         int(row[2]),
-        tuple((int(a), str(b), str(c)) for a, b, c in columns),
+        tuple((int(a), str(b), str(c), bool(d)) for a, b, c, d in columns),
     )
+
+
+def _split_top_level_and(where: str) -> list[str] | None:
+    clauses: list[str] = []
+    start = 0
+    depth = 0
+    quoted = False
+    index = 0
+    while index < len(where):
+        char = where[index]
+        if char == "'":
+            if quoted and index + 1 < len(where) and where[index + 1] == "'":
+                index += 2
+                continue
+            quoted = not quoted
+        elif not quoted:
+            if char == "(":
+                depth += 1
+            elif char == ")":
+                depth -= 1
+                if depth < 0:
+                    return None
+            elif depth == 0:
+                token = re.match(r"(?i)(and|or|not)\b", where[index:])
+                if token:
+                    word = token.group(1).lower()
+                    if word != "and":
+                        return None
+                    clauses.append(where[start:index].strip())
+                    index += len(token.group(0))
+                    start = index
+                    continue
+        index += 1
+    if quoted or depth != 0:
+        return None
+    clauses.append(where[start:].strip())
+    return clauses
 
 
 def _inspect_sql(
@@ -93,17 +140,24 @@ def _inspect_sql(
     parsed = match.group(1) if match.group(2) is None else f"{match.group(1)}.{match.group(2)}"
     if parsed not in {metadata.name, metadata.qualified_name, declared_relation}:
         raise ValueError("declared target relation does not match query FROM relation")
-    known = {name for _, name, _ in metadata.columns}
+    known = {name for _, name, _, _ in metadata.columns}
     found: set[str] = set()
-    fallback = False
-    for clause in re.split(r"\s+and\s+", match.group(3), flags=re.IGNORECASE):
-        clause = clause.strip().strip("() ")
-        predicate = _PREDICATE.match(clause)
+    clauses = _split_top_level_and(match.group(3))
+    if clauses is None:
+        return frozenset(), "conservative-fallback"
+    for clause in clauses:
+        predicate = next(
+            (
+                pattern.fullmatch(clause)
+                for pattern in (_SCALAR, _IN, _IS_NULL)
+                if pattern.fullmatch(clause)
+            ),
+            None,
+        )
         if predicate is None or predicate.group(1) not in known:
-            fallback = True
-        else:
-            found.add(predicate.group(1))
-    return frozenset(found), "conservative-fallback" if fallback else "precise-structural"
+            return frozenset(), "conservative-fallback"
+        found.add(predicate.group(1))
+    return frozenset(found), "precise-structural"
 
 
 def ingest_workload(path: Path, connection: Connection[Any]) -> IngestedWorkload:
