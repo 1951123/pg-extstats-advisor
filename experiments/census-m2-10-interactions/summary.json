@@ -1,0 +1,1037 @@
+{
+  "absent_native": {
+    "accepted_count": 0,
+    "candidate_count": 1109,
+    "contextual_evaluations": 19366,
+    "max_contextual_improvement": 0.0,
+    "observed_count": 905,
+    "positive_contextual_count": 0
+  },
+  "accepted_reference": {
+    "count": 36,
+    "improvement_quantiles": {
+      "max": 2636.9524615251134,
+      "median": 5.544889856327359,
+      "p75": 9.265633428936212,
+      "p90": 146.19447948939455
+    }
+  },
+  "accepted_sequence": {
+    "accepted_ranks": [
+      1,
+      4,
+      6,
+      11,
+      12,
+      13,
+      28,
+      41,
+      45,
+      46,
+      49,
+      47,
+      53,
+      59,
+      61,
+      65,
+      50,
+      68,
+      76,
+      74,
+      83,
+      21,
+      63,
+      100,
+      94,
+      99,
+      768,
+      88,
+      97,
+      101,
+      105,
+      109,
+      116,
+      118,
+      127,
+      133
+    ],
+    "first_half_median_rank": 45.5,
+    "second_half_median_rank": 99.5,
+    "spearman_round_vs_rank": 0.9438867438867439
+  },
+  "boundary_case_rank_501_1000": [
+    {
+      "accepted_round": 27,
+      "candidate_id": "cand_ea654d977d77db152ccf",
+      "contextual_improvement": 3.79975150442192,
+      "interaction_gain": 3.7392195585237005,
+      "mechanism": "mcv",
+      "realization_state": "PRESENT",
+      "selected_count_before": 26,
+      "singleton_improvement": 0.06053194589821942,
+      "singleton_percentile": 82.97825122059476,
+      "singleton_rank": 768
+    }
+  ],
+  "correlation": {
+    "observed_candidate_count": 3759,
+    "pearson_singleton_vs_max_contextual": 0.9320269931969484,
+    "spearman_singleton_vs_max_contextual": 0.810858205842606
+  },
+  "coverage": {
+    "bound_pruned_moves_not_included": 75488,
+    "candidates_never_natively_observed": 747,
+    "contextual_native_evaluations": 86098,
+    "observational_trajectory_only": true,
+    "unique_candidates_observed": 3759
+  },
+  "experiment": "M2.10 Singleton Screening Interaction-Rescue Analysis",
+  "format_version": 1,
+  "interpretation": {
+    "definition": "contextual improvement and interaction gain are observed-only descriptive quantities",
+    "low_singleton_not_globally_useless": true,
+    "no_m3": true,
+    "no_screening_rule": true,
+    "no_search_resume": true
+  },
+  "lineage": {
+    "candidate_catalog_digest": "74727a871b3a601977885cbf96d25cda6e5ac38ef448d1815561bdc5988a425a",
+    "candidate_count": 4506,
+    "fd_count": 2253,
+    "incidence_digest": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4",
+    "maintenance_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e",
+    "mcv_count": 2253,
+    "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+    "workload_digest": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215",
+    "workload_queries": 468
+  },
+  "low_singleton_regions": {
+    "bottom_50pct": {
+      "accepted_count": 0,
+      "candidate_population": 2253,
+      "contextual_evaluations": 42551,
+      "distribution": {
+        "evaluations": 42551,
+        "max_contextual_improvement": 3.705273137956283,
+        "max_interaction_gain": 510.578922031792,
+        "negative": 23233,
+        "negative_rate": 0.5460036191863881,
+        "p50_contextual_improvement": -0.001394660156165628,
+        "p90_contextual_improvement": 0.0,
+        "p95_contextual_improvement": 0.01791430367347857,
+        "positive": 3298,
+        "positive_rate": 0.07750699161006792,
+        "zero": 16020,
+        "zero_rate": 0.37648938920354397
+      },
+      "large_contextual_candidate_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "large_contextual_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "name": "bottom_50pct",
+      "positive_contextual_evaluations": 3298,
+      "positive_contextual_rate": 0.07750699161006792,
+      "unique_candidates_observed": 1860
+    },
+    "bottom_70pct": {
+      "accepted_count": 0,
+      "candidate_population": 3155,
+      "contextual_evaluations": 57468,
+      "distribution": {
+        "evaluations": 57468,
+        "max_contextual_improvement": 3.705273137956283,
+        "max_interaction_gain": 510.578922031792,
+        "negative": 23506,
+        "negative_rate": 0.4090276327695413,
+        "p50_contextual_improvement": 0.0,
+        "p90_contextual_improvement": 3.441034868956194e-05,
+        "p95_contextual_improvement": 0.0017339634541713167,
+        "positive": 6193,
+        "positive_rate": 0.10776432101343357,
+        "zero": 27769,
+        "zero_rate": 0.4832080462170251
+      },
+      "large_contextual_candidate_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "large_contextual_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "name": "bottom_70pct",
+      "positive_contextual_evaluations": 6193,
+      "positive_contextual_rate": 0.10776432101343357,
+      "unique_candidates_observed": 2570
+    },
+    "bottom_80pct": {
+      "accepted_count": 0,
+      "candidate_population": 3605,
+      "contextual_evaluations": 65531,
+      "distribution": {
+        "evaluations": 65531,
+        "max_contextual_improvement": 3.705273137956283,
+        "max_interaction_gain": 510.578922031792,
+        "negative": 24262,
+        "negative_rate": 0.37023698707481956,
+        "p50_contextual_improvement": 0.0,
+        "p90_contextual_improvement": 0.007329453921556706,
+        "p95_contextual_improvement": 0.024035339852161997,
+        "positive": 13345,
+        "positive_rate": 0.20364407684912483,
+        "zero": 27924,
+        "zero_rate": 0.4261189360760556
+      },
+      "large_contextual_candidate_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "large_contextual_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "name": "bottom_80pct",
+      "positive_contextual_evaluations": 13345,
+      "positive_contextual_rate": 0.20364407684912483,
+      "unique_candidates_observed": 2926
+    },
+    "bottom_90pct": {
+      "accepted_count": 1,
+      "candidate_population": 4056,
+      "contextual_evaluations": 75193,
+      "distribution": {
+        "evaluations": 75193,
+        "max_contextual_improvement": 3.7997515044221473,
+        "max_interaction_gain": 510.578922031792,
+        "negative": 25815,
+        "negative_rate": 0.34331653212400093,
+        "p50_contextual_improvement": 0.0,
+        "p90_contextual_improvement": 0.049962137388320116,
+        "p95_contextual_improvement": 0.14089104287422222,
+        "positive": 21046,
+        "positive_rate": 0.2798930751532722,
+        "zero": 28332,
+        "zero_rate": 0.37679039272272685
+      },
+      "large_contextual_candidate_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "large_contextual_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "name": "bottom_90pct",
+      "positive_contextual_evaluations": 21046,
+      "positive_contextual_rate": 0.2798930751532722,
+      "unique_candidates_observed": 3328
+    },
+    "bottom_95pct": {
+      "accepted_count": 1,
+      "candidate_population": 4281,
+      "contextual_evaluations": 80552,
+      "distribution": {
+        "evaluations": 80552,
+        "max_contextual_improvement": 3.7997515044221473,
+        "max_interaction_gain": 510.578922031792,
+        "negative": 26984,
+        "negative_rate": 0.33498857880623695,
+        "p50_contextual_improvement": 0.0,
+        "p90_contextual_improvement": 0.11320135642881723,
+        "p95_contextual_improvement": 0.4047930416422787,
+        "positive": 25034,
+        "positive_rate": 0.31078061376502136,
+        "zero": 28534,
+        "zero_rate": 0.3542308074287417
+      },
+      "large_contextual_candidate_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "large_contextual_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "name": "bottom_95pct",
+      "positive_contextual_evaluations": 25034,
+      "positive_contextual_rate": 0.31078061376502136,
+      "unique_candidates_observed": 3539
+    },
+    "positive_at_or_above_median": {
+      "accepted_count": 36,
+      "candidate_population": 786,
+      "contextual_evaluations": 18379,
+      "distribution": {
+        "evaluations": 18379,
+        "max_contextual_improvement": 2636.9524615251134,
+        "max_interaction_gain": 3.739219558523928,
+        "negative": 4091,
+        "negative_rate": 0.22259100059850917,
+        "p50_contextual_improvement": 0.1512138851542204,
+        "p90_contextual_improvement": 1.8988944778500354,
+        "p95_contextual_improvement": 2.696871510403298,
+        "positive": 13439,
+        "positive_rate": 0.7312149736111867,
+        "zero": 849,
+        "zero_rate": 0.04619402579030415
+      },
+      "large_contextual_candidate_counts": {
+        "accepted_median": 53,
+        "accepted_p75": 32,
+        "accepted_p90": 10
+      },
+      "large_contextual_counts": {
+        "accepted_median": 169,
+        "accepted_p75": 50,
+        "accepted_p90": 11
+      },
+      "name": "positive_at_or_above_median",
+      "positive_contextual_evaluations": 13439,
+      "positive_contextual_rate": 0.7312149736111867,
+      "unique_candidates_observed": 734
+    },
+    "positive_below_median": {
+      "accepted_count": 0,
+      "candidate_population": 785,
+      "contextual_evaluations": 13395,
+      "distribution": {
+        "evaluations": 13395,
+        "max_contextual_improvement": 1.9002612017291085,
+        "max_interaction_gain": 1.8918517986810457,
+        "negative": 1245,
+        "negative_rate": 0.0929451287793953,
+        "p50_contextual_improvement": 0.00503316571985124,
+        "p90_contextual_improvement": 0.04036982760862884,
+        "p95_contextual_improvement": 0.050593322450254045,
+        "positive": 11845,
+        "positive_rate": 0.8842851810377006,
+        "zero": 305,
+        "zero_rate": 0.02276969018290407
+      },
+      "large_contextual_candidate_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "large_contextual_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "name": "positive_below_median",
+      "positive_contextual_evaluations": 11845,
+      "positive_contextual_rate": 0.8842851810377006,
+      "unique_candidates_observed": 613
+    },
+    "singleton_nonpositive": {
+      "accepted_count": 0,
+      "candidate_population": 2935,
+      "contextual_evaluations": 54324,
+      "distribution": {
+        "evaluations": 54324,
+        "max_contextual_improvement": 3.705273137956283,
+        "max_interaction_gain": 510.578922031792,
+        "negative": 23320,
+        "negative_rate": 0.42927619468374933,
+        "p50_contextual_improvement": 0.0,
+        "p90_contextual_improvement": 0.0,
+        "p95_contextual_improvement": 0.0023786095589457545,
+        "positive": 3372,
+        "positive_rate": 0.062072012370223105,
+        "zero": 27632,
+        "zero_rate": 0.5086517929460276
+      },
+      "large_contextual_candidate_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "large_contextual_counts": {
+        "accepted_median": 0,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "name": "singleton_nonpositive",
+      "positive_contextual_evaluations": 3372,
+      "positive_contextual_rate": 0.062072012370223105,
+      "unique_candidates_observed": 2412
+    }
+  },
+  "mechanisms": {
+    "fd": {
+      "accepted_count": 0,
+      "candidate_population": 2253,
+      "contextual_evaluations": 40895,
+      "distribution": {
+        "evaluations": 40895,
+        "max_contextual_improvement": 7.364799157657899,
+        "max_interaction_gain": 510.578922031792,
+        "negative": 3806,
+        "negative_rate": 0.09306761217752782,
+        "p50_contextual_improvement": 0.0,
+        "p90_contextual_improvement": 0.011950739920166598,
+        "p95_contextual_improvement": 0.061125507313363414,
+        "positive": 9038,
+        "positive_rate": 0.22100501283775523,
+        "zero": 28051,
+        "zero_rate": 0.685927374984717
+      },
+      "large_contextual_candidate_counts": {
+        "accepted_median": 1,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "large_contextual_counts": {
+        "accepted_median": 2,
+        "accepted_p75": 0,
+        "accepted_p90": 0
+      },
+      "low_singleton_rescue": {
+        "accepted_count": 0,
+        "candidate_population": 1154,
+        "contextual_evaluations": 20536,
+        "distribution": {
+          "evaluations": 20536,
+          "max_contextual_improvement": 0.6976448065222485,
+          "max_interaction_gain": 510.578922031792,
+          "negative": 3617,
+          "negative_rate": 0.17612972341254382,
+          "p50_contextual_improvement": 0.0,
+          "p90_contextual_improvement": 0.0,
+          "p95_contextual_improvement": 2.358654523959558e-05,
+          "positive": 1069,
+          "positive_rate": 0.05205492793143748,
+          "zero": 15850,
+          "zero_rate": 0.7718153486560188
+        },
+        "large_contextual_candidate_counts": {
+          "accepted_median": 0,
+          "accepted_p75": 0,
+          "accepted_p90": 0
+        },
+        "large_contextual_counts": {
+          "accepted_median": 0,
+          "accepted_p75": 0,
+          "accepted_p90": 0
+        },
+        "name": "fd_bottom_50pct",
+        "positive_contextual_evaluations": 1069,
+        "positive_contextual_rate": 0.05205492793143748,
+        "unique_candidates_observed": 936
+      },
+      "name": "fd",
+      "positive_contextual_evaluations": 9038,
+      "positive_contextual_rate": 0.22100501283775523,
+      "unique_candidates_observed": 1864
+    },
+    "mcv": {
+      "accepted_count": 36,
+      "candidate_population": 2253,
+      "contextual_evaluations": 45203,
+      "distribution": {
+        "evaluations": 45203,
+        "max_contextual_improvement": 2636.9524615251134,
+        "max_interaction_gain": 472.087979885034,
+        "negative": 24850,
+        "negative_rate": 0.5497422737428932,
+        "p50_contextual_improvement": -0.005423572443078228,
+        "p90_contextual_improvement": 0.7431237902383145,
+        "p95_contextual_improvement": 1.6091335208545843,
+        "positive": 19618,
+        "positive_rate": 0.43399774351259873,
+        "zero": 735,
+        "zero_rate": 0.016259982744508107
+      },
+      "large_contextual_candidate_counts": {
+        "accepted_median": 52,
+        "accepted_p75": 32,
+        "accepted_p90": 10
+      },
+      "large_contextual_counts": {
+        "accepted_median": 167,
+        "accepted_p75": 50,
+        "accepted_p90": 11
+      },
+      "low_singleton_rescue": {
+        "accepted_count": 0,
+        "candidate_population": 1099,
+        "contextual_evaluations": 22015,
+        "distribution": {
+          "evaluations": 22015,
+          "max_contextual_improvement": 3.705273137956283,
+          "max_interaction_gain": 472.087979885034,
+          "negative": 19616,
+          "negative_rate": 0.8910288439700205,
+          "p50_contextual_improvement": -0.08977468919647436,
+          "p90_contextual_improvement": 0.00010940820698124298,
+          "p95_contextual_improvement": 0.09699232673392544,
+          "positive": 2229,
+          "positive_rate": 0.10124914830797184,
+          "zero": 170,
+          "zero_rate": 0.007722007722007722
+        },
+        "large_contextual_candidate_counts": {
+          "accepted_median": 0,
+          "accepted_p75": 0,
+          "accepted_p90": 0
+        },
+        "large_contextual_counts": {
+          "accepted_median": 0,
+          "accepted_p75": 0,
+          "accepted_p90": 0
+        },
+        "name": "mcv_bottom_50pct",
+        "positive_contextual_evaluations": 2229,
+        "positive_contextual_rate": 0.10124914830797184,
+        "unique_candidates_observed": 924
+      },
+      "name": "mcv",
+      "positive_contextual_evaluations": 19618,
+      "positive_contextual_rate": 0.43399774351259873,
+      "unique_candidates_observed": 1895
+    }
+  },
+  "nonpositive_singleton": {
+    "accepted_count": 0,
+    "candidate_population": 2935,
+    "contextual_evaluations": 54324,
+    "distribution": {
+      "evaluations": 54324,
+      "max_contextual_improvement": 3.705273137956283,
+      "max_interaction_gain": 510.578922031792,
+      "negative": 23320,
+      "negative_rate": 0.42927619468374933,
+      "p50_contextual_improvement": 0.0,
+      "p90_contextual_improvement": 0.0,
+      "p95_contextual_improvement": 0.0023786095589457545,
+      "positive": 3372,
+      "positive_rate": 0.062072012370223105,
+      "zero": 27632,
+      "zero_rate": 0.5086517929460276
+    },
+    "large_contextual_candidate_counts": {
+      "accepted_median": 0,
+      "accepted_p75": 0,
+      "accepted_p90": 0
+    },
+    "large_contextual_counts": {
+      "accepted_median": 0,
+      "accepted_p75": 0,
+      "accepted_p90": 0
+    },
+    "name": "singleton_nonpositive",
+    "positive_contextual_evaluations": 3372,
+    "positive_contextual_rate": 0.062072012370223105,
+    "unique_candidates_observed": 2412
+  },
+  "overall": {
+    "evaluations": 86098,
+    "max_contextual_improvement": 2636.9524615251134,
+    "max_interaction_gain": 510.578922031792,
+    "negative": 28656,
+    "negative_rate": 0.3328300308950266,
+    "p50_contextual_improvement": 0.0,
+    "p90_contextual_improvement": 0.264206557526677,
+    "p95_contextual_improvement": 0.8783871894961799,
+    "positive": 28656,
+    "positive_rate": 0.3328300308950266,
+    "zero": 28786,
+    "zero_rate": 0.3343399382099468
+  },
+  "protocol_sha256": "12ddcd25da9310a752ec891c97ec38278c928a08774f61a1e795a93a673fa81f",
+  "provenance": {
+    "m2_7_v2_checkpoint": "experiments/census-m2-7/v2/budgets/b100-run1/checkpoint.json",
+    "m2_7_v2_checkpoint_sha256": "f7ae8203c90b13da2e736b445caaed3bb2532523e9ffe3bb0556e86f4c412886",
+    "m2_7_v2_protocol_sha256": "d07215ea172ac59813e50102cca5b4d53b373704f98f6eed5b6f011cf49287b9",
+    "m2_9_protocol_sha256": "07b092d12ab26257ecde4b47db41d538f531fa6c3e93e36457d7821788d58f7c",
+    "m2_9_singleton_results": "experiments/census-m2-9-singletons/singleton-results.csv"
+  },
+  "replay": {
+    "bound_pruned": 75488,
+    "conceptual_moves": 161586,
+    "m2_7_checkpoint_sha256": "f7ae8203c90b13da2e736b445caaed3bb2532523e9ffe3bb0556e86f4c412886",
+    "m2_9_results_sha256": "1fb459297e8373903eb57b4f70e4df77859f74c5e233b7e47fba69f17b03cc21",
+    "native_evaluations": 86098,
+    "no_analyze": true,
+    "planner_calls": 446733,
+    "rounds": 36,
+    "statistics_ddl": 0,
+    "status": "complete",
+    "total_elapsed_seconds": 1786.8623825870018,
+    "unique_candidates": 3759
+  },
+  "round_segments": {
+    "early_1_12": {
+      "accepted_count": 12,
+      "evaluations": 11771,
+      "max_contextual_improvement": 2636.9524615251134,
+      "max_interaction_gain": 510.578922031792,
+      "negative": 4227,
+      "negative_rate": 0.3591028799592218,
+      "p50_contextual_improvement": 0.0,
+      "p90_contextual_improvement": 0.8444165132582384,
+      "p95_contextual_improvement": 2.1201446038664926,
+      "positive": 4574,
+      "positive_rate": 0.38858210857191405,
+      "zero": 2970,
+      "zero_rate": 0.25231501146886415
+    },
+    "late_25_36": {
+      "accepted_count": 12,
+      "evaluations": 40681,
+      "max_contextual_improvement": 4.083473851592771,
+      "max_interaction_gain": 510.578922031792,
+      "negative": 13311,
+      "negative_rate": 0.32720434600919346,
+      "p50_contextual_improvement": 0.0,
+      "p90_contextual_improvement": 0.13825426205653457,
+      "p95_contextual_improvement": 0.5279252040356823,
+      "positive": 12617,
+      "positive_rate": 0.3101447850347828,
+      "zero": 14753,
+      "zero_rate": 0.3626508689560237
+    },
+    "middle_13_24": {
+      "accepted_count": 12,
+      "evaluations": 33646,
+      "max_contextual_improvement": 7.713024544638984,
+      "max_interaction_gain": 510.578922031792,
+      "negative": 11118,
+      "negative_rate": 0.33044046840634844,
+      "p50_contextual_improvement": 0.0,
+      "p90_contextual_improvement": 0.31050098145396987,
+      "p95_contextual_improvement": 1.0272178598347637,
+      "positive": 11465,
+      "positive_rate": 0.34075373001248294,
+      "zero": 11063,
+      "zero_rate": 0.3288058015811686
+    }
+  },
+  "screening_recall": [
+    {
+      "accepted_candidate_recall": 0.3055555555555556,
+      "accepted_gain_recall": 0.972796964662925,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 0.6226415094339622,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "raw",
+      "retained_count": 46,
+      "retained_fraction": 0.01
+    },
+    {
+      "accepted_candidate_recall": 0.6666666666666666,
+      "accepted_gain_recall": 0.9907776129648534,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "raw",
+      "retained_count": 91,
+      "retained_fraction": 0.02
+    },
+    {
+      "accepted_candidate_recall": 0.9722222222222222,
+      "accepted_gain_recall": 0.9991571843471003,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "raw",
+      "retained_count": 226,
+      "retained_fraction": 0.05
+    },
+    {
+      "accepted_candidate_recall": 0.9722222222222222,
+      "accepted_gain_recall": 0.9991571843471003,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "raw",
+      "retained_count": 451,
+      "retained_fraction": 0.1
+    },
+    {
+      "accepted_candidate_recall": 1.0,
+      "accepted_gain_recall": 1.0,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "raw",
+      "retained_count": 902,
+      "retained_fraction": 0.2
+    },
+    {
+      "accepted_candidate_recall": 1.0,
+      "accepted_gain_recall": 1.0,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "raw",
+      "retained_count": 1352,
+      "retained_fraction": 0.3
+    },
+    {
+      "accepted_candidate_recall": 1.0,
+      "accepted_gain_recall": 1.0,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "raw",
+      "retained_count": 1803,
+      "retained_fraction": 0.4
+    },
+    {
+      "accepted_candidate_recall": 1.0,
+      "accepted_gain_recall": 1.0,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "raw",
+      "retained_count": 2253,
+      "retained_fraction": 0.5
+    },
+    {
+      "accepted_candidate_recall": 1.0,
+      "accepted_gain_recall": 1.0,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "raw",
+      "retained_count": 3380,
+      "retained_fraction": 0.75
+    },
+    {
+      "accepted_candidate_recall": 1.0,
+      "accepted_gain_recall": 1.0,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "raw",
+      "retained_count": 4506,
+      "retained_fraction": 1.0
+    },
+    {
+      "accepted_candidate_recall": 0.3055555555555556,
+      "accepted_gain_recall": 0.972796964662925,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 0.6226415094339622,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "cost-aware",
+      "retained_count": 46,
+      "retained_fraction": 0.01
+    },
+    {
+      "accepted_candidate_recall": 0.6666666666666666,
+      "accepted_gain_recall": 0.9907776129648534,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 0.9811320754716981,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "cost-aware",
+      "retained_count": 91,
+      "retained_fraction": 0.02
+    },
+    {
+      "accepted_candidate_recall": 0.9722222222222222,
+      "accepted_gain_recall": 0.9991571843471003,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "cost-aware",
+      "retained_count": 226,
+      "retained_fraction": 0.05
+    },
+    {
+      "accepted_candidate_recall": 0.9722222222222222,
+      "accepted_gain_recall": 0.9991571843471003,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "cost-aware",
+      "retained_count": 451,
+      "retained_fraction": 0.1
+    },
+    {
+      "accepted_candidate_recall": 1.0,
+      "accepted_gain_recall": 1.0,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "cost-aware",
+      "retained_count": 902,
+      "retained_fraction": 0.2
+    },
+    {
+      "accepted_candidate_recall": 1.0,
+      "accepted_gain_recall": 1.0,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "cost-aware",
+      "retained_count": 1352,
+      "retained_fraction": 0.3
+    },
+    {
+      "accepted_candidate_recall": 1.0,
+      "accepted_gain_recall": 1.0,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "cost-aware",
+      "retained_count": 1803,
+      "retained_fraction": 0.4
+    },
+    {
+      "accepted_candidate_recall": 1.0,
+      "accepted_gain_recall": 1.0,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "cost-aware",
+      "retained_count": 2253,
+      "retained_fraction": 0.5
+    },
+    {
+      "accepted_candidate_recall": 1.0,
+      "accepted_gain_recall": 1.0,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "cost-aware",
+      "retained_count": 3380,
+      "retained_fraction": 0.75
+    },
+    {
+      "accepted_candidate_recall": 1.0,
+      "accepted_gain_recall": 1.0,
+      "high_accepted_median_candidate_count": 53,
+      "high_accepted_median_recall": 1.0,
+      "high_accepted_p75_candidate_count": 32,
+      "high_accepted_p75_recall": 1.0,
+      "high_accepted_p90_candidate_count": 10,
+      "high_accepted_p90_recall": 1.0,
+      "ranking": "cost-aware",
+      "retained_count": 4506,
+      "retained_fraction": 1.0
+    }
+  ],
+  "singleton_percentile_buckets": [
+    {
+      "accepted_move_count": 11,
+      "bucket": "top_1pct",
+      "evaluations": 972,
+      "max_contextual_improvement": 2636.9524615251134,
+      "max_interaction_gain": 0.0006683853719096078,
+      "median_contextual_improvement": -5.6685793118869015,
+      "negative": 623,
+      "negative_rate": 0.6409465020576132,
+      "p50_contextual_improvement": -5.6685793118869015,
+      "p90_contextual_improvement": 2.171106691693012,
+      "p95_contextual_improvement": 9.279315156654853,
+      "positive": 349,
+      "positive_rate": 0.35905349794238683,
+      "unique_candidates_observed": 44,
+      "zero": 0,
+      "zero_rate": 0.0
+    },
+    {
+      "accepted_move_count": 24,
+      "bucket": "1_5pct",
+      "evaluations": 4594,
+      "max_contextual_improvement": 9.013980565493966,
+      "max_interaction_gain": 1.2171329000716469,
+      "median_contextual_improvement": 1.3421186658979423,
+      "negative": 1049,
+      "negative_rate": 0.2283413147583805,
+      "p50_contextual_improvement": 1.3421186658979423,
+      "p90_contextual_improvement": 3.335278851280009,
+      "p95_contextual_improvement": 4.278058307974334,
+      "positive": 3293,
+      "positive_rate": 0.716804527644754,
+      "unique_candidates_observed": 177,
+      "zero": 252,
+      "zero_rate": 0.054854157596865474
+    },
+    {
+      "accepted_move_count": 0,
+      "bucket": "5_10pct",
+      "evaluations": 5368,
+      "max_contextual_improvement": 2.129935698500958,
+      "max_interaction_gain": 1.57411025044712,
+      "median_contextual_improvement": 0.4799030673489142,
+      "negative": 1185,
+      "negative_rate": 0.22075260804769,
+      "p50_contextual_improvement": 0.4799030673489142,
+      "p90_contextual_improvement": 1.2387632586694508,
+      "p95_contextual_improvement": 1.378213759399238,
+      "positive": 3981,
+      "positive_rate": 0.7416169895678092,
+      "unique_candidates_observed": 211,
+      "zero": 202,
+      "zero_rate": 0.037630402384500744
+    },
+    {
+      "accepted_move_count": 1,
+      "bucket": "10_20pct",
+      "evaluations": 9656,
+      "max_contextual_improvement": 3.7997515044221473,
+      "max_interaction_gain": 3.739219558523928,
+      "median_contextual_improvement": 0.06213939013662184,
+      "negative": 1537,
+      "negative_rate": 0.15917564208782103,
+      "p50_contextual_improvement": 0.06213939013662184,
+      "p90_contextual_improvement": 0.2633502003288868,
+      "p95_contextual_improvement": 0.33487673494050796,
+      "positive": 7711,
+      "positive_rate": 0.7985708367854184,
+      "unique_candidates_observed": 402,
+      "zero": 408,
+      "zero_rate": 0.04225352112676056
+    },
+    {
+      "accepted_move_count": 0,
+      "bucket": "20_40pct",
+      "evaluations": 14780,
+      "max_contextual_improvement": 1.9002612017291085,
+      "max_interaction_gain": 1.8918517986810457,
+      "median_contextual_improvement": 0.0006499156986592425,
+      "negative": 1029,
+      "negative_rate": 0.06962110960757781,
+      "p50_contextual_improvement": 0.0006499156986592425,
+      "p90_contextual_improvement": 0.02279640976689734,
+      "p95_contextual_improvement": 0.0290113923554145,
+      "positive": 9990,
+      "positive_rate": 0.6759133964817321,
+      "unique_candidates_observed": 687,
+      "zero": 3761,
+      "zero_rate": 0.2544654939106901
+    },
+    {
+      "accepted_move_count": 0,
+      "bucket": "40_60pct",
+      "evaluations": 15321,
+      "max_contextual_improvement": 5.991602574795252e-05,
+      "max_interaction_gain": 5.991602574795252e-05,
+      "median_contextual_improvement": 0.0,
+      "negative": 0,
+      "negative_rate": 0.0,
+      "p50_contextual_improvement": 0.0,
+      "p90_contextual_improvement": 0.0,
+      "p95_contextual_improvement": 0.0,
+      "positive": 40,
+      "positive_rate": 0.0026107956399712812,
+      "unique_candidates_observed": 724,
+      "zero": 15281,
+      "zero_rate": 0.9973892043600288
+    },
+    {
+      "accepted_move_count": 0,
+      "bucket": "60_80pct",
+      "evaluations": 15432,
+      "max_contextual_improvement": 1.5696463517379016,
+      "max_interaction_gain": 1.57411025044712,
+      "median_contextual_improvement": 0.0,
+      "negative": 6472,
+      "negative_rate": 0.41938828408501816,
+      "p50_contextual_improvement": 0.0,
+      "p90_contextual_improvement": 0.0,
+      "p95_contextual_improvement": 0.00017160613765554444,
+      "positive": 948,
+      "positive_rate": 0.061430793157076204,
+      "unique_candidates_observed": 709,
+      "zero": 8012,
+      "zero_rate": 0.5191809227579056
+    },
+    {
+      "accepted_move_count": 0,
+      "bucket": "bottom_20pct",
+      "evaluations": 19975,
+      "max_contextual_improvement": 3.705273137956283,
+      "max_interaction_gain": 510.578922031792,
+      "median_contextual_improvement": -0.151624357691162,
+      "negative": 16761,
+      "negative_rate": 0.83909887359199,
+      "p50_contextual_improvement": -0.151624357691162,
+      "p90_contextual_improvement": 0.01174163133532602,
+      "p95_contextual_improvement": 0.11799948019961448,
+      "positive": 2344,
+      "positive_rate": 0.11734668335419274,
+      "unique_candidates_observed": 805,
+      "zero": 870,
+      "zero_rate": 0.04355444305381727
+    }
+  ],
+  "surprise_counts": {
+    "bottom_50pct": 20,
+    "bottom_80pct": 20,
+    "singleton_nonpositive": 20
+  }
+}
