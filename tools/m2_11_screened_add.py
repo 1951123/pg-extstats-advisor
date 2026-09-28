@@ -175,7 +175,10 @@ def make_screen(prepared: Any, model: Any) -> tuple[list[dict[str, Any]], dict[s
             }
         )
     write_csv(OUT_ROOT / "screened-candidates.csv", screened_rows, SCREENED_FIELDS)
-    total_cost = model.estimate_design(Design(tuple(item.candidate_id for item in screened_candidates)), screened_catalog)
+    total_cost = model.estimate_design(
+        Design(tuple(item.candidate_id for item in sorted(screened_candidates, key=lambda item: item.precedence_rank))),
+        screened_catalog,
+    )
     ranked_all = sorted(
         rows,
         key=lambda row: (
