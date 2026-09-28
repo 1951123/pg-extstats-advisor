@@ -9,11 +9,15 @@ from pathlib import Path
 import psycopg
 import pytest
 
+from pg_extstats_advisor.cost.model import MaintenanceBudget
+from pg_extstats_advisor.cost.preset import PresetMaintenanceCostModel
 from pg_extstats_advisor.evaluator.native import NativeEvaluator
 from pg_extstats_advisor.incidence.index import IncidenceIndex
 from pg_extstats_advisor.models import CandidateId, Design, Move, QueryId, WorkloadQuery
 from pg_extstats_advisor.payloads.repository import PayloadRepository
 from pg_extstats_advisor.postgres.adapter import PostgresAdapter
+from pg_extstats_advisor.search.deterministic import DeterministicBudgetSearch
+from pg_extstats_advisor.search.model import SearchConfig
 from pg_extstats_advisor.workload.model import Workload
 
 DSN = os.environ.get("PG_EXTSTATS_TEST_DSN")
@@ -230,3 +234,78 @@ def test_external_evaluator_vertical_slice(tmp_path: Path) -> None:
         bad_lineage = replace(current, repository_digest="wrong")
         with pytest.raises(ValueError, match="state/repository mismatch"):
             evaluator.evaluate_move(current.design, Move.add_candidate(CandidateId("single_mcv")), bad_lineage)
+
+        cost_model = PresetMaintenanceCostModel(0, 1, 1, 1)
+        registrations = adapter.registration_calls
+        planner_before = adapter.planner_calls_total
+        zero = DeterministicBudgetSearch(
+            evaluator, repository.catalog, cost_model, MaintenanceBudget(0, cost_model.unit)
+        ).run()
+        assert zero.final_design == Design(())
+        assert zero.evaluated_moves_count == 0
+        assert adapter.planner_calls_total - planner_before == len(workload.queries)
+        assert adapter.registration_calls == registrations
+
+        def signature(result):
+            return tuple(
+                (record.move, record.after_design, record.after_objective)
+                for record in result.trajectory
+                if record.accepted
+            )
+
+        local_planner_before = adapter.planner_calls_total
+        local = DeterministicBudgetSearch(
+            evaluator, repository.catalog, cost_model, MaintenanceBudget(4, cost_model.unit)
+        ).run()
+        local_planner_calls = adapter.planner_calls_total - local_planner_before
+        reference = DeterministicBudgetSearch(
+            evaluator,
+            repository.catalog,
+            cost_model,
+            MaintenanceBudget(4, cost_model.unit),
+            SearchConfig(full_reference=True),
+        ).run()
+        assert local.infeasible_moves_skipped_count > 0
+        assert signature(local) == signature(reference)
+        assert local.final_design == reference.final_design
+        assert local.selected_objective == reference.selected_objective
+
+        loose1 = DeterministicBudgetSearch(
+            evaluator, repository.catalog, cost_model, MaintenanceBudget(20, cost_model.unit)
+        ).run()
+        loose2 = DeterministicBudgetSearch(
+            evaluator, repository.catalog, cost_model, MaintenanceBudget(20, cost_model.unit)
+        ).run()
+        assert loose1 == loose2
+        assert adapter.registration_calls == registrations
+        assert catalog_fingerprint(connection) == fingerprint
+        print(
+            json.dumps(
+                {
+                    "zero": {
+                        "design": zero.final_design.candidate_ids,
+                        "objective": zero.selected_objective,
+                        "skipped": zero.infeasible_moves_skipped_count,
+                        "evaluator_calls": zero.evaluator_calls_count,
+                    },
+                    "intermediate": {
+                        "design": local.final_design.candidate_ids,
+                        "objective": local.selected_objective,
+                        "cost": str(local.selected_maintenance_cost),
+                        "accepted": [record.move.kind.value for record in local.trajectory if record.accepted],
+                        "skipped": local.infeasible_moves_skipped_count,
+                        "evaluator_calls": local.evaluator_calls_count,
+                        "planner_calls": local_planner_calls,
+                    },
+                    "loose": {
+                        "design": loose1.final_design.candidate_ids,
+                        "objective": loose1.selected_objective,
+                        "cost": str(loose1.selected_maintenance_cost),
+                        "accepted": [record.move.kind.value for record in loose1.trajectory if record.accepted],
+                        "skipped": loose1.infeasible_moves_skipped_count,
+                        "evaluator_calls": loose1.evaluator_calls_count,
+                    },
+                },
+                sort_keys=True,
+            )
+        )
