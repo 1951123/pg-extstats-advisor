@@ -27,6 +27,11 @@ class SearchConfig:
     exact_bound_pruning: bool = True
     record_pruned_moves: bool = False
     add_only: bool = False
+    candidate_set_mode: str = "full"
+    candidate_set_digest: str | None = None
+    singleton_profile_digest: str | None = None
+    visible_candidate_count: int | None = None
+    budget_mode: str = "absolute"
 
 
 @dataclass(frozen=True, slots=True)

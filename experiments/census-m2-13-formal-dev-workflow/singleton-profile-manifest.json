@@ -1,0 +1,13 @@
+{
+  "format_version": 1,
+  "artifact_type": "singleton-profile-manifest",
+  "profile_path": "singleton-profile.json",
+  "profile_digest": "bde72830a5a29488fcf147c90f51259c52be5d4b4f74c9e677b0776f860e7cbf",
+  "source_csv": "experiments/census-m2-9-singletons/singleton-results.csv",
+  "source_mode": "imported-frozen-profile",
+  "native_singleton_evaluations": 0,
+  "raw_candidate_count": 4506,
+  "workload_digest": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215",
+  "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+  "maintenance_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e"
+}

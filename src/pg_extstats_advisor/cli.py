@@ -16,9 +16,18 @@ from pg_extstats_advisor.orchestration import (
     execute_recommendation_stage,
     execute_search_stage,
     execute_validation_stage,
+    load_maintenance_model,
+    load_prepared_run,
 )
 from pg_extstats_advisor.prepare.artifacts import prepare_mvp
 from pg_extstats_advisor.prepare.config import PreparationConfig
+from pg_extstats_advisor.screening import (
+    build_candidate_set,
+    build_singleton_profile_from_csv,
+    build_singleton_profile_native,
+    load_artifact,
+    write_artifact,
+)
 
 
 def _dsn(value: str | None, env_name: str) -> str:
@@ -43,8 +52,27 @@ def _parser() -> argparse.ArgumentParser:
     prepare.add_argument("config", type=Path)
     search = commands.add_parser("search", help="run deterministic search from prepared artifacts")
     search.add_argument("run_dir", type=Path)
-    search.add_argument("--budget", required=True)
+    search.add_argument("--budget")
+    search.add_argument("--candidate-set", type=Path)
+    search.add_argument("--search-mode", choices=("full", "add-only"), default="full")
+    search.add_argument(
+        "--budget-mode", choices=("absolute", "candidate-set-total"), default="absolute"
+    )
     search.add_argument("--acquisition-dsn")
+    profile = commands.add_parser(
+        "singleton-profile", help="materialize a versioned singleton utility profile"
+    )
+    profile.add_argument("run_dir", type=Path)
+    profile.add_argument("--output", required=True, type=Path)
+    profile.add_argument("--source-csv", type=Path)
+    profile.add_argument("--acquisition-dsn")
+    screen = commands.add_parser(
+        "screen-candidates", help="build a deterministic screened candidate-set artifact"
+    )
+    screen.add_argument("run_dir", type=Path)
+    screen.add_argument("--singleton-profile", required=True, type=Path)
+    screen.add_argument("--top-fraction", required=True, type=float)
+    screen.add_argument("--output", required=True, type=Path)
     recommend = commands.add_parser("recommend", help="render persisted search result")
     recommend.add_argument("run_dir", type=Path)
     validate = commands.add_parser("validate", help="physically validate persisted selected state")
@@ -99,10 +127,52 @@ def main(argv: list[str] | None = None) -> int:
             _prepare(args.config)
         elif args.command == "search":
             with psycopg.connect(_dsn(args.acquisition_dsn, "PGEXT_ACQUISITION_DSN")) as connection:
-                result = execute_search_stage(args.run_dir, connection, args.budget)
+                result = execute_search_stage(
+                    args.run_dir,
+                    connection,
+                    args.budget,
+                    candidate_set_path=args.candidate_set,
+                    search_mode=args.search_mode,
+                    budget_mode=args.budget_mode,
+                )
             print(f"selected candidates: {len(result.selected_design.candidate_ids)}")
             print(f"objective: {result.selected_objective}")
             print(f"maintenance cost: {result.selected_maintenance_cost}")
+        elif args.command == "singleton-profile":
+            prepared = load_prepared_run(args.run_dir)
+            model = load_maintenance_model(args.run_dir)
+            if args.source_csv is not None:
+                profile = build_singleton_profile_from_csv(
+                    args.source_csv,
+                    prepared,
+                    model,
+                    evaluator_provenance={
+                        "mode": "imported-frozen-profile",
+                        "source_sha256": hashlib.sha256(args.source_csv.read_bytes()).hexdigest(),
+                        "source_artifact": str(args.source_csv),
+                        "postgres_version": prepared.repository.postgres_version,
+                        "patch_commit": prepared.repository.patch_commit,
+                        "native_singleton_evaluations": 0,
+                    },
+                )
+            else:
+                with psycopg.connect(
+                    _dsn(args.acquisition_dsn, "PGEXT_ACQUISITION_DSN")
+                ) as connection:
+                    profile = build_singleton_profile_native(prepared, model, connection)
+            digest = write_artifact(args.output, profile)
+            print(f"singleton profile: {args.output}")
+            print(f"digest: {digest}")
+        elif args.command == "screen-candidates":
+            prepared = load_prepared_run(args.run_dir)
+            model = load_maintenance_model(args.run_dir)
+            profile = load_artifact(args.singleton_profile)
+            candidate_set = build_candidate_set(
+                profile, prepared, model, top_fraction=args.top_fraction
+            )
+            digest = write_artifact(args.output, candidate_set)
+            print(f"screened candidate set: {args.output}")
+            print(f"digest: {digest}")
         elif args.command == "recommend":
             print(f"deployment SQL: {execute_recommendation_stage(args.run_dir)}")
         elif args.command == "validate":

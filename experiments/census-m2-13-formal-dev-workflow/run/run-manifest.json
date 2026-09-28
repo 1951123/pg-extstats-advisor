@@ -1,0 +1,17 @@
+{
+  "format_version": 1,
+  "stages": {
+    "prepare": {
+      "artifact_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+      "complete": true
+    },
+    "recommendation": {
+      "artifact_digest": "17d8723d5101268e2b53b887405a423eb25f47e7a92381aaf51567822e56fca1",
+      "complete": true
+    },
+    "search": {
+      "artifact_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+      "complete": true
+    }
+  }
+}

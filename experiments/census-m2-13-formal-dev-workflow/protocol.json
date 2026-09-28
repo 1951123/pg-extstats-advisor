@@ -1,0 +1,40 @@
+{
+  "format_version": 1,
+  "experiment": "M2.13-Census-Formal-Singleton-Screened-Development-Workflow",
+  "status": "development-non-authoritative",
+  "baseline_repo_commit": "48c5c9b425f0e80d31d541afe2a8a620ab2b9507",
+  "workflow": [
+    "prepare",
+    "singleton-profile",
+    "screen-candidates",
+    "ADD-only search",
+    "recommendation"
+  ],
+  "forbidden_operations": [
+    "new singleton native evaluations for the Census smoke",
+    "DROP",
+    "SWAP",
+    "ANALYZE",
+    "statistics DDL",
+    "M2.7 resume",
+    "M3"
+  ],
+  "singleton_profile_source": "experiments/census-m2-9-singletons/singleton-results.csv",
+  "singleton_profile_digest": "bde72830a5a29488fcf147c90f51259c52be5d4b4f74c9e677b0776f860e7cbf",
+  "native_singleton_evaluations": 0,
+  "screening_method": "singleton_top_fraction",
+  "screening_fraction": 0.05,
+  "screening_rounding": "ceil(N * fraction)",
+  "raw_candidate_count": 4506,
+  "retained_candidate_count": 226,
+  "screened_candidate_catalog_digest": "c0c544c703682a13e7447a514f0610d251b4694cb92f2c8eeead3f3ee50880a8",
+  "screened_candidate_set_digest": "344c64191a6a6605026ad78db8fc41565f4eb2fc9d796b4c08842889e5f2a64a",
+  "search_mode": "add-only",
+  "budget_mode": "candidate-set-total",
+  "search_result_digest": "6e130abb639e67f3f18df571c6af3fe2b3fa1970f45fba429890cfe4f8f23d27",
+  "recommendation_digest": "d9672b5abae95cbfc11ed44c89bcd8eeda1b8ee65fbf94d81ce99e7a7c8065fc",
+  "source_repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+  "workload_digest": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215",
+  "incidence_digest": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4",
+  "maintenance_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e"
+}

@@ -1,0 +1,4514 @@
+{
+  "budget": "414.0398034077412444",
+  "budget_unit": "milliseconds-per-analyze",
+  "candidate_catalog_digest": "c0c544c703682a13e7447a514f0610d251b4694cb92f2c8eeead3f3ee50880a8",
+  "candidate_set_mode": "screened",
+  "cost_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e",
+  "deployment_plan_digest": "17d8723d5101268e2b53b887405a423eb25f47e7a92381aaf51567822e56fca1",
+  "digest": "d9672b5abae95cbfc11ed44c89bcd8eeda1b8ee65fbf94d81ce99e7a7c8065fc",
+  "experimental_role": "development",
+  "format_version": 1,
+  "maintenance_cost": "195.4027612476062514",
+  "predicted_objective": 936.3584041825216,
+  "predicted_queries": [
+    {
+      "contribution": 1.7835636852629122,
+      "estimate": 710916.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q001",
+      "truth": 398593.0
+    },
+    {
+      "contribution": 1.1098977854074905,
+      "estimate": 1298243.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q002",
+      "truth": 1169696.0
+    },
+    {
+      "contribution": 2.749834404482715,
+      "estimate": 55859.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q003",
+      "truth": 153603.0
+    },
+    {
+      "contribution": 3.0456838347517916,
+      "estimate": 115971.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q004",
+      "truth": 353211.0
+    },
+    {
+      "contribution": 1.6828935661728892,
+      "estimate": 153983.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q005",
+      "truth": 259137.0
+    },
+    {
+      "contribution": 3.7943274420573605,
+      "estimate": 47245.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q006",
+      "truth": 179263.0
+    },
+    {
+      "contribution": 4.460604153555695,
+      "estimate": 15890.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q007",
+      "truth": 70879.0
+    },
+    {
+      "contribution": 1.0111759877246873,
+      "estimate": 344757.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q008",
+      "truth": 348610.0
+    },
+    {
+      "contribution": 1.0001843867014637,
+      "estimate": 1692408.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q009",
+      "truth": 1692096.0
+    },
+    {
+      "contribution": 4.469567238774166,
+      "estimate": 77433.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q010",
+      "truth": 346092.0
+    },
+    {
+      "contribution": 1.617941326098016,
+      "estimate": 9541.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q011",
+      "truth": 5897.0
+    },
+    {
+      "contribution": 1.2187731408581375,
+      "estimate": 1002330.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q012",
+      "truth": 822409.0
+    },
+    {
+      "contribution": 4.506601345179773,
+      "estimate": 60215.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q013",
+      "truth": 271365.0
+    },
+    {
+      "contribution": 1.008935713960258,
+      "estimate": 1749322.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q014",
+      "truth": 1733829.0
+    },
+    {
+      "contribution": 4.888654025489586,
+      "estimate": 48255.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q015",
+      "truth": 235902.0
+    },
+    {
+      "contribution": 3.478442058022119,
+      "estimate": 6239.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q016",
+      "truth": 21702.0
+    },
+    {
+      "contribution": 2.430098818826408,
+      "estimate": 116071.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q017",
+      "truth": 282064.0
+    },
+    {
+      "contribution": 1.151803832641519,
+      "estimate": 1006773.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q018",
+      "truth": 1159605.0
+    },
+    {
+      "contribution": 1.0896933771829413,
+      "estimate": 794891.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q019",
+      "truth": 729463.0
+    },
+    {
+      "contribution": 3.8462978055480095,
+      "estimate": 99387.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q020",
+      "truth": 382272.0
+    },
+    {
+      "contribution": 1.853569102356886,
+      "estimate": 165812.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q021",
+      "truth": 307344.0
+    },
+    {
+      "contribution": 3.374668463846254,
+      "estimate": 77614.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q022",
+      "truth": 22999.0
+    },
+    {
+      "contribution": 2.740461278559509,
+      "estimate": 194156.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q023",
+      "truth": 532077.0
+    },
+    {
+      "contribution": 2.4297653942966733,
+      "estimate": 91771.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q024",
+      "truth": 222982.0
+    },
+    {
+      "contribution": 1.0498979311483003,
+      "estimate": 1119650.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q025",
+      "truth": 1066437.0
+    },
+    {
+      "contribution": 1.014161255436372,
+      "estimate": 430894.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q026",
+      "truth": 436996.0
+    },
+    {
+      "contribution": 1.0691074841935009,
+      "estimate": 6801.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q027",
+      "truth": 7271.0
+    },
+    {
+      "contribution": 2.6568332329921733,
+      "estimate": 122914.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q028",
+      "truth": 326562.0
+    },
+    {
+      "contribution": 1.0127984265874608,
+      "estimate": 1261643.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q029",
+      "truth": 1245700.0
+    },
+    {
+      "contribution": 1.0129115655086018,
+      "estimate": 1402541.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q030",
+      "truth": 1420650.0
+    },
+    {
+      "contribution": 1.001323043245926,
+      "estimate": 893820.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q031",
+      "truth": 892639.0
+    },
+    {
+      "contribution": 3.724593194045615,
+      "estimate": 60594.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q032",
+      "truth": 225688.0
+    },
+    {
+      "contribution": 1.0180599491439406,
+      "estimate": 774314.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q033",
+      "truth": 760578.0
+    },
+    {
+      "contribution": 5.218190854870775,
+      "estimate": 2012.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q034",
+      "truth": 10499.0
+    },
+    {
+      "contribution": 1.3019536706907695,
+      "estimate": 47961.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q035",
+      "truth": 62443.0
+    },
+    {
+      "contribution": 2.080343749435217,
+      "estimate": 110662.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q036",
+      "truth": 230215.0
+    },
+    {
+      "contribution": 1.001776295229964,
+      "estimate": 2268767.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q037",
+      "truth": 2272797.0
+    },
+    {
+      "contribution": 1.4100815572664827,
+      "estimate": 339738.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q038",
+      "truth": 240935.0
+    },
+    {
+      "contribution": 1.0520140000793956,
+      "estimate": 954021.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q039",
+      "truth": 906852.0
+    },
+    {
+      "contribution": 1.0073203797435353,
+      "estimate": 1081850.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q040",
+      "truth": 1073988.0
+    },
+    {
+      "contribution": 1.5410824910335834,
+      "estimate": 9453.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q041",
+      "truth": 6134.0
+    },
+    {
+      "contribution": 1.1286305725858463,
+      "estimate": 624867.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q042",
+      "truth": 705244.0
+    },
+    {
+      "contribution": 1.0220058575901325,
+      "estimate": 960662.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q043",
+      "truth": 939977.0
+    },
+    {
+      "contribution": 1.0487914429329488,
+      "estimate": 886098.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q044",
+      "truth": 929332.0
+    },
+    {
+      "contribution": 1.0147009378215144,
+      "estimate": 1711146.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q045",
+      "truth": 1686355.0
+    },
+    {
+      "contribution": 4.805710828098888,
+      "estimate": 138824.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q046",
+      "truth": 667148.0
+    },
+    {
+      "contribution": 1.0039584269188389,
+      "estimate": 1045952.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q047",
+      "truth": 1041828.0
+    },
+    {
+      "contribution": 3.5729999753918844,
+      "estimate": 81274.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q048",
+      "truth": 290392.0
+    },
+    {
+      "contribution": 1.1890686742474592,
+      "estimate": 579271.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q049",
+      "truth": 688793.0
+    },
+    {
+      "contribution": 2.8380742400693966,
+      "estimate": 138335.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q050",
+      "truth": 392605.0
+    },
+    {
+      "contribution": 1.7340938684492149,
+      "estimate": 189691.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q051",
+      "truth": 328942.0
+    },
+    {
+      "contribution": 3.383128404669261,
+      "estimate": 32125.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q052",
+      "truth": 108683.0
+    },
+    {
+      "contribution": 1.0006861276927608,
+      "estimate": 1205315.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q053",
+      "truth": 1206142.0
+    },
+    {
+      "contribution": 2.3412636798477373,
+      "estimate": 39931.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q054",
+      "truth": 93489.0
+    },
+    {
+      "contribution": 1.3359210129635213,
+      "estimate": 35450.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q055",
+      "truth": 26536.0
+    },
+    {
+      "contribution": 2.2264822426888586,
+      "estimate": 148643.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q056",
+      "truth": 330951.0
+    },
+    {
+      "contribution": 1.0331837746102814,
+      "estimate": 1588005.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q057",
+      "truth": 1640701.0
+    },
+    {
+      "contribution": 2.639006244634832,
+      "estimate": 59411.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q058",
+      "truth": 156786.0
+    },
+    {
+      "contribution": 1.036764705882353,
+      "estimate": 136.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q059",
+      "truth": 141.0
+    },
+    {
+      "contribution": 1.9119514201145547,
+      "estimate": 203047.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q060",
+      "truth": 388216.0
+    },
+    {
+      "contribution": 14.766355140186915,
+      "estimate": 1580.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q061",
+      "truth": 107.0
+    },
+    {
+      "contribution": 1.1333333333333333,
+      "estimate": 51.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q062",
+      "truth": 45.0
+    },
+    {
+      "contribution": 1.011559018610342,
+      "estimate": 124232.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q063",
+      "truth": 125668.0
+    },
+    {
+      "contribution": 4.125073156949406,
+      "estimate": 99102.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q064",
+      "truth": 408803.0
+    },
+    {
+      "contribution": 3.323709522282783,
+      "estimate": 62380.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q065",
+      "truth": 207333.0
+    },
+    {
+      "contribution": 1.740607238769208,
+      "estimate": 657215.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q066",
+      "truth": 377578.0
+    },
+    {
+      "contribution": 3.7477960096174128,
+      "estimate": 47414.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q067",
+      "truth": 177698.0
+    },
+    {
+      "contribution": 1.0458292992859737,
+      "estimate": 132208.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q068",
+      "truth": 138267.0
+    },
+    {
+      "contribution": 1.315689215706591,
+      "estimate": 627329.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q069",
+      "truth": 825370.0
+    },
+    {
+      "contribution": 1.0295771619954968,
+      "estimate": 441895.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q070",
+      "truth": 454965.0
+    },
+    {
+      "contribution": 4.100450306299717,
+      "estimate": 87496.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q071",
+      "truth": 358773.0
+    },
+    {
+      "contribution": 1.521696494238784,
+      "estimate": 6207.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q072",
+      "truth": 4079.0
+    },
+    {
+      "contribution": 1.9090909090909092,
+      "estimate": 13545.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q073",
+      "truth": 7095.0
+    },
+    {
+      "contribution": 1.1238400697993423,
+      "estimate": 731630.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q074",
+      "truth": 651009.0
+    },
+    {
+      "contribution": 1.0209441286659846,
+      "estimate": 1180856.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q075",
+      "truth": 1205588.0
+    },
+    {
+      "contribution": 1.2903128501249677,
+      "estimate": 951446.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q076",
+      "truth": 1227663.0
+    },
+    {
+      "contribution": 4.0564715581203625,
+      "estimate": 2426.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q077",
+      "truth": 9841.0
+    },
+    {
+      "contribution": 1.0080269542455762,
+      "estimate": 642343.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q078",
+      "truth": 637228.0
+    },
+    {
+      "contribution": 1.1664178161334584,
+      "estimate": 1107760.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q079",
+      "truth": 1292111.0
+    },
+    {
+      "contribution": 1.1904522228951437,
+      "estimate": 1012307.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q080",
+      "truth": 850355.0
+    },
+    {
+      "contribution": 1.1871609403254972,
+      "estimate": 5530.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q081",
+      "truth": 6565.0
+    },
+    {
+      "contribution": 3.053224692368697,
+      "estimate": 78178.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q082",
+      "truth": 238695.0
+    },
+    {
+      "contribution": 1.000076214284081,
+      "estimate": 1443299.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q083",
+      "truth": 1443409.0
+    },
+    {
+      "contribution": 1.0046815937541924,
+      "estimate": 1527755.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q084",
+      "truth": 1520636.0
+    },
+    {
+      "contribution": 1.010728368195679,
+      "estimate": 1180650.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q085",
+      "truth": 1168118.0
+    },
+    {
+      "contribution": 1.2783889244064284,
+      "estimate": 695868.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q086",
+      "truth": 544332.0
+    },
+    {
+      "contribution": 2.2265002424257494,
+      "estimate": 80437.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q087",
+      "truth": 179093.0
+    },
+    {
+      "contribution": 1.0425185702344975,
+      "estimate": 749599.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q088",
+      "truth": 719027.0
+    },
+    {
+      "contribution": 1.0329014663697473,
+      "estimate": 579731.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q089",
+      "truth": 598805.0
+    },
+    {
+      "contribution": 1.2329293904787393,
+      "estimate": 515667.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q090",
+      "truth": 635781.0
+    },
+    {
+      "contribution": 1.8635861076499185,
+      "estimate": 56981.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q091",
+      "truth": 106189.0
+    },
+    {
+      "contribution": 1.0106868439043726,
+      "estimate": 1970273.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q092",
+      "truth": 1991329.0
+    },
+    {
+      "contribution": 3.0608343891000422,
+      "estimate": 89982.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q093",
+      "truth": 275420.0
+    },
+    {
+      "contribution": 1.2905231244728352,
+      "estimate": 656382.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q094",
+      "truth": 508617.0
+    },
+    {
+      "contribution": 2.3655594730005567,
+      "estimate": 43112.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q095",
+      "truth": 101984.0
+    },
+    {
+      "contribution": 1.741497780180244,
+      "estimate": 564235.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q096",
+      "truth": 982614.0
+    },
+    {
+      "contribution": 2.894799452878169,
+      "estimate": 207632.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q097",
+      "truth": 601053.0
+    },
+    {
+      "contribution": 1.9783993519805594,
+      "estimate": 99997.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q098",
+      "truth": 197834.0
+    },
+    {
+      "contribution": 3.1557932007942773,
+      "estimate": 41799.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q099",
+      "truth": 131909.0
+    },
+    {
+      "contribution": 3.072922433962601,
+      "estimate": 111982.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q100",
+      "truth": 344112.0
+    },
+    {
+      "contribution": 2.9097156684815486,
+      "estimate": 82650.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q101",
+      "truth": 240488.0
+    },
+    {
+      "contribution": 1.0143052363901235,
+      "estimate": 629419.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q102",
+      "truth": 620542.0
+    },
+    {
+      "contribution": 2.0456594641738426,
+      "estimate": 81407.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q103",
+      "truth": 166531.0
+    },
+    {
+      "contribution": 1.6244454931571497,
+      "estimate": 10595.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q104",
+      "truth": 17211.0
+    },
+    {
+      "contribution": 2.4116116863718067,
+      "estimate": 157996.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q105",
+      "truth": 381025.0
+    },
+    {
+      "contribution": 1.1414752501098508,
+      "estimate": 716988.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q106",
+      "truth": 628124.0
+    },
+    {
+      "contribution": 1.0030772185640167,
+      "estimate": 1932343.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q107",
+      "truth": 1926415.0
+    },
+    {
+      "contribution": 2.0880986652708713,
+      "estimate": 61136.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q108",
+      "truth": 127658.0
+    },
+    {
+      "contribution": 1.004056411561555,
+      "estimate": 706184.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q109",
+      "truth": 703331.0
+    },
+    {
+      "contribution": 1.9327565726754115,
+      "estimate": 196153.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q110",
+      "truth": 379116.0
+    },
+    {
+      "contribution": 2.430145555840773,
+      "estimate": 105183.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q111",
+      "truth": 255610.0
+    },
+    {
+      "contribution": 1.0042044061767046,
+      "estimate": 1757442.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q112",
+      "truth": 1764831.0
+    },
+    {
+      "contribution": 1.2157380288535324,
+      "estimate": 760449.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q113",
+      "truth": 625504.0
+    },
+    {
+      "contribution": 1.0639493664749833,
+      "estimate": 990174.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q114",
+      "truth": 1053495.0
+    },
+    {
+      "contribution": 1.4515367323422181,
+      "estimate": 529370.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q115",
+      "truth": 768400.0
+    },
+    {
+      "contribution": 2.606990860252564,
+      "estimate": 14333.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q116",
+      "truth": 37366.0
+    },
+    {
+      "contribution": 2.872129829984544,
+      "estimate": 161750.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q117",
+      "truth": 464567.0
+    },
+    {
+      "contribution": 2.459033838615832,
+      "estimate": 130620.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q118",
+      "truth": 321199.0
+    },
+    {
+      "contribution": 2.7954768468763143,
+      "estimate": 21401.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q119",
+      "truth": 59826.0
+    },
+    {
+      "contribution": 2.2612874917516446,
+      "estimate": 146999.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q120",
+      "truth": 332407.0
+    },
+    {
+      "contribution": 1.3695507733195527,
+      "estimate": 890460.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q121",
+      "truth": 650184.0
+    },
+    {
+      "contribution": 4.1965727290225425,
+      "estimate": 176642.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q122",
+      "truth": 741291.0
+    },
+    {
+      "contribution": 1.3789473684210527,
+      "estimate": 4370.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q123",
+      "truth": 6026.0
+    },
+    {
+      "contribution": 3.0656099977139375,
+      "estimate": 104984.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q124",
+      "truth": 321840.0
+    },
+    {
+      "contribution": 1.9179221529698272,
+      "estimate": 92931.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q125",
+      "truth": 48454.0
+    },
+    {
+      "contribution": 1.0209947179110834,
+      "estimate": 450761.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q126",
+      "truth": 441492.0
+    },
+    {
+      "contribution": 2.348467962321186,
+      "estimate": 196503.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q127",
+      "truth": 461481.0
+    },
+    {
+      "contribution": 1.06077908370397,
+      "estimate": 943647.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q128",
+      "truth": 1001001.0
+    },
+    {
+      "contribution": 1.2634952899509568,
+      "estimate": 448791.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q129",
+      "truth": 355198.0
+    },
+    {
+      "contribution": 1.3611404257889377,
+      "estimate": 596023.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q130",
+      "truth": 811271.0
+    },
+    {
+      "contribution": 1.0042909454140048,
+      "estimate": 2112355.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q131",
+      "truth": 2121419.0
+    },
+    {
+      "contribution": 1.1898984598212425,
+      "estimate": 720306.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q132",
+      "truth": 857091.0
+    },
+    {
+      "contribution": 4.021637930431009,
+      "estimate": 142851.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q133",
+      "truth": 574495.0
+    },
+    {
+      "contribution": 1.2672243338877187,
+      "estimate": 853197.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q134",
+      "truth": 1081192.0
+    },
+    {
+      "contribution": 1.7077179172485788,
+      "estimate": 141774.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q135",
+      "truth": 242110.0
+    },
+    {
+      "contribution": 1.0135988974387902,
+      "estimate": 1787880.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q136",
+      "truth": 1763893.0
+    },
+    {
+      "contribution": 1.1122773336322849,
+      "estimate": 476236.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q137",
+      "truth": 428163.0
+    },
+    {
+      "contribution": 1.3384223918575064,
+      "estimate": 526.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q138",
+      "truth": 393.0
+    },
+    {
+      "contribution": 1.0023473639391627,
+      "estimate": 1524263.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q139",
+      "truth": 1527841.0
+    },
+    {
+      "contribution": 1.0303069874660533,
+      "estimate": 1278847.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q140",
+      "truth": 1317605.0
+    },
+    {
+      "contribution": 2.8619814689369325,
+      "estimate": 87097.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q141",
+      "truth": 249270.0
+    },
+    {
+      "contribution": 1.0800944524151124,
+      "estimate": 836400.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q142",
+      "truth": 903391.0
+    },
+    {
+      "contribution": 1.0746291283526679,
+      "estimate": 593669.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q143",
+      "truth": 637974.0
+    },
+    {
+      "contribution": 3.233203925374744,
+      "estimate": 129822.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q144",
+      "truth": 419741.0
+    },
+    {
+      "contribution": 1.7397331002046983,
+      "estimate": 656576.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q145",
+      "truth": 1142267.0
+    },
+    {
+      "contribution": 1.0013059613093627,
+      "estimate": 2366863.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q146",
+      "truth": 2363776.0
+    },
+    {
+      "contribution": 1.0973039215686275,
+      "estimate": 61200.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q147",
+      "truth": 67155.0
+    },
+    {
+      "contribution": 1.0430733905071086,
+      "estimate": 1460693.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q148",
+      "truth": 1523610.0
+    },
+    {
+      "contribution": 1.7896826835902084,
+      "estimate": 55150.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q149",
+      "truth": 98701.0
+    },
+    {
+      "contribution": 1.912656638844231,
+      "estimate": 86848.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q150",
+      "truth": 45407.0
+    },
+    {
+      "contribution": 2.570577371769051,
+      "estimate": 131579.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q151",
+      "truth": 338234.0
+    },
+    {
+      "contribution": 1.0328520776999062,
+      "estimate": 579872.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q152",
+      "truth": 598922.0
+    },
+    {
+      "contribution": 1.0060756284105856,
+      "estimate": 2039789.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q153",
+      "truth": 2052182.0
+    },
+    {
+      "contribution": 1.0053431609329064,
+      "estimate": 505761.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q154",
+      "truth": 503073.0
+    },
+    {
+      "contribution": 1.1986423958684385,
+      "estimate": 1052782.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q155",
+      "truth": 878312.0
+    },
+    {
+      "contribution": 4.3615218331171635,
+      "estimate": 11565.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q156",
+      "truth": 50441.0
+    },
+    {
+      "contribution": 2.07367209340569,
+      "estimate": 121620.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q157",
+      "truth": 252200.0
+    },
+    {
+      "contribution": 1.0136038165789047,
+      "estimate": 117173.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q158",
+      "truth": 118767.0
+    },
+    {
+      "contribution": 1.5675387079551522,
+      "estimate": 5872.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q159",
+      "truth": 3746.0
+    },
+    {
+      "contribution": 1.7138551763460128,
+      "estimate": 12277.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q160",
+      "truth": 21041.0
+    },
+    {
+      "contribution": 1.3999750638987594,
+      "estimate": 22457.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q161",
+      "truth": 16041.0
+    },
+    {
+      "contribution": 2.0401686776655996,
+      "estimate": 32488.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q162",
+      "truth": 66281.0
+    },
+    {
+      "contribution": 3.2278373749211213,
+      "estimate": 110930.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q163",
+      "truth": 358064.0
+    },
+    {
+      "contribution": 1.014488951410025,
+      "estimate": 621301.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q164",
+      "truth": 630303.0
+    },
+    {
+      "contribution": 2.5890097750831718,
+      "estimate": 77851.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q165",
+      "truth": 201557.0
+    },
+    {
+      "contribution": 1.28802421793668,
+      "estimate": 1292926.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q166",
+      "truth": 1665320.0
+    },
+    {
+      "contribution": 1.2509701915210505,
+      "estimate": 95342.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q167",
+      "truth": 119270.0
+    },
+    {
+      "contribution": 1.0097001891570123,
+      "estimate": 1654710.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q168",
+      "truth": 1670761.0
+    },
+    {
+      "contribution": 1.0232597143413518,
+      "estimate": 888403.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q169",
+      "truth": 909067.0
+    },
+    {
+      "contribution": 1.2499405186771353,
+      "estimate": 10507.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q170",
+      "truth": 8406.0
+    },
+    {
+      "contribution": 2.390534682080925,
+      "estimate": 27680.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q171",
+      "truth": 66170.0
+    },
+    {
+      "contribution": 1.0000972698091783,
+      "estimate": 2200280.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q172",
+      "truth": 2200066.0
+    },
+    {
+      "contribution": 2.5980294992129656,
+      "estimate": 120071.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q173",
+      "truth": 311948.0
+    },
+    {
+      "contribution": 1.0382205350353233,
+      "estimate": 1552338.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q174",
+      "truth": 1495191.0
+    },
+    {
+      "contribution": 2.262105256701973,
+      "estimate": 163049.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q175",
+      "truth": 368834.0
+    },
+    {
+      "contribution": 1.7018832734385663,
+      "estimate": 43966.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q176",
+      "truth": 74825.0
+    },
+    {
+      "contribution": 1.0285819600374744,
+      "estimate": 803664.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q177",
+      "truth": 781332.0
+    },
+    {
+      "contribution": 1.0022037310108833,
+      "estimate": 2269787.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q178",
+      "truth": 2274789.0
+    },
+    {
+      "contribution": 1.1457144664431653,
+      "estimate": 158090.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q179",
+      "truth": 181126.0
+    },
+    {
+      "contribution": 3.152813538001926,
+      "estimate": 50879.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q180",
+      "truth": 160412.0
+    },
+    {
+      "contribution": 4.0295783981556665,
+      "estimate": 107139.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q181",
+      "truth": 431725.0
+    },
+    {
+      "contribution": 1.00036725922366,
+      "estimate": 2347116.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q182",
+      "truth": 2347978.0
+    },
+    {
+      "contribution": 1.0578285535517395,
+      "estimate": 1109074.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q183",
+      "truth": 1048444.0
+    },
+    {
+      "contribution": 1.7692307692307692,
+      "estimate": 23.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q184",
+      "truth": 13.0
+    },
+    {
+      "contribution": 1.107105089279572,
+      "estimate": 625059.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q185",
+      "truth": 692006.0
+    },
+    {
+      "contribution": 1.33256951358453,
+      "estimate": 519313.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q186",
+      "truth": 389708.0
+    },
+    {
+      "contribution": 1.377382103519945,
+      "estimate": 619636.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q187",
+      "truth": 449865.0
+    },
+    {
+      "contribution": 1.001181126145174,
+      "estimate": 2218222.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q188",
+      "truth": 2220842.0
+    },
+    {
+      "contribution": 1.0211740503053515,
+      "estimate": 309152.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q189",
+      "truth": 315698.0
+    },
+    {
+      "contribution": 1.0118809790116352,
+      "estimate": 1392057.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q190",
+      "truth": 1408596.0
+    },
+    {
+      "contribution": 1.0338847720685918,
+      "estimate": 882963.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q191",
+      "truth": 912882.0
+    },
+    {
+      "contribution": 1.2438230012211766,
+      "estimate": 696050.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q192",
+      "truth": 865763.0
+    },
+    {
+      "contribution": 1.202395090945311,
+      "estimate": 918629.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q193",
+      "truth": 1104555.0
+    },
+    {
+      "contribution": 2.0352070380709812,
+      "estimate": 179822.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q194",
+      "truth": 365975.0
+    },
+    {
+      "contribution": 2.1447368421052633,
+      "estimate": 978.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q195",
+      "truth": 456.0
+    },
+    {
+      "contribution": 1.9494924430408302,
+      "estimate": 221650.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q196",
+      "truth": 432105.0
+    },
+    {
+      "contribution": 1.021009446157764,
+      "estimate": 473098.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q197",
+      "truth": 463363.0
+    },
+    {
+      "contribution": 1.3272940202337193,
+      "estimate": 580281.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q198",
+      "truth": 437191.0
+    },
+    {
+      "contribution": 1.3817742159831374,
+      "estimate": 129142.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q199",
+      "truth": 93461.0
+    },
+    {
+      "contribution": 1.6585490203044784,
+      "estimate": 562930.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q200",
+      "truth": 933647.0
+    },
+    {
+      "contribution": 5.676152737752162,
+      "estimate": 15757.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q201",
+      "truth": 2776.0
+    },
+    {
+      "contribution": 2.0251288417409623,
+      "estimate": 107668.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q202",
+      "truth": 53166.0
+    },
+    {
+      "contribution": 2.7323933495344193,
+      "estimate": 124683.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q203",
+      "truth": 340683.0
+    },
+    {
+      "contribution": 1.2391874140195906,
+      "estimate": 483395.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q204",
+      "truth": 599017.0
+    },
+    {
+      "contribution": 1.0199674007651807,
+      "estimate": 676703.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q205",
+      "truth": 690215.0
+    },
+    {
+      "contribution": 1.02469634074546,
+      "estimate": 614411.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q206",
+      "truth": 599603.0
+    },
+    {
+      "contribution": 1.4725245402599207,
+      "estimate": 932619.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q207",
+      "truth": 633347.0
+    },
+    {
+      "contribution": 3.240620326419143,
+      "estimate": 61516.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q208",
+      "truth": 199350.0
+    },
+    {
+      "contribution": 1.7893458012737915,
+      "estimate": 583248.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q209",
+      "truth": 325956.0
+    },
+    {
+      "contribution": 1.0186482853559742,
+      "estimate": 1109968.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q210",
+      "truth": 1130667.0
+    },
+    {
+      "contribution": 1.7359186968007045,
+      "estimate": 136280.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q211",
+      "truth": 236571.0
+    },
+    {
+      "contribution": 1.0111155108452643,
+      "estimate": 1399305.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q212",
+      "truth": 1383922.0
+    },
+    {
+      "contribution": 1.0149550107488026,
+      "estimate": 1682513.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q213",
+      "truth": 1707675.0
+    },
+    {
+      "contribution": 1.034077808569881,
+      "estimate": 1576888.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q214",
+      "truth": 1524922.0
+    },
+    {
+      "contribution": 2.518427812334735,
+      "estimate": 158836.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q215",
+      "truth": 400017.0
+    },
+    {
+      "contribution": 1.093203257141711,
+      "estimate": 598316.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q216",
+      "truth": 654081.0
+    },
+    {
+      "contribution": 1.041487716269199,
+      "estimate": 1529055.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q217",
+      "truth": 1592492.0
+    },
+    {
+      "contribution": 3.929278416347382,
+      "estimate": 6264.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q218",
+      "truth": 24613.0
+    },
+    {
+      "contribution": 1.293302166312962,
+      "estimate": 487695.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q219",
+      "truth": 630737.0
+    },
+    {
+      "contribution": 1.3215816584183415,
+      "estimate": 495050.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q220",
+      "truth": 654249.0
+    },
+    {
+      "contribution": 3.3864077669902914,
+      "estimate": 515.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q221",
+      "truth": 1744.0
+    },
+    {
+      "contribution": 1.077212628152712,
+      "estimate": 1514014.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q222",
+      "truth": 1630915.0
+    },
+    {
+      "contribution": 3.271747681598207,
+      "estimate": 41947.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q223",
+      "truth": 137240.0
+    },
+    {
+      "contribution": 5.05928947493241,
+      "estimate": 21083.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q224",
+      "truth": 106665.0
+    },
+    {
+      "contribution": 1.0673600423937977,
+      "estimate": 1176282.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q225",
+      "truth": 1102048.0
+    },
+    {
+      "contribution": 2.143108827801388,
+      "estimate": 74356.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q226",
+      "truth": 159353.0
+    },
+    {
+      "contribution": 1.2020167299924467,
+      "estimate": 1134609.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q227",
+      "truth": 1363819.0
+    },
+    {
+      "contribution": 1.0508893804094328,
+      "estimate": 803427.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q228",
+      "truth": 764521.0
+    },
+    {
+      "contribution": 5.909063893016345,
+      "estimate": 59652.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q229",
+      "truth": 10095.0
+    },
+    {
+      "contribution": 2.66619809277763,
+      "estimate": 26321.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q230",
+      "truth": 70177.0
+    },
+    {
+      "contribution": 1.2966507177033493,
+      "estimate": 808122.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q231",
+      "truth": 623238.0
+    },
+    {
+      "contribution": 3.211945589611838,
+      "estimate": 50211.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q232",
+      "truth": 161275.0
+    },
+    {
+      "contribution": 3.1485552582439795,
+      "estimate": 103894.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q233",
+      "truth": 327116.0
+    },
+    {
+      "contribution": 1.0000550194065287,
+      "estimate": 1435857.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q234",
+      "truth": 1435936.0
+    },
+    {
+      "contribution": 2.068426064481023,
+      "estimate": 29404.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q235",
+      "truth": 60820.0
+    },
+    {
+      "contribution": 1.1401439640711122,
+      "estimate": 563335.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q236",
+      "truth": 642283.0
+    },
+    {
+      "contribution": 4.619601773862318,
+      "estimate": 33599.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q237",
+      "truth": 155214.0
+    },
+    {
+      "contribution": 1.0608054215316414,
+      "estimate": 1429264.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q238",
+      "truth": 1516171.0
+    },
+    {
+      "contribution": 1.024567553733353,
+      "estimate": 1018831.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q239",
+      "truth": 994401.0
+    },
+    {
+      "contribution": 1.13619118197717,
+      "estimate": 1151029.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q240",
+      "truth": 1307789.0
+    },
+    {
+      "contribution": 1.002444080944577,
+      "estimate": 1943299.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q241",
+      "truth": 1938561.0
+    },
+    {
+      "contribution": 1.1220206836494753,
+      "estimate": 1100341.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q242",
+      "truth": 980678.0
+    },
+    {
+      "contribution": 1.0357836620099703,
+      "estimate": 550808.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q243",
+      "truth": 531779.0
+    },
+    {
+      "contribution": 3.061600157263613,
+      "estimate": 127175.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q244",
+      "truth": 389359.0
+    },
+    {
+      "contribution": 5.195302740068294,
+      "estimate": 36021.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q245",
+      "truth": 187140.0
+    },
+    {
+      "contribution": 1.3166433669340005,
+      "estimate": 27182.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q246",
+      "truth": 35789.0
+    },
+    {
+      "contribution": 1.0124193619168824,
+      "estimate": 138420.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q247",
+      "truth": 136722.0
+    },
+    {
+      "contribution": 1.0013059613093627,
+      "estimate": 2366863.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q248",
+      "truth": 2363776.0
+    },
+    {
+      "contribution": 1.0839346981727034,
+      "estimate": 547366.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q249",
+      "truth": 593309.0
+    },
+    {
+      "contribution": 1.451886995020501,
+      "estimate": 489005.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q250",
+      "truth": 709980.0
+    },
+    {
+      "contribution": 2.7880853040337628,
+      "estimate": 124871.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q251",
+      "truth": 348151.0
+    },
+    {
+      "contribution": 1.0814578904766587,
+      "estimate": 660955.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q252",
+      "truth": 714795.0
+    },
+    {
+      "contribution": 1.114565420785397,
+      "estimate": 1205563.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q253",
+      "truth": 1081644.0
+    },
+    {
+      "contribution": 5.075487157564747,
+      "estimate": 56142.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q254",
+      "truth": 284948.0
+    },
+    {
+      "contribution": 1.0979199286811105,
+      "estimate": 581297.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q255",
+      "truth": 529453.0
+    },
+    {
+      "contribution": 1.20377671009024,
+      "estimate": 812524.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q256",
+      "truth": 674979.0
+    },
+    {
+      "contribution": 1.0839338037726671,
+      "estimate": 509878.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q257",
+      "truth": 552674.0
+    },
+    {
+      "contribution": 1.0309648767086714,
+      "estimate": 1782891.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q258",
+      "truth": 1838098.0
+    },
+    {
+      "contribution": 1.1354095288704917,
+      "estimate": 71509.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q259",
+      "truth": 81192.0
+    },
+    {
+      "contribution": 1.0953529625698615,
+      "estimate": 269462.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q260",
+      "truth": 295156.0
+    },
+    {
+      "contribution": 1.0082003876546892,
+      "estimate": 1866312.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q261",
+      "truth": 1851132.0
+    },
+    {
+      "contribution": 2.385838611668984,
+      "estimate": 194190.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q262",
+      "truth": 463306.0
+    },
+    {
+      "contribution": 2.5940536608886817,
+      "estimate": 122361.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q263",
+      "truth": 317411.0
+    },
+    {
+      "contribution": 1.9147558561530849,
+      "estimate": 96992.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q264",
+      "truth": 185716.0
+    },
+    {
+      "contribution": 1.4889249936725912,
+      "estimate": 612415.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q265",
+      "truth": 911840.0
+    },
+    {
+      "contribution": 2.288162238641723,
+      "estimate": 63610.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q266",
+      "truth": 145550.0
+    },
+    {
+      "contribution": 1.4394781348151728,
+      "estimate": 20695.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q267",
+      "truth": 29790.0
+    },
+    {
+      "contribution": 1.0089342995450834,
+      "estimate": 1646016.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q268",
+      "truth": 1660722.0
+    },
+    {
+      "contribution": 3.8536832462143664,
+      "estimate": 92785.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q269",
+      "truth": 357564.0
+    },
+    {
+      "contribution": 2.140802963588802,
+      "estimate": 123094.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q270",
+      "truth": 263520.0
+    },
+    {
+      "contribution": 1.199284223538973,
+      "estimate": 524186.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q271",
+      "truth": 628648.0
+    },
+    {
+      "contribution": 1.1355089918716632,
+      "estimate": 1195951.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q272",
+      "truth": 1053229.0
+    },
+    {
+      "contribution": 1.416297040198622,
+      "estimate": 35847.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q273",
+      "truth": 50770.0
+    },
+    {
+      "contribution": 2.165898617511521,
+      "estimate": 217.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q274",
+      "truth": 470.0
+    },
+    {
+      "contribution": 1.395334023409507,
+      "estimate": 125590.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q275",
+      "truth": 175240.0
+    },
+    {
+      "contribution": 2.845001347345729,
+      "estimate": 18555.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q276",
+      "truth": 52789.0
+    },
+    {
+      "contribution": 2.4799894604327077,
+      "estimate": 136628.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q277",
+      "truth": 338836.0
+    },
+    {
+      "contribution": 1.000176399377414,
+      "estimate": 1734700.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q278",
+      "truth": 1735006.0
+    },
+    {
+      "contribution": 1.9144102208576805,
+      "estimate": 100970.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q279",
+      "truth": 193298.0
+    },
+    {
+      "contribution": 1.2962478818687968,
+      "estimate": 963864.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q280",
+      "truth": 743580.0
+    },
+    {
+      "contribution": 1.5939669192019357,
+      "estimate": 50422.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q281",
+      "truth": 80371.0
+    },
+    {
+      "contribution": 1.9222294325474079,
+      "estimate": 138690.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q282",
+      "truth": 266594.0
+    },
+    {
+      "contribution": 1.263897392929651,
+      "estimate": 31031.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q283",
+      "truth": 39220.0
+    },
+    {
+      "contribution": 1.0031439617747155,
+      "estimate": 1149187.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q284",
+      "truth": 1152800.0
+    },
+    {
+      "contribution": 4.599885844748859,
+      "estimate": 8059.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q285",
+      "truth": 1752.0
+    },
+    {
+      "contribution": 1.0365999068042067,
+      "estimate": 1751152.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q286",
+      "truth": 1815244.0
+    },
+    {
+      "contribution": 1.0129596770270035,
+      "estimate": 1089379.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q287",
+      "truth": 1103497.0
+    },
+    {
+      "contribution": 1.04884545943489,
+      "estimate": 579184.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q288",
+      "truth": 552211.0
+    },
+    {
+      "contribution": 3.362324578769082,
+      "estimate": 22731.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q289",
+      "truth": 76429.0
+    },
+    {
+      "contribution": 2.733380232149138,
+      "estimate": 28430.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q290",
+      "truth": 77710.0
+    },
+    {
+      "contribution": 1.1494627477213815,
+      "estimate": 549857.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q291",
+      "truth": 478360.0
+    },
+    {
+      "contribution": 1.096519071543723,
+      "estimate": 1401154.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q292",
+      "truth": 1277820.0
+    },
+    {
+      "contribution": 1.129250010021245,
+      "estimate": 124735.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q293",
+      "truth": 140857.0
+    },
+    {
+      "contribution": 1.8164300601675252,
+      "estimate": 46190.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q294",
+      "truth": 25429.0
+    },
+    {
+      "contribution": 2.0657534246575344,
+      "estimate": 754.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q295",
+      "truth": 365.0
+    },
+    {
+      "contribution": 1.0011965930867768,
+      "estimate": 1986340.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q296",
+      "truth": 1983966.0
+    },
+    {
+      "contribution": 4.726040473463154,
+      "estimate": 24755.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q297",
+      "truth": 5238.0
+    },
+    {
+      "contribution": 13.581881533101045,
+      "estimate": 15592.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q298",
+      "truth": 1148.0
+    },
+    {
+      "contribution": 1.6931333705357143,
+      "estimate": 716800.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q299",
+      "truth": 1213638.0
+    },
+    {
+      "contribution": 1.1037376612813783,
+      "estimate": 29855.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q300",
+      "truth": 27049.0
+    },
+    {
+      "contribution": 3.5975399699673174,
+      "estimate": 45284.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q301",
+      "truth": 162911.0
+    },
+    {
+      "contribution": 1.1102150105764854,
+      "estimate": 373470.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q302",
+      "truth": 414632.0
+    },
+    {
+      "contribution": 2.8948146123001615,
+      "estimate": 153624.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q303",
+      "truth": 444713.0
+    },
+    {
+      "contribution": 1.6519513955780436,
+      "estimate": 447449.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q304",
+      "truth": 739164.0
+    },
+    {
+      "contribution": 1.24049327489799,
+      "estimate": 1026043.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q305",
+      "truth": 827125.0
+    },
+    {
+      "contribution": 1.0015610902181977,
+      "estimate": 2172383.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q306",
+      "truth": 2168997.0
+    },
+    {
+      "contribution": 1.177153251896796,
+      "estimate": 102244.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q307",
+      "truth": 86857.0
+    },
+    {
+      "contribution": 3.4730217356968422,
+      "estimate": 82307.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q308",
+      "truth": 285854.0
+    },
+    {
+      "contribution": 1.007865573725915,
+      "estimate": 1556728.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q309",
+      "truth": 1544579.0
+    },
+    {
+      "contribution": 3.295789267528398,
+      "estimate": 51060.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q310",
+      "truth": 168283.0
+    },
+    {
+      "contribution": 1.6623520338016833,
+      "estimate": 149105.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q311",
+      "truth": 247865.0
+    },
+    {
+      "contribution": 1.2278718788145426,
+      "estimate": 569347.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q312",
+      "truth": 463686.0
+    },
+    {
+      "contribution": 1.2948283292961467,
+      "estimate": 867766.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q313",
+      "truth": 1123608.0
+    },
+    {
+      "contribution": 2.8299746591046215,
+      "estimate": 33148.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q314",
+      "truth": 93808.0
+    },
+    {
+      "contribution": 1.0110073111291633,
+      "estimate": 1280240.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q315",
+      "truth": 1294332.0
+    },
+    {
+      "contribution": 1.0557193858978255,
+      "estimate": 1497145.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q316",
+      "truth": 1580565.0
+    },
+    {
+      "contribution": 1.2753230818680104,
+      "estimate": 1294254.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q317",
+      "truth": 1650592.0
+    },
+    {
+      "contribution": 6.420032464432349,
+      "estimate": 134474.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q318",
+      "truth": 20946.0
+    },
+    {
+      "contribution": 1.0527990985707423,
+      "estimate": 1169698.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q319",
+      "truth": 1231457.0
+    },
+    {
+      "contribution": 1.91530977833445,
+      "estimate": 68662.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q320",
+      "truth": 131509.0
+    },
+    {
+      "contribution": 2.07085628442664,
+      "estimate": 7988.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q321",
+      "truth": 16542.0
+    },
+    {
+      "contribution": 1.0362818509725176,
+      "estimate": 1304626.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q322",
+      "truth": 1258949.0
+    },
+    {
+      "contribution": 1.0026259398317077,
+      "estimate": 2308126.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q323",
+      "truth": 2314187.0
+    },
+    {
+      "contribution": 1.0001940255555983,
+      "estimate": 1685345.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q324",
+      "truth": 1685672.0
+    },
+    {
+      "contribution": 1.1844108068566284,
+      "estimate": 673546.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q325",
+      "truth": 568676.0
+    },
+    {
+      "contribution": 1.43079967486817,
+      "estimate": 631937.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q326",
+      "truth": 441667.0
+    },
+    {
+      "contribution": 1.0799779457481045,
+      "estimate": 552372.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q327",
+      "truth": 511466.0
+    },
+    {
+      "contribution": 1.037267589220217,
+      "estimate": 646198.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q328",
+      "truth": 622981.0
+    },
+    {
+      "contribution": 1.2411734069058713,
+      "estimate": 710410.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q329",
+      "truth": 881742.0
+    },
+    {
+      "contribution": 2.1764135667155022,
+      "estimate": 90781.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q330",
+      "truth": 197577.0
+    },
+    {
+      "contribution": 4.155596431527638,
+      "estimate": 108730.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q331",
+      "truth": 451838.0
+    },
+    {
+      "contribution": 2.6944224857268337,
+      "estimate": 34155.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q332",
+      "truth": 92028.0
+    },
+    {
+      "contribution": 1.0044011017545245,
+      "estimate": 1833486.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q333",
+      "truth": 1825452.0
+    },
+    {
+      "contribution": 1.035263011365764,
+      "estimate": 1228426.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q334",
+      "truth": 1271744.0
+    },
+    {
+      "contribution": 2.6455026455026456,
+      "estimate": 189.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q335",
+      "truth": 500.0
+    },
+    {
+      "contribution": 1.4983705109950958,
+      "estimate": 221235.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q336",
+      "truth": 331492.0
+    },
+    {
+      "contribution": 1.2758439892348667,
+      "estimate": 457473.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q337",
+      "truth": 358565.0
+    },
+    {
+      "contribution": 2.4108001678448083,
+      "estimate": 61962.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q338",
+      "truth": 149378.0
+    },
+    {
+      "contribution": 7.322713778871914,
+      "estimate": 13811.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q339",
+      "truth": 101134.0
+    },
+    {
+      "contribution": 1.4704028589993503,
+      "estimate": 92340.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q340",
+      "truth": 135777.0
+    },
+    {
+      "contribution": 1.0835580046556281,
+      "estimate": 1216592.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q341",
+      "truth": 1318248.0
+    },
+    {
+      "contribution": 4.106129917657823,
+      "estimate": 2186.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q342",
+      "truth": 8976.0
+    },
+    {
+      "contribution": 2.8040112725542583,
+      "estimate": 27323.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q343",
+      "truth": 76614.0
+    },
+    {
+      "contribution": 1.002167681974045,
+      "estimate": 1155151.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q344",
+      "truth": 1157655.0
+    },
+    {
+      "contribution": 2.875006571223299,
+      "estimate": 57067.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q345",
+      "truth": 164068.0
+    },
+    {
+      "contribution": 2.198183362739332,
+      "estimate": 76515.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q346",
+      "truth": 168194.0
+    },
+    {
+      "contribution": 1.7872806851769258,
+      "estimate": 132287.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q347",
+      "truth": 236434.0
+    },
+    {
+      "contribution": 3.023599128540305,
+      "estimate": 57375.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q348",
+      "truth": 173479.0
+    },
+    {
+      "contribution": 3.2273175542406314,
+      "estimate": 6545.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q349",
+      "truth": 2028.0
+    },
+    {
+      "contribution": 2.842448513303999,
+      "estimate": 159313.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q350",
+      "truth": 452839.0
+    },
+    {
+      "contribution": 1.025344461277801,
+      "estimate": 1115510.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q351",
+      "truth": 1143782.0
+    },
+    {
+      "contribution": 2.518814760952554,
+      "estimate": 55010.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q352",
+      "truth": 138560.0
+    },
+    {
+      "contribution": 5.1561040693795865,
+      "estimate": 7495.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q353",
+      "truth": 38645.0
+    },
+    {
+      "contribution": 1.4008255440376798,
+      "estimate": 943110.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q354",
+      "truth": 673253.0
+    },
+    {
+      "contribution": 2.3188593648736227,
+      "estimate": 3086.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q355",
+      "truth": 7156.0
+    },
+    {
+      "contribution": 2.527096952099791,
+      "estimate": 61649.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q356",
+      "truth": 155793.0
+    },
+    {
+      "contribution": 1.5076122110909522,
+      "estimate": 19112.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q357",
+      "truth": 12677.0
+    },
+    {
+      "contribution": 4.07061532557247,
+      "estimate": 7817.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q358",
+      "truth": 31820.0
+    },
+    {
+      "contribution": 4.130392865750784,
+      "estimate": 16596.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q359",
+      "truth": 68548.0
+    },
+    {
+      "contribution": 1.3361679689093209,
+      "estimate": 458645.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q360",
+      "truth": 343254.0
+    },
+    {
+      "contribution": 1.5711336801255058,
+      "estimate": 19028.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q361",
+      "truth": 12111.0
+    },
+    {
+      "contribution": 4.111315723390771,
+      "estimate": 83627.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q362",
+      "truth": 343817.0
+    },
+    {
+      "contribution": 1.711251148029935,
+      "estimate": 109971.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q363",
+      "truth": 188188.0
+    },
+    {
+      "contribution": 1.4958613554061044,
+      "estimate": 3866.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q364",
+      "truth": 5783.0
+    },
+    {
+      "contribution": 1.016398663568854,
+      "estimate": 1729754.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q365",
+      "truth": 1701846.0
+    },
+    {
+      "contribution": 1.3025832461583289,
+      "estimate": 545389.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q366",
+      "truth": 418698.0
+    },
+    {
+      "contribution": 1.1312011371712865,
+      "estimate": 7958.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q367",
+      "truth": 7035.0
+    },
+    {
+      "contribution": 1.646139304929475,
+      "estimate": 13754.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q368",
+      "truth": 22641.0
+    },
+    {
+      "contribution": 2.0332176499752106,
+      "estimate": 12102.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q369",
+      "truth": 24606.0
+    },
+    {
+      "contribution": 1.7303485369343883,
+      "estimate": 60797.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q370",
+      "truth": 105200.0
+    },
+    {
+      "contribution": 1.2618293157076206,
+      "estimate": 102880.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q371",
+      "truth": 129817.0
+    },
+    {
+      "contribution": 4.726675367245356,
+      "estimate": 65896.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q372",
+      "truth": 311469.0
+    },
+    {
+      "contribution": 1.3104520054227424,
+      "estimate": 435952.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q373",
+      "truth": 332673.0
+    },
+    {
+      "contribution": 1.802701115678215,
+      "estimate": 3070.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q374",
+      "truth": 1703.0
+    },
+    {
+      "contribution": 1.0014727341895775,
+      "estimate": 1408944.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q375",
+      "truth": 1411019.0
+    },
+    {
+      "contribution": 1.0527836490756588,
+      "estimate": 1223466.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q376",
+      "truth": 1288045.0
+    },
+    {
+      "contribution": 1.0482161341776535,
+      "estimate": 1422749.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q377",
+      "truth": 1357305.0
+    },
+    {
+      "contribution": 1.326057188884414,
+      "estimate": 37245.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q378",
+      "truth": 49389.0
+    },
+    {
+      "contribution": 1.1305859489391157,
+      "estimate": 563445.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q379",
+      "truth": 637023.0
+    },
+    {
+      "contribution": 1.7743434402846807,
+      "estimate": 816072.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q380",
+      "truth": 1447992.0
+    },
+    {
+      "contribution": 2.116331096196868,
+      "estimate": 1892.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q381",
+      "truth": 894.0
+    },
+    {
+      "contribution": 7.405764966740577,
+      "estimate": 6680.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q382",
+      "truth": 902.0
+    },
+    {
+      "contribution": 1.1484479429674737,
+      "estimate": 15465.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q383",
+      "truth": 13466.0
+    },
+    {
+      "contribution": 1.183855246785566,
+      "estimate": 456684.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q384",
+      "truth": 385760.0
+    },
+    {
+      "contribution": 1.0493739693574284,
+      "estimate": 1451535.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q385",
+      "truth": 1383239.0
+    },
+    {
+      "contribution": 1.440624146734056,
+      "estimate": 523723.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q386",
+      "truth": 754488.0
+    },
+    {
+      "contribution": 1.4850607486480791,
+      "estimate": 711950.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q387",
+      "truth": 1057289.0
+    },
+    {
+      "contribution": 1.55166681956925,
+      "estimate": 643111.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q388",
+      "truth": 997894.0
+    },
+    {
+      "contribution": 1.524525397810013,
+      "estimate": 459588.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q389",
+      "truth": 301463.0
+    },
+    {
+      "contribution": 3.4640828856485033,
+      "estimate": 13030.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q390",
+      "truth": 45137.0
+    },
+    {
+      "contribution": 2.4684314849085496,
+      "estimate": 106451.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q391",
+      "truth": 262767.0
+    },
+    {
+      "contribution": 1.5681927284671164,
+      "estimate": 79158.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q392",
+      "truth": 124135.0
+    },
+    {
+      "contribution": 2.0835192594217258,
+      "estimate": 132221.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q393",
+      "truth": 275485.0
+    },
+    {
+      "contribution": 3.9673040115235105,
+      "estimate": 152037.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q394",
+      "truth": 603177.0
+    },
+    {
+      "contribution": 1.0186556927297667,
+      "estimate": 3713.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q395",
+      "truth": 3645.0
+    },
+    {
+      "contribution": 1.0344801500452587,
+      "estimate": 766702.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q396",
+      "truth": 793138.0
+    },
+    {
+      "contribution": 1.0629638989929988,
+      "estimate": 664746.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q397",
+      "truth": 706601.0
+    },
+    {
+      "contribution": 1.171149967216725,
+      "estimate": 799188.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q398",
+      "truth": 935969.0
+    },
+    {
+      "contribution": 1.3782298255328773,
+      "estimate": 706861.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q399",
+      "truth": 512876.0
+    },
+    {
+      "contribution": 1.7207482048835148,
+      "estimate": 601493.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q400",
+      "truth": 1035018.0
+    },
+    {
+      "contribution": 1.428709313565235,
+      "estimate": 706593.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q401",
+      "truth": 1009516.0
+    },
+    {
+      "contribution": 1.0009225105164798,
+      "estimate": 2143065.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q402",
+      "truth": 2145042.0
+    },
+    {
+      "contribution": 3.4426025694156652,
+      "estimate": 2413.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q403",
+      "truth": 8307.0
+    },
+    {
+      "contribution": 3.04960362400906,
+      "estimate": 61810.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q404",
+      "truth": 188496.0
+    },
+    {
+      "contribution": 2.0409739023009212,
+      "estimate": 79300.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q405",
+      "truth": 38854.0
+    },
+    {
+      "contribution": 1.004375959947785,
+      "estimate": 1611928.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q406",
+      "truth": 1604905.0
+    },
+    {
+      "contribution": 2.4510458876355274,
+      "estimate": 127834.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q407",
+      "truth": 313327.0
+    },
+    {
+      "contribution": 1.0115311998848577,
+      "estimate": 1709189.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q408",
+      "truth": 1728898.0
+    },
+    {
+      "contribution": 1.5857825199337467,
+      "estimate": 51922.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q409",
+      "truth": 82337.0
+    },
+    {
+      "contribution": 3.135907530191807,
+      "estimate": 67568.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q410",
+      "truth": 211887.0
+    },
+    {
+      "contribution": 1.0185300007579292,
+      "estimate": 1115381.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q411",
+      "truth": 1095089.0
+    },
+    {
+      "contribution": 1.7502756854755808,
+      "estimate": 107006.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q412",
+      "truth": 187290.0
+    },
+    {
+      "contribution": 1.5065310109722998,
+      "estimate": 598367.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q413",
+      "truth": 397182.0
+    },
+    {
+      "contribution": 1.0013059613093627,
+      "estimate": 2366863.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q414",
+      "truth": 2363776.0
+    },
+    {
+      "contribution": 1.0203910120926842,
+      "estimate": 733354.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q415",
+      "truth": 718699.0
+    },
+    {
+      "contribution": 1.000843908793136,
+      "estimate": 2286977.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q416",
+      "truth": 2288907.0
+    },
+    {
+      "contribution": 1.6891492022818095,
+      "estimate": 65562.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q417",
+      "truth": 110744.0
+    },
+    {
+      "contribution": 1.0516656138940463,
+      "estimate": 313458.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q418",
+      "truth": 329653.0
+    },
+    {
+      "contribution": 1.0135353673955445,
+      "estimate": 612174.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q419",
+      "truth": 620460.0
+    },
+    {
+      "contribution": 3.834461397269703,
+      "estimate": 17434.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q420",
+      "truth": 66850.0
+    },
+    {
+      "contribution": 1.8135450985267607,
+      "estimate": 64348.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q421",
+      "truth": 116698.0
+    },
+    {
+      "contribution": 2.028362632869992,
+      "estimate": 195680.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q422",
+      "truth": 396910.0
+    },
+    {
+      "contribution": 3.055636808841534,
+      "estimate": 151105.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q423",
+      "truth": 461722.0
+    },
+    {
+      "contribution": 1.2572063458961487,
+      "estimate": 709687.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q424",
+      "truth": 892223.0
+    },
+    {
+      "contribution": 1.0156648521577318,
+      "estimate": 1877643.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q425",
+      "truth": 1907056.0
+    },
+    {
+      "contribution": 1.014461932015262,
+      "estimate": 467951.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q426",
+      "truth": 461280.0
+    },
+    {
+      "contribution": 1.2191226182483443,
+      "estimate": 415822.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q427",
+      "truth": 341083.0
+    },
+    {
+      "contribution": 4.624244352529431,
+      "estimate": 15715.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q428",
+      "truth": 72670.0
+    },
+    {
+      "contribution": 2.5224756690997565,
+      "estimate": 131520.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q429",
+      "truth": 331756.0
+    },
+    {
+      "contribution": 1.0874967920811571,
+      "estimate": 928023.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q430",
+      "truth": 853357.0
+    },
+    {
+      "contribution": 3.1654840344652815,
+      "estimate": 24982.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q431",
+      "truth": 7892.0
+    },
+    {
+      "contribution": 1.018878899115107,
+      "estimate": 281955.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q432",
+      "truth": 287278.0
+    },
+    {
+      "contribution": 1.6555221742889217,
+      "estimate": 929996.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q433",
+      "truth": 1539629.0
+    },
+    {
+      "contribution": 1.3041110791484518,
+      "estimate": 636159.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q434",
+      "truth": 829622.0
+    },
+    {
+      "contribution": 1.0187745811171127,
+      "estimate": 1743208.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q435",
+      "truth": 1775936.0
+    },
+    {
+      "contribution": 2.802350212418494,
+      "estimate": 84503.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q436",
+      "truth": 236807.0
+    },
+    {
+      "contribution": 2.8464643090754733,
+      "estimate": 71853.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q437",
+      "truth": 204527.0
+    },
+    {
+      "contribution": 2.844758670600679,
+      "estimate": 89815.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q438",
+      "truth": 255502.0
+    },
+    {
+      "contribution": 4.962540604050038,
+      "estimate": 28938.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q439",
+      "truth": 143606.0
+    },
+    {
+      "contribution": 1.3493850802161793,
+      "estimate": 117495.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q440",
+      "truth": 158546.0
+    },
+    {
+      "contribution": 1.052975698268849,
+      "estimate": 597406.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q441",
+      "truth": 629054.0
+    },
+    {
+      "contribution": 1.532584318592549,
+      "estimate": 70387.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q442",
+      "truth": 45927.0
+    },
+    {
+      "contribution": 2.9201055365461515,
+      "estimate": 24257.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q443",
+      "truth": 70833.0
+    },
+    {
+      "contribution": 4.797353284703704,
+      "estimate": 90754.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q444",
+      "truth": 435379.0
+    },
+    {
+      "contribution": 5.176796029615166,
+      "estimate": 24582.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q445",
+      "truth": 127256.0
+    },
+    {
+      "contribution": 1.0007402898726585,
+      "estimate": 2045307.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q446",
+      "truth": 2043794.0
+    },
+    {
+      "contribution": 2.290696920583468,
+      "estimate": 30850.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q447",
+      "truth": 70668.0
+    },
+    {
+      "contribution": 1.1484479305740989,
+      "estimate": 11984.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q448",
+      "truth": 13763.0
+    },
+    {
+      "contribution": 1.3237541759199143,
+      "estimate": 1037769.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q449",
+      "truth": 783959.0
+    },
+    {
+      "contribution": 2.098929633300297,
+      "estimate": 100900.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q450",
+      "truth": 211782.0
+    },
+    {
+      "contribution": 1.1284449292748049,
+      "estimate": 882783.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q451",
+      "truth": 996172.0
+    },
+    {
+      "contribution": 1.6325966592905894,
+      "estimate": 524568.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q452",
+      "truth": 321309.0
+    },
+    {
+      "contribution": 1.014648855127824,
+      "estimate": 551852.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q453",
+      "truth": 559936.0
+    },
+    {
+      "contribution": 1.4553006773191632,
+      "estimate": 38890.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q454",
+      "truth": 26723.0
+    },
+    {
+      "contribution": 3.0248249788803667,
+      "estimate": 119557.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q455",
+      "truth": 361639.0
+    },
+    {
+      "contribution": 1.2575712103932828,
+      "estimate": 149943.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q456",
+      "truth": 188564.0
+    },
+    {
+      "contribution": 1.1985035564318907,
+      "estimate": 536071.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q457",
+      "truth": 642483.0
+    },
+    {
+      "contribution": 1.0132078474163995,
+      "estimate": 615846.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q458",
+      "truth": 623980.0
+    },
+    {
+      "contribution": 3.678644147245375,
+      "estimate": 68267.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q459",
+      "truth": 251130.0
+    },
+    {
+      "contribution": 1.1205472774659044,
+      "estimate": 869833.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q460",
+      "truth": 974689.0
+    },
+    {
+      "contribution": 3.893235696375655,
+      "estimate": 105288.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q461",
+      "truth": 409911.0
+    },
+    {
+      "contribution": 1.761135046300837,
+      "estimate": 736202.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q462",
+      "truth": 418027.0
+    },
+    {
+      "contribution": 2.239889359205398,
+      "estimate": 47722.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q463",
+      "truth": 106892.0
+    },
+    {
+      "contribution": 3.9625043559066095,
+      "estimate": 129135.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q464",
+      "truth": 511698.0
+    },
+    {
+      "contribution": 12.0,
+      "estimate": 348.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q465",
+      "truth": 29.0
+    },
+    {
+      "contribution": 1.1220278151637506,
+      "estimate": 677616.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q466",
+      "truth": 760304.0
+    },
+    {
+      "contribution": 2.947961477347595,
+      "estimate": 206424.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q467",
+      "truth": 608530.0
+    },
+    {
+      "contribution": 1.4902039829073612,
+      "estimate": 18483.0,
+      "provenance": "native-explain:16.14",
+      "query_id": "census-q468",
+      "truth": 12403.0
+    }
+  ],
+  "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+  "screened_candidate_catalog_digest": "c0c544c703682a13e7447a514f0610d251b4694cb92f2c8eeead3f3ee50880a8",
+  "screened_candidate_set_digest": "344c64191a6a6605026ad78db8fc41565f4eb2fc9d796b4c08842889e5f2a64a",
+  "search_mode": "add-only",
+  "selected_candidates": [
+    {
+      "candidate_id": "cand_b968725e2259713b88f7",
+      "columns": [
+        "dage",
+        "iclass"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 4,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_58e63ce8ad3e712827dd",
+      "columns": [
+        "dage",
+        "idisabl1"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 6,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_036477fae086759165c9",
+      "columns": [
+        "dage",
+        "imilitary"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 30,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_1086aac25bfb3ba422df",
+      "columns": [
+        "dage",
+        "irownchld"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 46,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_3fa2eba87f1d709a0ce0",
+      "columns": [
+        "dage",
+        "iwork89"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 61,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_331445ebfb468230772b",
+      "columns": [
+        "icitizen",
+        "irspouse"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 301,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_35ae7c285c75a6383d9b",
+      "columns": [
+        "iclass",
+        "dhours"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 326,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_477b95f78964d9b306cc",
+      "columns": [
+        "iclass",
+        "iperscare"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 348,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_61bd8d15a2050d1f9514",
+      "columns": [
+        "ddepart",
+        "iriders"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 418,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_3ee79cb7bfe8ffec912b",
+      "columns": [
+        "ddepart",
+        "drpincome"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 421,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_83de2fe54a1402fbb4d7",
+      "columns": [
+        "ddepart",
+        "itmpabsnt"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 431,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_ade37bd28fc84c1141ca",
+      "columns": [
+        "ddepart",
+        "iworklwk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 436,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_3e595fe493142dbe2014",
+      "columns": [
+        "ddepart",
+        "iyearwrk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 439,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_0c65c575ba0117fe078d",
+      "columns": [
+        "idisabl1",
+        "idisabl2"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 441,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_04b210a04ba4f6be985b",
+      "columns": [
+        "idisabl1",
+        "dindustry"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 456,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_cfe4160d223a30e906b6",
+      "columns": [
+        "idisabl1",
+        "irelat1"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 473,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_1e148617518e825ea544",
+      "columns": [
+        "idisabl1",
+        "drpincome"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 479,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_449fa599b32af3a5039b",
+      "columns": [
+        "idisabl1",
+        "irspouse"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 482,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_50fe0fbcd88548914158",
+      "columns": [
+        "idisabl1",
+        "iyearsch"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 496,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_124cd5901772b276a5ae",
+      "columns": [
+        "idisabl2",
+        "dincome1"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 506,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_d2802a2b68937c9e8b92",
+      "columns": [
+        "idisabl2",
+        "dindustry"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 514,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_8d548383ec2b7f8ae6b6",
+      "columns": [
+        "idisabl2",
+        "imilitary"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 521,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_f8a6286739c0e9d24de9",
+      "columns": [
+        "idisabl2",
+        "imobillim"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 523,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_bf9a7a8f3c02f710a33a",
+      "columns": [
+        "idisabl2",
+        "iperscare"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 526,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_0fd5113ae36c12c5203a",
+      "columns": [
+        "idisabl2",
+        "irlabor"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 536,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_0a13a0a89a8179a53161",
+      "columns": [
+        "idisabl2",
+        "drpincome"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 538,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_0f6d24f9d2bd31d7fb7b",
+      "columns": [
+        "idisabl2",
+        "irrelchld"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 540,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_8800308d8e997ed3f8ad",
+      "columns": [
+        "idisabl2",
+        "iyearsch"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 555,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_ac94b02b624db07543c6",
+      "columns": [
+        "ienglish",
+        "dpwgt1"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 587,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_ed88c00743dee3aca0c1",
+      "columns": [
+        "ifertil",
+        "imobillim"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 693,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_7beddf5935c3c66e8d8e",
+      "columns": [
+        "ifertil",
+        "iworklwk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 723,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_5b7d924a788bf2305714",
+      "columns": [
+        "dhour89",
+        "dindustry"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 793,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_d058042cb251383c3570",
+      "columns": [
+        "dhour89",
+        "imilitary"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 800,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_65011d7be7b583b4a90a",
+      "columns": [
+        "dhour89",
+        "doccup"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 803,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_f2735ea5a5c0c05242bd",
+      "columns": [
+        "dhour89",
+        "drearning"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 810,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_4fa98ecd2ad6069efe03",
+      "columns": [
+        "dhour89",
+        "iyearwrk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 835,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_8b1bffbe8ae4affeb912",
+      "columns": [
+        "dhours",
+        "ilooking"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 849,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_1420db7ca1404e5cf7be",
+      "columns": [
+        "dhours",
+        "drearning"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 863,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_51e3b546d3d2da59a676",
+      "columns": [
+        "dhours",
+        "irspouse"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 872,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_6f14b3786d2f81d26e39",
+      "columns": [
+        "dhours",
+        "iyearwrk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 887,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_5812ed9d378fdd43c70d",
+      "columns": [
+        "iimmigr",
+        "irownchld"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 920,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_5156234abdd021959e64",
+      "columns": [
+        "iimmigr",
+        "drpincome"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 921,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_28e06e079b7fe2ddeb13",
+      "columns": [
+        "dincome1",
+        "iwork89"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 985,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_75d6ab6bcdb4d5b4544a",
+      "columns": [
+        "dindustry",
+        "imobillim"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1326,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_a3809685157feb3c8443",
+      "columns": [
+        "dindustry",
+        "drearning"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1334,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_2ed0f038c6f18978624b",
+      "columns": [
+        "dindustry",
+        "irelat1"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1335,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_b240da9bc9d6224862d6",
+      "columns": [
+        "dindustry",
+        "iriders"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1338,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_f7c6fb9cdc5ac588654f",
+      "columns": [
+        "dindustry",
+        "drpincome"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1341,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_ee5e34320b4d278ebe56",
+      "columns": [
+        "dindustry",
+        "iwork89"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1355,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_9ccac2dc89e39971c55a",
+      "columns": [
+        "dindustry",
+        "iworklwk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1356,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_302653948f00b010bacf",
+      "columns": [
+        "ikorean",
+        "irvetserv"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1387,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_ba1daa555fdaa08cc9dd",
+      "columns": [
+        "ilooking",
+        "drpincome"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1464,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_acf9ac801ea9622c3c35",
+      "columns": [
+        "ilooking",
+        "irrelchld"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1466,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_df60c6e48fac007eae2e",
+      "columns": [
+        "ilooking",
+        "dtravtime"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1475,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_b1af6ad500a7dd0fcebb",
+      "columns": [
+        "imarital",
+        "iperscare"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1491,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_42438001f797a0f49f75",
+      "columns": [
+        "imarital",
+        "irelat1"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1497,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_fc5f5c48167583b4e691",
+      "columns": [
+        "imay75880",
+        "drpincome"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1540,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_ec94d4fcaa39e54f2f3f",
+      "columns": [
+        "imeans",
+        "irlabor"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1575,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_50e40f909d08e40748f4",
+      "columns": [
+        "imeans",
+        "iworklwk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1592,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_5268eb470bdaa430c408",
+      "columns": [
+        "imeans",
+        "iyearsch"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1594,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_4805f0d30026df8f6484",
+      "columns": [
+        "imilitary",
+        "imobility"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1597,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_ca8b2ddd79d99e80f79c",
+      "columns": [
+        "imilitary",
+        "iperscare"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1601,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_8610d476a0cb88d48a72",
+      "columns": [
+        "imilitary",
+        "iragechld"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1605,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_2cb6a897e76ad672bd39",
+      "columns": [
+        "imilitary",
+        "irelat1"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1607,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_07683d9eb5a1ba91f441",
+      "columns": [
+        "imilitary",
+        "iwork89"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1626,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_a7ce81ad2618c11f1ffa",
+      "columns": [
+        "imilitary",
+        "iyearwrk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1630,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_039a80bdf65c1ea4a2b6",
+      "columns": [
+        "imobility",
+        "irpob"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1648,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_3b241c7ba815af7c635d",
+      "columns": [
+        "imobillim",
+        "irlabor"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1678,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_fe695df3b6b2c02062a1",
+      "columns": [
+        "imobillim",
+        "irownchld"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1679,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_c6cd30b55aa3b4fad7b9",
+      "columns": [
+        "imobillim",
+        "ischool"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1685,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_87d189706a45647005d0",
+      "columns": [
+        "imobillim",
+        "dweek89"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1693,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_7adaf5095a7c23451601",
+      "columns": [
+        "doccup",
+        "iragechld"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1705,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_44039dad73bc808f29b8",
+      "columns": [
+        "doccup",
+        "irlabor"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1711,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_db2d55504f0491ddd17c",
+      "columns": [
+        "doccup",
+        "irownchld"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1712,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_02f9ec546e2c8140d63e",
+      "columns": [
+        "doccup",
+        "dtravtime"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1724,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_78e3beef5978834cc970",
+      "columns": [
+        "doccup",
+        "iwork89"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1727,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_c0609d46dd5c82cc2486",
+      "columns": [
+        "doccup",
+        "iyearwrk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1731,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_ccf7cccf750ab88f4a07",
+      "columns": [
+        "iperscare",
+        "irelat1"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1770,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_74a354f6deffa32929a3",
+      "columns": [
+        "iperscare",
+        "iremplpar"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1772,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_018a7da6c028871b96ea",
+      "columns": [
+        "iperscare",
+        "irspouse"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1779,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_4d492ec06bf28997e96a",
+      "columns": [
+        "dpoverty",
+        "isubfam2"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1840,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_f36e7d2f513cb273a2d6",
+      "columns": [
+        "iragechld",
+        "isex"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1893,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_6e828ab1e97b874ef25a",
+      "columns": [
+        "drearning",
+        "irlabor"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1910,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_a5ea581bb45b37510ac2",
+      "columns": [
+        "drearning",
+        "itmpabsnt"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1922,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_c9321427349837fbbce7",
+      "columns": [
+        "drearning",
+        "dweek89"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1925,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_7a944bbfa4a6afec5f05",
+      "columns": [
+        "drearning",
+        "iworklwk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1927,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_864723d1cde663cf0ae2",
+      "columns": [
+        "irelat1",
+        "irspouse"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1940,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_b003decb3dc0d1078d24",
+      "columns": [
+        "irelat1",
+        "iyearsch"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1954,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_481f60b0e72e9fe06bc2",
+      "columns": [
+        "irelat1",
+        "iyearwrk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1955,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_381d6c6f8b25371f6b73",
+      "columns": [
+        "iremplpar",
+        "irlabor"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1982,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_e6705691ad8647703baa",
+      "columns": [
+        "iremplpar",
+        "irspouse"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1987,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_85f41fcdb04cb24776dd",
+      "columns": [
+        "iremplpar",
+        "ischool"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 1989,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_e4bed9ca8874797ffed7",
+      "columns": [
+        "irlabor",
+        "drpincome"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2025,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_f637986864fa60dd488f",
+      "columns": [
+        "irlabor",
+        "dweek89"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2038,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_4cbc727edd33adc9e4ae",
+      "columns": [
+        "irlabor",
+        "iworklwk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2040,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_183c9814100e51ab2a39",
+      "columns": [
+        "irownchld",
+        "iworklwk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2060,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_b07663b5adfe71cbb864",
+      "columns": [
+        "drpincome",
+        "iyearsch"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2081,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_56732c3d3b0dcf440ffe",
+      "columns": [
+        "irpob",
+        "irrelchld"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2084,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_facb4600507005739399",
+      "columns": [
+        "irpob",
+        "ivietnam"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2094,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_cef18d243e8dc73a4663",
+      "columns": [
+        "irrelchld",
+        "irspouse"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2102,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_9e9013be9d95a31d929b",
+      "columns": [
+        "irrelchld",
+        "dtravtime"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2110,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_57ecad07b9ddfc92cbe9",
+      "columns": [
+        "irspouse",
+        "iwork89"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2129,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_58f36035c2a5618f8b30",
+      "columns": [
+        "irspouse",
+        "iyearwrk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2133,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_112c95f7e92f39199f7b",
+      "columns": [
+        "itmpabsnt",
+        "dtravtime"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2209,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_4e0a0283c72566b0846b",
+      "columns": [
+        "itmpabsnt",
+        "iworklwk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2213,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_309c0e5e39ca6c078ec6",
+      "columns": [
+        "dtravtime",
+        "iworklwk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2220,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_d8d57a00a67cc7f9fb4f",
+      "columns": [
+        "dweek89",
+        "iyearwrk"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2236,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_4be74506316ce42fb70a",
+      "columns": [
+        "iworklwk",
+        "iyearsch"
+      ],
+      "mechanism": "mcv",
+      "precedence_rank": 2244,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_b654917100dc68487715",
+      "columns": [
+        "idisabl1",
+        "irvetserv"
+      ],
+      "mechanism": "fd",
+      "precedence_rank": 2736,
+      "relation": "public.climate"
+    },
+    {
+      "candidate_id": "cand_70d3c61d1c1af3792df9",
+      "columns": [
+        "dhour89",
+        "dweek89"
+      ],
+      "mechanism": "fd",
+      "precedence_rank": 3083,
+      "relation": "public.climate"
+    }
+  ],
+  "selected_design": [
+    "cand_b968725e2259713b88f7",
+    "cand_58e63ce8ad3e712827dd",
+    "cand_036477fae086759165c9",
+    "cand_1086aac25bfb3ba422df",
+    "cand_3fa2eba87f1d709a0ce0",
+    "cand_331445ebfb468230772b",
+    "cand_35ae7c285c75a6383d9b",
+    "cand_477b95f78964d9b306cc",
+    "cand_61bd8d15a2050d1f9514",
+    "cand_3ee79cb7bfe8ffec912b",
+    "cand_83de2fe54a1402fbb4d7",
+    "cand_ade37bd28fc84c1141ca",
+    "cand_3e595fe493142dbe2014",
+    "cand_0c65c575ba0117fe078d",
+    "cand_04b210a04ba4f6be985b",
+    "cand_cfe4160d223a30e906b6",
+    "cand_1e148617518e825ea544",
+    "cand_449fa599b32af3a5039b",
+    "cand_50fe0fbcd88548914158",
+    "cand_124cd5901772b276a5ae",
+    "cand_d2802a2b68937c9e8b92",
+    "cand_8d548383ec2b7f8ae6b6",
+    "cand_f8a6286739c0e9d24de9",
+    "cand_bf9a7a8f3c02f710a33a",
+    "cand_0fd5113ae36c12c5203a",
+    "cand_0a13a0a89a8179a53161",
+    "cand_0f6d24f9d2bd31d7fb7b",
+    "cand_8800308d8e997ed3f8ad",
+    "cand_ac94b02b624db07543c6",
+    "cand_ed88c00743dee3aca0c1",
+    "cand_7beddf5935c3c66e8d8e",
+    "cand_5b7d924a788bf2305714",
+    "cand_d058042cb251383c3570",
+    "cand_65011d7be7b583b4a90a",
+    "cand_f2735ea5a5c0c05242bd",
+    "cand_4fa98ecd2ad6069efe03",
+    "cand_8b1bffbe8ae4affeb912",
+    "cand_1420db7ca1404e5cf7be",
+    "cand_51e3b546d3d2da59a676",
+    "cand_6f14b3786d2f81d26e39",
+    "cand_5812ed9d378fdd43c70d",
+    "cand_5156234abdd021959e64",
+    "cand_28e06e079b7fe2ddeb13",
+    "cand_75d6ab6bcdb4d5b4544a",
+    "cand_a3809685157feb3c8443",
+    "cand_2ed0f038c6f18978624b",
+    "cand_b240da9bc9d6224862d6",
+    "cand_f7c6fb9cdc5ac588654f",
+    "cand_ee5e34320b4d278ebe56",
+    "cand_9ccac2dc89e39971c55a",
+    "cand_302653948f00b010bacf",
+    "cand_ba1daa555fdaa08cc9dd",
+    "cand_acf9ac801ea9622c3c35",
+    "cand_df60c6e48fac007eae2e",
+    "cand_b1af6ad500a7dd0fcebb",
+    "cand_42438001f797a0f49f75",
+    "cand_fc5f5c48167583b4e691",
+    "cand_ec94d4fcaa39e54f2f3f",
+    "cand_50e40f909d08e40748f4",
+    "cand_5268eb470bdaa430c408",
+    "cand_4805f0d30026df8f6484",
+    "cand_ca8b2ddd79d99e80f79c",
+    "cand_8610d476a0cb88d48a72",
+    "cand_2cb6a897e76ad672bd39",
+    "cand_07683d9eb5a1ba91f441",
+    "cand_a7ce81ad2618c11f1ffa",
+    "cand_039a80bdf65c1ea4a2b6",
+    "cand_3b241c7ba815af7c635d",
+    "cand_fe695df3b6b2c02062a1",
+    "cand_c6cd30b55aa3b4fad7b9",
+    "cand_87d189706a45647005d0",
+    "cand_7adaf5095a7c23451601",
+    "cand_44039dad73bc808f29b8",
+    "cand_db2d55504f0491ddd17c",
+    "cand_02f9ec546e2c8140d63e",
+    "cand_78e3beef5978834cc970",
+    "cand_c0609d46dd5c82cc2486",
+    "cand_ccf7cccf750ab88f4a07",
+    "cand_74a354f6deffa32929a3",
+    "cand_018a7da6c028871b96ea",
+    "cand_4d492ec06bf28997e96a",
+    "cand_f36e7d2f513cb273a2d6",
+    "cand_6e828ab1e97b874ef25a",
+    "cand_a5ea581bb45b37510ac2",
+    "cand_c9321427349837fbbce7",
+    "cand_7a944bbfa4a6afec5f05",
+    "cand_864723d1cde663cf0ae2",
+    "cand_b003decb3dc0d1078d24",
+    "cand_481f60b0e72e9fe06bc2",
+    "cand_381d6c6f8b25371f6b73",
+    "cand_e6705691ad8647703baa",
+    "cand_85f41fcdb04cb24776dd",
+    "cand_e4bed9ca8874797ffed7",
+    "cand_f637986864fa60dd488f",
+    "cand_4cbc727edd33adc9e4ae",
+    "cand_183c9814100e51ab2a39",
+    "cand_b07663b5adfe71cbb864",
+    "cand_56732c3d3b0dcf440ffe",
+    "cand_facb4600507005739399",
+    "cand_cef18d243e8dc73a4663",
+    "cand_9e9013be9d95a31d929b",
+    "cand_57ecad07b9ddfc92cbe9",
+    "cand_58f36035c2a5618f8b30",
+    "cand_112c95f7e92f39199f7b",
+    "cand_4e0a0283c72566b0846b",
+    "cand_309c0e5e39ca6c078ec6",
+    "cand_d8d57a00a67cc7f9fb4f",
+    "cand_4be74506316ce42fb70a",
+    "cand_b654917100dc68487715",
+    "cand_70d3c61d1c1af3792df9"
+  ],
+  "singleton_profile_digest": "bde72830a5a29488fcf147c90f51259c52be5d4b4f74c9e677b0776f860e7cbf",
+  "source_search_result_digest": "6e130abb639e67f3f18df571c6af3fe2b3fa1970f45fba429890cfe4f8f23d27",
+  "statistics_target": 100,
+  "visible_candidate_count": 226,
+  "workload_digest": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215"
+}

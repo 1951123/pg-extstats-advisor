@@ -11,6 +11,7 @@ from typing import Any
 
 from psycopg import Connection
 
+from pg_extstats_advisor.candidates.model import CandidateCatalog
 from pg_extstats_advisor.cost.empirical import EmpiricalMechanismCountCostModel
 from pg_extstats_advisor.cost.model import MaintenanceBudget, MaintenanceCostModel
 from pg_extstats_advisor.cost.preset import PresetMaintenanceCostModel
@@ -32,6 +33,7 @@ from pg_extstats_advisor.payloads.repository import PayloadRepository
 from pg_extstats_advisor.postgres.adapter import PostgresAdapter
 from pg_extstats_advisor.prepare.acquisition import AcquisitionResult, cleanup_acquisition
 from pg_extstats_advisor.prepare.artifacts import PreparedRun
+from pg_extstats_advisor.screening import load_artifact, validate_candidate_set
 from pg_extstats_advisor.search.deterministic import DeterministicBudgetSearch
 from pg_extstats_advisor.search.model import (
     MoveRecord,
@@ -183,6 +185,27 @@ def load_maintenance_model(root: Path) -> MaintenanceCostModel:
     if model.digest != raw["digest"]:
         raise ValueError("maintenance model digest mismatch")
     return model
+
+
+def _visible_catalog_for_result(
+    root: Path, prepared: PreparedRun, model: MaintenanceCostModel, result: SearchResult
+) -> CandidateCatalog:
+    if result.config.candidate_set_mode == "full":
+        if result.config.candidate_set_digest is not None:
+            raise ValueError("full search result unexpectedly carries candidate-set digest")
+        return prepared.catalog
+    if result.config.candidate_set_mode != "screened":
+        raise ValueError(f"unsupported candidate-set mode: {result.config.candidate_set_mode}")
+    artifact_path = root / "search" / "candidate-set.json"
+    if not artifact_path.exists():
+        raise ValueError("screened search result is missing its candidate-set artifact")
+    artifact = load_artifact(artifact_path)
+    visible = validate_candidate_set(artifact, prepared, model)
+    if result.config.candidate_set_digest != artifact["digest"]:
+        raise ValueError("search result/candidate-set artifact digest mismatch")
+    if result.config.visible_candidate_count != len(visible.candidates):
+        raise ValueError("search visible candidate count mismatch")
+    return visible
 
 
 def _state(value: dict[str, Any]) -> EvaluationState:
@@ -350,14 +373,16 @@ def load_search_result(root: Path) -> SearchResult:
     if (
         result.workload_digest != prepared.workload.digest
         or result.repository_digest != prepared.repository.digest
-        or result.candidate_catalog_digest != prepared.candidate_catalog_digest
         or result.cost_model_digest != model.digest
     ):
         raise ValueError("search result lineage mismatch")
+    visible_catalog = _visible_catalog_for_result(root, prepared, model, result)
+    if result.candidate_catalog_digest != candidate_catalog_digest(visible_catalog.candidates):
+        raise ValueError("search result visible candidate catalog lineage mismatch")
     if set(result.selected_state.by_query()) != set(prepared.workload.by_id):
         raise ValueError("search selected-state query universe mismatch")
     if (
-        model.estimate_design(result.selected_design, prepared.catalog)
+        model.estimate_design(result.selected_design, visible_catalog)
         != result.selected_maintenance_cost
     ):
         raise ValueError("search selected maintenance cost mismatch")
@@ -366,16 +391,56 @@ def load_search_result(root: Path) -> SearchResult:
     return result
 
 
-def execute_search_stage(root: Path, connection: Connection[Any], budget: str) -> SearchResult:
+def execute_search_stage(
+    root: Path,
+    connection: Connection[Any],
+    budget: str | None,
+    *,
+    candidate_set_path: Path | None = None,
+    search_mode: str = "full",
+    budget_mode: str = "absolute",
+) -> SearchResult:
     prepared, model = load_prepared_run(root), load_maintenance_model(root)
+    if search_mode not in {"full", "add-only"}:
+        raise ValueError("search_mode must be full or add-only")
+    if budget_mode not in {"absolute", "candidate-set-total"}:
+        raise ValueError("budget_mode must be absolute or candidate-set-total")
+    visible_catalog = prepared.catalog
+    candidate_set_digest = None
+    singleton_profile_digest = None
+    if candidate_set_path is not None:
+        artifact = load_artifact(candidate_set_path)
+        visible_catalog = validate_candidate_set(artifact, prepared, model)
+        candidate_set_digest = artifact["digest"]
+        singleton_profile_digest = artifact.get("singleton_profile_digest")
+        _write(root / "search" / "candidate-set.json", artifact)
+    elif search_mode != "full":
+        raise ValueError("add-only search can use the full catalog or an explicit candidate set")
+    if budget_mode == "candidate-set-total":
+        if candidate_set_path is None:
+            raise ValueError("candidate-set-total budget requires --candidate-set")
+        ordered = visible_catalog.normalize_design(
+            {item.candidate_id for item in visible_catalog.candidates}
+        )
+        budget = str(model.estimate_design(ordered, visible_catalog))
+    if budget is None:
+        raise ValueError("absolute budget is required")
     evaluator = NativeEvaluator(
         prepared.workload,
         prepared.repository,
         prepared.incidence,
         PostgresAdapter(connection, prepared.repository),
     )
+    config = SearchConfig(
+        add_only=search_mode == "add-only",
+        candidate_set_mode="screened" if candidate_set_path is not None else "full",
+        candidate_set_digest=candidate_set_digest,
+        singleton_profile_digest=singleton_profile_digest,
+        visible_candidate_count=len(visible_catalog.candidates),
+        budget_mode=budget_mode,
+    )
     result = DeterministicBudgetSearch(
-        evaluator, prepared.catalog, model, MaintenanceBudget(budget, model.unit)
+        evaluator, visible_catalog, model, MaintenanceBudget(budget, model.unit), config
     ).run()
     persist_search_result(root, result)
     _update_manifest(root, "search", result.repository_digest)
@@ -384,10 +449,13 @@ def execute_search_stage(root: Path, connection: Connection[Any], budget: str) -
 
 def execute_recommendation_stage(root: Path) -> Path:
     prepared, result = load_prepared_run(root), load_search_result(root)
+    visible_catalog = _visible_catalog_for_result(
+        root, prepared, load_maintenance_model(root), result
+    )
     summary = json.loads((root / "prepare-summary.json").read_text())
     plan = build_search_deployment_plan(
         result,
-        prepared.catalog,
+        visible_catalog,
         statistics_target=int(summary["statistics_target"]),
         validation_relations=tuple(q.target_relation for q in prepared.workload.queries),
     )
@@ -415,7 +483,24 @@ def execute_recommendation_stage(root: Path) -> Path:
         "cost_model_digest": result.cost_model_digest,
         "deployment_plan_digest": plan.sql_digest,
         "statistics_target": plan.statistics_target,
+        "source_search_result_digest": json.loads(
+            (root / "search" / "result.json").read_text()
+        )["digest"],
+        "candidate_set_mode": result.config.candidate_set_mode,
+        "screened_candidate_set_digest": result.config.candidate_set_digest,
+        "screened_candidate_catalog_digest": (
+            result.candidate_catalog_digest
+            if result.config.candidate_set_mode == "screened"
+            else None
+        ),
+        "singleton_profile_digest": result.config.singleton_profile_digest,
+        "visible_candidate_count": result.config.visible_candidate_count,
+        "search_mode": "add-only" if result.config.add_only else "full",
+        "experimental_role": (
+            "development" if result.config.candidate_set_mode == "screened" else "full-universe"
+        ),
     }
+    recommendation["digest"] = _digest(recommendation)
     _write(root / "recommendation" / "recommendation.json", recommendation)
     _write(
         root / "recommendation" / "deployment-plan.json",
@@ -442,10 +527,13 @@ def execute_recommendation_stage(root: Path) -> Path:
 
 def execute_validation_stage(root: Path, connection: Connection[Any]) -> dict[str, Any]:
     prepared, result = load_prepared_run(root), load_search_result(root)
+    visible_catalog = _visible_catalog_for_result(
+        root, prepared, load_maintenance_model(root), result
+    )
     summary = json.loads((root / "prepare-summary.json").read_text())
     plan = build_search_deployment_plan(
         result,
-        prepared.catalog,
+        visible_catalog,
         statistics_target=int(summary["statistics_target"]),
         validation_relations=tuple(q.target_relation for q in prepared.workload.queries),
     )

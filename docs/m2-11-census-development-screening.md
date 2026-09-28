@@ -10,6 +10,15 @@ then candidate ID. The retained set is benchmark-specific to Census; other
 benchmarks must profile singleton utility and inspect interaction evidence
 before choosing their own development profile.
 
+The reusable replacement for the milestone-specific runner is the formal
+workflow in [`development-screening-workflow.md`](development-screening-workflow.md)
+and [`m2-13-formal-development-workflow.md`](m2-13-formal-development-workflow.md):
+`singleton-profile`, `screen-candidates`, screened `search --search-mode
+add-only`, and `recommend`. The M2.13 Census smoke reproduces this experiment's
+membership, order, and result through those generic interfaces. The historical
+M2.11 script and artifacts remain retained for provenance, but are not the
+recommended operational path.
+
 The visible catalog is the screened set, while workload, incidence, payload
 repository, CE semantics, and empirical maintenance model remain frozen. The
 search uses the existing exact q-error lower-bound pruning and deterministic

@@ -116,6 +116,17 @@ contextual SWAP improvement, but the SWAP pass dominated runtime. Census
 development therefore remains ADD-only by default; this probe does not run a
 second local round, change screening, or complete M2.7.
 
+## M2.13 formal singleton-screened development workflow — complete, development-only
+
+The singleton profile and screened candidate set are now first-class,
+versioned artifacts with explicit lineage and deterministic ranking. The CLI
+supports `singleton-profile`, `screen-candidates`, screened ADD-only search,
+and provenance-carrying recommendation/validation stages. The Census smoke
+reuses the frozen M2.9 profile and M2.11 five-percent membership; it does not
+perform new singleton native evaluations. This workflow formalizes a
+development path and does not promote the screen to an authoritative M2.7
+optimization or a general screening policy.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,
