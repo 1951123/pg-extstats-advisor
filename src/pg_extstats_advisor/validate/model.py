@@ -13,11 +13,12 @@ class PayloadFingerprint:
     candidate_id: str
     mechanism: str
     definition_identity: str
-    payload_sha256: str
-    payload_size: int
+    payload_sha256: str | None
+    payload_size: int | None
     catalog_oid: int
     relation_oid: int
     relation_fingerprint: str
+    state: str = "PRESENT"
 
 
 @dataclass(frozen=True, slots=True)
@@ -26,6 +27,7 @@ class PayloadComparison:
     frozen_sha256: str
     fresh_sha256: str
     same_realization: bool
+    transition: str = "present-same"
 
 
 @dataclass(frozen=True, slots=True)

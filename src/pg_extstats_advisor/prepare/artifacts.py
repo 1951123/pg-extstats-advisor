@@ -151,6 +151,14 @@ def prepare_mvp(
         "statistics_target": config.statistics_target,
         "query_count": len(ingested.workload.queries),
         "candidate_count": len(catalog.candidates),
+        "realization_state_counts": {
+            "PRESENT": sum(
+                item.state.value == "PRESENT" for item in acquisition.repository.payloads
+            ),
+            "ABSENT_NATIVE": sum(
+                item.state.value == "ABSENT_NATIVE" for item in acquisition.repository.payloads
+            ),
+        },
         "relation_count": len(acquisition.analyzed_relations),
         "incidence_edge_count": len(incidence.edges),
         "fallback_query_count": incidence.fallback_query_count,

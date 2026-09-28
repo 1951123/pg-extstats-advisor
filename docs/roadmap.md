@@ -65,6 +65,12 @@ Preparation SQL analysis is being migrated from handwritten lexical inspection t
 the PostgreSQL-compatible `pglast` AST parser. This preflight is not the
 authoritative M2.7 search and does not mark M2.7 complete.
 
+## M2.7 payload-absence semantics hardening — preflight complete
+
+The preparation repository now distinguishes `PRESENT` from PostgreSQL-native
+`ABSENT_NATIVE` realizations. This resolves the acquisition blocker but does
+not start or complete the M2.7 authoritative budget search.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,

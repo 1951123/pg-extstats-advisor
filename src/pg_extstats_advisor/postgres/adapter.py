@@ -9,7 +9,7 @@ from psycopg import Connection
 from psycopg.rows import tuple_row
 
 from pg_extstats_advisor.models import Design, QueryId, WorkloadQuery
-from pg_extstats_advisor.payloads.repository import PayloadRepository
+from pg_extstats_advisor.payloads.repository import NativePayloadState, PayloadRepository
 from pg_extstats_advisor.postgres.extraction import extract_target_estimate
 
 
@@ -47,15 +47,20 @@ class PostgresAdapter:
                 raise ValueError(f"relation mismatch for {candidate.candidate_id}")
             if candidate.mechanism.postgres_code not in kinds:
                 raise ValueError(f"mechanism kind mismatch for {candidate.candidate_id}")
-            self.connection.execute(
-                "SELECT pg_hypothetical_extstats_register(%s,%s,%s,%s)",
-                (
-                    candidate.backend_oid,
-                    candidate.relation_oid,
-                    candidate.mechanism.postgres_code,
-                    frozen.payload,
-                ),
-            )
+            if frozen.state is NativePayloadState.PRESENT:
+                self.connection.execute(
+                    "SELECT pg_hypothetical_extstats_register(%s,%s,%s,%s)",
+                    (candidate.backend_oid, candidate.relation_oid,
+                     candidate.mechanism.postgres_code, frozen.payload),
+                )
+            elif frozen.state is NativePayloadState.ABSENT_NATIVE:
+                self.connection.execute(
+                    "SELECT pg_hypothetical_extstats_register_absent(%s,%s,%s)",
+                    (candidate.backend_oid, candidate.relation_oid,
+                     candidate.mechanism.postgres_code),
+                )
+            else:
+                raise ValueError(f"unsupported realization state for {candidate.candidate_id}")
             self.registration_calls += 1
         self.registered = True
 

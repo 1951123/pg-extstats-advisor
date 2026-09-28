@@ -166,11 +166,25 @@ def acquire_payloads(
             row = connection.execute(
                 f"SELECT {expression} FROM pg_statistic_ext_data d WHERE d.stxoid=%s", (oid,)
             ).fetchone()
-            if row is None or row[0] is None or not bytes(row[0]):
-                raise RuntimeError(f"missing/invalid native payload: {candidate.candidate_id}")
-            payload = bytes(row[0])
-            relative = Path("payloads") / f"{candidate.candidate_id}.{extension}.bin"
-            (temporary / relative).write_bytes(payload)
+            if row is None:
+                raise RuntimeError(
+                    f"missing pg_statistic_ext_data row for {candidate.candidate_id}"
+                )
+            if row[0] is None:
+                payload = None
+                state = "ABSENT_NATIVE"
+                relative = None
+                payload_size = None
+                payload_sha256 = None
+            else:
+                payload = bytes(row[0])
+                if not payload:
+                    raise RuntimeError(f"empty serialized native payload for {candidate.candidate_id}")
+                state = "PRESENT"
+                relative = Path("payloads") / f"{candidate.candidate_id}.{extension}.bin"
+                (temporary / relative).write_bytes(payload)
+                payload_size = len(payload)
+                payload_sha256 = hashlib.sha256(payload).hexdigest()
             records.append(
                 {
                     "candidate_id": candidate.candidate_id,
@@ -185,15 +199,16 @@ def acquire_payloads(
                     },
                     "precedence_rank": candidate.precedence_rank,
                     "backend_oid": oid,
-                    "payload_path": str(relative),
-                    "payload_size": len(payload),
-                    "payload_sha256": hashlib.sha256(payload).hexdigest(),
+                    "state": state,
+                    "payload_path": str(relative) if relative else None,
+                    "payload_size": payload_size,
+                    "payload_sha256": payload_sha256,
                     "relation_fingerprint": fingerprints[candidate.relation_name],
                     "interpretation": interpretation,
                 }
             )
         manifest = {
-            "format_version": 1,
+            "format_version": 2,
             "repository_id": repository_id,
             "postgres_version": version,
             "upstream_tarball_sha256": upstream_sha256,

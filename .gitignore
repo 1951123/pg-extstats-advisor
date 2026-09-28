@@ -16,6 +16,8 @@ pgdata/
 data/
 payload-repositories/
 experiments/scratch/
+experiments/census-m2-7/prepared-run*/
+experiments/census-m2-7/budgets/
 *.log
 *.pid
 *.tmp

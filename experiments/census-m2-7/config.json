@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "database": {
+    "source_dsn": "host=/root/projects/pg-extstats-advisor/.build/pg16.14-experiment-socket port=55436 dbname=pgextadv_exp16_census user=postgres",
+    "acquisition_dsn": "host=/root/projects/pg-extstats-advisor/.build/pg16.14-experiment-socket port=55436 dbname=pgextadv_exp16_census_acq user=postgres"
+  },
+  "workload": {
+    "path": "experiments/census-m2-7/workload.json"
+  },
+  "candidates": {
+    "mechanisms": [
+      "mcv",
+      "fd"
+    ],
+    "max_candidate_arity": 2,
+    "max_candidates_per_relation": null,
+    "explicit": []
+  },
+  "acquisition": {
+    "statistics_target": 100,
+    "output_path": "experiments/census-m2-7/prepared-run"
+  },
+  "maintenance": {
+    "type": "empirical-mechanism-count-v1",
+    "artifact_path": "calibration/census-pg16.14-m2-6-r1/maintenance-model.json"
+  }
+}

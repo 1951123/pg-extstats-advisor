@@ -1,0 +1,9 @@
+{
+  "experiment_status": "failed",
+  "baseline_commit": "449828212b5938d57439540ab1e612dda70cc34c",
+  "failure_stage": "acquisition",
+  "error": "missing/invalid native payload: cand_8e074250df2d367b0af0",
+  "authoritative_search_started": false,
+  "cleanup": "isolated acquisition database dropped",
+  "no_budget_results": true
+}

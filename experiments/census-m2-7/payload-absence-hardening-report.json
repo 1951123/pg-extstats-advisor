@@ -1,0 +1,16 @@
+{
+  "experiment_status": "preflight-complete",
+  "authoritative_budget_search_started": false,
+  "candidate_count": 4506,
+  "mcv_present": 2253,
+  "mcv_absent_native": 0,
+  "fd_present": 1118,
+  "fd_absent_native": 1135,
+  "missing_or_corrupt": 0,
+  "repository_format_version": 2,
+  "repository_digest": "4403ee415b4bb69f0945900d00702f229dda2a2f9a2eb1b382ab6e19056f8f04",
+  "parser": "pglast",
+  "parser_version": "v7.18",
+  "analysis_version": "pg16-mvp-v2",
+  "maintenance_model_digest": "dbad23611afa778a7ff6aab6ad39e519f7bfc51387874aa07dd33e37a5d3a11e"
+}

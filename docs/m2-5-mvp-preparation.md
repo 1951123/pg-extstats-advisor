@@ -1,6 +1,11 @@
 # M2.5-A/B MVP preparation
 
 Workload analysis uses a general PostgreSQL-compatible AST parser with a narrow supported semantic subset; it is not a handwritten regex inspector.
+
+Acquisition accepts a PostgreSQL-native SQL NULL mechanism payload as a valid
+`ABSENT_NATIVE` realization. It does not remove that candidate, change its
+precedence, or assign it zero maintenance cost; missing catalog rows and
+malformed non-NULL payloads still fail loudly.
 `prepare_mvp(config, source_connection, acquisition_connection)` converts a supplied fixed workload into the existing `Workload`, `CandidateCatalog`, `PayloadRepository`, and `IncidenceIndex` models. It does not run search or provide a CLI.
 
 The version-1 JSON config requires distinct source/acquisition DSN roles, a version-1 workload JSON path, artifact output directory, enabled `mcv`/`fd` mechanisms, maximum arity, optional per-relation cap, optional explicit candidates, one statistics target, and maintenance-model metadata. Configuration has canonical JSON and SHA256 identity; there are no per-candidate targets.

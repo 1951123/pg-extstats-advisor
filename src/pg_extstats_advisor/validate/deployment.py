@@ -76,21 +76,22 @@ def collect_fresh_payload_fingerprints(
             "JOIN pg_class c ON c.oid=e.stxrelid WHERE e.oid=%s",
             (created.catalog_oid,),
         ).fetchone()
-        if row is None or row[0] is None:
-            raise RuntimeError(f"missing fresh payload for {created.candidate_id}")
-        payload = bytes(row[0])
+        if row is None:
+            raise RuntimeError(f"missing fresh pg_statistic_ext_data row for {created.candidate_id}")
+        payload = None if row[0] is None else bytes(row[0])
         values.append(
             PayloadFingerprint(
                 created.candidate_id,
                 candidate.mechanism.value,
                 created.statistics_name,
-                hashlib.sha256(payload).hexdigest(),
-                len(payload),
+                hashlib.sha256(payload).hexdigest() if payload else None,
+                len(payload) if payload else None,
                 created.catalog_oid,
                 created.relation_oid,
                 hashlib.sha256(
                     f"{created.relation_name}:{created.relation_oid}:{int(row[1])}".encode()
                 ).hexdigest(),
+                "PRESENT" if payload else "ABSENT_NATIVE",
             )
         )
     return tuple(values)
@@ -108,10 +109,11 @@ def frozen_payload_fingerprints(
                 frozen.candidate.mechanism.value,
                 str(dict(frozen.candidate.definition).get("statistics_name", candidate_id)),
                 frozen.payload_sha256,
-                len(frozen.payload),
+                len(frozen.payload) if frozen.payload else None,
                 frozen.candidate.backend_oid,
                 frozen.candidate.relation_oid,
                 frozen.relation_fingerprint,
+                frozen.state.value,
             )
         )
     return tuple(result)
@@ -172,7 +174,15 @@ def build_validation_result(
             item.candidate_id,
             item.payload_sha256,
             fresh_by_candidate[item.candidate_id].payload_sha256,
-            item.payload_sha256 == fresh_by_candidate[item.candidate_id].payload_sha256,
+            item.state == fresh_by_candidate[item.candidate_id].state
+            and item.payload_sha256 == fresh_by_candidate[item.candidate_id].payload_sha256,
+            f"{item.state.lower()}-to-{fresh_by_candidate[item.candidate_id].state.lower()}"
+            if item.state != fresh_by_candidate[item.candidate_id].state
+            else (
+                "present-same"
+                if item.state == "PRESENT" and item.payload_sha256 == fresh_by_candidate[item.candidate_id].payload_sha256
+                else ("absent-same" if item.state == "ABSENT_NATIVE" else "present-changed")
+            ),
         )
         for item in frozen_fingerprints
     )

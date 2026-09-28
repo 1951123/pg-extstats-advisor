@@ -79,3 +79,7 @@ planner settings between acquisition and validation; provenance makes those
 assumptions auditable. It does not restore arbitrary payload bytes into physical
 catalogs, modify the PostgreSQL patch, fit maintenance costs, compare plan shapes,
 measure execution runtime, deploy autonomously, or begin M3.
+Payload validation distinguishes `PRESENT` and `ABSENT_NATIVE` realizations.
+Fresh validation may therefore observe present-to-absent, absent-to-present,
+or absent-to-absent transitions in addition to byte changes; a native SQL NULL
+is not treated as a corrupt payload.

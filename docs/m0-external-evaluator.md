@@ -107,3 +107,7 @@ unchanged across evaluation.
 - Repository acquisition is a fixture helper, not the deployment/acquisition
   workflow.
 - There is no search, budget, batching, planner caching, or deployment logic.
+Payload repositories record a realization state for every physical candidate:
+`PRESENT` or `ABSENT_NATIVE`. Candidate identity, precedence, incidence, and
+maintenance cost remain properties of the design definition. Missing or
+unregistered repository entries remain correctness failures.

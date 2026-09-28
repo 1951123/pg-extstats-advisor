@@ -11,15 +11,23 @@ from typing import Any
 from pg_extstats_advisor.candidates.model import CandidateCatalog
 from pg_extstats_advisor.models import Candidate, CandidateId, MechanismKind
 
-FORMAT_VERSION = 1
+FORMAT_VERSION = 2
+
+from enum import StrEnum
+
+
+class NativePayloadState(StrEnum):
+    PRESENT = "PRESENT"
+    ABSENT_NATIVE = "ABSENT_NATIVE"
 
 
 @dataclass(frozen=True, slots=True)
 class FrozenPayload:
     candidate: Candidate
-    blob_path: Path
-    payload: bytes
-    payload_sha256: str
+    blob_path: Path | None
+    payload: bytes | None
+    payload_sha256: str | None
+    state: NativePayloadState
     acquisition: tuple[tuple[str, Any], ...]
     relation_fingerprint: str
     interpretation: tuple[tuple[str, Any], ...]
@@ -61,7 +69,7 @@ class PayloadRepository:
             "candidates",
         }
         missing = required - manifest.keys()
-        if missing or manifest["format_version"] != FORMAT_VERSION:
+        if missing or manifest["format_version"] not in {1, FORMAT_VERSION}:
             raise ValueError(f"invalid repository manifest; missing={sorted(missing)}")
         payloads: list[FrozenPayload] = []
         seen: set[str] = set()
@@ -75,9 +83,7 @@ class PayloadRepository:
                 "definition",
                 "precedence_rank",
                 "backend_oid",
-                "payload_path",
-                "payload_size",
-                "payload_sha256",
+                "payload_path", "payload_size", "payload_sha256",
                 "relation_fingerprint",
                 "interpretation",
             }
@@ -88,14 +94,22 @@ class PayloadRepository:
             if candidate_id in seen:
                 raise ValueError(f"duplicate candidate ID: {candidate_id}")
             seen.add(candidate_id)
-            relative = Path(record["payload_path"])
-            if relative.is_absolute() or ".." in relative.parts:
-                raise ValueError("payload path must remain inside repository")
-            blob_path = root / relative
-            payload = blob_path.read_bytes()
-            digest = hashlib.sha256(payload).hexdigest()
-            if len(payload) != record["payload_size"] or digest != record["payload_sha256"]:
-                raise ValueError(f"payload integrity failure: {candidate_id}")
+            state = NativePayloadState(record.get("state", "PRESENT"))
+            if state is NativePayloadState.PRESENT:
+                if record["payload_path"] is None:
+                    raise ValueError(f"present payload has no path: {candidate_id}")
+                relative = Path(record["payload_path"])
+                if relative.is_absolute() or ".." in relative.parts:
+                    raise ValueError("payload path must remain inside repository")
+                blob_path = root / relative
+                payload = blob_path.read_bytes()
+                digest = hashlib.sha256(payload).hexdigest()
+                if not payload or len(payload) != record["payload_size"] or digest != record["payload_sha256"]:
+                    raise ValueError(f"payload integrity failure: {candidate_id}")
+            else:
+                if record["payload_path"] is not None or record["payload_size"] is not None or record["payload_sha256"] is not None:
+                    raise ValueError(f"absent-native payload contains bytes: {candidate_id}")
+                blob_path, payload, digest = None, None, None
             candidate = Candidate(
                 candidate_id=CandidateId(candidate_id),
                 relation_oid=int(record["relation_oid"]),
@@ -114,6 +128,7 @@ class PayloadRepository:
                     blob_path=blob_path,
                     payload=payload,
                     payload_sha256=digest,
+                    state=state,
                     acquisition=tuple(sorted(manifest["acquisition_provenance"].items())),
                     relation_fingerprint=str(record["relation_fingerprint"]),
                     interpretation=tuple(sorted(record["interpretation"].items())),

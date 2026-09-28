@@ -82,3 +82,11 @@ the hot path, which contains no `CREATE/DROP/UPDATE` or `ANALYZE`.
 - Registered candidates must retain catalog definitions; the overlay changes
   visibility and payloads but does not synthesize definition metadata.
 - Inherited-statistics payload interception is not implemented.
+## Native realization states
+
+The backend-local registry distinguishes `REGISTERED_PRESENT` (a validated
+native payload), `REGISTERED_ABSENT_NATIVE` (PostgreSQL produced SQL NULL for
+the requested mechanism), and `NOT_REGISTERED` (an error). An absent-native
+registration keeps the catalog definition visible and makes the mechanism
+loader return native-equivalent NULL; it is not implemented by hiding the
+definition or by fabricating empty bytes.
