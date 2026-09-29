@@ -160,8 +160,15 @@ def verify_production_capture_bundle(path: Path) -> dict[str, Any]:
     mode = _require(snapshot, "mode", "snapshot_consistency")
     if mode not in SNAPSHOT_MODES:
         raise BundleVerificationError("unsupported snapshot consistency mode")
-    if not isinstance(_require(snapshot, "components", "snapshot_consistency"), Mapping):
+    snapshot_components = _require(snapshot, "components", "snapshot_consistency")
+    if not isinstance(snapshot_components, Mapping):
         raise BundleVerificationError("snapshot component binding must be an object")
+    if (
+        mode == "strong_single_snapshot"
+        and snapshot_components
+        and len(set(map(str, snapshot_components.values()))) != 1
+    ):
+        raise BundleVerificationError("strong snapshot component references disagree")
     version = str(_require(environment, "postgres_version", "environment"))
     if not re.fullmatch(r"\d+\.\d+", version):
         raise BundleVerificationError("malformed PostgreSQL version")

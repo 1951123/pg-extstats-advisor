@@ -1,0 +1,20 @@
+{
+  "bundle": "/root/projects/pg-extstats-advisor/.build/production-captures/dmv-m2-29-v1",
+  "bundle_semantic_digest": "4b4da31a29c7f4dcf3fd130658e9d3e2e8c15f97feeaee8a3a911b7d7e11cefb",
+  "production_read_only": true,
+  "production_shutdown": {
+    "pg_isready_after_shutdown": true,
+    "stopped_at": "2026-09-29T15:43:26.648547+00:00"
+  },
+  "sample_rows": 30000,
+  "snapshot": "00000003-00000003-1",
+  "source_rows": 11591877,
+  "timing": {
+    "sample_source_rows_seen": 11591877,
+    "seed": 22929,
+    "truth_elapsed_seconds": 455.334505826002,
+    "truth_worker_count": 8
+  },
+  "transaction_snapshot": "757:757:",
+  "truth_query_count": 1965
+}

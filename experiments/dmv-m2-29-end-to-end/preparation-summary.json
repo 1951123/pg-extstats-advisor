@@ -1,0 +1,25 @@
+{
+  "baseline_objective": 87564.20552919351,
+  "baseline_vector_digest": "0e0ba721e90bbda602a900b61393b882d6c4a809b912d4880a2d3a2174cc6318",
+  "bundle_verification": {
+    "bundle_schema_version": "production-capture-bundle-v1",
+    "canonical_realization": true,
+    "capture_mode": "fixed_t_same_snapshot",
+    "effective_query_count": 1963,
+    "global_statistics_target": 100,
+    "production_version": "16.14",
+    "query_count": 1965,
+    "relation_ids": [
+      "public.dmv"
+    ],
+    "semantic_digest": "4b4da31a29c7f4dcf3fd130658e9d3e2e8c15f97feeaee8a3a911b7d7e11cefb",
+    "snapshot_mode": "strong_single_snapshot",
+    "target_override_status": "passed"
+  },
+  "candidate_catalog_digest": "0a37507fe6181a72a44c4df98afaa2694008c43f48287a89f3d4dbde54bc66a1",
+  "ordinary_statistics_digest": "c5c1b3f4c2c6b83e0769c770fc8775d6f649642e9db8470f891744b13412f7d7",
+  "repository_semantic_digest": "76299f63617f5739cde9d78d7b2fb151ba7db0acdaaaff987f0916297c001580",
+  "sample_rows": 30000,
+  "target": 100,
+  "workload_digest": "c2a09a1fa80748b3b67e3c6eae0418886d03d9b0a73cc5031e090996401f4aa1"
+}

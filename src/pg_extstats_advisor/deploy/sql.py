@@ -135,3 +135,15 @@ def build_search_deployment_plan(
         search_provenance=result.config.algorithm_version,
         validation_relations=validation_relations,
     )
+
+
+def build_rollback_statements(plan: DeploymentPlan) -> tuple[str, ...]:
+    """Drop only this plan's newly-created objects in reverse-safe order."""
+
+    statements = []
+    for candidate, name in reversed(tuple(zip(plan.ordered_candidates, plan.statistics_names, strict=True))):
+        schema = candidate.relation_name.split(".")[0] if "." in candidate.relation_name else "public"
+        statements.append(
+            f"DROP STATISTICS IF EXISTS {quote_identifier(schema)}.{quote_identifier(name)}"
+        )
+    return tuple(statements)
