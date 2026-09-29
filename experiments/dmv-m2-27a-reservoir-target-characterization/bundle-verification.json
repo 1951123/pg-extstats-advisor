@@ -1,0 +1,7 @@
+{
+  "bundle_schema_version": "production-capture-bundle-v2",
+  "native_analyze_equivalent": false,
+  "snapshot_identity": "796fc76a6ecf5403e1dccd4ab3200312b3b84583409b691c8b874d5b8a44c400",
+  "target_cells": 9,
+  "target_policy_digest": "36dd1e7831ba132630177cf472b3b36f38eca155a3ee789f36c1e3ae18e70f70"
+}

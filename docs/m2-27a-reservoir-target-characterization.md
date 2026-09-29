@@ -1,0 +1,36 @@
+# M2.27a: same-snapshot reservoir target characterization
+
+M2.27a introduces `production-capture-bundle-v2` without modifying the
+historical Bundle v1 contract.  Bundle v2 captures the DMV source population,
+metadata, exact positive-truth workload, and the target grid
+`[100, 300, 1000]` with independent deterministic realizations `A`, `B`, and
+`C` from one exported PostgreSQL 16.14 repeatable-read, read-only snapshot.
+The coordinator remains open until all workers complete; the bundle is sealed
+only after the same-snapshot evidence and all nine target/realization cells
+verify successfully.
+
+The capture role has only `SELECT` on `public.dmv` (plus its existing
+connection/schema privileges).  Relevant explicit column or extended-statistic
+targets fail closed; `-1` inherited/default targets and overrides on unrelated
+relations do not.  The target is a database/advisor-run-wide input supplied by
+the DBA before acquisition.  It is not a relation-local, candidate-level, or
+inner-search decision variable, and M2.27a does not implement target tuning.
+
+Each reservoir has capacity `300 * target`, as motivated by the PG16.14 source
+audit, but the manifest explicitly records `native_analyze_equivalent=false`.
+This is a production-compatible characterization mechanism, not a claim of
+native `ANALYZE` sampling fidelity or a production target recommendation.
+Realizations have target-aware, realization-aware deterministic seeds and
+distinct persisted artifact identities; `A` is canonical only for reporting.
+
+The ordinary-only sweep reconstructs ordinary `pg_statistic` state for the
+fixed 1,963-query positive-truth workload.  No extstats repository, active
+hypothetical design, advisor-created statistics object, or budget search is
+used.  Metrics report per-target objective mean, sample standard deviation,
+normalized range, coefficient of variation, and adjacent quality/stability
+marginals with explicit null denominators.
+
+The output is experimental characterization only.  It does not select a
+production target, establish native equivalence, establish a universal target,
+or evaluate extstats fidelity.  Native-vs-reservoir comparison is deferred to
+M2.27b; no M2.27b result is part of this repository state.

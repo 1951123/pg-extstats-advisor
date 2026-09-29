@@ -1,0 +1,21 @@
+{
+  "scope": [
+    "public.dmv"
+  ],
+  "column_targets": {
+    "record_type": -1,
+    "registration_class": -1,
+    "state": -1,
+    "county": -1,
+    "body_type": -1,
+    "fuel_type": -1,
+    "reg_valid_date": -1,
+    "color": -1,
+    "scofflaw_indicator": -1,
+    "suspension_indicator": -1,
+    "revocation_indicator": -1
+  },
+  "relevant_extended_statistics_count": 0,
+  "explicit_overrides": [],
+  "policy": "fail closed on attstattarget >= 0 or relevant stxstattarget >= 0; ignore unrelated relations"
+}

@@ -1,0 +1,25 @@
+{
+  "bundle_path": "/root/projects/pg-extstats-advisor/.build/production-captures/dmv-m2-27a-v2",
+  "bundle_schema_version": "production-capture-bundle-v2",
+  "effective_query_count": 1963,
+  "elapsed_seconds": 626.3875863010035,
+  "extstats_created": false,
+  "milestone": "M2.27a",
+  "native_analyze_equivalent": false,
+  "override_policy": "fail_closed_relevant_scope",
+  "raw_query_count": 1965,
+  "realizations": [
+    "A",
+    "B",
+    "C"
+  ],
+  "same_snapshot": true,
+  "search_started": false,
+  "source_population_rows": 11591877,
+  "status": "capture_complete",
+  "target_grid": [
+    100,
+    300,
+    1000
+  ]
+}

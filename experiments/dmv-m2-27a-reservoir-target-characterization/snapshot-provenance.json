@@ -1,0 +1,18 @@
+{
+  "components": {
+    "metadata": "796fc76a6ecf5403e1dccd4ab3200312b3b84583409b691c8b874d5b8a44c400",
+    "reservoir_grid": "796fc76a6ecf5403e1dccd4ab3200312b3b84583409b691c8b874d5b8a44c400",
+    "truth": "796fc76a6ecf5403e1dccd4ab3200312b3b84583409b691c8b874d5b8a44c400"
+  },
+  "coordinator": {
+    "committed_after_workers": true,
+    "exported": true,
+    "isolation": "repeatable_read",
+    "read_only": true,
+    "worker_count": 9
+  },
+  "exported_snapshot_token_sha256": "909a9a326c3f8acc0297748d42799d0dad193ac9927d52025dc6668473b59314",
+  "mode": "strong_single_snapshot",
+  "snapshot_identity": "796fc76a6ecf5403e1dccd4ab3200312b3b84583409b691c8b874d5b8a44c400",
+  "txid_snapshot": "757:757:"
+}

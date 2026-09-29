@@ -1,0 +1,18 @@
+{
+  "adjacent": {
+    "100->300": {
+      "capacity_multiplier": 3.0,
+      "denominator_policy": "null when denominator is zero",
+      "quality_gain": -0.0014953178532556284,
+      "stability_gain": 0.7457961788331361
+    },
+    "300->1000": {
+      "capacity_multiplier": 3.3333333333333335,
+      "denominator_policy": "null when denominator is zero",
+      "quality_gain": 0.3800311362019723,
+      "stability_gain": 0.8095140108802579
+    }
+  },
+  "stddev_definition": "sample",
+  "zero_denominator_policy": "null/status, never NaN"
+}

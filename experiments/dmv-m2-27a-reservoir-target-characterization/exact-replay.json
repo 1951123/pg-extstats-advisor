@@ -1,0 +1,52 @@
+{
+  "all_exact": true,
+  "canonical_realization": "A",
+  "cells": [
+    {
+      "all_exact": true,
+      "estimate_vector_digest": "9ee89ee0a0858060b87df369479d0dc53cddc47b6c726973f1498a3225efd76a",
+      "estimate_vector_exact": true,
+      "extstats_count": 0,
+      "fresh_backend": true,
+      "objective": 46.0582951676094,
+      "objective_exact": true,
+      "ordinary_statistics_digest": "311316695d768193f9f5a0273deb19084675eb5b83a7041d6db57d1f1436c5e7",
+      "ordinary_statistics_exact": true,
+      "q_error_vector_digest": "74be5aca4e22ca51ebb8aedd1c8839cb78da84882158f1fee2b2007ad98a8bbe",
+      "q_error_vector_exact": true,
+      "realization_id": "A",
+      "statistics_target": 100
+    },
+    {
+      "all_exact": true,
+      "estimate_vector_digest": "eaf3974cafcf634ad452ae49c207789b5cb7037b5c08e681b0ea782275128132",
+      "estimate_vector_exact": true,
+      "extstats_count": 0,
+      "fresh_backend": true,
+      "objective": 45.0937161018236,
+      "objective_exact": true,
+      "ordinary_statistics_digest": "a33b8b3d402d792dd0661707d6ecf36f88bff78e3945f72882c99e9674b2adea",
+      "ordinary_statistics_exact": true,
+      "q_error_vector_digest": "9698a50c368f223f56dc6ca6fe0e20f50b0db274a589cee18fad2cbe640e9b8f",
+      "q_error_vector_exact": true,
+      "realization_id": "A",
+      "statistics_target": 300
+    },
+    {
+      "all_exact": true,
+      "estimate_vector_digest": "4d874de06f1a1634b569dcc8f9f9f939f3f0f5fe9cb35b43d3aee9bbe44abf29",
+      "estimate_vector_exact": true,
+      "extstats_count": 0,
+      "fresh_backend": true,
+      "objective": 28.092103245636054,
+      "objective_exact": true,
+      "ordinary_statistics_digest": "6c878aa288db54fd1f2d0fdf25c9e7a14f9681de6e003c0c2a8d215dc20ddfd6",
+      "ordinary_statistics_exact": true,
+      "q_error_vector_digest": "cb9a8de37f073bfc0954dca6ec9932018731f81bf7918c58faaac0a9240dd379",
+      "q_error_vector_exact": true,
+      "realization_id": "A",
+      "statistics_target": 1000
+    }
+  ],
+  "fresh_backend": true
+}

@@ -1,0 +1,20 @@
+{
+  "allowed_targets": [
+    100,
+    300,
+    1000
+  ],
+  "canonical_realization_id": "A",
+  "realization_ids": [
+    "A",
+    "B",
+    "C"
+  ],
+  "replicas_per_target": 3,
+  "sample_capacity_policy": {
+    "kind": "target_times_multiplier",
+    "multiplier": 300,
+    "native_analyze_equivalent": false
+  },
+  "scope": "database/advisor_run"
+}

@@ -1,0 +1,12 @@
+{
+  "database": "pgextadv_m2_23_production",
+  "default_transaction_read_only": "on",
+  "denied_probe_policy": "read-only transaction plus has_* privilege checks; no mutation was accepted or committed",
+  "grant": "GRANT SELECT ON TABLE public.dmv TO pgextadv_m223_capture",
+  "insert_allowed": false,
+  "pg_read_all_data_member": false,
+  "role": "pgextadv_m223_capture",
+  "schema_create_allowed": false,
+  "select_allowed": true,
+  "truncate_allowed": false
+}
