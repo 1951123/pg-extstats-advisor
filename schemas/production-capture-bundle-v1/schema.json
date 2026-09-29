@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/1951123/pg-extstats-advisor/schemas/production-capture-bundle-v1/schema.json",
+  "title": "Production Capture Bundle v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "bundle_schema_version",
+    "sealed",
+    "semantic_digest",
+    "semantic_digest_algorithm",
+    "semantic_binding",
+    "production_identity",
+    "snapshot_consistency",
+    "components",
+    "relation_inventory",
+    "workload_identity",
+    "truth_identity",
+    "acquisition_identity",
+    "compatibility",
+    "capture_mode",
+    "created_timestamp",
+    "sensitivity"
+  ],
+  "properties": {
+    "bundle_schema_version": {"const": "production-capture-bundle-v1"},
+    "sealed": {"const": true},
+    "semantic_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "semantic_digest_algorithm": {"const": "sha256-canonical-json-v1"},
+    "semantic_binding": {"type": "object"},
+    "production_identity": {"type": "object"},
+    "snapshot_consistency": {"type": "object"},
+    "components": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "relation_inventory": {"type": "array", "minItems": 1},
+    "workload_identity": {"type": "object"},
+    "truth_identity": {"type": "object"},
+    "acquisition_identity": {"type": "object"},
+    "compatibility": {"type": "object"},
+    "capture_mode": {"type": "string"},
+    "created_timestamp": {"type": "string"},
+    "sensitivity": {"type": "object"}
+  }
+}

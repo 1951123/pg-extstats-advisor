@@ -1,0 +1,23 @@
+{
+  "milestone": "M2.24",
+  "status": "complete",
+  "baseline_commit": "9bed67f1296838e3ca1801f7ba4a06641eef0921",
+  "bundle_schema_version": "production-capture-bundle-v1",
+  "bundle_directory": ".build/production-captures/dmv-m2-24-v1",
+  "bundle_root_digest": "f503bf80d9f10d8c364a8ef4197117ed5214bfca8ab815afb54b9a67259c5e97",
+  "component_digests": {
+    "environment.json": "5b1ad89eb86954357fd2990387a605b20762f641f6e7c7a2811036e8574d6c3c",
+    "schema.json": "bbf3b6b38fa9f51588a3769aca9e9fc62b842d0f66c6f6bd408d700a91ae8dac",
+    "workload.json": "19227e48950b03cdd6bb7f5c015ee81e51524d042d0cfaec21bcbaaadaf6d982",
+    "truth.json": "b5a9b16b2016a17d87ef8a934e8f3b0309bc3cfd8a1720eb98723a34d85e53ae",
+    "acquisition/public.dmv/manifest.json": "868d46aa897fa1f8f27ceb3bcd4ab7a8fd87d68d22739b494a002e4462298c46"
+  },
+  "normalization": {"source": "M2.23 prototype capture", "repeat_root_equal": true, "repeat_component_digests_equal": true, "production_connection_used": false},
+  "snapshot": {"supported_modes": ["strong_single_snapshot", "best_effort_multi_snapshot"], "dmv_mode": "best_effort_multi_snapshot", "workload_external_to_snapshot": true},
+  "acquisition": {"relation_id": "public.dmv", "method_id": "deterministic_reservoir_v1", "method_version": 1, "serialization": "pgextstats_m223_length_prefixed_v1", "serialization_version": 1, "sample_rows": 30000, "source_population_rows": "11591877", "statistics_population_rows": "11591877", "semantic_digest": "b25f33ecaaec24f1a79de504c60010270944ade36c54170c0b34e249c2bd75b4", "binary_sha256": "80d2dd605099d2a53ddced5a30a325c4896d6258056277b842023cfb30e6207f", "production_compatible": true, "native_analyze_equivalent": false},
+  "reconstruction": {"production_stopped": true, "production_pg_isready": "no response", "full_relation_on_advisor": false, "advisor_rows": 30000, "sample_staging_rows": 30000, "ordinary_statistics_digest": "b833015894099758cf362d1436319388c83851e0eb067d3ce8561981bc277604", "repository_semantic_digest": "eb78679910b1a163c3219a00bf28c1a5ed849fe6e94b48ee97cf7d5a3dceff3f", "repository_runtime_digest": "761e5d1d2881045de3314e53366f97c45dc0aa9e6fa5850adcd6b64989490416", "realization_states": {"PRESENT": 70, "ABSENT_NATIVE": 2}, "baseline_objective": 88053.61940613187, "estimate_vector_digest": "6be99060002f3be7c49070e20ba57ecf520a5970f01f42053707dcf02bad1274", "formal_bundle_only": true, "search_started": false},
+  "comparison_to_m223": {"reference": "M2.23 semantic reconstruction result", "ordinary_statistics_digest_equal": true, "repository_semantic_digest_equal": true, "realization_state_counts_equal": true, "baseline_objective_equal": true, "estimate_vector_digest_equal": true, "all_exact": true},
+  "compatibility": {"production": "16.14", "advisor": "16.14", "policy": "exact_version", "pg17_rejected": true, "type_and_collation_gated": true, "sample_method_and_serialization_gated": true, "workload_analysis_gated": true},
+  "security": {"contains_sampled_production_values": true, "contains_full_base_table": false, "encrypted": false, "integrity_only": true},
+  "unresolved": ["stock sample fidelity vs native ANALYZE", "sample-size sufficiency", "production truth cost at scale", "strong snapshot ergonomics", "version portability beyond exact PG16.14", "multi-relation workload execution", "privacy/encryption", "live-production workload capture"]
+}
