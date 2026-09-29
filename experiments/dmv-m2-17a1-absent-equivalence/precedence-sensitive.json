@@ -1,0 +1,17 @@
+{
+  "fixture": "generic_m217a_t",
+  "query": "SELECT * FROM t WHERE a=1 AND b=1",
+  "active_order": ["ABSENT_NATIVE FD", "PRESENT MCV"],
+  "column_overlap": ["a", "b"],
+  "row_present_state": {
+    "absent_candidate_catalog_row": true,
+    "absent_payload": "SQL NULL",
+    "planner_rows": 50
+  },
+  "row_absent_state": {
+    "absent_candidate_catalog_row": false,
+    "planner_rows": 50
+  },
+  "exact_equal": true,
+  "purpose": "reverse active precedence while retaining the same mixed design"
+}

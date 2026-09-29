@@ -22,9 +22,12 @@ experiment environments.
 
 The frozen upstream archive SHA256 is
 `f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471`.
-The build recipe digest excludes its creation timestamp. The tracked patch changes
-PostgreSQL semantic support but is identical across correctness and timing work;
-the timing build itself remains release-like.
+The build recipe digest excludes its creation timestamp. It is a composite build-input
+identity over the upstream tarball, tracked patch, configure arguments, compiler
+identity, and CFLAGS (including effective PostgreSQL CFLAGS); the binary digest is
+recorded separately. The upstream and patch identities are also recorded as separate
+fields, so historical artifacts can distinguish source/patch changes from compiler
+or configuration changes. The current timing build remains release-like.
 
 ## Dataset rebuild discipline
 

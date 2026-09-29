@@ -1,0 +1,27 @@
+{
+  "old_digest": "543e2a3c97f6c17d9e1fc3c0fff9fb87a63d76794f6313b69fa8f103781e61a9",
+  "new_digest": "1a98dfcadbde518469c9c34f41311701de7d2aaa470e3fd210b74eb433284338",
+  "digest_algorithm": "sha256 of NUL-separated upstream_sha256, patch_sha256, configure_args, compiler path, compiler version, user CFLAGS, and effective pg_config CFLAGS",
+  "digest_excludes": ["created_at", "postgres_binary_sha256", "git_commit"],
+  "digest_includes_install_prefix_indirectly": true,
+  "old_patch_sha256": "aab7b323cf3b89179235ae3d0b40c9ce6a3f4009238b83b90da4f4e8a5d55b34",
+  "new_patch_sha256": "5f29ad6be1a1401fb877329a9fbd689c15a27a09910b6ca03928b6c5a1584a81",
+  "upstream_sha256_unchanged": true,
+  "settings_comparison": {
+    "compiler": {"old": "/usr/bin/gcc", "new": "/usr/bin/gcc", "same": true},
+    "compiler_version": {"old": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0", "new": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0", "same": true},
+    "configure_args": {"old": ["--prefix=/root/projects/pg-extstats-advisor/.build/postgresql-16.14-install", "--without-readline", "--without-zlib", "--without-icu"], "new": ["--prefix=/root/projects/pg-extstats-advisor/.build/postgresql-16.14-install", "--without-readline", "--without-zlib", "--without-icu"], "same": true},
+    "cflags": {"same": true},
+    "assertions": {"old": false, "new": false, "same": true},
+    "debug": {"old": false, "new": false, "same": true},
+    "llvm_jit": {"old": false, "new": false, "same": true},
+    "readline_zlib_icu": {"old": "disabled", "new": "disabled", "same": true}
+  },
+  "binary_sha256": {
+    "old": "2cebaee488d78d961150891062117e224b538f5c30c025a17fff827c24760d23",
+    "new": "7927156bca3cdccd04f19fa6f38d9723014ef31dc7baeaa981c444eaf1cc9725"
+  },
+  "explanation": "The build settings and upstream tarball were unchanged. The tracked patch changed, and patch_sha256 is intentionally one of the digest inputs; therefore the composite build-input digest changed. The binary digest changed because the patched source changed.",
+  "naming_assessment": "The field is a composite build-input identity rather than a pure configure-only recipe digest. This is now documented; historical field names and values are retained for compatibility.",
+  "schema_change": false
+}

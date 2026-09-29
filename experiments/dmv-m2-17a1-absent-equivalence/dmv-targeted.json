@@ -1,0 +1,33 @@
+{
+  "repository": "experiments/dmv-m2-15-singletons/prepared-run/repository",
+  "candidate_mcv": "cand_f94acad130c4ac5b3553",
+  "candidate_absent_fd": "cand_6b0e7e9b7d7eb883405b",
+  "candidate_mcv_attributes": ["record_type", "body_type"],
+  "candidate_absent_fd_attributes": ["record_type", "county"],
+  "column_overlap": ["record_type"],
+  "query": "SELECT * FROM public.dmv WHERE record_type IN ('VEH','TRL') AND county IN ('DUTCHESS','SARATOGA','ROCKLAND','ONEIDA','NIAGARA','OUT-OF-STATE','ULSTER','BROOME','SCHENECTADY','RENSSELAER','OSWEGO','ONTARIO','CHAUTAUQUA','JEFFERSON','ST LAWRENCE','WAYNE','PUTNAM','STEUBEN','CLINTON','CAYUGA','WARREN') AND body_type IN ('4DSD','PICK','2DSD','BOAT','LTRL','MCY','TRLR','VAN','CONV','ATV','SNOW','DUMP','BUS','H/TR') AND scofflaw_indicator='N' AND revocation_indicator='N'",
+  "query_truth": 1425737,
+  "row_present_state": {
+    "absent_catalog_row": true,
+    "absent_payload": "SQL NULL shell",
+    "planner_rows_absent_alone": 579549,
+    "planner_rows_mixed": 566175,
+    "precedence_reversed_planner_rows": 566175
+  },
+  "row_absent_state": {
+    "absent_catalog_row": false,
+    "planner_rows_absent_alone": 579549,
+    "planner_rows_mixed": 566175,
+    "precedence_reversed_planner_rows": 566175
+  },
+  "exact": {
+    "absent_alone": true,
+    "mixed": true,
+    "precedence_sensitive": true
+  },
+  "relation_row_count": 11591877,
+  "pg_statistic_ext_data_rows_after": 0,
+  "analyze_count_for_differential": 0,
+  "fixture_note": "The ABSENT_NATIVE state was frozen from the native-null repository entry; the row-present comparison used an isolated catalog shell with SQL NULL fields and was removed after the differential.",
+  "authoritativeness": "targeted semantic smoke only; not a DMV search or calibration rerun"
+}

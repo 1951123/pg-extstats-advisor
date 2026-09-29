@@ -25,6 +25,82 @@ CREATE TEMP TABLE expected(name text PRIMARY KEY, rows bigint);
 INSERT INTO expected VALUES
   ('physical_mcv', plan_rows('SELECT * FROM t WHERE a=1 AND b=1'));
 
+-- ABSENT_NATIVE alone: a native NULL field with a physical shell row is
+-- equivalent to the same definition with no pg_statistic_ext_data row.
+DELETE FROM pg_catalog.pg_statistic_ext_data
+WHERE stxoid=(SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata');
+INSERT INTO pg_catalog.pg_statistic_ext_data
+  (stxoid, stxdinherit, stxdndistinct, stxddependencies, stxdmcv, stxdexpr)
+VALUES ((SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata'),
+        false, NULL, NULL, NULL, NULL);
+SELECT pg_hypothetical_extstats_reset();
+SELECT pg_hypothetical_extstats_register_absent(
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata'),
+  't'::regclass::oid, 'f');
+SELECT pg_hypothetical_extstats_activate(ARRAY[
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata')]);
+INSERT INTO expected VALUES ('absent_alone_present_row', plan_rows(
+  'SELECT * FROM t WHERE a=1 AND b=1'));
+
+DELETE FROM pg_catalog.pg_statistic_ext_data
+WHERE stxoid=(SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata');
+SELECT pg_hypothetical_extstats_reset();
+SELECT pg_hypothetical_extstats_register_absent(
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata'),
+  't'::regclass::oid, 'f');
+SELECT pg_hypothetical_extstats_activate(ARRAY[
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata')]);
+INSERT INTO expected VALUES ('absent_alone_absent_row', plan_rows(
+  'SELECT * FROM t WHERE a=1 AND b=1'));
+
+DO $$ BEGIN
+  ASSERT (SELECT rows FROM expected WHERE name='absent_alone_present_row') =
+         (SELECT rows FROM expected WHERE name='absent_alone_absent_row');
+END $$;
+
+-- Same definitions, forward precedence, with only the ABSENT row toggled.
+SELECT pg_hypothetical_extstats_reset();
+SELECT pg_hypothetical_extstats_register(
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_mcv_nodata'),
+  't'::regclass::oid, 'm',
+  pg_mcv_list_send((SELECT stxdmcv FROM pg_statistic_ext_data
+                    WHERE stxoid=(SELECT oid FROM pg_statistic_ext WHERE stxname='st_mcv'))));
+SELECT pg_hypothetical_extstats_register_absent(
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata'),
+  't'::regclass::oid, 'f');
+SELECT pg_hypothetical_extstats_activate(ARRAY[
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_mcv_nodata'),
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata')]);
+INSERT INTO expected VALUES ('mixed_same_definition_absent_row', plan_rows(
+  'SELECT * FROM t WHERE a=1 AND b=1'));
+
+INSERT INTO pg_catalog.pg_statistic_ext_data
+  (stxoid, stxdinherit, stxdndistinct, stxddependencies, stxdmcv, stxdexpr)
+VALUES ((SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata'),
+        false, NULL, NULL, NULL, NULL);
+SELECT pg_hypothetical_extstats_reset();
+SELECT pg_hypothetical_extstats_register(
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_mcv_nodata'),
+  't'::regclass::oid, 'm',
+  pg_mcv_list_send((SELECT stxdmcv FROM pg_statistic_ext_data
+                    WHERE stxoid=(SELECT oid FROM pg_statistic_ext WHERE stxname='st_mcv'))));
+SELECT pg_hypothetical_extstats_register_absent(
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata'),
+  't'::regclass::oid, 'f');
+SELECT pg_hypothetical_extstats_activate(ARRAY[
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_mcv_nodata'),
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata')]);
+INSERT INTO expected VALUES ('mixed_same_definition_present_row', plan_rows(
+  'SELECT * FROM t WHERE a=1 AND b=1'));
+
+DO $$ BEGIN
+  ASSERT (SELECT rows FROM expected WHERE name='mixed_same_definition_absent_row') =
+         (SELECT rows FROM expected WHERE name='mixed_same_definition_present_row');
+END $$;
+
+DELETE FROM pg_catalog.pg_statistic_ext_data
+WHERE stxoid=(SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata');
+
 -- Physical data row present: PRESENT MCV plus ABSENT_NATIVE FD.
 SELECT pg_hypothetical_extstats_reset();
 SELECT pg_hypothetical_extstats_register(
@@ -59,6 +135,50 @@ DO $$ BEGIN
   ASSERT (SELECT rows FROM expected WHERE name='present_row') =
          (SELECT rows FROM expected WHERE name='absent_row');
 END $$;
+
+-- The same mixed design with reversed precedence remains row-equivalent.
+SELECT pg_hypothetical_extstats_reset();
+SELECT pg_hypothetical_extstats_register(
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_mcv_nodata'),
+  't'::regclass::oid, 'm',
+  pg_mcv_list_send((SELECT stxdmcv FROM pg_statistic_ext_data
+                    WHERE stxoid=(SELECT oid FROM pg_statistic_ext WHERE stxname='st_mcv'))));
+SELECT pg_hypothetical_extstats_register_absent(
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata'),
+  't'::regclass::oid, 'f');
+SELECT pg_hypothetical_extstats_activate(ARRAY[
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata'),
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_mcv_nodata')]);
+INSERT INTO expected VALUES ('precedence_absent_row', plan_rows(
+  'SELECT * FROM t WHERE a=1 AND b=1'));
+
+-- Add the native NULL FD shell row and compare the same reversed order.
+INSERT INTO pg_catalog.pg_statistic_ext_data
+  (stxoid, stxdinherit, stxdndistinct, stxddependencies, stxdmcv, stxdexpr)
+VALUES ((SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata'),
+        false, NULL, NULL, NULL, NULL);
+SELECT pg_hypothetical_extstats_reset();
+SELECT pg_hypothetical_extstats_register(
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_mcv_nodata'),
+  't'::regclass::oid, 'm',
+  pg_mcv_list_send((SELECT stxdmcv FROM pg_statistic_ext_data
+                    WHERE stxoid=(SELECT oid FROM pg_statistic_ext WHERE stxname='st_mcv'))));
+SELECT pg_hypothetical_extstats_register_absent(
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata'),
+  't'::regclass::oid, 'f');
+SELECT pg_hypothetical_extstats_activate(ARRAY[
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata'),
+  (SELECT oid FROM pg_statistic_ext WHERE stxname='st_mcv_nodata')]);
+INSERT INTO expected VALUES ('precedence_present_row', plan_rows(
+  'SELECT * FROM t WHERE a=1 AND b=1'));
+
+DO $$ BEGIN
+  ASSERT (SELECT rows FROM expected WHERE name='precedence_absent_row') =
+         (SELECT rows FROM expected WHERE name='precedence_present_row');
+END $$;
+
+DELETE FROM pg_catalog.pg_statistic_ext_data
+WHERE stxoid=(SELECT oid FROM pg_statistic_ext WHERE stxname='st_fd_nodata');
 
 -- Definition-only, unregistered statistics remain ignored exactly upstream.
 SELECT pg_hypothetical_extstats_reset();

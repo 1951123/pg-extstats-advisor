@@ -1,0 +1,16 @@
+{
+  "milestone": "M2.17a.1",
+  "scope": "ABSENT_NATIVE row-presence equivalence and build-recipe digest audit",
+  "baseline_head": "f650a51582d1a3d8fe3470a8490e176319691e75",
+  "origin_main_before": "f650a51582d1a3d8fe3470a8490e176319691e75",
+  "patch_modified": false,
+  "patch_sha256": "5f29ad6be1a1401fb877329a9fbd689c15a27a09910b6ca03928b6c5a1584a81",
+  "search_started": false,
+  "screening_started": false,
+  "m3_started": false,
+  "reacquisition_started": false,
+  "dmv_analyze_for_differential": false,
+  "generic_regression": "tests/integration/run_m217a_data_row_independence.sh",
+  "dmv_repository": "experiments/dmv-m2-15-singletons/prepared-run/repository",
+  "dmv_candidate_count": 72
+}

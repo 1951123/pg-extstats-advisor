@@ -1,0 +1,23 @@
+{
+  "fixture": "generic_m217a_t",
+  "query": "SELECT * FROM t WHERE a=1 AND b=1",
+  "mechanism": "FD",
+  "same_definition": "st_fd_nodata",
+  "row_present": {
+    "definition": "st_fd_nodata",
+    "registry": "ABSENT_NATIVE",
+    "physical_row": true,
+    "stxddependencies": "SQL NULL",
+    "statistic_ext_info_enumerated": false,
+    "planner_rows": 50
+  },
+  "row_absent": {
+    "definition": "st_fd_nodata",
+    "registry": "ABSENT_NATIVE",
+    "physical_row": false,
+    "statistic_ext_info_enumerated": false,
+    "planner_rows": 50
+  },
+  "exact_equal": true,
+  "analyze_count_differential": 0
+}

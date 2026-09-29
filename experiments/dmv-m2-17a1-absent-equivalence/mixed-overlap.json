@@ -1,0 +1,27 @@
+{
+  "fixture": "generic_m217a_t",
+  "query": "SELECT * FROM t WHERE a=1 AND b=1",
+  "present_candidate": {
+    "definition": "st_mcv_nodata",
+    "mechanism": "MCV",
+    "registry": "PRESENT",
+    "payload_source": "native stxdmcv from st_mcv"
+  },
+  "absent_candidate": {
+    "definition": "st_fd_nodata",
+    "mechanism": "FD",
+    "registry": "ABSENT_NATIVE",
+    "payload": "native SQL NULL"
+  },
+  "column_overlap": ["a", "b"],
+  "same_definitions_between_states": true,
+  "row_present_state": {
+    "physical_absent_candidate_row": true,
+    "planner_rows": 50
+  },
+  "row_absent_state": {
+    "physical_absent_candidate_row": false,
+    "planner_rows": 50
+  },
+  "exact_equal": true
+}
