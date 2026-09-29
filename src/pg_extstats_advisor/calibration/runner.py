@@ -23,6 +23,7 @@ from pg_extstats_advisor.calibration.design import (
     CalibrationCandidate,
     CalibrationConfiguration,
     candidate_pool,
+    candidate_pool_from_catalog,
     configuration_design,
 )
 from pg_extstats_advisor.calibration.fit import (
@@ -53,7 +54,7 @@ def _relation_metadata(connection: Connection[Any], relation: str) -> dict[str, 
     row = connection.execute(
         """
         SELECT c.oid, n.nspname, c.relname, c.reltuples::double precision,
-               c.relpages, c.relfilenode, pg_total_relation_size(c.oid),
+               c.relpages, c.relfilenode, c.relpersistence, pg_total_relation_size(c.oid),
                current_database(), current_setting('server_version'),
                current_setting('default_statistics_target')
         FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
@@ -84,7 +85,7 @@ def _relation_metadata(connection: Connection[Any], relation: str) -> dict[str, 
                    sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
     physical = hashlib.sha256(
-        json.dumps({"oid": row[0], "relfilenode": row[5], "bytes": row[6]},
+        json.dumps({"oid": row[0], "relfilenode": row[5], "bytes": row[7]},
                    sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
     return {
@@ -93,10 +94,11 @@ def _relation_metadata(connection: Connection[Any], relation: str) -> dict[str, 
         "reltuples": row[3],
         "relpages": row[4],
         "relfilenode": row[5],
-        "total_relation_bytes": row[6],
-        "database": row[7],
-        "postgres_version": row[8],
-        "default_statistics_target": int(row[9]),
+        "relation_persistence": row[6],
+        "total_relation_bytes": row[7],
+        "database": row[8],
+        "postgres_version": row[9],
+        "default_statistics_target": int(row[10]),
         "row_count": count,
         "columns": schema,
         "logical_fingerprint": logical,
@@ -178,6 +180,34 @@ def _candidate_dict(candidate: CalibrationCandidate) -> dict[str, Any]:
     return asdict(candidate)
 
 
+def _dataset_provenance(config: CalibrationConfig, metadata: dict[str, Any]) -> dict[str, Any] | None:
+    if config.dataset_provenance_path is None:
+        return None
+    artifact = json.loads(config.dataset_provenance_path.read_text())
+    if artifact.get("relation") != metadata["relation"]:
+        raise ValueError("dataset provenance relation mismatch")
+    if int(artifact.get("row_count")) != int(metadata["row_count"]):
+        raise ValueError("dataset provenance row-count mismatch")
+    if artifact.get("relation_persistence") != metadata["relation_persistence"]:
+        raise ValueError("dataset provenance persistence mismatch")
+    expected_columns = [
+        {
+            "attnum": int(item["attnum"]),
+            "name": str(item["name"]),
+            "not_null": bool(item["not_null"]),
+            "type": str(item["type"]),
+        }
+        for item in metadata["columns"]
+    ]
+    if artifact.get("ordered_column_schema") != expected_columns:
+        raise ValueError("dataset provenance schema mismatch")
+    source_path = artifact.get("source_path")
+    source_sha = artifact.get("source_sha256")
+    if source_path and source_sha and hashlib.sha256(Path(source_path).read_bytes()).hexdigest() != source_sha:
+        raise ValueError("dataset source SHA256 mismatch")
+    return artifact
+
+
 def _verify_authoritative_environment(
     config: CalibrationConfig, connection: Connection[Any]
 ) -> dict[str, Any] | None:
@@ -215,12 +245,20 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
     existing = _existing_statistics(connection, int(metadata["oid"]))
     if existing:
         raise ValueError(f"calibration relation already has extended statistics: {existing}")
+    dataset_provenance = _dataset_provenance(config, metadata)
     available_columns = tuple(item["name"] for item in metadata["columns"])
     columns = config.columns or available_columns
     unknown = set(columns) - set(available_columns)
     if unknown:
         raise ValueError(f"unknown calibration columns: {sorted(unknown)}")
-    pool = candidate_pool(columns)
+    pool = (
+        candidate_pool_from_catalog(config.candidate_catalog_path)
+        if config.candidate_catalog_path is not None
+        else candidate_pool(columns)
+    )
+    pool_mechanisms = {item.mechanism for item in pool}
+    if pool_mechanisms != {"mcv", "fd"}:
+        raise ValueError("calibration candidate pool must contain both mcv and fd")
     configurations = configuration_design(
         pool, config.count_levels, config.subsets_per_count, config.seed
     )
@@ -248,7 +286,12 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
                 "is_warmup": True,
                 "order_index": order_index,
             })
-            for repetition in range(1, config.repetitions + 1):
+            repetitions = (
+                config.stability_repetitions
+                if configuration.role == "stability" and config.stability_repetitions is not None
+                else config.repetitions
+            )
+            for repetition in range(1, repetitions + 1):
                 started = time.perf_counter()
                 connection.execute(analyze)
                 rows.append({
@@ -260,10 +303,22 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
     finally:
         _drop_owned(connection, schema)
 
+    metadata_after = _relation_metadata(connection, config.relation)
+    if metadata_after["logical_fingerprint"] != metadata["logical_fingerprint"]:
+        raise RuntimeError("relation logical fingerprint changed during calibration")
+    if metadata_after["relation_persistence"] != metadata["relation_persistence"]:
+        raise RuntimeError("relation persistence changed during calibration")
+    if metadata_after["default_statistics_target"] != metadata["default_statistics_target"]:
+        raise RuntimeError("default statistics target changed during calibration")
+    remaining = _existing_statistics(connection, int(metadata["oid"]))
+    if remaining:
+        raise RuntimeError(f"calibration statistics remain after cleanup: {remaining}")
+
     with (root / "raw-timings.csv").open("w", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
+    (root / "measurements.csv").write_bytes((root / "raw-timings.csv").read_bytes())
     measured = [row for row in rows if not row["is_warmup"]]
     by_configuration: dict[str, list[float]] = {}
     for row in measured:
@@ -284,9 +339,10 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
             **_summary(by_configuration[configuration_id]),
         })
     with (root / "configuration-summary.csv").open("w", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(summaries[0]))
+        writer = csv.DictWriter(stream, fieldnames=list(summaries[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(summaries)
+    (root / "configurations.csv").write_bytes((root / "configuration-summary.csv").read_bytes())
     timing_rows = tuple(
         TimingRow(
             str(row["configuration_id"]),
@@ -321,17 +377,20 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
     max_cv = max(item["cv"] for item in summaries)
     max_heldout = max((item["relative_error"] for item in heldout), default=math.inf)
     subset_group_cvs = []
-    for kind in ("mcv-only", "fd-only"):
-        counts = sorted({item["n_mcv"] or item["n_fd"] for item in summaries if item["configuration_kind"] == kind})
+    for kind in ("mcv-only", "fd-only", "mixed-stability"):
+        counts = sorted({
+            (item["n_mcv"] + item["n_fd"] if kind == "mixed-stability" else item["n_mcv"] or item["n_fd"])
+            for item in summaries if item["configuration_kind"] == kind
+        })
         for count in counts:
             means = [
                 item["mean_seconds"] for item in summaries
                 if item["configuration_kind"] == kind
-                and (item["n_mcv"] or item["n_fd"]) == count
+                and (item["n_mcv"] + item["n_fd"] if kind == "mixed-stability" else item["n_mcv"] or item["n_fd"]) == count
             ]
             if len(means) > 1:
                 subset_group_cvs.append({
-                    "mechanism": "mcv" if kind == "mcv-only" else "fd",
+                    "mechanism": "mcv" if kind == "mcv-only" else "fd" if kind == "fd-only" else "mixed",
                     "count": count,
                     "subset_count": len(means),
                     "mean_seconds": statistics.fmean(means),
@@ -385,6 +444,8 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
         "relation_identity": metadata["relation"],
         "relation_logical_fingerprint": metadata["logical_fingerprint"],
         "relation_physical_fingerprint": metadata["physical_fingerprint"],
+        "relation_persistence": metadata["relation_persistence"],
+        "total_relation_bytes": metadata["total_relation_bytes"],
         "row_count": metadata["row_count"],
         "reltuples": metadata["reltuples"],
         "column_schema": metadata["columns"],
@@ -393,7 +454,16 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
         "mechanisms": ["mcv", "fd"],
         "mcv_candidate_pool_size": len(pool) // 2,
         "fd_candidate_pool_size": len(pool) // 2,
+        "candidate_catalog_path": (
+            str(config.candidate_catalog_path) if config.candidate_catalog_path else None
+        ),
+        "candidate_catalog_digest": (
+            json.loads(config.candidate_catalog_path.read_text()).get("digest")
+            if config.candidate_catalog_path else None
+        ),
+        "dataset_provenance": dataset_provenance,
         "repetitions": config.repetitions,
+        "stability_repetitions": config.stability_repetitions,
         "seed": config.seed,
         "timing_clock": "time.perf_counter",
         "cache_policy": "long-lived server; no cache flush; one untimed warmup per configuration",
@@ -422,9 +492,16 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
         "ddl_included": False,
         "warmup_count": 1,
         "measured_repetitions": config.repetitions,
+        "stability_repetitions": config.stability_repetitions,
         "execution_order": "deterministic seeded configuration shuffle",
         "seed": config.seed,
         "gates": asdict(config.gates),
+        "benchmark": config.benchmark,
+        "candidate_catalog_digest": provenance["candidate_catalog_digest"],
+        "configuration_count": len(configurations),
+        "fit_configuration_count": sum(item.role == "fit" for item in configurations),
+        "heldout_configuration_count": sum(item.role == "held-out" for item in configurations),
+        "stability_configuration_count": sum(item.role == "stability" for item in configurations),
     })
     _write_json(root / "candidate-pool.json", {"candidate_arity": 2, "candidates": [_candidate_dict(item) for item in pool]})
     _write_json(root / "configurations.json", {
@@ -445,6 +522,7 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
     _write_json(root / "fit.json", fit_dict)
     _write_json(root / "heldout.json", {"configurations": heldout})
     accepted = all(bool(item["passed"]) for item in gates.values())
+    gate_failures = [name for name, item in gates.items() if not item["passed"]]
     report = {
         "format_version": 1,
         "status": "accepted" if accepted else "rejected",
@@ -457,27 +535,29 @@ def run_calibration(config: CalibrationConfig, connection: Connection[Any]) -> d
             "authoritative" if accepted and build_provenance else
             "rejected-authoritative-environment" if build_provenance else "diagnostic"
         ),
+        "gate_failures": gate_failures,
         "completed_at": datetime.now(UTC).isoformat(),
     }
     _write_json(root / "calibration-report.json", report)
-    if accepted:
-        model = {
-            "format_version": 1,
-            "model_type": MODEL_TYPE,
-            "model_version": f"cal-{config.digest[:16]}",
-            "unit": MODEL_UNIT,
-            "statistics_target": config.statistics_target,
-            "candidate_arity": 2,
-            "parameters": {
-                "mcv_ms_per_object": str(fit.mcv_seconds_per_object * 1000),
-                "fd_ms_per_object": str(fit.fd_seconds_per_object * 1000),
-            },
-            "fit": fit_dict,
-            "stability": stability,
-            "calibration_provenance": provenance,
-        }
-        model["digest"] = artifact_digest(model)
-        _write_json(root / "maintenance-model.json", model)
-        report["maintenance_model_digest"] = model["digest"]
-        _write_json(root / "calibration-report.json", report)
+    model = {
+        "format_version": 1,
+        "model_type": MODEL_TYPE,
+        "status": "accepted" if accepted else "rejected",
+        "model_version": f"cal-{config.digest[:16]}",
+        "unit": MODEL_UNIT,
+        "statistics_target": config.statistics_target,
+        "candidate_arity": 2,
+        "parameters": {
+            "mcv_ms_per_object": str(fit.mcv_seconds_per_object * 1000),
+            "fd_ms_per_object": str(fit.fd_seconds_per_object * 1000),
+        },
+        "fit": fit_dict,
+        "stability": stability,
+        "acceptance_gates": gates,
+        "calibration_provenance": provenance,
+    }
+    model["digest"] = artifact_digest(model)
+    _write_json(root / "maintenance-model.json", model)
+    report["maintenance_model_digest"] = model["digest"]
+    _write_json(root / "calibration-report.json", report)
     return report

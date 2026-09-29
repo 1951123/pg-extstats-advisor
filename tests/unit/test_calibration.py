@@ -5,7 +5,11 @@ from pathlib import Path
 import pytest
 
 from pg_extstats_advisor.calibration.config import CalibrationConfig
-from pg_extstats_advisor.calibration.design import candidate_pool, configuration_design
+from pg_extstats_advisor.calibration.design import (
+    candidate_pool,
+    candidate_pool_from_catalog,
+    configuration_design,
+)
 from pg_extstats_advisor.calibration.fit import TimingRow, assess_gates, fit_aggregate
 from pg_extstats_advisor.calibration.runner import _verify_authoritative_environment
 from pg_extstats_advisor.cost.empirical import EmpiricalMechanismCountCostModel, artifact_digest
@@ -23,6 +27,29 @@ def test_configuration_generation_is_deterministic_and_counted() -> None:
         (0, 0), (2, 0), (0, 2), (5, 0), (0, 5), (10, 0), (0, 10)
     ]
     assert all(item.n_mcv and item.n_fd for item in configurations if item.role == "held-out")
+
+
+def test_catalog_driven_pool_preserves_candidate_identity(tmp_path: Path) -> None:
+    path = tmp_path / "candidates.json"
+    path.write_text(json.dumps({
+        "digest": "catalog",
+        "candidates": [
+            {"candidate_id": "cand-fd", "mechanism": "fd", "attributes": ["b", "c"], "precedence_rank": 1},
+            {"candidate_id": "cand-mcv", "mechanism": "mcv", "attributes": ["a", "b"], "precedence_rank": 0},
+        ],
+    }))
+    pool = candidate_pool_from_catalog(path)
+    assert [item.candidate_id for item in pool] == ["cand-mcv", "cand-fd"]
+    assert all(item.object_name.startswith("pgextadv_cal_") for item in pool)
+
+
+def test_mixed_stability_configurations_are_deterministic() -> None:
+    pool = candidate_pool(("a", "b", "c", "d", "e"))
+    configurations = configuration_design(pool, (2, 5), subsets_per_count=3, seed=9)
+    stability = [item for item in configurations if item.role == "stability"]
+    assert len(stability) == 3
+    assert [(item.n_mcv, item.n_fd) for item in stability] == [(5, 5)] * 3
+    assert configurations == configuration_design(pool, (2, 5), subsets_per_count=3, seed=9)
 
 
 def test_exact_and_noisy_aggregate_ols() -> None:
@@ -98,6 +125,22 @@ def test_negative_slope_is_visible_for_rejection() -> None:
     assert not gates["within_configuration_cv"]["passed"]
     assert not gates["heldout_max_relative_error"]["passed"]
     assert not gates["nonnegative_slopes"]["passed"]
+
+
+def test_rejected_empirical_artifact_cannot_be_loaded() -> None:
+    raw = {
+        "format_version": 1,
+        "model_type": "empirical-mechanism-count-v1",
+        "status": "rejected",
+        "model_version": "v",
+        "unit": "milliseconds-per-analyze",
+        "statistics_target": 100,
+        "candidate_arity": 2,
+        "parameters": {"mcv_ms_per_object": "1", "fd_ms_per_object": "2"},
+    }
+    raw["digest"] = artifact_digest(raw)
+    with pytest.raises(ValueError, match="not accepted"):
+        EmpiricalMechanismCountCostModel.from_artifact(raw)
 
 
 class _VersionConnection:

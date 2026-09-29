@@ -76,6 +76,8 @@ class EmpiricalMechanismCountCostModel(MaintenanceCostModel):
     def from_artifact(cls, raw: dict[str, Any]) -> EmpiricalMechanismCountCostModel:
         if raw.get("format_version") != 1 or raw.get("model_type") != MODEL_TYPE:
             raise ValueError("unsupported empirical maintenance model artifact")
+        if raw.get("status", "accepted") != "accepted":
+            raise ValueError("maintenance model artifact is not accepted")
         if raw.get("unit") != MODEL_UNIT:
             raise ValueError("empirical maintenance model unit must be milliseconds-per-analyze")
         expected = artifact_digest(raw)

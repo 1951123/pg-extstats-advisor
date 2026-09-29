@@ -37,6 +37,10 @@ class CalibrationConfig:
     expected_build_recipe_digest: str | None = None
     postgres_binary_path: Path | None = None
     environment_description: str | None = None
+    candidate_catalog_path: Path | None = None
+    benchmark: str | None = None
+    dataset_provenance_path: Path | None = None
+    stability_repetitions: int | None = None
 
     @property
     def digest(self) -> str:
@@ -72,6 +76,14 @@ class CalibrationConfig:
                     str(self.postgres_binary_path) if self.postgres_binary_path else None
                 ),
                 "environment_description": self.environment_description,
+                "candidate_catalog_path": (
+                    str(self.candidate_catalog_path) if self.candidate_catalog_path else None
+                ),
+                "benchmark": self.benchmark,
+                "dataset_provenance_path": (
+                    str(self.dataset_provenance_path) if self.dataset_provenance_path else None
+                ),
+                "stability_repetitions": self.stability_repetitions,
             },
             sort_keys=True,
             separators=(",", ":"),
@@ -122,6 +134,11 @@ class CalibrationConfig:
             raise ValueError("subsets_per_count must be positive")
         build_path = raw.get("build_provenance_path")
         binary_path = raw.get("postgres_binary_path")
+        catalog_path = raw.get("candidate_catalog_path")
+        dataset_path = raw.get("dataset_provenance_path")
+        stability_repetitions = raw.get("stability_repetitions")
+        if stability_repetitions is not None and int(stability_repetitions) < 2:
+            raise ValueError("stability_repetitions must be at least two")
         return cls(
             1,
             dsn,
@@ -139,4 +156,8 @@ class CalibrationConfig:
             raw.get("expected_build_recipe_digest"),
             Path(binary_path) if binary_path else None,
             raw.get("environment_description"),
+            Path(catalog_path) if catalog_path else None,
+            raw.get("benchmark"),
+            Path(dataset_path) if dataset_path else None,
+            int(stability_repetitions) if stability_repetitions is not None else None,
         )

@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import hashlib
 import itertools
+import json
 import random
 from dataclasses import dataclass
+from pathlib import Path
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,6 +52,39 @@ def candidate_pool(columns: tuple[str, ...]) -> tuple[CalibrationCandidate, ...]
     return tuple(result)
 
 
+def candidate_pool_from_catalog(path: Path) -> tuple[CalibrationCandidate, ...]:
+    """Build a calibration pool from a frozen advisor candidate catalog."""
+
+    raw = json.loads(path.read_text())
+    candidates = raw.get("candidates")
+    if not isinstance(candidates, list) or not candidates:
+        raise ValueError("candidate catalog must contain a non-empty candidates list")
+    result: list[CalibrationCandidate] = []
+    seen: set[str] = set()
+    for item in sorted(
+        candidates,
+        key=lambda value: (int(value["precedence_rank"]), str(value["candidate_id"])),
+    ):
+        candidate_id = str(item["candidate_id"])
+        mechanism = str(item["mechanism"])
+        attributes = tuple(str(value) for value in item["attributes"])
+        if candidate_id in seen:
+            raise ValueError(f"duplicate candidate ID in catalog: {candidate_id}")
+        if mechanism not in {"mcv", "fd"} or len(attributes) != 2:
+            raise ValueError("calibration catalog must contain arity-two mcv/fd candidates")
+        seen.add(candidate_id)
+        digest = hashlib.sha256(candidate_id.encode()).hexdigest()[:16]
+        result.append(
+            CalibrationCandidate(
+                candidate_id,
+                f"pgextadv_cal_{digest}",
+                mechanism,
+                (attributes[0], attributes[1]),
+            )
+        )
+    return tuple(result)
+
+
 def configuration_design(
     pool: tuple[CalibrationCandidate, ...],
     count_levels: tuple[int, ...] = (),
@@ -91,7 +126,14 @@ def configuration_design(
             ))
     small, large = levels[0], levels[-1]
     middle = levels[len(levels) // 2]
-    mixed = ((small, small), (middle, large), (large, middle), (large, large))
+    mixed = (
+        (small, small),
+        (small, middle),
+        (middle, small),
+        (middle, large),
+        (large, middle),
+        (large, large),
+    )
     for n_mcv, n_fd in tuple(dict.fromkeys(mixed)):
         configurations.append(
             CalibrationConfiguration(
@@ -103,4 +145,21 @@ def configuration_design(
                 "heldout",
             )
         )
+    if subsets_per_count > 1:
+        for subset_index in range(subsets_per_count):
+            mcv_order = list(mcv)
+            fd_order = list(fd)
+            if subset_index:
+                random.Random(f"{seed}|mixed|{middle}|{subset_index}").shuffle(mcv_order)
+                random.Random(f"{seed}|mixed-fd|{middle}|{subset_index}").shuffle(fd_order)
+            configurations.append(
+                CalibrationConfiguration(
+                    f"mixed-stability-{middle}-{subset_index}",
+                    "mixed-stability",
+                    "stability",
+                    tuple(mcv_order[:middle]),
+                    tuple(fd_order[:middle]),
+                    f"s{subset_index}",
+                )
+            )
     return tuple(configurations)
