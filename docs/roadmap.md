@@ -228,6 +228,23 @@ the local design and no foreign design beat its local design. The result is
 multiple near-equivalent designs with highly portable workload quality, not a
 unique sample-independent candidate set.
 
+## M2.21 Census frozen-sample authoritative rerun — complete
+
+The canonical 2,458,285-row Census relation was sampled once natively on the
+source-built PostgreSQL 16.14 environment, and the 30,000-row binary sample was
+persisted with semantic and serialization checksums. Three replay builds
+matched ordinary statistics, all 4,506 payload realization states, the baseline
+estimate vector, and the baseline objective exactly. The complete singleton
+profile was repeated semantically, then the bounded raw top-five-percent screen
+retained exactly 226 candidates for the existing screened ADD-only search.
+
+Two deterministic search runs selected 112 candidates and matched exactly at
+`add-local-optimum`; two same-sample physical validations matched all selected
+payloads, all 468 estimates, and all 468 q-errors. This is now the authoritative
+frozen-sample Census CE/search lineage. It intentionally does not claim a full
+4,506-candidate search, fresh-sample robustness, a universal screening policy,
+or M3 plan/runtime evidence. Historical Census artifacts remain preserved.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,

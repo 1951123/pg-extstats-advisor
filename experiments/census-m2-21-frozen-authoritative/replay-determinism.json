@@ -1,0 +1,8 @@
+{
+  "baseline_objective_exact": true,
+  "baseline_vector_exact": true,
+  "exact_gate": true,
+  "ordinary_statistics_exact": true,
+  "repository_semantic_exact": true,
+  "sample_digest_unchanged": true
+}

@@ -1,0 +1,437 @@
+{
+  "build_input_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+  "captured_at": "2026-09-29T06:22:45.620131+00:00",
+  "dataset_id": "census-pg16.14-v1",
+  "format_version": 1,
+  "ordered_column_schema": [
+    {
+      "attnum": 1,
+      "name": "caseid",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 2,
+      "name": "dage",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 3,
+      "name": "dancstry1",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 4,
+      "name": "dancstry2",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 5,
+      "name": "iavail",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 6,
+      "name": "icitizen",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 7,
+      "name": "iclass",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 8,
+      "name": "ddepart",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 9,
+      "name": "idisabl1",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 10,
+      "name": "idisabl2",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 11,
+      "name": "ienglish",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 12,
+      "name": "ifeb55",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 13,
+      "name": "ifertil",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 14,
+      "name": "dhispanic",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 15,
+      "name": "dhour89",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 16,
+      "name": "dhours",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 17,
+      "name": "iimmigr",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 18,
+      "name": "dincome1",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 19,
+      "name": "dincome2",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 20,
+      "name": "dincome3",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 21,
+      "name": "dincome4",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 22,
+      "name": "dincome5",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 23,
+      "name": "dincome6",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 24,
+      "name": "dincome7",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 25,
+      "name": "dincome8",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 26,
+      "name": "dindustry",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 27,
+      "name": "ikorean",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 28,
+      "name": "ilang1",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 29,
+      "name": "ilooking",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 30,
+      "name": "imarital",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 31,
+      "name": "imay75880",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 32,
+      "name": "imeans",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 33,
+      "name": "imilitary",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 34,
+      "name": "imobility",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 35,
+      "name": "imobillim",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 36,
+      "name": "doccup",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 37,
+      "name": "iothrserv",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 38,
+      "name": "iperscare",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 39,
+      "name": "dpob",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 40,
+      "name": "dpoverty",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 41,
+      "name": "dpwgt1",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 42,
+      "name": "iragechld",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 43,
+      "name": "drearning",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 44,
+      "name": "irelat1",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 45,
+      "name": "irelat2",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 46,
+      "name": "iremplpar",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 47,
+      "name": "iriders",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 48,
+      "name": "irlabor",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 49,
+      "name": "irownchld",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 50,
+      "name": "drpincome",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 51,
+      "name": "irpob",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 52,
+      "name": "irrelchld",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 53,
+      "name": "irspouse",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 54,
+      "name": "irvetserv",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 55,
+      "name": "ischool",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 56,
+      "name": "isept80",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 57,
+      "name": "isex",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 58,
+      "name": "isubfam1",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 59,
+      "name": "isubfam2",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 60,
+      "name": "itmpabsnt",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 61,
+      "name": "dtravtime",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 62,
+      "name": "ivietnam",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 63,
+      "name": "dweek89",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 64,
+      "name": "iwork89",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 65,
+      "name": "iworklwk",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 66,
+      "name": "iwwii",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 67,
+      "name": "iyearsch",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 68,
+      "name": "iyearwrk",
+      "not_null": false,
+      "type": "integer"
+    },
+    {
+      "attnum": 69,
+      "name": "dyrsserv",
+      "not_null": false,
+      "type": "integer"
+    }
+  ],
+  "patch_sha256": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",
+  "postgres_version": "16.14",
+  "row_count": 30000,
+  "sample_file": "sample.copy.bin",
+  "sample_file_sha256": "84de07e3f60cb539bf75f7a8829501cdaee75d502063e61fa1850921268e20c6",
+  "sample_relation": "public.pgextadv_census_frozen_sample",
+  "sampling_algorithm": "PostgreSQL 16.14 native block sampler + Vitter reservoir; rows sorted by physical TID",
+  "schema_signature": "f6785ab2df1c169b897cdea4b8c5ba4990d75a5964d5db116ece9578a5a38e77",
+  "semantic_sha256": "1cb881fa32920c1edc9473117ceacffe5f10f946204d8eb726066fb7b14649a9",
+  "source_csv_sha256": "3be576490f4dc1cae9fc6c04a23f27633b0b09fac00bd3d0a63d011958252e33",
+  "source_relation_row_count": 2458285,
+  "statistics_target": 100,
+  "target_relation": "public.climate",
+  "totalrows_used_by_builder": 2458288.0,
+  "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471"
+}

@@ -1,0 +1,9 @@
+{
+  "exact": true,
+  "profile_digest_run1": "bc9543ba1b32dd265b2c7f8a4414f421eb5940aafde957fb6312d89c757cc757",
+  "profile_digest_run2": "d5c7ab7c3eab42ae13a734a6a50ab96d5600aef3595d3532d3abb9963751acf1",
+  "run1_seconds": 26.41510224317608,
+  "run2_seconds": 23.69637792598951,
+  "semantic_profile_digest_run1": "d9d6e8ef95bff5bb6d4459c919ed52479b1b5db99ebafd1892874eb18ce6d3b9",
+  "semantic_profile_digest_run2": "d9d6e8ef95bff5bb6d4459c919ed52479b1b5db99ebafd1892874eb18ce6d3b9"
+}

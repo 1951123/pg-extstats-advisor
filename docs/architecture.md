@@ -43,11 +43,26 @@ sample. An authoritative experiment must either replay a persisted, checksummed
 sample or explicitly declare a separately versioned acquisition campaign before
 its evaluator or search results are treated as authoritative.
 
+The Census M2.21 authoritative lineage is the persisted sample in
+`datasets/census-frozen-acquisition-sample-v1/`, with semantic digest
+`1cb881fa32920c1edc9473117ceacffe5f10f946204d8eb726066fb7b14649a9` and binary
+SHA256 `84de07e3f60cb539bf75f7a8829501cdaee75d502063e61fa1850921268e20c6`.
+The corresponding replay, singleton, screened-search, and same-sample physical
+validation artifacts are versioned under
+`experiments/census-m2-21-frozen-authoritative/`. Earlier Census artifacts are
+historical comparisons, not inputs to this exact-continuation lineage.
+
 For a fixed persisted acquisition sample, hypothetical extended-statistics
 replay must be planner-equivalent to physical deployment of statistics derived
 from that same sample. This is a conditional mechanism-realization invariant;
 it does not establish robustness across fresh samples or validate a maintenance
 cost model.
+
+M2.21's two physical-validation repeats satisfy this invariant for the selected
+112-candidate screened design and 468-query workload. The result remains a
+same-sample semantic-fidelity check: it neither promotes the top-five-percent
+screen to a general policy nor substitutes for a complete 4,506-candidate
+optimization.
 
 ### 3. Incrementality ends at query granularity
 

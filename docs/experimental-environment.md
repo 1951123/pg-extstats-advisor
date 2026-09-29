@@ -58,3 +58,13 @@ use another environment only when marked non-authoritative.
 Authoritative CE experiments may not depend on an unpersisted `ANALYZE` sample.
 They must replay a persisted, checksummed acquisition sample or declare a new
 versioned acquisition campaign with its own lineage before results are accepted.
+
+For the Census M2.21 campaign, the native 30,000-row acquisition sample is
+persisted under `datasets/census-frozen-acquisition-sample-v1/` and all replay,
+singleton, search, and physical-validation stages consume that sample. During
+the initial capture preflight, the pre-existing Census database was repaired by
+registering the already compiled backend-local
+`pg_hypothetical_extstats_register_absent` internal function. This was a
+database-local registration repair only: no PostgreSQL source, tracked patch,
+binary, build input, candidate catalog, or CE semantics changed. The repair is
+recorded in the M2.21 protocol and lineage manifests.

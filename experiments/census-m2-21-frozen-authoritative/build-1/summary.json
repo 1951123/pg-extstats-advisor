@@ -1,0 +1,28 @@
+{
+  "baseline_estimate_vector_digest": "3752f91098d2375b464395ec9ac6f78323113ddf8aa2d1e5a372f64af940b192",
+  "baseline_objective": 5577.425518330484,
+  "build_id": "build-1-replay",
+  "elapsed_seconds": 12.232676958999946,
+  "mode": "replay",
+  "ordinary_statistics_digest": "c96595463fa8d242a6fc491391b0179e9682aff3f6574702ea96e17dcf571233",
+  "realization_state_counts": {
+    "ABSENT_NATIVE": 1105,
+    "PRESENT": 3401
+  },
+  "repository_raw_digest": "9b22fffe658f21ce2f76164d4a2cf162395466ce720958eeedb412f752b19b4f",
+  "repository_semantic_digest": "7e42ba7dbeb9a0a3a2539b1d6e72ab3fa04c5db31e931a6bca3485181bf6df85",
+  "sample": {
+    "captured_at": "2026-09-29T06:22:45.620131+00:00",
+    "row_count": 30000,
+    "sample_file_sha256": "84de07e3f60cb539bf75f7a8829501cdaee75d502063e61fa1850921268e20c6",
+    "sample_relation": "public.pgextadv_census_frozen_sample",
+    "sampling_algorithm": "PostgreSQL 16.14 native block sampler + Vitter reservoir; rows sorted by physical TID",
+    "semantic_sha256": "1cb881fa32920c1edc9473117ceacffe5f10f946204d8eb726066fb7b14649a9",
+    "serialization": "PostgreSQL COPY FORMAT binary",
+    "source_relation_row_count": 2458285,
+    "statistics_target": 100,
+    "target_relation": "public.climate",
+    "totalrows_used_by_builder": 2458288.0
+  },
+  "statistics_ext_count": 4506
+}

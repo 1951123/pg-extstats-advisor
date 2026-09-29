@@ -1,0 +1,12 @@
+{
+  "historical_positive_zero_negative": {
+    "negative": 1358,
+    "positive": 1571,
+    "zero": 1577
+  },
+  "spearman": 0.9534544847380317,
+  "status": "historical-exploratory-comparison",
+  "top100_overlap": 97,
+  "top200_overlap": 193,
+  "top50_overlap": 48
+}

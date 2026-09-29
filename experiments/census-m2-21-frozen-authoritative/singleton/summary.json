@@ -1,0 +1,70 @@
+{
+  "acquisition_sample_digest": "1cb881fa32920c1edc9473117ceacffe5f10f946204d8eb726066fb7b14649a9",
+  "artifact_type": "census-frozen-sample-singleton-summary",
+  "baseline_objective": 5577.425518330484,
+  "candidate_count": 4506,
+  "distribution": {
+    "ABSENT_NATIVE": {
+      "negative": 0,
+      "positive": 0,
+      "zero": 1105
+    },
+    "PRESENT": {
+      "negative": 1379,
+      "positive": 1560,
+      "zero": 462
+    },
+    "all": {
+      "negative": 1379,
+      "positive": 1560,
+      "zero": 1567
+    },
+    "fd": {
+      "negative": 268,
+      "positive": 471,
+      "zero": 1514
+    },
+    "mcv": {
+      "negative": 1111,
+      "positive": 1089,
+      "zero": 53
+    }
+  },
+  "format_version": 1,
+  "positive_utility_concentration": {
+    "top_10pct": {
+      "candidate_count": 156,
+      "utility_share": 0.9669896813799349
+    },
+    "top_1pct": {
+      "candidate_count": 16,
+      "utility_share": 0.8499499488793975
+    },
+    "top_20pct": {
+      "candidate_count": 312,
+      "utility_share": 0.987067795715035
+    },
+    "top_50pct": {
+      "candidate_count": 780,
+      "utility_share": 0.9990465293000413
+    },
+    "top_5pct": {
+      "candidate_count": 78,
+      "utility_share": 0.944351716290649
+    }
+  },
+  "ranking_semantics": [
+    "descending singleton improvement",
+    "ascending maintenance cost",
+    "ascending candidate precedence",
+    "ascending candidate ID"
+  ],
+  "realization_counts": {
+    "ABSENT_NATIVE": 1105,
+    "PRESENT": 3401
+  },
+  "repository_digest": "9b22fffe658f21ce2f76164d4a2cf162395466ce720958eeedb412f752b19b4f",
+  "repository_semantic_digest": "7e42ba7dbeb9a0a3a2539b1d6e72ab3fa04c5db31e931a6bca3485181bf6df85",
+  "semantic_profile_digest": "d9d6e8ef95bff5bb6d4459c919ed52479b1b5db99ebafd1892874eb18ce6d3b9",
+  "singleton_profile_digest": "bc9543ba1b32dd265b2c7f8a4414f421eb5940aafde957fb6312d89c757cc757"
+}
