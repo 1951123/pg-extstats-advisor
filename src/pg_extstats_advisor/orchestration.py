@@ -430,8 +430,6 @@ def execute_search_stage(
         candidate_set_digest = artifact["digest"]
         singleton_profile_digest = artifact.get("singleton_profile_digest")
         _write(root / "search" / "candidate-set.json", artifact)
-    elif search_mode != "full":
-        raise ValueError("add-only search can use the full catalog or an explicit candidate set")
     if budget_mode == "candidate-set-total":
         ordered = visible_catalog.normalize_design(
             {item.candidate_id for item in visible_catalog.candidates}
