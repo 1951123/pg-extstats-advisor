@@ -1,0 +1,8 @@
+{
+  "inactive_overlay": true,
+  "definition_only_unregistered_rows": 0,
+  "unregistered_definition_estimate": 1,
+  "registered_without_activation_unchanged": true,
+  "unregistered_activation_error_preserved": true,
+  "ordinary_semantics_preserved": true
+}

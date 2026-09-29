@@ -56,6 +56,7 @@ Four volatile built-ins exist solely as the narrow M0 control boundary:
 
 - `pg_hypothetical_extstats_reset()`
 - `pg_hypothetical_extstats_register(oid, oid, "char", bytea)`
+- `pg_hypothetical_extstats_register_absent(oid, oid, "char")`
 - `pg_hypothetical_extstats_activate(oid[])`
 - `pg_hypothetical_extstats_active()`
 
@@ -90,3 +91,15 @@ the requested mechanism), and `NOT_REGISTERED` (an error). An absent-native
 registration keeps the catalog definition visible and makes the mechanism
 loader return native-equivalent NULL; it is not implemented by hiding the
 definition or by fabricating empty bytes.
+
+## Definition/data-row independence
+
+For an active hypothetical PRESENT payload, replay requires the
+`pg_statistic_ext` definition and the backend-local registration, but not a
+`pg_statistic_ext_data` row. The planner patch synthesizes the same
+`StatisticExtInfo` metadata only for that registered PRESENT kind, after which
+the existing native loader consumes the frozen bytes. A definition-only
+`ABSENT_NATIVE` realization remains unbuilt, matching PostgreSQL's native
+no-payload behavior and avoiding a NULL dereference in upstream estimators.
+When the hypothetical overlay is inactive, a definition without a data row is
+still ignored exactly as in unmodified PostgreSQL.

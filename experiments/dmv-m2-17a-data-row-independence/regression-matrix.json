@@ -1,0 +1,13 @@
+{
+  "present_row_present": {"planner_rows": 50, "pass": true},
+  "present_row_absent": {"planner_rows": 50, "pass": true},
+  "absent_native_row_present": {"planner_rows": 50, "pass": true},
+  "absent_native_row_absent": {"planner_rows": 50, "pass": true},
+  "mixed_present_mcv_absent_fd": {"planner_rows": 50, "pass": true},
+  "definition_only_unregistered": {"planner_rows": 1, "upstream_ignored": true, "pass": true},
+  "inactive_registration_negative_control": {"physical_rows": 50, "unchanged": true, "pass": true},
+  "unregistered_activation": {"error_fragment": "unregistered statistics object", "pass": true},
+  "exact_row_presence_equality": true,
+  "catalog_data_rows_in_definition_only_cases": 0,
+  "source_test": "tests/integration/m217a_data_row_independence.sql"
+}

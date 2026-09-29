@@ -1,0 +1,7 @@
+{
+  "realization": "PRESENT",
+  "physical_definition": true,
+  "physical_data_row": false,
+  "planner_rows": 50,
+  "test": "same MCV payload plus ABSENT_NATIVE FD"
+}

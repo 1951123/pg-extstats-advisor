@@ -1,0 +1,24 @@
+{
+  "repository_digest": "17d95816ff1fce59c96b92569a41864b1b4a4e35e5e440ff863ad93493605914",
+  "candidate_count": 72,
+  "mcv_count": 36,
+  "fd_count": 36,
+  "definitions_created": 72,
+  "pg_statistic_ext_data_rows": 0,
+  "analyze_count": 0,
+  "reacquisition": false,
+  "relation_row_count": 11591877,
+  "checks": [
+    {"candidate_id": "cand_f94acad130c4ac5b3553", "mechanism": "mcv", "realization": "PRESENT", "objective": 21594.254467790062, "no_crash": true},
+    {"candidate_id": "cand_a06f9852e67c463f73a2", "mechanism": "fd", "realization": "PRESENT", "objective": 42033.609128743046, "no_crash": true},
+    {"candidate_id": "cand_6b0e7e9b7d7eb883405b", "mechanism": "fd", "realization": "ABSENT_NATIVE", "objective": 42117.57223288991, "no_crash": true}
+  ],
+  "empty_objective_observed": 42117.57223288991,
+  "known_m2_15_objectives": {
+    "empty": 41384.005431775244,
+    "cand_f94acad130c4ac5b3553": 21534.755283574697,
+    "cand_a06f9852e67c463f73a2": 41308.25519712589,
+    "cand_6b0e7e9b7d7eb883405b": 41384.005431775244
+  },
+  "status": "semantic_smoke_no_crash; numeric comparison not authoritative because no-ANALYZE disposable relation statistics state differs from M2.15 acquisition state"
+}

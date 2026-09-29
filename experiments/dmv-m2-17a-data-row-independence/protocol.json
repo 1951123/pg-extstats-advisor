@@ -1,0 +1,19 @@
+{
+  "milestone": "M2.17a",
+  "scope": "hypothetical extstats data-row independence hardening",
+  "search_started": false,
+  "analyze_started": false,
+  "reacquisition_started": false,
+  "origin_main_before": "0bfc1eaf847f4b60e34cc18d258a7e00c2940976",
+  "local_unpublished_commits_before": ["8a54113", "602f166", "1c4beb8"],
+  "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",
+  "old_patch_sha256": "aab7b323cf3b89179235ae3d0b40c9ce6a3f4009238b83b90da4f4e8a5d55b34",
+  "new_patch_sha256": "5f29ad6be1a1401fb877329a9fbd689c15a27a09910b6ca03928b6c5a1584a81",
+  "build_recipe_digest": "1a98dfcadbde518469c9c34f41311701de7d2aaa470e3fd210b74eb433284338",
+  "dmv_repository_digest": "17d95816ff1fce59c96b92569a41864b1b4a4e35e5e440ff863ad93493605914",
+  "dmv_candidate_catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+  "dmv_incidence_digest": "ff320b0c6c54397ce361f4f83a625f9df34c05e5fa0423282d4169dbe2090d71",
+  "dmv_effective_workload_digest": "e790933cfc4f0f42d92807170b76cec080621c5b463dab83e23474a0a51151d8",
+  "generic_regression": "tests/integration/run_m217a_data_row_independence.sh",
+  "sql_api_regression": "tests/integration/run_m0_postgres_overlay.sh"
+}

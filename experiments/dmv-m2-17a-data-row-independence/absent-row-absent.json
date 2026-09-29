@@ -1,0 +1,7 @@
+{
+  "realization": "ABSENT_NATIVE",
+  "physical_definition": true,
+  "physical_data_row": false,
+  "planner_rows": 50,
+  "test": "definition-only FD remains unbuilt"
+}

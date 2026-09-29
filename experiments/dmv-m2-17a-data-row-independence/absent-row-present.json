@@ -1,0 +1,7 @@
+{
+  "realization": "ABSENT_NATIVE",
+  "physical_definition": true,
+  "physical_data_row": true,
+  "planner_rows": 50,
+  "test": "FD requested field SQL NULL"
+}
