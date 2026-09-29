@@ -8,7 +8,7 @@ from typing import Any
 from psycopg import Connection
 from psycopg.rows import tuple_row
 
-from pg_extstats_advisor.models import Design, QueryId, WorkloadQuery
+from pg_extstats_advisor.models import CandidateId, Design, QueryId, WorkloadQuery
 from pg_extstats_advisor.payloads.repository import NativePayloadState, PayloadRepository
 from pg_extstats_advisor.postgres.extraction import extract_target_estimate
 
@@ -22,6 +22,7 @@ class PostgresAdapter:
         self.planner_called_query_ids: list[QueryId] = []
         self.planner_calls_total = 0
         self.activation_calls = 0
+        self._resolved_backend_oids: dict[CandidateId, int] = {}
         with self.connection.cursor(row_factory=tuple_row) as cursor:
             cursor.execute("SHOW server_version")
             self.postgres_version = str(cursor.fetchone()[0])
@@ -40,6 +41,25 @@ class PostgresAdapter:
                 "SELECT stxrelid, stxkind FROM pg_statistic_ext WHERE oid=%s",
                 (candidate.backend_oid,),
             ).fetchone()
+            resolved_oid = candidate.backend_oid
+            if row is None:
+                definition = dict(candidate.definition)
+                statistics_name = definition.get("statistics_name")
+                if not statistics_name:
+                    raise ValueError(
+                        f"missing catalog definition for {candidate.candidate_id}"
+                    )
+                schema, _ = candidate.relation_name.split(".", 1)
+                row_with_oid = self.connection.execute(
+                    "SELECT e.oid, e.stxrelid, e.stxkind "
+                    "FROM pg_statistic_ext e JOIN pg_namespace n "
+                    "ON n.oid=e.stxnamespace "
+                    "WHERE n.nspname=%s AND e.stxname=%s",
+                    (schema, statistics_name),
+                ).fetchone()
+                if row_with_oid is not None:
+                    resolved_oid, relid, kinds = row_with_oid
+                    row = (relid, kinds)
             if row is None:
                 raise ValueError(f"missing catalog definition for {candidate.candidate_id}")
             relid, kinds = row
@@ -47,16 +67,17 @@ class PostgresAdapter:
                 raise ValueError(f"relation mismatch for {candidate.candidate_id}")
             if candidate.mechanism.postgres_code not in kinds:
                 raise ValueError(f"mechanism kind mismatch for {candidate.candidate_id}")
+            self._resolved_backend_oids[candidate.candidate_id] = int(resolved_oid)
             if frozen.state is NativePayloadState.PRESENT:
                 self.connection.execute(
                     "SELECT pg_hypothetical_extstats_register(%s,%s,%s,%s)",
-                    (candidate.backend_oid, candidate.relation_oid,
+                    (resolved_oid, candidate.relation_oid,
                      candidate.mechanism.postgres_code, frozen.payload),
                 )
             elif frozen.state is NativePayloadState.ABSENT_NATIVE:
                 self.connection.execute(
                     "SELECT pg_hypothetical_extstats_register_absent(%s::oid,%s::oid,%s::\"char\")",
-                    (candidate.backend_oid, candidate.relation_oid,
+                    (resolved_oid, candidate.relation_oid,
                      candidate.mechanism.postgres_code),
                 )
             else:
@@ -69,11 +90,11 @@ class PostgresAdapter:
             raise RuntimeError("payload repository is not registered")
         by_id = self.repository.by_candidate
         try:
-            oids = [by_id[item].candidate.backend_oid for item in design.candidate_ids]
+            oids = [self._resolved_backend_oids[item] for item in design.candidate_ids]
         except KeyError as error:
-            raise ValueError(
-                f"design references missing payload candidate {error.args[0]}"
-            ) from error
+            if error.args[0] in by_id:
+                raise ValueError(f"candidate was not registered: {error.args[0]}") from error
+            raise ValueError(f"design references missing payload candidate {error.args[0]}") from error
         self.connection.execute("SELECT pg_hypothetical_extstats_activate(%s::oid[])", (oids,))
         active = self.connection.execute("SELECT pg_hypothetical_extstats_active()").fetchone()[0]
         if list(active) != oids:
