@@ -74,11 +74,13 @@
   "replay_contract": "backend-local frozen sample relation; no sampling from target relation",
   "row_count": 30000,
   "sample_file": "sample.copy.bin",
-  "sample_file_sha256": "09fa0baedb3f4a152a9e372fb3e916d2bac0f1bbdb1701d32d0c2f835606010c",
+  "sample_file_sha256": "c3b30ddfebf118cb9137bae122e2913e19e88d0cbee14b2c93e980c7693cf463",
   "sample_relation": "public.pgextadv_frozen_sample",
   "sampling_algorithm": "PostgreSQL 16.14 native block sampler + Vitter reservoir; rows sorted by physical TID",
-  "semantic_sha256": "6f0f127ff6484ac8c20d5057b5704c68978b1f60cfffd922cea966225527dac4",
+  "semantic_sha256": "59dc8dbe007a81cbd10a11894ff8abf9b4a8f0cac11523221dbd63e34dd4ca7f",
+  "source_relation_row_count": 11591877,
   "statistics_target": 100,
   "target_relation": "public.dmv",
+  "totalrows_used_by_builder": 11687702.0,
   "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471"
 }
