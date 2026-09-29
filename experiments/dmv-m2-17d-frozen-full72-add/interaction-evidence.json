@@ -1,0 +1,218 @@
+{
+  "absent_native_histories": [
+    {
+      "attributes": [
+        "record_type",
+        "county"
+      ],
+      "candidate_id": "cand_6b0e7e9b7d7eb883405b",
+      "mechanism": "fd",
+      "native_evaluated_in_search": true,
+      "positive_contextual_effect": false,
+      "selected": false,
+      "singleton_improvement": 0.0,
+      "singleton_objective": 42791.986480127205,
+      "singleton_rank": 40
+    },
+    {
+      "attributes": [
+        "scofflaw_indicator",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_86d407b8a724ee28f443",
+      "mechanism": "fd",
+      "native_evaluated_in_search": true,
+      "positive_contextual_effect": false,
+      "selected": false,
+      "singleton_improvement": 0.0,
+      "singleton_objective": 42791.986480127205,
+      "singleton_rank": 41
+    }
+  ],
+  "accepted_singleton_rank": {
+    "max": 71,
+    "median": 34,
+    "min": 1,
+    "p90": 65.0
+  },
+  "accepted_singleton_signs": {
+    "negative": 12,
+    "positive": 19
+  },
+  "mechanism_progression": {
+    "10": {
+      "fd": 3,
+      "mcv": 7
+    },
+    "20": {
+      "fd": 12,
+      "mcv": 8
+    },
+    "31": {
+      "fd": 23,
+      "mcv": 8
+    },
+    "5": {
+      "fd": 1,
+      "mcv": 4
+    }
+  },
+  "nonpositive_singleton_contextual_rescues": [
+    {
+      "accepted_round": 2,
+      "affected_query_count": 465,
+      "after_objective": 22269.58386526901,
+      "before_objective": 22407.372654482235,
+      "candidate_id": "cand_c6f83d66ce3d1e079f11",
+      "contextual_improvement": 137.78878921322394,
+      "cost_after": "8.30315765703890",
+      "frozen_singleton_improvement": -7501.583693618428,
+      "frozen_singleton_rank": 71,
+      "mechanism": "mcv",
+      "realization_state": "PRESENT"
+    },
+    {
+      "accepted_round": 3,
+      "affected_query_count": 474,
+      "after_objective": 22148.20844958736,
+      "before_objective": 22269.58386526901,
+      "candidate_id": "cand_1f420ce5268e234e658c",
+      "contextual_improvement": 121.37541568165034,
+      "cost_after": "12.45473648555835",
+      "frozen_singleton_improvement": -84.77559369633673,
+      "frozen_singleton_rank": 62,
+      "mechanism": "mcv",
+      "realization_state": "PRESENT"
+    },
+    {
+      "accepted_round": 4,
+      "affected_query_count": 514,
+      "after_objective": 22087.909991844725,
+      "before_objective": 22148.20844958736,
+      "candidate_id": "cand_6ca6020979af5e5766a4",
+      "contextual_improvement": 60.29845774263595,
+      "cost_after": "16.60631531407780",
+      "frozen_singleton_improvement": -476.8862785355668,
+      "frozen_singleton_rank": 67,
+      "mechanism": "mcv",
+      "realization_state": "PRESENT"
+    },
+    {
+      "accepted_round": 7,
+      "affected_query_count": 503,
+      "after_objective": 22021.332367417035,
+      "before_objective": 22038.481973189948,
+      "candidate_id": "cand_850ffdf5fc1ceee3e08d",
+      "contextual_improvement": 17.149605772912764,
+      "cost_after": "33.123951632016654",
+      "frozen_singleton_improvement": -1018.7062588807312,
+      "frozen_singleton_rank": 69,
+      "mechanism": "fd",
+      "realization_state": "PRESENT"
+    },
+    {
+      "accepted_round": 12,
+      "affected_query_count": 474,
+      "after_objective": 22015.15930475521,
+      "before_objective": 22016.606663571114,
+      "candidate_id": "cand_cfb64b0bf69c059cd760",
+      "contextual_improvement": 1.447358815905318,
+      "cost_after": "57.944745606994408",
+      "frozen_singleton_improvement": -118.95554357945366,
+      "frozen_singleton_rank": 65,
+      "mechanism": "fd",
+      "realization_state": "PRESENT"
+    },
+    {
+      "accepted_round": 13,
+      "affected_query_count": 498,
+      "after_objective": 22014.904195792384,
+      "before_objective": 22015.15930475521,
+      "candidate_id": "cand_9e3965b9e6ab7faacc4e",
+      "contextual_improvement": 0.2551089628250338,
+      "cost_after": "64.127774351704110",
+      "frozen_singleton_improvement": -9.363792696749442,
+      "frozen_singleton_rank": 52,
+      "mechanism": "fd",
+      "realization_state": "PRESENT"
+    },
+    {
+      "accepted_round": 15,
+      "affected_query_count": 516,
+      "after_objective": 22014.466573335045,
+      "before_objective": 22014.661242379378,
+      "candidate_id": "cand_2bea04f8b2c85ff2a4e0",
+      "contextual_improvement": 0.1946690443328407,
+      "cost_after": "76.493831841123514",
+      "frozen_singleton_improvement": -29.3646895803613,
+      "frozen_singleton_rank": 58,
+      "mechanism": "fd",
+      "realization_state": "PRESENT"
+    },
+    {
+      "accepted_round": 16,
+      "affected_query_count": 506,
+      "after_objective": 22014.341461124513,
+      "before_objective": 22014.466573335045,
+      "candidate_id": "cand_dd4fa07161dcf5def8eb",
+      "contextual_improvement": 0.12511221053136978,
+      "cost_after": "82.676860585833216",
+      "frozen_singleton_improvement": -8.53048349024175,
+      "frozen_singleton_rank": 51,
+      "mechanism": "fd",
+      "realization_state": "PRESENT"
+    },
+    {
+      "accepted_round": 17,
+      "affected_query_count": 528,
+      "after_objective": 22014.226474514657,
+      "before_objective": 22014.341461124513,
+      "candidate_id": "cand_b6cafc68143c6fa37e85",
+      "contextual_improvement": 0.1149866098567145,
+      "cost_after": "88.859889330542918",
+      "frozen_singleton_improvement": -7.1683843449136475,
+      "frozen_singleton_rank": 50,
+      "mechanism": "fd",
+      "realization_state": "PRESENT"
+    },
+    {
+      "accepted_round": 19,
+      "affected_query_count": 544,
+      "after_objective": 22014.116191986606,
+      "before_objective": 22014.149902004152,
+      "candidate_id": "cand_f002ec4adfff3911240b",
+      "contextual_improvement": 0.0337100175456726,
+      "cost_after": "101.225946819962322",
+      "frozen_singleton_improvement": -9.992377083661268,
+      "frozen_singleton_rank": 53,
+      "mechanism": "fd",
+      "realization_state": "PRESENT"
+    },
+    {
+      "accepted_round": 22,
+      "affected_query_count": 501,
+      "after_objective": 22014.07973501306,
+      "before_objective": 22014.088615687175,
+      "candidate_id": "cand_d102d0d6903dbc44935f",
+      "contextual_improvement": 0.008880674115061993,
+      "cost_after": "119.775033054091428",
+      "frozen_singleton_improvement": -0.288257565771346,
+      "frozen_singleton_rank": 46,
+      "mechanism": "fd",
+      "realization_state": "PRESENT"
+    },
+    {
+      "accepted_round": 26,
+      "affected_query_count": 471,
+      "after_objective": 22014.06478322878,
+      "before_objective": 22014.066703241977,
+      "candidate_id": "cand_e95bcd15c94c80f62716",
+      "contextual_improvement": 0.001920013197377557,
+      "cost_after": "144.507148032930236",
+      "frozen_singleton_improvement": -0.18546641190187074,
+      "frozen_singleton_rank": 44,
+      "mechanism": "fd",
+      "realization_state": "PRESENT"
+    }
+  ]
+}

@@ -173,6 +173,24 @@ historical M2.15 profile is retained only for descriptive comparison and is not
 used as search input. The next bounded step is the unscreened full-catalog
 ADD-only feasibility run.
 
+## M2.17d DMV frozen-sample full-72 ADD-only search — complete
+
+The complete 72-candidate DMV universe was searched from the frozen-sample
+empty design with the exact full-catalog-total M2.16 maintenance budget,
+deterministic best-improvement ADD-only semantics, and M2.8 lower-bound
+pruning. The run reached an add-local-optimum after 32 rounds and 226.178
+seconds, selecting 31 candidates (8 MCV and 23 FD) at objective
+`22014.061316846422`; a fresh-backend repeat matched the full semantic search
+trajectory exactly. The frozen sample, repository, workload, and truth remain
+unchanged, and cleanup left no experiment statistics or data rows. DMV's
+authoritative CE lineage is now the persisted frozen acquisition sample; its
+development search profile uses the full candidate universe and ADD-only
+search, without candidate screening.
+
+Earlier DMV experiments without persisted sample lineage remain historical
+evidence only and are not exact-continuation inputs. M2.16 remains accepted for
+its separate production-style native-ANALYZE maintenance question.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,

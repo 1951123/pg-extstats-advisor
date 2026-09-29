@@ -1,0 +1,26 @@
+{
+  "database": "pgextadv_exp16_dmv",
+  "dsn_socket": "/root/projects/pg-extstats-advisor/.build/pg16.14-experiment-socket",
+  "frozen_build_summary": "/root/projects/pg-extstats-advisor/experiments/dmv-m2-17b-frozen-acquisition-sample/build-1/summary.json",
+  "git_head": "9a8a64e968534a227dbd2b0f3fc0fd36c30f0439",
+  "patch_sha256": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",
+  "postgres_source": "/root/projects/postgresql-reference/postgresql-16.14",
+  "postgres_version": "16.14",
+  "preflight": {
+    "definition_count_before_search": 72,
+    "definition_data_rows_before_search": 0,
+    "frozen_totalrows": 11687702.0,
+    "ordinary_statistics_digest": "bf6db08fd40e3873e1fc51675b0ff77de011b20fa20bcdf4f2e5817c4f7fc4fc",
+    "original_relation_rows": 11591877,
+    "payload_rows_during_replay": 72,
+    "physical_oid_resolution": "definition-name lookup by PostgresAdapter",
+    "replay_analyze_count_before_search": 1,
+    "sample_binary_sha256": "c3b30ddfebf118cb9137bae122e2913e19e88d0cbee14b2c93e980c7693cf463",
+    "sample_digest": "59dc8dbe007a81cbd10a11894ff8abf9b4a8f0cac11523221dbd63e34dd4ca7f",
+    "sample_manifest": "/root/projects/pg-extstats-advisor/datasets/dmv-frozen-acquisition-sample-v1/manifest.json",
+    "sample_relation_removed_before_search": true,
+    "sample_rows": 30000
+  },
+  "source_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",
+  "target_relation": "public.dmv"
+}

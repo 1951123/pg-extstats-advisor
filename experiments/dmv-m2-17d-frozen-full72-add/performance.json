@@ -1,0 +1,22 @@
+{
+  "affected_query_replans": 878693,
+  "bound_pruned_incumbent": 41,
+  "bound_pruned_moves": 41,
+  "bound_pruned_no_improvement": 0,
+  "budget_infeasible_moves": 0,
+  "conceptual_add_moves": 1808,
+  "evaluator_calls": 1768,
+  "exact_bound_pruning": true,
+  "feasible_moves": 1808,
+  "max_round_seconds": 8.843277974001467,
+  "mean_round_seconds": 7.0564641417814755,
+  "median_round_seconds": 7.070681428500393,
+  "native_evaluated_moves": 1767,
+  "p90_round_seconds": 8.54719658740105,
+  "performance_ceiling_seconds": 600.0,
+  "planner_calls": 878693,
+  "pruning_rate": 0.02267699115044248,
+  "round_count": 32,
+  "search_mode": "deterministic-best-improvement-ADD-only",
+  "total_elapsed_seconds": 226.1784701150009
+}
