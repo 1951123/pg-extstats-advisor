@@ -1,0 +1,188 @@
+{
+  "bundle_root_digest": "f503bf80d9f10d8c364a8ef4197117ed5214bfca8ab815afb54b9a67259c5e97",
+  "candidate_details": [
+    {
+      "attributes": [
+        "record_type",
+        "body_type"
+      ],
+      "candidate_id": "cand_f94acad130c4ac5b3553",
+      "mechanism": "mcv",
+      "precedence_rank": 3,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_6ca6020979af5e5766a4",
+      "mechanism": "mcv",
+      "precedence_rank": 4,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_e25a986fe1b364e78595",
+      "mechanism": "mcv",
+      "precedence_rank": 6,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_bc69a49224dd80292b07",
+      "mechanism": "mcv",
+      "precedence_rank": 7,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "county",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_323246ee68602507a57d",
+      "mechanism": "mcv",
+      "precedence_rank": 23,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "county",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_6161166747fb16ce38eb",
+      "mechanism": "mcv",
+      "precedence_rank": 25,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_0275ee8f6b218bf6a5a1",
+      "mechanism": "mcv",
+      "precedence_rank": 26,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_5005700887020f58d09a",
+      "mechanism": "mcv",
+      "precedence_rank": 28,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_2cc7a6ce91fea1a3633f",
+      "mechanism": "mcv",
+      "precedence_rank": 32,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "scofflaw_indicator",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_a5d58adc88429a8a1a93",
+      "mechanism": "mcv",
+      "precedence_rank": 33,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "body_type"
+      ],
+      "candidate_id": "cand_c7f3b001bf1756cd2ed9",
+      "mechanism": "fd",
+      "precedence_rank": 46,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_a06f9852e67c463f73a2",
+      "mechanism": "fd",
+      "precedence_rank": 47,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "state",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_867399ba1c9a9eab8364",
+      "mechanism": "fd",
+      "precedence_rank": 54,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_a658273d38918de4ed71",
+      "mechanism": "fd",
+      "precedence_rank": 63,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_2bea04f8b2c85ff2a4e0",
+      "mechanism": "fd",
+      "precedence_rank": 65,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_d033eb981110aa21d3df",
+      "mechanism": "fd",
+      "precedence_rank": 66,
+      "state": "PRESENT"
+    }
+  ],
+  "design_digest": "4666f10b430ebd6cb734789805c42e11868480ec9ae2868082bd03ab29708212",
+  "maintenance_cost": "78.613960753452712",
+  "repository_digest": "eb78679910b1a163c3219a00bf28c1a5ed849fe6e94b48ee97cf7d5a3dceff3f",
+  "sample_digest": "b25f33ecaaec24f1a79de504c60010270944ade36c54170c0b34e249c2bd75b4",
+  "selected_design": [
+    "cand_f94acad130c4ac5b3553",
+    "cand_6ca6020979af5e5766a4",
+    "cand_e25a986fe1b364e78595",
+    "cand_bc69a49224dd80292b07",
+    "cand_323246ee68602507a57d",
+    "cand_6161166747fb16ce38eb",
+    "cand_0275ee8f6b218bf6a5a1",
+    "cand_5005700887020f58d09a",
+    "cand_2cc7a6ce91fea1a3633f",
+    "cand_a5d58adc88429a8a1a93",
+    "cand_c7f3b001bf1756cd2ed9",
+    "cand_a06f9852e67c463f73a2",
+    "cand_867399ba1c9a9eab8364",
+    "cand_a658273d38918de4ed71",
+    "cand_2bea04f8b2c85ff2a4e0",
+    "cand_d033eb981110aa21d3df"
+  ],
+  "source": "M2.24 formal production capture bundle"
+}

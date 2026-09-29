@@ -1,0 +1,333 @@
+{
+  "budget": "372.045872636249472",
+  "budget_unit": "milliseconds-per-analyze",
+  "candidate_set": "full-72",
+  "cross_evaluation_result": "native-cross-evaluation.json",
+  "drop": false,
+  "exact_bound_pruning": true,
+  "inputs": {
+    "bundle_verification": {
+      "bundle_schema_version": "production-capture-bundle-v1",
+      "effective_query_count": 1963,
+      "production_version": "16.14",
+      "query_count": 1965,
+      "relation_ids": [
+        "public.dmv"
+      ],
+      "semantic_digest": "f503bf80d9f10d8c364a8ef4197117ed5214bfca8ab815afb54b9a67259c5e97",
+      "snapshot_mode": "best_effort_multi_snapshot"
+    },
+    "production_offline": true,
+    "sample_manifest": {
+      "authoritative_for_bundle": true,
+      "binary_sha256": "80d2dd605099d2a53ddced5a30a325c4896d6258056277b842023cfb30e6207f",
+      "capture_fidelity_note": "fixed statistics-realization input for this bundle; not native ANALYZE-equivalent",
+      "deterministic_replay": true,
+      "native_analyze_distribution_claim": "none",
+      "native_analyze_equivalent": false,
+      "production_compatible": true,
+      "relation_id": "public.dmv",
+      "sample_method_id": "deterministic_reservoir_v1",
+      "sample_method_version": 1,
+      "sample_row_count": 30000,
+      "schema_version": 1,
+      "seed": 22323,
+      "selected_columns": [
+        {
+          "attnum": 1,
+          "collation": {
+            "name": "default",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.default"
+          },
+          "name": "record_type",
+          "nullable": true,
+          "statistics": {
+            "source_summary_present": true,
+            "target": 100
+          },
+          "type": {
+            "kind": "builtin",
+            "name": "text",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.text"
+          },
+          "typmod": "-1"
+        },
+        {
+          "attnum": 2,
+          "collation": {
+            "name": "default",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.default"
+          },
+          "name": "registration_class",
+          "nullable": true,
+          "statistics": {
+            "source_summary_present": true,
+            "target": 100
+          },
+          "type": {
+            "kind": "builtin",
+            "name": "text",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.text"
+          },
+          "typmod": "-1"
+        },
+        {
+          "attnum": 3,
+          "collation": {
+            "name": "default",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.default"
+          },
+          "name": "state",
+          "nullable": true,
+          "statistics": {
+            "source_summary_present": true,
+            "target": 100
+          },
+          "type": {
+            "kind": "builtin",
+            "name": "text",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.text"
+          },
+          "typmod": "-1"
+        },
+        {
+          "attnum": 4,
+          "collation": {
+            "name": "default",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.default"
+          },
+          "name": "county",
+          "nullable": true,
+          "statistics": {
+            "source_summary_present": true,
+            "target": 100
+          },
+          "type": {
+            "kind": "builtin",
+            "name": "text",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.text"
+          },
+          "typmod": "-1"
+        },
+        {
+          "attnum": 5,
+          "collation": {
+            "name": "default",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.default"
+          },
+          "name": "body_type",
+          "nullable": true,
+          "statistics": {
+            "source_summary_present": true,
+            "target": 100
+          },
+          "type": {
+            "kind": "builtin",
+            "name": "text",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.text"
+          },
+          "typmod": "-1"
+        },
+        {
+          "attnum": 6,
+          "collation": {
+            "name": "default",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.default"
+          },
+          "name": "fuel_type",
+          "nullable": true,
+          "statistics": {
+            "source_summary_present": true,
+            "target": 100
+          },
+          "type": {
+            "kind": "builtin",
+            "name": "text",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.text"
+          },
+          "typmod": "-1"
+        },
+        {
+          "attnum": 7,
+          "collation": {
+            "name": "default",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.default"
+          },
+          "name": "reg_valid_date",
+          "nullable": true,
+          "statistics": {
+            "source_summary_present": true,
+            "target": 100
+          },
+          "type": {
+            "kind": "builtin",
+            "name": "text",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.text"
+          },
+          "typmod": "-1"
+        },
+        {
+          "attnum": 8,
+          "collation": {
+            "name": "default",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.default"
+          },
+          "name": "color",
+          "nullable": true,
+          "statistics": {
+            "source_summary_present": true,
+            "target": 100
+          },
+          "type": {
+            "kind": "builtin",
+            "name": "text",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.text"
+          },
+          "typmod": "-1"
+        },
+        {
+          "attnum": 9,
+          "collation": {
+            "name": "default",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.default"
+          },
+          "name": "scofflaw_indicator",
+          "nullable": true,
+          "statistics": {
+            "source_summary_present": true,
+            "target": 100
+          },
+          "type": {
+            "kind": "builtin",
+            "name": "text",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.text"
+          },
+          "typmod": "-1"
+        },
+        {
+          "attnum": 10,
+          "collation": {
+            "name": "default",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.default"
+          },
+          "name": "suspension_indicator",
+          "nullable": true,
+          "statistics": {
+            "source_summary_present": true,
+            "target": 100
+          },
+          "type": {
+            "kind": "builtin",
+            "name": "text",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.text"
+          },
+          "typmod": "-1"
+        },
+        {
+          "attnum": 11,
+          "collation": {
+            "name": "default",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.default"
+          },
+          "name": "revocation_indicator",
+          "nullable": true,
+          "statistics": {
+            "source_summary_present": true,
+            "target": 100
+          },
+          "type": {
+            "kind": "builtin",
+            "name": "text",
+            "namespace": "pg_catalog",
+            "portable_name": "pg_catalog.text"
+          },
+          "typmod": "-1"
+        }
+      ],
+      "semantic_digest": "b25f33ecaaec24f1a79de504c60010270944ade36c54170c0b34e249c2bd75b4",
+      "serialization": "pgextstats_m223_length_prefixed_v1",
+      "serialization_version": 1,
+      "snapshot_binding": {
+        "elapsed_seconds": 28.351384550001967,
+        "method": "stock COPY SELECT stream + deterministic client reservoir",
+        "order": "lexicographically canonicalized after reservoir",
+        "seed": 22323,
+        "snapshot": "00000003-00000061-1",
+        "source_row_count": 11591877
+      },
+      "source_population_rows": "11591877",
+      "statistics_population_rows": "11591877",
+      "stock_postgresql_only": true
+    }
+  },
+  "m2_24_bundle_root_digest": "f503bf80d9f10d8c364a8ef4197117ed5214bfca8ab815afb54b9a67259c5e97",
+  "m2_24_sample_digest": "b25f33ecaaec24f1a79de504c60010270944ade36c54170c0b34e249c2bd75b4",
+  "max_relative_gap": 0.9747002503524995,
+  "milestone": "M2.25",
+  "min_benefit_retention": 0.6829402189783109,
+  "native_cross_evaluation_repeated_exact": true,
+  "native_sample_family": {
+    "A": {
+      "frozen_totalrows": 11687702,
+      "native_local_objective": 22014.061316846422,
+      "repository_digest": "6bd8e770c1f39dc31365e3ae4dd4156af3025b437238956116ffbfafaa757443",
+      "sample_digest": "59dc8dbe007a81cbd10a11894ff8abf9b4a8f0cac11523221dbd63e34dd4ca7f"
+    },
+    "B": {
+      "frozen_totalrows": 11608827,
+      "native_local_objective": 21897.22109476092,
+      "repository_digest": "e7eec0762fb32dec736df5258dc5d9953ab5d0a28e66383dd78fb47bc2b446c6",
+      "sample_digest": "eaa2111cc3233acc8fddee05dd9c88907aa668e0197bc1884b4cfcb68fecf4b2"
+    },
+    "C": {
+      "frozen_totalrows": 11695938,
+      "native_local_objective": 21937.965918495007,
+      "repository_digest": "98435f5704f408e6dd7d41ed1f84b0b6349e9645e442af8f9f620bf2777e7232",
+      "sample_digest": "e25974bf493ad5d2046f40d8c0050e8e287ae09f247065b955bdcdc7f3e7d950"
+    },
+    "D": {
+      "frozen_totalrows": 11470225,
+      "native_local_objective": 22172.194940317873,
+      "repository_digest": "ee9a8c4817ca73294ee3edc5aa07109429f9dcee752dd19ef4abb044b128a307",
+      "sample_digest": "62db231f1253fcc6c5223fe750d3a3d33496ff3320ac5a801abc6155c70c1fc9"
+    },
+    "E": {
+      "frozen_totalrows": 11634600,
+      "native_local_objective": 21815.49258901561,
+      "repository_digest": "753c8f8e6e87f19ba02c2de891d506ca8bccc55859bd70ed9e613f4774fa27fc",
+      "sample_digest": "967842a7bd8d17ac11ea6c7aa99c01a6e3d75e4b6a9d9cad117800253bd22df1"
+    }
+  },
+  "new_native_analyze": false,
+  "new_sample_capture": false,
+  "performance_ceiling_seconds": 600.0,
+  "reservoir_design_artifact": "reservoir-selected-design.json",
+  "reservoir_design_digest": "4666f10b430ebd6cb734789805c42e11868480ec9ae2868082bd03ab29708212",
+  "screening": false,
+  "search_result": "reservoir-search.json",
+  "search_semantics": "deterministic-best-improvement-ADD-only",
+  "search_started": true,
+  "status": "complete",
+  "swap": false
+}

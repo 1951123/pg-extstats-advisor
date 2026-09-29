@@ -1,0 +1,82 @@
+{
+  "baseline_semantics": "advisor-staged persisted native sample",
+  "fixed_design_query_summary": [
+    {
+      "cross_baseline_objective": 92210.45481176749,
+      "improved": 902,
+      "max": 20936.5,
+      "mean": 22.048396289234052,
+      "median": 1.018375301592023,
+      "native_local_objective": 22014.061316846422,
+      "p90": 1.496643849345158,
+      "query_count": 1963,
+      "reservoir_objective": 43281.00191576644,
+      "sample": "A",
+      "unchanged": 195,
+      "worsened": 866
+    },
+    {
+      "cross_baseline_objective": 87602.09610901412,
+      "improved": 983,
+      "max": 21375.916666666668,
+      "mean": 21.767495862882065,
+      "median": 1.019155114039096,
+      "native_local_objective": 21897.22109476092,
+      "p90": 1.5013826999123996,
+      "query_count": 1963,
+      "reservoir_objective": 42729.59437883749,
+      "sample": "B",
+      "unchanged": 200,
+      "worsened": 780
+    },
+    {
+      "cross_baseline_objective": 92655.68591478809,
+      "improved": 950,
+      "max": 20952.583333333332,
+      "mean": 22.068724804623887,
+      "median": 1.0216530013206464,
+      "native_local_objective": 21937.965918495007,
+      "p90": 1.5414575746797325,
+      "query_count": 1963,
+      "reservoir_objective": 43320.90679147669,
+      "sample": "C",
+      "unchanged": 192,
+      "worsened": 821
+    },
+    {
+      "cross_baseline_objective": 89981.64053628812,
+      "improved": 1061,
+      "max": 20927.0,
+      "mean": 22.184650881469373,
+      "median": 1.0271180752176734,
+      "native_local_objective": 22172.194940317873,
+      "p90": 1.506459018503344,
+      "query_count": 1963,
+      "reservoir_objective": 43548.46968032438,
+      "sample": "D",
+      "unchanged": 198,
+      "worsened": 704
+    },
+    {
+      "cross_baseline_objective": 89140.46649145879,
+      "improved": 977,
+      "max": 20242.75,
+      "mean": 21.82733122490754,
+      "median": 1.0190350414626976,
+      "native_local_objective": 21815.49258901561,
+      "p90": 1.499726938133229,
+      "query_count": 1963,
+      "reservoir_objective": 42847.0511944935,
+      "sample": "E",
+      "unchanged": 192,
+      "worsened": 794
+    }
+  ],
+  "vector_digests": {
+    "A": "7e50313c29a1c9ba7812be8ebaa6cdd7c53ea60b7ee9123ed307ec82f1ea0ae6",
+    "B": "3eab7b1713b259b439291629d89e33bb983d1bb6e3e214653ca93701ca1e45a1",
+    "C": "cf1c201990315e6180edfd13ac337fc373a5d3628e7ee8a6524abf258fa2d1f3",
+    "D": "6ec63d1cc000c0b036fcf79292c7c3619651e4e1f7e97f1d67102a5b25d735fa",
+    "E": "19331eb56d6e484fb2dae9ac826b096ea15da3c4f3da93763eabbc08af337c3d"
+  }
+}
