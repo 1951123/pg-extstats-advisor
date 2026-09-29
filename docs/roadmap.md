@@ -201,6 +201,18 @@ comparison was repeated from a clean state. This is conditional mechanism
 fidelity only. It does not test fresh-sample robustness, maintenance-cost
 validity, or introduce a new search result.
 
+## M2.19 DMV fixed-design fresh-sample robustness — complete
+
+The immutable M2.17d design was deployed for ten independent native
+PostgreSQL 16.14 `ANALYZE` realizations of the canonical DMV relation. Every
+paired empty/design comparison had positive improvement; relative improvement
+ranged from 43.751352% to 48.623259%, retaining at least 90.11% of sample-A
+benefit and passing the preregistered strong-robustness engineering gate.
+Twenty-eight selected objects were always `PRESENT`; three exhibited
+`PRESENT`/`ABSENT_NATIVE` sampling-state flips. This measures fixed-design
+sampling-noise robustness only, not design-selection stability or data/workload
+drift.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,

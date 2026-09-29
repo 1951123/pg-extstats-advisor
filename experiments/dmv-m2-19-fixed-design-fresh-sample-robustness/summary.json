@@ -1,0 +1,64 @@
+{
+  "absolute_improvement": {
+    "max": 20615.383162792485,
+    "mean": 19078.429620813928,
+    "median": 19127.783823877406,
+    "min": 17497.53692240208,
+    "std": 1110.5709368591067
+  },
+  "all_positive": true,
+  "always_absent_candidates": [],
+  "candidate_always_absent_count": 0,
+  "candidate_always_present": 28,
+  "candidate_state_flipped_count": 3,
+  "classification": "strongly robust",
+  "design_max_range": [
+    8433.333333333334,
+    9405.666666666666
+  ],
+  "design_objective": {
+    "max": 23786.399812544678,
+    "mean": 22311.612105485892,
+    "median": 22410.79354595629,
+    "min": 21100.834339206736,
+    "std": 779.813119698459
+  },
+  "design_p90_range": [
+    2.5074702585827127,
+    2.5668778293998016
+  ],
+  "empty_max_range": [
+    22156.333333333332,
+    24786.666666666668
+  ],
+  "empty_p90_range": [
+    2.6298456726571318,
+    2.7252306480879627
+  ],
+  "minimum_relative_to_sample_a_ratio": 0.9010559234054136,
+  "p99_available": true,
+  "query_categories": {
+    "always_improved": 1508,
+    "always_unchanged": 77,
+    "always_worsened": 275,
+    "mixed": 103
+  },
+  "relative_improvement": {
+    "max": 0.486232585359588,
+    "mean": 0.46074746744858447,
+    "median": 0.46286851452545863,
+    "min": 0.43751351793736337,
+    "std": 0.018886353739083084
+  },
+  "run_count": 10,
+  "sample_a_relative_improvement": 0.4855564527935656,
+  "state_flipped_candidates": [
+    "cand_5e3a909effbf6f7d6e21",
+    "cand_5400d6d245a511006593",
+    "cand_d102d0d6903dbc44935f"
+  ],
+  "status": "complete",
+  "strong_gate_threshold": 0.3884451622348525,
+  "top20_count": 20,
+  "top20_sample_a_hardest_always_improved": 15
+}
