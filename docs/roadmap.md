@@ -213,6 +213,21 @@ Twenty-eight selected objects were always `PRESENT`; three exhibited
 sampling-noise robustness only, not design-selection stability or data/workload
 drift.
 
+## M2.20 DMV persisted multi-sample design-selection stability — complete
+
+Four independent persisted native acquisitions (B–E) were captured from the
+canonical DMV relation alongside the existing authoritative sample A. Each
+passed exact replay gates for ordinary statistics, semantic payload state,
+baseline vectors, and baseline objectives. The full 72-candidate deterministic
+ADD-only search was run for B–E, with an exact repeated search for B, and all
+five designs were evaluated in a complete 5×5 cross-sample hypothetical
+matrix. Pairwise design Jaccard ranged from 0.742857 to 0.937500, with a
+25-candidate five-of-five core and 28 candidates selected in at least four
+samples. Every foreign design remained within 0.009% relative objective gap of
+the local design and no foreign design beat its local design. The result is
+multiple near-equivalent designs with highly portable workload quality, not a
+unique sample-independent candidate set.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,

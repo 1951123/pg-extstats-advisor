@@ -1,0 +1,32 @@
+{
+  "build_input_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+  "candidate_catalog_digest": "e7fea59c93aa587e3fe7a95db3984e21c488c102b863279c96a7b4c610639caa",
+  "cross_matrix_cells": 25,
+  "data_drift": false,
+  "diagonal_exact": true,
+  "drop_swap": false,
+  "effective_workload_digest": "e790933cfc4f0f42d92807170b76cec080621c5b463dab83e23474a0a51151d8",
+  "fresh_unpersisted_authoritative_results": false,
+  "full_catalog_search": true,
+  "maintenance_model_digest": "f8885af9b1411bb417dcb1fb93f5e368d5e89c0eac29e7803d0c5e8563204714",
+  "milestone": "M2.20",
+  "new_persisted_samples": 4,
+  "patch_sha256": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",
+  "sample_names": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+  ],
+  "schema_signature": "1aa700bab7b18bb5955c732106c76c7226b3485b8a76bc07afcb7a020070aae3",
+  "screening": false,
+  "search_mode": "deterministic-best-improvement-ADD-only",
+  "search_repeat_sample": "B",
+  "source_logical_fingerprint": "7df509386693daab173476700bc361e9dd22e2c7fd8010a2758f6b6ada37253d",
+  "statistics_target": 100,
+  "status": "complete",
+  "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",
+  "workload_digest": "0e8ef80c0da0d6a9810b2e8f8910034f8a743804a3859b2c9b61d461b8d0bf4c",
+  "workload_drift": false
+}

@@ -1,0 +1,166 @@
+{
+  "consensus_core": [
+    "cand_0ef1e644231e36b17de7",
+    "cand_044e770ab213d0ef37b1",
+    "cand_1f420ce5268e234e658c",
+    "cand_bb3c9704bc50457d0385",
+    "cand_0fdc909a2a3cf9718db9",
+    "cand_d17d4fee04bca1295fdb",
+    "cand_9e3965b9e6ab7faacc4e",
+    "cand_2bea04f8b2c85ff2a4e0",
+    "cand_663a31a8fc0678a2324b",
+    "cand_cf35fb1b66d3371735fd",
+    "cand_b6cafc68143c6fa37e85",
+    "cand_c6f83d66ce3d1e079f11",
+    "cand_9a47b4882350bf5fccf9",
+    "cand_dd4fa07161dcf5def8eb",
+    "cand_7b08320f31dae1c5e9f4",
+    "cand_850ffdf5fc1ceee3e08d",
+    "cand_d033eb981110aa21d3df",
+    "cand_f94acad130c4ac5b3553",
+    "cand_835deeb29a9e7947a98b",
+    "cand_f002ec4adfff3911240b",
+    "cand_93041865e5a926191d54",
+    "cand_6505783b203dc0346b49",
+    "cand_6ca6020979af5e5766a4",
+    "cand_cfb64b0bf69c059cd760",
+    "cand_a658273d38918de4ed71"
+  ],
+  "cross_evaluation_complete": true,
+  "design_digests": {
+    "A": "c196630393e536612b600cd1abbabf025961ed1e3c977477d0c0e0a8f0ef99a9",
+    "B": "d4c87c2bc85de341d82dbd0b19a6136fbdabff055331971d73c3fd10dfd85319",
+    "C": "b4156683b747331b352c82bb7e3ff356e336042b8c12609c7b47ed64bf89a3a7",
+    "D": "91b7de4525cab0aa289ba52fee0676f817fe05c28091fd9052d84d6dd940dcd6",
+    "E": "5a8a7753247ab9155cf08d14ecd7f763924588550b24fc6f2257adc8796d92bf"
+  },
+  "design_overlap": {
+    "jaccard_max": 0.9375,
+    "jaccard_median": 0.8461174242424243,
+    "jaccard_min": 0.7428571428571429
+  },
+  "diagonal_exact": true,
+  "interaction": [
+    {
+      "accepted_singleton_negative": 12,
+      "accepted_singleton_positive": 19,
+      "accepted_singleton_zero": 0,
+      "contextual_rescue_count": 12,
+      "rescued_candidates": "cand_c6f83d66ce3d1e079f11;cand_1f420ce5268e234e658c;cand_6ca6020979af5e5766a4;cand_850ffdf5fc1ceee3e08d;cand_cfb64b0bf69c059cd760;cand_9e3965b9e6ab7faacc4e;cand_2bea04f8b2c85ff2a4e0;cand_dd4fa07161dcf5def8eb;cand_b6cafc68143c6fa37e85;cand_f002ec4adfff3911240b;cand_d102d0d6903dbc44935f;cand_e95bcd15c94c80f62716",
+      "sample": "A"
+    },
+    {
+      "accepted_singleton_negative": 13,
+      "accepted_singleton_positive": 18,
+      "accepted_singleton_zero": 0,
+      "contextual_rescue_count": 13,
+      "rescued_candidates": "cand_c6f83d66ce3d1e079f11;cand_6ca6020979af5e5766a4;cand_850ffdf5fc1ceee3e08d;cand_cfb64b0bf69c059cd760;cand_9e3965b9e6ab7faacc4e;cand_2bea04f8b2c85ff2a4e0;cand_dd4fa07161dcf5def8eb;cand_b6cafc68143c6fa37e85;cand_f457f7acd881e6884fac;cand_f002ec4adfff3911240b;cand_d17d4fee04bca1295fdb;cand_d102d0d6903dbc44935f;cand_e95bcd15c94c80f62716",
+      "sample": "B"
+    },
+    {
+      "accepted_singleton_negative": 13,
+      "accepted_singleton_positive": 18,
+      "accepted_singleton_zero": 0,
+      "contextual_rescue_count": 13,
+      "rescued_candidates": "cand_c6f83d66ce3d1e079f11;cand_1f420ce5268e234e658c;cand_6ca6020979af5e5766a4;cand_850ffdf5fc1ceee3e08d;cand_cfb64b0bf69c059cd760;cand_9e3965b9e6ab7faacc4e;cand_2bea04f8b2c85ff2a4e0;cand_b6cafc68143c6fa37e85;cand_dd4fa07161dcf5def8eb;cand_f002ec4adfff3911240b;cand_d102d0d6903dbc44935f;cand_d17d4fee04bca1295fdb;cand_e95bcd15c94c80f62716",
+      "sample": "C"
+    },
+    {
+      "accepted_singleton_negative": 10,
+      "accepted_singleton_positive": 18,
+      "accepted_singleton_zero": 0,
+      "contextual_rescue_count": 10,
+      "rescued_candidates": "cand_c6f83d66ce3d1e079f11;cand_1f420ce5268e234e658c;cand_6ca6020979af5e5766a4;cand_850ffdf5fc1ceee3e08d;cand_cfb64b0bf69c059cd760;cand_2bea04f8b2c85ff2a4e0;cand_9e3965b9e6ab7faacc4e;cand_dd4fa07161dcf5def8eb;cand_b6cafc68143c6fa37e85;cand_f002ec4adfff3911240b",
+      "sample": "D"
+    },
+    {
+      "accepted_singleton_negative": 14,
+      "accepted_singleton_positive": 16,
+      "accepted_singleton_zero": 0,
+      "contextual_rescue_count": 14,
+      "rescued_candidates": "cand_c6f83d66ce3d1e079f11;cand_1f420ce5268e234e658c;cand_6ca6020979af5e5766a4;cand_850ffdf5fc1ceee3e08d;cand_4c7d493f98b0c50576d2;cand_cfb64b0bf69c059cd760;cand_9e3965b9e6ab7faacc4e;cand_2bea04f8b2c85ff2a4e0;cand_dd4fa07161dcf5def8eb;cand_b6cafc68143c6fa37e85;cand_d17d4fee04bca1295fdb;cand_f457f7acd881e6884fac;cand_f002ec4adfff3911240b;cand_e95bcd15c94c80f62716",
+      "sample": "E"
+    }
+  ],
+  "interpretation": "multiple near-equivalent designs",
+  "near_core": [
+    "cand_0ef1e644231e36b17de7",
+    "cand_044e770ab213d0ef37b1",
+    "cand_1f420ce5268e234e658c",
+    "cand_bb3c9704bc50457d0385",
+    "cand_0fdc909a2a3cf9718db9",
+    "cand_d17d4fee04bca1295fdb",
+    "cand_9e3965b9e6ab7faacc4e",
+    "cand_2bea04f8b2c85ff2a4e0",
+    "cand_663a31a8fc0678a2324b",
+    "cand_e95bcd15c94c80f62716",
+    "cand_cf35fb1b66d3371735fd",
+    "cand_b6cafc68143c6fa37e85",
+    "cand_c6f83d66ce3d1e079f11",
+    "cand_9a47b4882350bf5fccf9",
+    "cand_dd4fa07161dcf5def8eb",
+    "cand_7b08320f31dae1c5e9f4",
+    "cand_850ffdf5fc1ceee3e08d",
+    "cand_d033eb981110aa21d3df",
+    "cand_560443d79842b416ea0d",
+    "cand_f94acad130c4ac5b3553",
+    "cand_835deeb29a9e7947a98b",
+    "cand_f002ec4adfff3911240b",
+    "cand_93041865e5a926191d54",
+    "cand_6505783b203dc0346b49",
+    "cand_6ca6020979af5e5766a4",
+    "cand_cfb64b0bf69c059cd760",
+    "cand_a658273d38918de4ed71",
+    "cand_5400d6d245a511006593"
+  ],
+  "realization_state": {
+    "always_absent": 1,
+    "always_present": 68,
+    "state_flipped": 3
+  },
+  "sample_count": 5,
+  "sample_names": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+  ],
+  "selected_frequency_histogram": {
+    "0": 37,
+    "1": 2,
+    "2": 3,
+    "3": 2,
+    "4": 3,
+    "5": 25
+  },
+  "singleton_rank": {
+    "sign_flip_candidates": [
+      "cand_9f93544dce1d63b0f711",
+      "cand_1f420ce5268e234e658c",
+      "cand_67f23918cdad906be4ea",
+      "cand_72a4065afe7511935b18",
+      "cand_d0bacba4d271fabbb378",
+      "cand_323246ee68602507a57d",
+      "cand_a5d58adc88429a8a1a93",
+      "cand_4766516fe513466787e9",
+      "cand_d17d4fee04bca1295fdb",
+      "cand_f457f7acd881e6884fac",
+      "cand_5e3a909effbf6f7d6e21",
+      "cand_4c7d493f98b0c50576d2",
+      "cand_86d407b8a724ee28f443",
+      "cand_d102d0d6903dbc44935f"
+    ],
+    "sign_flip_count": 14,
+    "spearman_max": 0.94655604862049,
+    "spearman_median": 0.9244163611807833,
+    "spearman_min": 0.8760692005916779,
+    "top10_max": 10,
+    "top10_min": 8,
+    "top20_max": 19,
+    "top20_min": 18,
+    "top5_max": 5,
+    "top5_min": 5
+  },
+  "status": "complete"
+}

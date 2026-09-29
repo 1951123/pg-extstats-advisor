@@ -1,0 +1,91 @@
+{
+  "build_input_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+  "capture_method": "native capture mode from canonical full relation, captured once",
+  "captured_at": "2026-09-29T04:46:37.049651+00:00",
+  "dataset_id": "dmv-pg16.14-v1",
+  "format_version": 1,
+  "ordered_column_schema": [
+    {
+      "attnum": 1,
+      "name": "record_type",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 2,
+      "name": "registration_class",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 3,
+      "name": "state",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 4,
+      "name": "county",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 5,
+      "name": "body_type",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 6,
+      "name": "fuel_type",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 7,
+      "name": "reg_valid_date",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 8,
+      "name": "color",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 9,
+      "name": "scofflaw_indicator",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 10,
+      "name": "suspension_indicator",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 11,
+      "name": "revocation_indicator",
+      "not_null": false,
+      "type": "text"
+    }
+  ],
+  "patch_sha256": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",
+  "postgres_version": "16.14",
+  "relation_identity": "public.dmv",
+  "row_count": 30000,
+  "sample_file": "sample.copy.bin",
+  "sample_file_sha256": "b04e64f9c927c8a389c775047501ccbbedbe719b0681fa027435babb30bd01d0",
+  "sample_relation": "public.pgextadv_frozen_sample",
+  "sampling_algorithm": "PostgreSQL 16.14 native block sampler + Vitter reservoir; rows sorted by physical TID",
+  "schema_signature": "1aa700bab7b18bb5955c732106c76c7226b3485b8a76bc07afcb7a020070aae3",
+  "semantic_sha256": "eaa2111cc3233acc8fddee05dd9c88907aa668e0197bc1884b4cfcb68fecf4b2",
+  "source_logical_fingerprint": "7df509386693daab173476700bc361e9dd22e2c7fd8010a2758f6b6ada37253d",
+  "source_relation_row_count": 11591877,
+  "statistics_target": 100,
+  "target_relation": "public.dmv",
+  "totalrows_used_by_builder": 11608827.0,
+  "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471"
+}

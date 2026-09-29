@@ -1,0 +1,1959 @@
+{
+  "acquisition_sample_digest": "eaa2111cc3233acc8fddee05dd9c88907aa668e0197bc1884b4cfcb68fecf4b2",
+  "baseline_estimate_vector_digest": "7241d8bd111cd6dae81203529306d15b03c022710f9bff81c23aa39c58ae4b87",
+  "baseline_objective": 41037.45988160012,
+  "candidates": [
+    {
+      "affected_query_count": 489,
+      "attributes": [
+        "record_type",
+        "body_type"
+      ],
+      "candidate_id": "cand_f94acad130c4ac5b3553",
+      "definition": {
+        "attnums": [
+          1,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_6c18528aff03d754df3cac92",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1390707709997514,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 489,
+      "precedence_rank": 3,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1474,
+      "singleton_improvement": 18692.873896223467,
+      "singleton_objective": 22344.585985376656,
+      "singleton_rank": 1
+    },
+    {
+      "affected_query_count": 503,
+      "attributes": [
+        "record_type",
+        "registration_class"
+      ],
+      "candidate_id": "cand_c614cf6de073226f0aa4",
+      "definition": {
+        "attnums": [
+          1,
+          2
+        ],
+        "statistics_name": "pgextadv_acq_2ec9b8cb3d864231133fe9a5",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.15743310400102928,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 503,
+      "precedence_rank": 0,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1460,
+      "singleton_improvement": 2187.6840753414363,
+      "singleton_objective": 38849.77580625869,
+      "singleton_rank": 2
+    },
+    {
+      "affected_query_count": 518,
+      "attributes": [
+        "record_type",
+        "state"
+      ],
+      "candidate_id": "cand_f5f353d914b36187882c",
+      "definition": {
+        "attnums": [
+          1,
+          3
+        ],
+        "statistics_name": "pgextadv_acq_b3b20bee28e71aafeee01625",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1704159670007357,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 518,
+      "precedence_rank": 1,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1445,
+      "singleton_improvement": 203.24034963005397,
+      "singleton_objective": 40834.21953197007,
+      "singleton_rank": 3
+    },
+    {
+      "affected_query_count": 498,
+      "attributes": [
+        "record_type",
+        "county"
+      ],
+      "candidate_id": "cand_ea5acfb9a4e9bf9c4ee2",
+      "definition": {
+        "attnums": [
+          1,
+          4
+        ],
+        "statistics_name": "pgextadv_acq_a38dded9f82765431624fedc",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1587156630012032,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 498,
+      "precedence_rank": 2,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1465,
+      "singleton_improvement": 163.92248565753107,
+      "singleton_objective": 40873.53739594259,
+      "singleton_rank": 4
+    },
+    {
+      "affected_query_count": 474,
+      "attributes": [
+        "registration_class",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_a06f9852e67c463f73a2",
+      "definition": {
+        "attnums": [
+          2,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_6b116e22bcfe42b5172188a7",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.15510683599859476,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 474,
+      "precedence_rank": 47,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1489,
+      "singleton_improvement": 101.31465851802204,
+      "singleton_objective": 40936.1452230821,
+      "singleton_rank": 5
+    },
+    {
+      "affected_query_count": 483,
+      "attributes": [
+        "body_type",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_bb3c9704bc50457d0385",
+      "definition": {
+        "attnums": [
+          5,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_203be9faecbb584e51cfef7d",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.15255807299945445,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 483,
+      "precedence_rank": 62,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1480,
+      "singleton_improvement": 64.46626697071042,
+      "singleton_objective": 40972.99361462941,
+      "singleton_rank": 6
+    },
+    {
+      "affected_query_count": 514,
+      "attributes": [
+        "record_type",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_79ef5e4c653bbbb46dec",
+      "definition": {
+        "attnums": [
+          1,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_0ba3b9125e6c2fe00c3f4288",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.16684866200012038,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 514,
+      "precedence_rank": 40,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1449,
+      "singleton_improvement": 52.51468375647528,
+      "singleton_objective": 40984.94519784365,
+      "singleton_rank": 7
+    },
+    {
+      "affected_query_count": 516,
+      "attributes": [
+        "body_type",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_b18e2586ffe14b36f703",
+      "definition": {
+        "attnums": [
+          5,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_ef60f3250d8c2e24b4f8946a",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.16430141599994386,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 516,
+      "precedence_rank": 29,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1447,
+      "singleton_improvement": 41.22859459616302,
+      "singleton_objective": 40996.23128700396,
+      "singleton_rank": 8
+    },
+    {
+      "affected_query_count": 460,
+      "attributes": [
+        "state",
+        "county"
+      ],
+      "candidate_id": "cand_93041865e5a926191d54",
+      "definition": {
+        "attnums": [
+          3,
+          4
+        ],
+        "statistics_name": "pgextadv_acq_890daee9ade586a094ba2b43",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.13536611600102333,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 460,
+      "precedence_rank": 15,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1503,
+      "singleton_improvement": 21.958526605660154,
+      "singleton_objective": 41015.50135499446,
+      "singleton_rank": 9
+    },
+    {
+      "affected_query_count": 495,
+      "attributes": [
+        "county",
+        "body_type"
+      ],
+      "candidate_id": "cand_7531356383a7948fede1",
+      "definition": {
+        "attnums": [
+          4,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_05d21c40c2af8b9702c579b9",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.17160366800089832,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 495,
+      "precedence_rank": 21,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1468,
+      "singleton_improvement": 16.350756226056546,
+      "singleton_objective": 41021.10912537407,
+      "singleton_rank": 10
+    },
+    {
+      "affected_query_count": 528,
+      "attributes": [
+        "record_type",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_e25a986fe1b364e78595",
+      "definition": {
+        "attnums": [
+          1,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_6460eef9504ac6563f482dc2",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.15972641600092174,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 528,
+      "precedence_rank": 6,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1435,
+      "singleton_improvement": 8.587313798430841,
+      "singleton_objective": 41028.87256780169,
+      "singleton_rank": 11
+    },
+    {
+      "affected_query_count": 498,
+      "attributes": [
+        "body_type",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_5005700887020f58d09a",
+      "definition": {
+        "attnums": [
+          5,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_3175f53b20bef6b33e303a49",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.16621440299968526,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 498,
+      "precedence_rank": 28,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1465,
+      "singleton_improvement": 5.5028387174752424,
+      "singleton_objective": 41031.95704288265,
+      "singleton_rank": 12
+    },
+    {
+      "affected_query_count": 505,
+      "attributes": [
+        "state",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_0fdc909a2a3cf9718db9",
+      "definition": {
+        "attnums": [
+          3,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_58c9c6ad959339ef08ac2161",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1579933049997635,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 505,
+      "precedence_rank": 20,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1458,
+      "singleton_improvement": 3.6138801757770125,
+      "singleton_objective": 41033.84600142435,
+      "singleton_rank": 13
+    },
+    {
+      "affected_query_count": 518,
+      "attributes": [
+        "record_type",
+        "state"
+      ],
+      "candidate_id": "cand_9a47b4882350bf5fccf9",
+      "definition": {
+        "attnums": [
+          1,
+          3
+        ],
+        "statistics_name": "pgextadv_acq_6b430b6b5992af8ccb069a30",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.17367819799983408,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 518,
+      "precedence_rank": 37,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1445,
+      "singleton_improvement": 3.560217160404136,
+      "singleton_objective": 41033.89966443972,
+      "singleton_rank": 14
+    },
+    {
+      "affected_query_count": 497,
+      "attributes": [
+        "county",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_663a31a8fc0678a2324b",
+      "definition": {
+        "attnums": [
+          4,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_99e15f9307d9cadc363beeb7",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.15879038099956233,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 497,
+      "precedence_rank": 61,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1466,
+      "singleton_improvement": 3.0594193079523393,
+      "singleton_objective": 41034.40046229217,
+      "singleton_rank": 15
+    },
+    {
+      "affected_query_count": 505,
+      "attributes": [
+        "state",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_560443d79842b416ea0d",
+      "definition": {
+        "attnums": [
+          3,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_f5ce8d2f6fbfd9b1e4e3fabc",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.16666749700016226,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 505,
+      "precedence_rank": 18,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1458,
+      "singleton_improvement": 2.881593327729206,
+      "singleton_objective": 41034.578288272394,
+      "singleton_rank": 16
+    },
+    {
+      "affected_query_count": 474,
+      "attributes": [
+        "registration_class",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_1f420ce5268e234e658c",
+      "definition": {
+        "attnums": [
+          2,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_2fc9932246babe4b0af91324",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.155027759999939,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 474,
+      "precedence_rank": 11,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1489,
+      "singleton_improvement": 2.6954483272056677,
+      "singleton_objective": 41034.76443327292,
+      "singleton_rank": 17
+    },
+    {
+      "affected_query_count": 506,
+      "attributes": [
+        "fuel_type",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_2cc7a6ce91fea1a3633f",
+      "definition": {
+        "attnums": [
+          6,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_8d0c249b14095c1b4cce284f",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.15722616800121614,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 506,
+      "precedence_rank": 32,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1457,
+      "singleton_improvement": 2.3419046426570276,
+      "singleton_objective": 41035.11797695747,
+      "singleton_rank": 18
+    },
+    {
+      "affected_query_count": 497,
+      "attributes": [
+        "county",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_6161166747fb16ce38eb",
+      "definition": {
+        "attnums": [
+          4,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_280486d41b30ab61faa56ff9",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.16494505000082427,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 497,
+      "precedence_rank": 25,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1466,
+      "singleton_improvement": 1.4781636930347304,
+      "singleton_objective": 41035.98171790709,
+      "singleton_rank": 19
+    },
+    {
+      "affected_query_count": 497,
+      "attributes": [
+        "fuel_type",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_d81088ebd0b428f317e8",
+      "definition": {
+        "attnums": [
+          6,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_2e87f6117b8c9269a2f267dc",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.15579300699937448,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 497,
+      "precedence_rank": 31,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1466,
+      "singleton_improvement": 1.4431800721722539,
+      "singleton_objective": 41036.01670152795,
+      "singleton_rank": 20
+    },
+    {
+      "affected_query_count": 459,
+      "attributes": [
+        "state",
+        "body_type"
+      ],
+      "candidate_id": "cand_6505783b203dc0346b49",
+      "definition": {
+        "attnums": [
+          3,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_3adbcce75f4e03db6b855963",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.15601934000005713,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 459,
+      "precedence_rank": 52,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1504,
+      "singleton_improvement": 0.863430677454744,
+      "singleton_objective": 41036.59645092267,
+      "singleton_rank": 21
+    },
+    {
+      "affected_query_count": 471,
+      "attributes": [
+        "state",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_72a4065afe7511935b18",
+      "definition": {
+        "attnums": [
+          3,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_220a39f980e2b2657046235c",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1693375319991901,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 471,
+      "precedence_rank": 19,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1492,
+      "singleton_improvement": 0.7251180251623737,
+      "singleton_objective": 41036.73476357496,
+      "singleton_rank": 22
+    },
+    {
+      "affected_query_count": 496,
+      "attributes": [
+        "state",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_7b08320f31dae1c5e9f4",
+      "definition": {
+        "attnums": [
+          3,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_b50b5a3570354561e4708e23",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.16031553899847495,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 496,
+      "precedence_rank": 53,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1467,
+      "singleton_improvement": 0.6895438588180696,
+      "singleton_objective": 41036.770337741305,
+      "singleton_rank": 23
+    },
+    {
+      "affected_query_count": 497,
+      "attributes": [
+        "fuel_type",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_0ef1e644231e36b17de7",
+      "definition": {
+        "attnums": [
+          6,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_d4a432f71c376ea4b242759e",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.15764281599876995,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 497,
+      "precedence_rank": 67,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1466,
+      "singleton_improvement": 0.587306983761664,
+      "singleton_objective": 41036.87257461636,
+      "singleton_rank": 24
+    },
+    {
+      "affected_query_count": 501,
+      "attributes": [
+        "suspension_indicator",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_4766516fe513466787e9",
+      "definition": {
+        "attnums": [
+          10,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_f61678e977b209098afc610a",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1582550250004715,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 501,
+      "precedence_rank": 35,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1462,
+      "singleton_improvement": 0.28612418903503567,
+      "singleton_objective": 41037.17375741109,
+      "singleton_rank": 25
+    },
+    {
+      "affected_query_count": 486,
+      "attributes": [
+        "county",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_cf35fb1b66d3371735fd",
+      "definition": {
+        "attnums": [
+          4,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_d2a64f8bcecfc324a058807d",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.13418468899908476,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 486,
+      "precedence_rank": 59,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1477,
+      "singleton_improvement": 0.22585828780574957,
+      "singleton_objective": 41037.23402331232,
+      "singleton_rank": 26
+    },
+    {
+      "affected_query_count": 499,
+      "attributes": [
+        "body_type",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_799d0072c9c0e8bc7bb8",
+      "definition": {
+        "attnums": [
+          5,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_f5608866ab2fd87567b23585",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1392512659986096,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 499,
+      "precedence_rank": 27,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1464,
+      "singleton_improvement": 0.16858253341342788,
+      "singleton_objective": 41037.29129906671,
+      "singleton_rank": 27
+    },
+    {
+      "affected_query_count": 499,
+      "attributes": [
+        "body_type",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_a658273d38918de4ed71",
+      "definition": {
+        "attnums": [
+          5,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_5c7b6a1060c7ac49de5c91b8",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.15559493399996427,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 499,
+      "precedence_rank": 63,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1464,
+      "singleton_improvement": 0.07520685955387307,
+      "singleton_objective": 41037.38467474057,
+      "singleton_rank": 28
+    },
+    {
+      "affected_query_count": 512,
+      "attributes": [
+        "registration_class",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_044e770ab213d0ef37b1",
+      "definition": {
+        "attnums": [
+          2,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_c8f008004c37b638b2844341",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.14501434600060747,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 512,
+      "precedence_rank": 48,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1451,
+      "singleton_improvement": 0.07449157731753075,
+      "singleton_objective": 41037.385390022806,
+      "singleton_rank": 29
+    },
+    {
+      "affected_query_count": 502,
+      "attributes": [
+        "fuel_type",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_7bad1214667cfa5a9e86",
+      "definition": {
+        "attnums": [
+          6,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_892ecdfec082be8a3805942a",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1531366170002002,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 502,
+      "precedence_rank": 30,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1461,
+      "singleton_improvement": 0.06437868493958376,
+      "singleton_objective": 41037.395502915184,
+      "singleton_rank": 30
+    },
+    {
+      "affected_query_count": 524,
+      "attributes": [
+        "record_type",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_08a7c0809e27527cb40f",
+      "definition": {
+        "attnums": [
+          1,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_8f426a292d58b97d83a09e9a",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.15504689299996244,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 524,
+      "precedence_rank": 5,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1439,
+      "singleton_improvement": 0.0525060882064281,
+      "singleton_objective": 41037.40737551192,
+      "singleton_rank": 31
+    },
+    {
+      "affected_query_count": 502,
+      "attributes": [
+        "fuel_type",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_d033eb981110aa21d3df",
+      "definition": {
+        "attnums": [
+          6,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_4c1b5837e3647601e32f5ba2",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.15869828199902258,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 502,
+      "precedence_rank": 66,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1461,
+      "singleton_improvement": 0.020496751385508105,
+      "singleton_objective": 41037.43938484874,
+      "singleton_rank": 32
+    },
+    {
+      "affected_query_count": 524,
+      "attributes": [
+        "record_type",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_835deeb29a9e7947a98b",
+      "definition": {
+        "attnums": [
+          1,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_093b404b2ed85ef98519469d",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.1579979079997429,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 524,
+      "precedence_rank": 41,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1439,
+      "singleton_improvement": 0.019482027812046,
+      "singleton_objective": 41037.44039957231,
+      "singleton_rank": 33
+    },
+    {
+      "affected_query_count": 505,
+      "attributes": [
+        "state",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_867399ba1c9a9eab8364",
+      "definition": {
+        "attnums": [
+          3,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_3d4da78d118983d5381996c5",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.16207121400111646,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 505,
+      "precedence_rank": 54,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1458,
+      "singleton_improvement": 0.005044753190304618,
+      "singleton_objective": 41037.45483684693,
+      "singleton_rank": 34
+    },
+    {
+      "affected_query_count": 497,
+      "attributes": [
+        "scofflaw_indicator",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_86d407b8a724ee28f443",
+      "definition": {
+        "attnums": [
+          9,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_7adcc982e7ef9e35157da58c",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.15822336999917752,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 497,
+      "precedence_rank": 69,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1466,
+      "singleton_improvement": 0.0023140323828556575,
+      "singleton_objective": 41037.45756756774,
+      "singleton_rank": 35
+    },
+    {
+      "affected_query_count": 490,
+      "attributes": [
+        "scofflaw_indicator",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_5400d6d245a511006593",
+      "definition": {
+        "attnums": [
+          9,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_ba86de044a03bdb4fb7592a2",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.14331465099894558,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 490,
+      "precedence_rank": 70,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1473,
+      "singleton_improvement": 0.0008259168898803182,
+      "singleton_objective": 41037.45905568323,
+      "singleton_rank": 36
+    },
+    {
+      "affected_query_count": 498,
+      "attributes": [
+        "record_type",
+        "county"
+      ],
+      "candidate_id": "cand_6b0e7e9b7d7eb883405b",
+      "definition": {
+        "attnums": [
+          1,
+          4
+        ],
+        "statistics_name": "pgextadv_acq_fe515998db2a5eb538c50adf",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.14513785599956464,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 498,
+      "precedence_rank": 38,
+      "realization_state": "ABSENT_NATIVE",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1465,
+      "singleton_improvement": 0.0,
+      "singleton_objective": 41037.45988160012,
+      "singleton_rank": 37
+    },
+    {
+      "affected_query_count": 489,
+      "attributes": [
+        "county",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_5e3a909effbf6f7d6e21",
+      "definition": {
+        "attnums": [
+          4,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_b2596adf61486d4fb03545c4",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.13831010200010496,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 489,
+      "precedence_rank": 58,
+      "realization_state": "ABSENT_NATIVE",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1474,
+      "singleton_improvement": 0.0,
+      "singleton_objective": 41037.45988160012,
+      "singleton_rank": 38
+    },
+    {
+      "affected_query_count": 490,
+      "attributes": [
+        "scofflaw_indicator",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_4647f51bb46042cafc21",
+      "definition": {
+        "attnums": [
+          9,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_5dc5995bc7e813553c0b2fca",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.14444430100047612,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 490,
+      "precedence_rank": 34,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1473,
+      "singleton_improvement": -0.0009190167838823982,
+      "singleton_objective": 41037.46080061691,
+      "singleton_rank": 39
+    },
+    {
+      "affected_query_count": 497,
+      "attributes": [
+        "scofflaw_indicator",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_a5d58adc88429a8a1a93",
+      "definition": {
+        "attnums": [
+          9,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_f78765647b7231be6bbc6d13",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.15709852099826094,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 497,
+      "precedence_rank": 33,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1466,
+      "singleton_improvement": -0.001787629909813404,
+      "singleton_objective": 41037.46166923003,
+      "singleton_rank": 40
+    },
+    {
+      "affected_query_count": 486,
+      "attributes": [
+        "county",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_323246ee68602507a57d",
+      "definition": {
+        "attnums": [
+          4,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_832d6287fdfe9945ca255086",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.16078317100073036,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 486,
+      "precedence_rank": 23,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1477,
+      "singleton_improvement": -0.021951274829916656,
+      "singleton_objective": 41037.48183287495,
+      "singleton_rank": 41
+    },
+    {
+      "affected_query_count": 479,
+      "attributes": [
+        "registration_class",
+        "county"
+      ],
+      "candidate_id": "cand_9f93544dce1d63b0f711",
+      "definition": {
+        "attnums": [
+          2,
+          4
+        ],
+        "statistics_name": "pgextadv_acq_c3496b98ad3b8ca66df99c96",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1586888159999944,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 479,
+      "precedence_rank": 9,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1484,
+      "singleton_improvement": -0.057838361943140626,
+      "singleton_objective": 41037.51771996207,
+      "singleton_rank": 42
+    },
+    {
+      "affected_query_count": 471,
+      "attributes": [
+        "state",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_e95bcd15c94c80f62716",
+      "definition": {
+        "attnums": [
+          3,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_ebc7db0605a0bd390e6b7a84",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.15443916200092644,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 471,
+      "precedence_rank": 55,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1492,
+      "singleton_improvement": -0.1155543187414878,
+      "singleton_objective": 41037.575435918865,
+      "singleton_rank": 43
+    },
+    {
+      "affected_query_count": 505,
+      "attributes": [
+        "state",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_0ffaccec3f557491b6ba",
+      "definition": {
+        "attnums": [
+          3,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_322deb0bc72e3d9ba79d46b2",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.15862720099903527,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 505,
+      "precedence_rank": 56,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1458,
+      "singleton_improvement": -0.11957311695005046,
+      "singleton_objective": 41037.57945471707,
+      "singleton_rank": 44
+    },
+    {
+      "affected_query_count": 512,
+      "attributes": [
+        "registration_class",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_67f23918cdad906be4ea",
+      "definition": {
+        "attnums": [
+          2,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_11198f998b2fd725281c7831",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.16469431499899656,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 512,
+      "precedence_rank": 12,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1451,
+      "singleton_improvement": -0.2593901031141286,
+      "singleton_objective": 41037.71927170324,
+      "singleton_rank": 45
+    },
+    {
+      "affected_query_count": 501,
+      "attributes": [
+        "suspension_indicator",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_d102d0d6903dbc44935f",
+      "definition": {
+        "attnums": [
+          10,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_cd220a4de6b8b8d324be3993",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.13898063600026944,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 501,
+      "precedence_rank": 71,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1462,
+      "singleton_improvement": -0.28563448803470237,
+      "singleton_objective": 41037.74551608816,
+      "singleton_rank": 46
+    },
+    {
+      "affected_query_count": 484,
+      "attributes": [
+        "registration_class",
+        "state"
+      ],
+      "candidate_id": "cand_d17d4fee04bca1295fdb",
+      "definition": {
+        "attnums": [
+          2,
+          3
+        ],
+        "statistics_name": "pgextadv_acq_fa8532320fad21cf15d64326",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.17299768200064136,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 484,
+      "precedence_rank": 44,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1479,
+      "singleton_improvement": -0.5768266024751938,
+      "singleton_objective": 41038.0367082026,
+      "singleton_rank": 47
+    },
+    {
+      "affected_query_count": 496,
+      "attributes": [
+        "county",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_4c7d493f98b0c50576d2",
+      "definition": {
+        "attnums": [
+          4,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_e0a9e847c8e394e9c5d8ec0a",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.1531310519985709,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 496,
+      "precedence_rank": 60,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1467,
+      "singleton_improvement": -1.661115322225669,
+      "singleton_objective": 41039.12099692235,
+      "singleton_rank": 48
+    },
+    {
+      "affected_query_count": 495,
+      "attributes": [
+        "county",
+        "body_type"
+      ],
+      "candidate_id": "cand_f457f7acd881e6884fac",
+      "definition": {
+        "attnums": [
+          4,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_7675aa87ee6523e37ab2a138",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.17057706299965503,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 495,
+      "precedence_rank": 57,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1468,
+      "singleton_improvement": -4.429274209673167,
+      "singleton_objective": 41041.8891558098,
+      "singleton_rank": 49
+    },
+    {
+      "affected_query_count": 528,
+      "attributes": [
+        "record_type",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_b6cafc68143c6fa37e85",
+      "definition": {
+        "attnums": [
+          1,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_d0346b501bef15a5ada01ab4",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.1590048520010896,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 528,
+      "precedence_rank": 42,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1435,
+      "singleton_improvement": -6.41008626409166,
+      "singleton_objective": 41043.869967864215,
+      "singleton_rank": 50
+    },
+    {
+      "affected_query_count": 489,
+      "attributes": [
+        "county",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_d0bacba4d271fabbb378",
+      "definition": {
+        "attnums": [
+          4,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_788cb1f7de9e3b6093b84284",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.15735244999996212,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 489,
+      "precedence_rank": 22,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1474,
+      "singleton_improvement": -6.8721639391515055,
+      "singleton_objective": 41044.332045539275,
+      "singleton_rank": 51
+    },
+    {
+      "affected_query_count": 496,
+      "attributes": [
+        "county",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_1f373962efd7e5718e85",
+      "definition": {
+        "attnums": [
+          4,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_a0d3777d12543a21b4ac99ae",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.15916367700083356,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 496,
+      "precedence_rank": 24,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1467,
+      "singleton_improvement": -8.533640470603132,
+      "singleton_objective": 41045.99352207073,
+      "singleton_rank": 52
+    },
+    {
+      "affected_query_count": 506,
+      "attributes": [
+        "fuel_type",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_dd4fa07161dcf5def8eb",
+      "definition": {
+        "attnums": [
+          6,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_cd778a5a2ad4d7410b4e52ad",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.15819429899966053,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 506,
+      "precedence_rank": 68,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1457,
+      "singleton_improvement": -8.599744274804834,
+      "singleton_objective": 41046.05962587493,
+      "singleton_rank": 53
+    },
+    {
+      "affected_query_count": 479,
+      "attributes": [
+        "registration_class",
+        "county"
+      ],
+      "candidate_id": "cand_aea8cd0109869655caf1",
+      "definition": {
+        "attnums": [
+          2,
+          4
+        ],
+        "statistics_name": "pgextadv_acq_6d855b03aa6d09d197cf9328",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.15905614900111686,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 479,
+      "precedence_rank": 45,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1484,
+      "singleton_improvement": -9.966680151650507,
+      "singleton_objective": 41047.426561751774,
+      "singleton_rank": 54
+    },
+    {
+      "affected_query_count": 544,
+      "attributes": [
+        "record_type",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_f002ec4adfff3911240b",
+      "definition": {
+        "attnums": [
+          1,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_84e21ec5cdfafd537dbdc459",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.16421781499957433,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 544,
+      "precedence_rank": 43,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1419,
+      "singleton_improvement": -10.571610623737797,
+      "singleton_objective": 41048.03149222386,
+      "singleton_rank": 55
+    },
+    {
+      "affected_query_count": 498,
+      "attributes": [
+        "body_type",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_9e3965b9e6ab7faacc4e",
+      "definition": {
+        "attnums": [
+          5,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_18a16ffd17df79f667d81a18",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.16665353900134505,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 498,
+      "precedence_rank": 64,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1465,
+      "singleton_improvement": -10.84062630477274,
+      "singleton_objective": 41048.300507904896,
+      "singleton_rank": 56
+    },
+    {
+      "affected_query_count": 492,
+      "attributes": [
+        "registration_class",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_01b1f84ca5c01d3f532f",
+      "definition": {
+        "attnums": [
+          2,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_1916ab10c968ecc5bcfb47eb",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.13374964200011163,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 492,
+      "precedence_rank": 49,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1471,
+      "singleton_improvement": -13.95981486049277,
+      "singleton_objective": 41051.419696460616,
+      "singleton_rank": 57
+    },
+    {
+      "affected_query_count": 496,
+      "attributes": [
+        "state",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_2408bc6708d3e202809c",
+      "definition": {
+        "attnums": [
+          3,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_dde4086ae161c23b39c8e0c3",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1594584920003399,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 496,
+      "precedence_rank": 17,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1467,
+      "singleton_improvement": -27.14242050818575,
+      "singleton_objective": 41064.60230210831,
+      "singleton_rank": 58
+    },
+    {
+      "affected_query_count": 516,
+      "attributes": [
+        "body_type",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_2bea04f8b2c85ff2a4e0",
+      "definition": {
+        "attnums": [
+          5,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_09d6edb3fc7d05ccdfc35b50",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.17687635999936901,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 516,
+      "precedence_rank": 65,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1447,
+      "singleton_improvement": -35.21766961526737,
+      "singleton_objective": 41072.67755121539,
+      "singleton_rank": 59
+    },
+    {
+      "affected_query_count": 474,
+      "attributes": [
+        "registration_class",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_b8a5e9986c1d9a33b825",
+      "definition": {
+        "attnums": [
+          2,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_1cfc12764129dce3bf25108c",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.15123397000024852,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 474,
+      "precedence_rank": 14,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1489,
+      "singleton_improvement": -48.49388626500877,
+      "singleton_objective": 41085.95376786513,
+      "singleton_rank": 60
+    },
+    {
+      "affected_query_count": 460,
+      "attributes": [
+        "state",
+        "county"
+      ],
+      "candidate_id": "cand_bfad1c9b37411e1a5d68",
+      "definition": {
+        "attnums": [
+          3,
+          4
+        ],
+        "statistics_name": "pgextadv_acq_11e8f8cd017a063fa663a32b",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.14786146500046016,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 460,
+      "precedence_rank": 51,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1503,
+      "singleton_improvement": -68.08316664486483,
+      "singleton_objective": 41105.54304824499,
+      "singleton_rank": 61
+    },
+    {
+      "affected_query_count": 492,
+      "attributes": [
+        "registration_class",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_7513ba127d94672ed612",
+      "definition": {
+        "attnums": [
+          2,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_7c6a89e0d9a8018abf141ced",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1562273589988763,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 492,
+      "precedence_rank": 13,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1471,
+      "singleton_improvement": -79.450353950313,
+      "singleton_objective": 41116.91023555044,
+      "singleton_rank": 62
+    },
+    {
+      "affected_query_count": 484,
+      "attributes": [
+        "registration_class",
+        "state"
+      ],
+      "candidate_id": "cand_4818ce79b7b4b07709c2",
+      "definition": {
+        "attnums": [
+          2,
+          3
+        ],
+        "statistics_name": "pgextadv_acq_d4e26b2a32bcc576e9856539",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1488180519991147,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 484,
+      "precedence_rank": 8,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1479,
+      "singleton_improvement": -89.24989403005748,
+      "singleton_objective": 41126.70977563018,
+      "singleton_rank": 63
+    },
+    {
+      "affected_query_count": 544,
+      "attributes": [
+        "record_type",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_bc69a49224dd80292b07",
+      "definition": {
+        "attnums": [
+          1,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_684aab968451c9af69570496",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1666201940006431,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 544,
+      "precedence_rank": 7,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1419,
+      "singleton_improvement": -101.3800164650238,
+      "singleton_objective": 41138.83989806515,
+      "singleton_rank": 64
+    },
+    {
+      "affected_query_count": 459,
+      "attributes": [
+        "state",
+        "body_type"
+      ],
+      "candidate_id": "cand_f9cdb92e50791f0d58b6",
+      "definition": {
+        "attnums": [
+          3,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_c4db07b8160888a21490c931",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1334967279999546,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 459,
+      "precedence_rank": 16,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1504,
+      "singleton_improvement": -129.12747513134673,
+      "singleton_objective": 41166.58735673147,
+      "singleton_rank": 65
+    },
+    {
+      "affected_query_count": 474,
+      "attributes": [
+        "registration_class",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_cfb64b0bf69c059cd760",
+      "definition": {
+        "attnums": [
+          2,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_a5594918018fe8730eed5b23",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.1524722579997615,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 474,
+      "precedence_rank": 50,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1489,
+      "singleton_improvement": -133.8523499873627,
+      "singleton_objective": 41171.312231587486,
+      "singleton_rank": 66
+    },
+    {
+      "affected_query_count": 514,
+      "attributes": [
+        "record_type",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_6ca6020979af5e5766a4",
+      "definition": {
+        "attnums": [
+          1,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_0392e720db513bc0eef53297",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1398056780017214,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 514,
+      "precedence_rank": 4,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1449,
+      "singleton_improvement": -256.33736043126555,
+      "singleton_objective": 41293.79724203139,
+      "singleton_rank": 67
+    },
+    {
+      "affected_query_count": 483,
+      "attributes": [
+        "body_type",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_0275ee8f6b218bf6a5a1",
+      "definition": {
+        "attnums": [
+          5,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_f753a68abedf14db57963446",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.14146475000052305,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 483,
+      "precedence_rank": 26,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1480,
+      "singleton_improvement": -541.9635654176091,
+      "singleton_objective": 41579.42344701773,
+      "singleton_rank": 68
+    },
+    {
+      "affected_query_count": 503,
+      "attributes": [
+        "record_type",
+        "registration_class"
+      ],
+      "candidate_id": "cand_850ffdf5fc1ceee3e08d",
+      "definition": {
+        "attnums": [
+          1,
+          2
+        ],
+        "statistics_name": "pgextadv_acq_8a1bcfd1e21f0b485e0bbce4",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.1633896969997295,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 503,
+      "precedence_rank": 36,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1460,
+      "singleton_improvement": -944.0656933988867,
+      "singleton_objective": 41981.52557499901,
+      "singleton_rank": 69
+    },
+    {
+      "affected_query_count": 465,
+      "attributes": [
+        "registration_class",
+        "body_type"
+      ],
+      "candidate_id": "cand_c7f3b001bf1756cd2ed9",
+      "definition": {
+        "attnums": [
+          2,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_8c777df2dca8b5e52dfa0455",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.15735128699998313,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 465,
+      "precedence_rank": 46,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1498,
+      "singleton_improvement": -1723.1024089276034,
+      "singleton_objective": 42760.56229052773,
+      "singleton_rank": 70
+    },
+    {
+      "affected_query_count": 465,
+      "attributes": [
+        "registration_class",
+        "body_type"
+      ],
+      "candidate_id": "cand_c6f83d66ce3d1e079f11",
+      "definition": {
+        "attnums": [
+          2,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_377382992bb117f60627fd41",
+        "stxkind": "m"
+      },
+      "elapsed_seconds": 0.1599555489992781,
+      "mechanism": "mcv",
+      "native_evaluator_count": 1,
+      "planner_calls": 465,
+      "precedence_rank": 10,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1498,
+      "singleton_improvement": -6106.736919090094,
+      "singleton_objective": 47144.19680069022,
+      "singleton_rank": 71
+    },
+    {
+      "affected_query_count": 489,
+      "attributes": [
+        "record_type",
+        "body_type"
+      ],
+      "candidate_id": "cand_0715050eb032f5528139",
+      "definition": {
+        "attnums": [
+          1,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_004cff7a8d3a45ed5100db06",
+        "stxkind": "f"
+      },
+      "elapsed_seconds": 0.1411932170012733,
+      "mechanism": "fd",
+      "native_evaluator_count": 1,
+      "planner_calls": 489,
+      "precedence_rank": 39,
+      "realization_state": "PRESENT",
+      "relation_name": "public.dmv",
+      "reused_query_count": 1474,
+      "singleton_improvement": -28611.316465108423,
+      "singleton_objective": 69648.77634670855,
+      "singleton_rank": 72
+    }
+  ],
+  "profile_digest": "c5f7f6fa6c6e47f53b6b8490f39c1ba2532a0e1c946f55d2d9cb924cdd0f5715",
+  "realization_counts": {
+    "ABSENT_NATIVE": 2,
+    "PRESENT": 70
+  },
+  "repository_digest": "2ebef08a2182eab4baaee7d8135077b74b4f2eec51dfa8b645e25f0f542eca26",
+  "run1_run2_exact": true,
+  "sample": "B"
+}

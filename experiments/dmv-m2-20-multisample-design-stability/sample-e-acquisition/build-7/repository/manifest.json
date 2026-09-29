@@ -1,0 +1,2126 @@
+{
+  "acquisition_provenance": {
+    "analyze_count": 1,
+    "analyzed_relations": [
+      "public.dmv"
+    ],
+    "completed_at": "2026-09-29T05:13:48.402786+00:00",
+    "method": "physical CREATE STATISTICS plus relation-grouped ANALYZE",
+    "relation_compatibility": [
+      {
+        "acquisition_logical_fingerprint": "54504cd035d37e41df25660d68d92b5c6a7559c50c33fb5a5e84faffa17755f4",
+        "compatible": true,
+        "relation": "public.dmv",
+        "source_logical_fingerprint": "54504cd035d37e41df25660d68d92b5c6a7559c50c33fb5a5e84faffa17755f4"
+      }
+    ],
+    "started_at": "2026-09-29T05:13:47.638287+00:00",
+    "statistics_target": 100
+  },
+  "candidates": [
+    {
+      "attributes": [
+        "record_type",
+        "registration_class"
+      ],
+      "backend_oid": 65943,
+      "candidate_id": "cand_c614cf6de073226f0aa4",
+      "definition": {
+        "attnums": [
+          1,
+          2
+        ],
+        "statistics_name": "pgextadv_acq_2ec9b8cb3d864231133fe9a5",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_c614cf6de073226f0aa4.mcv.bin",
+      "payload_sha256": "fc195e12626d680e4e6e5196e1dd1750f273972fe6c2d437d47b42955f18250e",
+      "payload_size": 904,
+      "precedence_rank": 0,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "state"
+      ],
+      "backend_oid": 65944,
+      "candidate_id": "cand_f5f353d914b36187882c",
+      "definition": {
+        "attnums": [
+          1,
+          3
+        ],
+        "statistics_name": "pgextadv_acq_b3b20bee28e71aafeee01625",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_f5f353d914b36187882c.mcv.bin",
+      "payload_sha256": "655019d3dce3362b27717639f981396ba78bf0fc5ec754b1b29b3861f54c6488",
+      "payload_size": 298,
+      "precedence_rank": 1,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "county"
+      ],
+      "backend_oid": 65945,
+      "candidate_id": "cand_ea5acfb9a4e9bf9c4ee2",
+      "definition": {
+        "attnums": [
+          1,
+          4
+        ],
+        "statistics_name": "pgextadv_acq_a38dded9f82765431624fedc",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_ea5acfb9a4e9bf9c4ee2.mcv.bin",
+      "payload_sha256": "2faf0cb380a14b553d682aa358d52068f3e767b0d2a7eadcd850772ed4f79b3f",
+      "payload_size": 2599,
+      "precedence_rank": 2,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "body_type"
+      ],
+      "backend_oid": 65946,
+      "candidate_id": "cand_f94acad130c4ac5b3553",
+      "definition": {
+        "attnums": [
+          1,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_6c18528aff03d754df3cac92",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_f94acad130c4ac5b3553.mcv.bin",
+      "payload_sha256": "22af4d90db5023800428f0b8e46e3e87df69de7625f57c4f55dc91d773bdccc4",
+      "payload_size": 800,
+      "precedence_rank": 3,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "fuel_type"
+      ],
+      "backend_oid": 65947,
+      "candidate_id": "cand_6ca6020979af5e5766a4",
+      "definition": {
+        "attnums": [
+          1,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_0392e720db513bc0eef53297",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_6ca6020979af5e5766a4.mcv.bin",
+      "payload_sha256": "664fe4ea039ed0196a07df8f4cb4389dfb498b5f81cb7f203e4c308c247caabe",
+      "payload_size": 309,
+      "precedence_rank": 4,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 65948,
+      "candidate_id": "cand_08a7c0809e27527cb40f",
+      "definition": {
+        "attnums": [
+          1,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_8f426a292d58b97d83a09e9a",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_08a7c0809e27527cb40f.mcv.bin",
+      "payload_sha256": "2d68891d856ed2b5d69bc9365bbec8fc80e7a843e247da6b3d0f81a7e0877f37",
+      "payload_size": 185,
+      "precedence_rank": 5,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "suspension_indicator"
+      ],
+      "backend_oid": 65949,
+      "candidate_id": "cand_e25a986fe1b364e78595",
+      "definition": {
+        "attnums": [
+          1,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_6460eef9504ac6563f482dc2",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_e25a986fe1b364e78595.mcv.bin",
+      "payload_sha256": "d7aa88571a4d0ae7f506ac2294885cf11349261e38bee5d11b0ffabd5ca17a5f",
+      "payload_size": 212,
+      "precedence_rank": 6,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "revocation_indicator"
+      ],
+      "backend_oid": 65950,
+      "candidate_id": "cand_bc69a49224dd80292b07",
+      "definition": {
+        "attnums": [
+          1,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_684aab968451c9af69570496",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_bc69a49224dd80292b07.mcv.bin",
+      "payload_sha256": "6b4cffae2d235f59cfa5f3da8e52ce8c07294141ca332fdf8039c21464248ff4",
+      "payload_size": 212,
+      "precedence_rank": 7,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "state"
+      ],
+      "backend_oid": 65951,
+      "candidate_id": "cand_4818ce79b7b4b07709c2",
+      "definition": {
+        "attnums": [
+          2,
+          3
+        ],
+        "statistics_name": "pgextadv_acq_d4e26b2a32bcc576e9856539",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_4818ce79b7b4b07709c2.mcv.bin",
+      "payload_sha256": "a34382a32ec1cc5a6372aef8fcffb7ec1a5d764456cc33ec33aa77382c0f49b9",
+      "payload_size": 1014,
+      "precedence_rank": 8,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "county"
+      ],
+      "backend_oid": 65952,
+      "candidate_id": "cand_9f93544dce1d63b0f711",
+      "definition": {
+        "attnums": [
+          2,
+          4
+        ],
+        "statistics_name": "pgextadv_acq_c3496b98ad3b8ca66df99c96",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_9f93544dce1d63b0f711.mcv.bin",
+      "payload_sha256": "17ad278de2956b1ddf6714fdc9b1b0142d10db863ef6347da33a178567007f0c",
+      "payload_size": 3019,
+      "precedence_rank": 9,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "body_type"
+      ],
+      "backend_oid": 65953,
+      "candidate_id": "cand_c6f83d66ce3d1e079f11",
+      "definition": {
+        "attnums": [
+          2,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_377382992bb117f60627fd41",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_c6f83d66ce3d1e079f11.mcv.bin",
+      "payload_sha256": "09b07f893f27b92555af1de455b59f736e5402b0d0fef5dea666fe1228a4485b",
+      "payload_size": 1297,
+      "precedence_rank": 10,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "fuel_type"
+      ],
+      "backend_oid": 65954,
+      "candidate_id": "cand_1f420ce5268e234e658c",
+      "definition": {
+        "attnums": [
+          2,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_2fc9932246babe4b0af91324",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_1f420ce5268e234e658c.mcv.bin",
+      "payload_sha256": "620250b232f26f7d55c49cf83dc2730c6e85c8b86bf2afbfa2e87aac53f3bbb3",
+      "payload_size": 1047,
+      "precedence_rank": 11,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 65955,
+      "candidate_id": "cand_67f23918cdad906be4ea",
+      "definition": {
+        "attnums": [
+          2,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_11198f998b2fd725281c7831",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_67f23918cdad906be4ea.mcv.bin",
+      "payload_sha256": "313cb0c7b82b895fa91b7950a8a006964d4446209da12b93389e92bc7e953e84",
+      "payload_size": 879,
+      "precedence_rank": 12,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "suspension_indicator"
+      ],
+      "backend_oid": 65956,
+      "candidate_id": "cand_7513ba127d94672ed612",
+      "definition": {
+        "attnums": [
+          2,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_7c6a89e0d9a8018abf141ced",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_7513ba127d94672ed612.mcv.bin",
+      "payload_sha256": "ef04a8c818aa594d84ccf1796e7904032bb5505ee5fed855338af434cd6075f2",
+      "payload_size": 906,
+      "precedence_rank": 13,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "revocation_indicator"
+      ],
+      "backend_oid": 65957,
+      "candidate_id": "cand_b8a5e9986c1d9a33b825",
+      "definition": {
+        "attnums": [
+          2,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_1cfc12764129dce3bf25108c",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_b8a5e9986c1d9a33b825.mcv.bin",
+      "payload_sha256": "3b8566fa3cf06d52d534e3990e745f46fdfc099e5113111d5d4c318e414e6f28",
+      "payload_size": 906,
+      "precedence_rank": 14,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "state",
+        "county"
+      ],
+      "backend_oid": 65958,
+      "candidate_id": "cand_93041865e5a926191d54",
+      "definition": {
+        "attnums": [
+          3,
+          4
+        ],
+        "statistics_name": "pgextadv_acq_890daee9ade586a094ba2b43",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_93041865e5a926191d54.mcv.bin",
+      "payload_sha256": "a17ca2abc7cad3ed3beca49812c89df03e784b1f8442cb6b80125b7e0c4e6459",
+      "payload_size": 2281,
+      "precedence_rank": 15,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "state",
+        "body_type"
+      ],
+      "backend_oid": 65959,
+      "candidate_id": "cand_f9cdb92e50791f0d58b6",
+      "definition": {
+        "attnums": [
+          3,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_c4db07b8160888a21490c931",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_f9cdb92e50791f0d58b6.mcv.bin",
+      "payload_sha256": "fdde972d8834b89217860b1ad755b66ce964d61b490ac9d7ab0e106777647736",
+      "payload_size": 882,
+      "precedence_rank": 16,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "state",
+        "fuel_type"
+      ],
+      "backend_oid": 65960,
+      "candidate_id": "cand_2408bc6708d3e202809c",
+      "definition": {
+        "attnums": [
+          3,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_dde4086ae161c23b39c8e0c3",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_2408bc6708d3e202809c.mcv.bin",
+      "payload_sha256": "a0ca04d1923b32ac0e402a09ac7c7397c8158c45fdf3032b9b1b8a20dddfcc69",
+      "payload_size": 331,
+      "precedence_rank": 17,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "state",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 65961,
+      "candidate_id": "cand_560443d79842b416ea0d",
+      "definition": {
+        "attnums": [
+          3,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_f5ce8d2f6fbfd9b1e4e3fabc",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_560443d79842b416ea0d.mcv.bin",
+      "payload_sha256": "702b405a4e11af2404a789c2dc1cd2c952d8ed624b1dee519624d2556c60f989",
+      "payload_size": 263,
+      "precedence_rank": 18,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "state",
+        "suspension_indicator"
+      ],
+      "backend_oid": 65962,
+      "candidate_id": "cand_72a4065afe7511935b18",
+      "definition": {
+        "attnums": [
+          3,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_220a39f980e2b2657046235c",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_72a4065afe7511935b18.mcv.bin",
+      "payload_sha256": "14381619351197c9b0840976dd9cc7a23afbb4cdc94c33ccb23e5b4352640b1e",
+      "payload_size": 290,
+      "precedence_rank": 19,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "state",
+        "revocation_indicator"
+      ],
+      "backend_oid": 65963,
+      "candidate_id": "cand_0fdc909a2a3cf9718db9",
+      "definition": {
+        "attnums": [
+          3,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_58c9c6ad959339ef08ac2161",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_0fdc909a2a3cf9718db9.mcv.bin",
+      "payload_sha256": "88e1f0305a9e96f2b1964749dd8d74f99facf071a84a281ca83aae3352fbd704",
+      "payload_size": 290,
+      "precedence_rank": 20,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "county",
+        "body_type"
+      ],
+      "backend_oid": 65964,
+      "candidate_id": "cand_7531356383a7948fede1",
+      "definition": {
+        "attnums": [
+          4,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_05d21c40c2af8b9702c579b9",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_7531356383a7948fede1.mcv.bin",
+      "payload_sha256": "48e09e7dd875d9399d2585e8d41dd23d1d18c57f4ee245d7add6c419fd1b14dc",
+      "payload_size": 2815,
+      "precedence_rank": 21,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "county",
+        "fuel_type"
+      ],
+      "backend_oid": 65965,
+      "candidate_id": "cand_d0bacba4d271fabbb378",
+      "definition": {
+        "attnums": [
+          4,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_788cb1f7de9e3b6093b84284",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_d0bacba4d271fabbb378.mcv.bin",
+      "payload_sha256": "0d611b56147d0efecb123993ee61426870517ae3084cb4538a10524004b093ff",
+      "payload_size": 2752,
+      "precedence_rank": 22,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "county",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 65966,
+      "candidate_id": "cand_323246ee68602507a57d",
+      "definition": {
+        "attnums": [
+          4,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_832d6287fdfe9945ca255086",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_323246ee68602507a57d.mcv.bin",
+      "payload_sha256": "6b4f3d24b2f24d0892caca33ec3f9473a0e7998450505cb085643a883dfdab7b",
+      "payload_size": 2134,
+      "precedence_rank": 23,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "county",
+        "suspension_indicator"
+      ],
+      "backend_oid": 65967,
+      "candidate_id": "cand_1f373962efd7e5718e85",
+      "definition": {
+        "attnums": [
+          4,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_a0d3777d12543a21b4ac99ae",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_1f373962efd7e5718e85.mcv.bin",
+      "payload_sha256": "819e10a85113212aa5b75efbed33e71b0167547dac1524e0bc1f68f749b26dd1",
+      "payload_size": 2161,
+      "precedence_rank": 24,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "county",
+        "revocation_indicator"
+      ],
+      "backend_oid": 65968,
+      "candidate_id": "cand_6161166747fb16ce38eb",
+      "definition": {
+        "attnums": [
+          4,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_280486d41b30ab61faa56ff9",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_6161166747fb16ce38eb.mcv.bin",
+      "payload_sha256": "7aaf907ea5cdcda6c9954b5309a9132ace58e296df0460a968ef432ad448c6ef",
+      "payload_size": 2183,
+      "precedence_rank": 25,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "fuel_type"
+      ],
+      "backend_oid": 65969,
+      "candidate_id": "cand_0275ee8f6b218bf6a5a1",
+      "definition": {
+        "attnums": [
+          5,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_f753a68abedf14db57963446",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_0275ee8f6b218bf6a5a1.mcv.bin",
+      "payload_sha256": "00a34bce3714cccadebe1f2183fc7eb54771ea98d22a7c0fa19300a60b442fa5",
+      "payload_size": 987,
+      "precedence_rank": 26,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 65970,
+      "candidate_id": "cand_799d0072c9c0e8bc7bb8",
+      "definition": {
+        "attnums": [
+          5,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_f5608866ab2fd87567b23585",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_799d0072c9c0e8bc7bb8.mcv.bin",
+      "payload_sha256": "20aea09652386f938c74cd11a55c581ec2b0487fd9a93d4114f3adf4fb2302ae",
+      "payload_size": 783,
+      "precedence_rank": 27,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "suspension_indicator"
+      ],
+      "backend_oid": 65971,
+      "candidate_id": "cand_5005700887020f58d09a",
+      "definition": {
+        "attnums": [
+          5,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_3175f53b20bef6b33e303a49",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_5005700887020f58d09a.mcv.bin",
+      "payload_sha256": "ba12bdf25d23cb4fc9fb9e28400a73546f1d667bc626177e6ae1298283820d9f",
+      "payload_size": 832,
+      "precedence_rank": 28,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "revocation_indicator"
+      ],
+      "backend_oid": 65972,
+      "candidate_id": "cand_b18e2586ffe14b36f703",
+      "definition": {
+        "attnums": [
+          5,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_ef60f3250d8c2e24b4f8946a",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_b18e2586ffe14b36f703.mcv.bin",
+      "payload_sha256": "5bfd6f0d9598bec2a8b49ad52781c52862a651b43aa649ef48b45375c7bacf41",
+      "payload_size": 802,
+      "precedence_rank": 29,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 65973,
+      "candidate_id": "cand_7bad1214667cfa5a9e86",
+      "definition": {
+        "attnums": [
+          6,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_892ecdfec082be8a3805942a",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_7bad1214667cfa5a9e86.mcv.bin",
+      "payload_sha256": "1bd6ebc5e7d34da03367ad51ec358454f24ef3e65d80cf61735ec8e39700f49e",
+      "payload_size": 218,
+      "precedence_rank": 30,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "suspension_indicator"
+      ],
+      "backend_oid": 65974,
+      "candidate_id": "cand_d81088ebd0b428f317e8",
+      "definition": {
+        "attnums": [
+          6,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_2e87f6117b8c9269a2f267dc",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_d81088ebd0b428f317e8.mcv.bin",
+      "payload_sha256": "6eeb943fa1cf94d46f3ad4a11bb7c1f3915400fb5bd7f82f963a4f52144bff5b",
+      "payload_size": 245,
+      "precedence_rank": 31,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "revocation_indicator"
+      ],
+      "backend_oid": 65975,
+      "candidate_id": "cand_2cc7a6ce91fea1a3633f",
+      "definition": {
+        "attnums": [
+          6,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_8d0c249b14095c1b4cce284f",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_2cc7a6ce91fea1a3633f.mcv.bin",
+      "payload_sha256": "f55c6f12458cea10614fff0ddc754962ab9c828b8b3dd88b4ec127c3a66dbf2f",
+      "payload_size": 245,
+      "precedence_rank": 32,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "scofflaw_indicator",
+        "suspension_indicator"
+      ],
+      "backend_oid": 65976,
+      "candidate_id": "cand_a5d58adc88429a8a1a93",
+      "definition": {
+        "attnums": [
+          9,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_f78765647b7231be6bbc6d13",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_a5d58adc88429a8a1a93.mcv.bin",
+      "payload_sha256": "93fcfe2d084ffeef964d0e966e968cd251987f9d1a7b04d5fd9956065b1546e0",
+      "payload_size": 121,
+      "precedence_rank": 33,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "scofflaw_indicator",
+        "revocation_indicator"
+      ],
+      "backend_oid": 65977,
+      "candidate_id": "cand_4647f51bb46042cafc21",
+      "definition": {
+        "attnums": [
+          9,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_5dc5995bc7e813553c0b2fca",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_4647f51bb46042cafc21.mcv.bin",
+      "payload_sha256": "1dd3330cd0877c43c155feed72f3960c23ead31c406b1adb253142cace7e4ffd",
+      "payload_size": 121,
+      "precedence_rank": 34,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "suspension_indicator",
+        "revocation_indicator"
+      ],
+      "backend_oid": 65978,
+      "candidate_id": "cand_4766516fe513466787e9",
+      "definition": {
+        "attnums": [
+          10,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_f61678e977b209098afc610a",
+        "stxkind": "m"
+      },
+      "interpretation": {
+        "postgres_type": "stxdmcv",
+        "sender": "pg_mcv_list_send"
+      },
+      "mechanism": "mcv",
+      "payload_path": "payloads/cand_4766516fe513466787e9.mcv.bin",
+      "payload_sha256": "62c7b3f2ebf9104eaf2de6e20723f4284b28e89a47715cb240ec8230e6ce96e2",
+      "payload_size": 148,
+      "precedence_rank": 35,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "registration_class"
+      ],
+      "backend_oid": 65979,
+      "candidate_id": "cand_850ffdf5fc1ceee3e08d",
+      "definition": {
+        "attnums": [
+          1,
+          2
+        ],
+        "statistics_name": "pgextadv_acq_8a1bcfd1e21f0b485e0bbce4",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_850ffdf5fc1ceee3e08d.fd.bin",
+      "payload_sha256": "df38e00d6d890553eec6ad0c642d9e5037febcfe55d6444bb546d10cdb052cae",
+      "payload_size": 40,
+      "precedence_rank": 36,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "state"
+      ],
+      "backend_oid": 65980,
+      "candidate_id": "cand_9a47b4882350bf5fccf9",
+      "definition": {
+        "attnums": [
+          1,
+          3
+        ],
+        "statistics_name": "pgextadv_acq_6b430b6b5992af8ccb069a30",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_9a47b4882350bf5fccf9.fd.bin",
+      "payload_sha256": "a3e21be3ce6e4aac86b502f82d6d7161dd370d848b0fffdd88e136240d429ddc",
+      "payload_size": 26,
+      "precedence_rank": 37,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "county"
+      ],
+      "backend_oid": 65981,
+      "candidate_id": "cand_6b0e7e9b7d7eb883405b",
+      "definition": {
+        "attnums": [
+          1,
+          4
+        ],
+        "statistics_name": "pgextadv_acq_fe515998db2a5eb538c50adf",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": null,
+      "payload_sha256": null,
+      "payload_size": null,
+      "precedence_rank": 38,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "ABSENT_NATIVE"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "body_type"
+      ],
+      "backend_oid": 65982,
+      "candidate_id": "cand_0715050eb032f5528139",
+      "definition": {
+        "attnums": [
+          1,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_004cff7a8d3a45ed5100db06",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_0715050eb032f5528139.fd.bin",
+      "payload_sha256": "38c906afc2e5265bcad39329febf4f0d254d5c74c5ae720a001513c608b5b63b",
+      "payload_size": 40,
+      "precedence_rank": 39,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "fuel_type"
+      ],
+      "backend_oid": 65983,
+      "candidate_id": "cand_79ef5e4c653bbbb46dec",
+      "definition": {
+        "attnums": [
+          1,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_0ba3b9125e6c2fe00c3f4288",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_79ef5e4c653bbbb46dec.fd.bin",
+      "payload_sha256": "44279784a706c4b837ab7cbcacea538cc82093e425ab994bdb662de08722b1e7",
+      "payload_size": 40,
+      "precedence_rank": 40,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 65984,
+      "candidate_id": "cand_835deeb29a9e7947a98b",
+      "definition": {
+        "attnums": [
+          1,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_093b404b2ed85ef98519469d",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_835deeb29a9e7947a98b.fd.bin",
+      "payload_sha256": "ada1cf1ff40f55105599321015e4547aee944b12f73a8b8c5e313816feb86246",
+      "payload_size": 40,
+      "precedence_rank": 41,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "suspension_indicator"
+      ],
+      "backend_oid": 65985,
+      "candidate_id": "cand_b6cafc68143c6fa37e85",
+      "definition": {
+        "attnums": [
+          1,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_d0346b501bef15a5ada01ab4",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_b6cafc68143c6fa37e85.fd.bin",
+      "payload_sha256": "2227acabb7771e63b988d7e02f44887b4b7b6ef78fbaf120bfaf3e77770b38d5",
+      "payload_size": 40,
+      "precedence_rank": 42,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "revocation_indicator"
+      ],
+      "backend_oid": 65986,
+      "candidate_id": "cand_f002ec4adfff3911240b",
+      "definition": {
+        "attnums": [
+          1,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_84e21ec5cdfafd537dbdc459",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_f002ec4adfff3911240b.fd.bin",
+      "payload_sha256": "e339ddf7b695f507971b061b01b12f00232ec3f51f9b8976c903999647907ebd",
+      "payload_size": 40,
+      "precedence_rank": 43,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "state"
+      ],
+      "backend_oid": 65987,
+      "candidate_id": "cand_d17d4fee04bca1295fdb",
+      "definition": {
+        "attnums": [
+          2,
+          3
+        ],
+        "statistics_name": "pgextadv_acq_fa8532320fad21cf15d64326",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_d17d4fee04bca1295fdb.fd.bin",
+      "payload_sha256": "3d3a60bd62df864d350e5b542a76bc31732e43ef81311a9d8fdb61b28e268a89",
+      "payload_size": 40,
+      "precedence_rank": 44,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "county"
+      ],
+      "backend_oid": 65988,
+      "candidate_id": "cand_aea8cd0109869655caf1",
+      "definition": {
+        "attnums": [
+          2,
+          4
+        ],
+        "statistics_name": "pgextadv_acq_6d855b03aa6d09d197cf9328",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_aea8cd0109869655caf1.fd.bin",
+      "payload_sha256": "e4487c160fd4a5338954f50797c5fe949dd8da53cdd8c9879cc07d9c69bc803f",
+      "payload_size": 26,
+      "precedence_rank": 45,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "body_type"
+      ],
+      "backend_oid": 65989,
+      "candidate_id": "cand_c7f3b001bf1756cd2ed9",
+      "definition": {
+        "attnums": [
+          2,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_8c777df2dca8b5e52dfa0455",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_c7f3b001bf1756cd2ed9.fd.bin",
+      "payload_sha256": "c2b48a8a510146af80bf7bb6e57581828aa790611fc5a02516d1be497b3203d3",
+      "payload_size": 40,
+      "precedence_rank": 46,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "fuel_type"
+      ],
+      "backend_oid": 65990,
+      "candidate_id": "cand_a06f9852e67c463f73a2",
+      "definition": {
+        "attnums": [
+          2,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_6b116e22bcfe42b5172188a7",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_a06f9852e67c463f73a2.fd.bin",
+      "payload_sha256": "4ebd494c681a3ba69465578e0424a845c540e52d67889cd9f2590f55b57ec7f4",
+      "payload_size": 40,
+      "precedence_rank": 47,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 65991,
+      "candidate_id": "cand_044e770ab213d0ef37b1",
+      "definition": {
+        "attnums": [
+          2,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_c8f008004c37b638b2844341",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_044e770ab213d0ef37b1.fd.bin",
+      "payload_sha256": "5b776829ddcb64c0f8832b5fd63c84637dd9cd5ea371f01c350184af6e1a6f1f",
+      "payload_size": 40,
+      "precedence_rank": 48,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "suspension_indicator"
+      ],
+      "backend_oid": 65992,
+      "candidate_id": "cand_01b1f84ca5c01d3f532f",
+      "definition": {
+        "attnums": [
+          2,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_1916ab10c968ecc5bcfb47eb",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_01b1f84ca5c01d3f532f.fd.bin",
+      "payload_sha256": "2d9f2d03937231a6aa0211df335423d25c495058dc0796fca35aeed8bcbad9f2",
+      "payload_size": 26,
+      "precedence_rank": 49,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "revocation_indicator"
+      ],
+      "backend_oid": 65993,
+      "candidate_id": "cand_cfb64b0bf69c059cd760",
+      "definition": {
+        "attnums": [
+          2,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_a5594918018fe8730eed5b23",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_cfb64b0bf69c059cd760.fd.bin",
+      "payload_sha256": "7fc5cb442e923e834d7425ab2c14d99c918c4cd11e167cb163221b5d1d5b709d",
+      "payload_size": 26,
+      "precedence_rank": 50,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "state",
+        "county"
+      ],
+      "backend_oid": 65994,
+      "candidate_id": "cand_bfad1c9b37411e1a5d68",
+      "definition": {
+        "attnums": [
+          3,
+          4
+        ],
+        "statistics_name": "pgextadv_acq_11e8f8cd017a063fa663a32b",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_bfad1c9b37411e1a5d68.fd.bin",
+      "payload_sha256": "d5c4064607460dec723bf71029e7db33d01e7b5bcdda35fefe679b4007640090",
+      "payload_size": 40,
+      "precedence_rank": 51,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "state",
+        "body_type"
+      ],
+      "backend_oid": 65995,
+      "candidate_id": "cand_6505783b203dc0346b49",
+      "definition": {
+        "attnums": [
+          3,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_3adbcce75f4e03db6b855963",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_6505783b203dc0346b49.fd.bin",
+      "payload_sha256": "934f3cafa15bdc6a4f630b67d83b34b9fd29bf663ed0c68f93f58220fd28825f",
+      "payload_size": 40,
+      "precedence_rank": 52,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "state",
+        "fuel_type"
+      ],
+      "backend_oid": 65996,
+      "candidate_id": "cand_7b08320f31dae1c5e9f4",
+      "definition": {
+        "attnums": [
+          3,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_b50b5a3570354561e4708e23",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_7b08320f31dae1c5e9f4.fd.bin",
+      "payload_sha256": "1c373bb0d30e7b95783bb8c9cb1414925b4f76b342d109628a7ca77939e922bf",
+      "payload_size": 40,
+      "precedence_rank": 53,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "state",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 65997,
+      "candidate_id": "cand_867399ba1c9a9eab8364",
+      "definition": {
+        "attnums": [
+          3,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_3d4da78d118983d5381996c5",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_867399ba1c9a9eab8364.fd.bin",
+      "payload_sha256": "5abdc374a5fdf744d0343b031167503c49b5860dafb9e7ee47a88267b758ee35",
+      "payload_size": 40,
+      "precedence_rank": 54,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "state",
+        "suspension_indicator"
+      ],
+      "backend_oid": 65998,
+      "candidate_id": "cand_e95bcd15c94c80f62716",
+      "definition": {
+        "attnums": [
+          3,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_ebc7db0605a0bd390e6b7a84",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_e95bcd15c94c80f62716.fd.bin",
+      "payload_sha256": "e3248d38e1413017735c7e30992b022b45a32e93061456b8b08e5eba1600a89e",
+      "payload_size": 26,
+      "precedence_rank": 55,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "state",
+        "revocation_indicator"
+      ],
+      "backend_oid": 65999,
+      "candidate_id": "cand_0ffaccec3f557491b6ba",
+      "definition": {
+        "attnums": [
+          3,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_322deb0bc72e3d9ba79d46b2",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_0ffaccec3f557491b6ba.fd.bin",
+      "payload_sha256": "06190320993263bd20d1727143cd1320cb3baba3ac5e4366c02a8780fd39a1d4",
+      "payload_size": 26,
+      "precedence_rank": 56,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "county",
+        "body_type"
+      ],
+      "backend_oid": 66000,
+      "candidate_id": "cand_f457f7acd881e6884fac",
+      "definition": {
+        "attnums": [
+          4,
+          5
+        ],
+        "statistics_name": "pgextadv_acq_7675aa87ee6523e37ab2a138",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_f457f7acd881e6884fac.fd.bin",
+      "payload_sha256": "0785283bba722a217985c32c5982405a4f04b49d67ea11f3a002dc92628f1cef",
+      "payload_size": 26,
+      "precedence_rank": 57,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "county",
+        "fuel_type"
+      ],
+      "backend_oid": 66001,
+      "candidate_id": "cand_5e3a909effbf6f7d6e21",
+      "definition": {
+        "attnums": [
+          4,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_b2596adf61486d4fb03545c4",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": null,
+      "payload_sha256": null,
+      "payload_size": null,
+      "precedence_rank": 58,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "ABSENT_NATIVE"
+    },
+    {
+      "attributes": [
+        "county",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 66002,
+      "candidate_id": "cand_cf35fb1b66d3371735fd",
+      "definition": {
+        "attnums": [
+          4,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_d2a64f8bcecfc324a058807d",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_cf35fb1b66d3371735fd.fd.bin",
+      "payload_sha256": "dbb6cd8f5adea418bf36db0cc858d0f160f9a849e2fd0a01eab6c70b018884e7",
+      "payload_size": 26,
+      "precedence_rank": 59,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "county",
+        "suspension_indicator"
+      ],
+      "backend_oid": 66003,
+      "candidate_id": "cand_4c7d493f98b0c50576d2",
+      "definition": {
+        "attnums": [
+          4,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_e0a9e847c8e394e9c5d8ec0a",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_4c7d493f98b0c50576d2.fd.bin",
+      "payload_sha256": "15d6d688b025d97bb225b45fa2744b1ce9952e2d8e541865d531ce63359634e6",
+      "payload_size": 26,
+      "precedence_rank": 60,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "county",
+        "revocation_indicator"
+      ],
+      "backend_oid": 66004,
+      "candidate_id": "cand_663a31a8fc0678a2324b",
+      "definition": {
+        "attnums": [
+          4,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_99e15f9307d9cadc363beeb7",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_663a31a8fc0678a2324b.fd.bin",
+      "payload_sha256": "867378c08355d4880cdfd6e6b0532aa478c9df710fb76f9a94df3f33ec52aed1",
+      "payload_size": 26,
+      "precedence_rank": 61,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "fuel_type"
+      ],
+      "backend_oid": 66005,
+      "candidate_id": "cand_bb3c9704bc50457d0385",
+      "definition": {
+        "attnums": [
+          5,
+          6
+        ],
+        "statistics_name": "pgextadv_acq_203be9faecbb584e51cfef7d",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_bb3c9704bc50457d0385.fd.bin",
+      "payload_sha256": "d42a54cb26ac6ac3f560d944ee80cd2d767b0fb745861c860d8bf8445a6cef52",
+      "payload_size": 40,
+      "precedence_rank": 62,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 66006,
+      "candidate_id": "cand_a658273d38918de4ed71",
+      "definition": {
+        "attnums": [
+          5,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_5c7b6a1060c7ac49de5c91b8",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_a658273d38918de4ed71.fd.bin",
+      "payload_sha256": "c5c06efbf969c6bef37b99e4e0d8fc488041b71477d732ef42db1748ed3b19a0",
+      "payload_size": 26,
+      "precedence_rank": 63,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "suspension_indicator"
+      ],
+      "backend_oid": 66007,
+      "candidate_id": "cand_9e3965b9e6ab7faacc4e",
+      "definition": {
+        "attnums": [
+          5,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_18a16ffd17df79f667d81a18",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_9e3965b9e6ab7faacc4e.fd.bin",
+      "payload_sha256": "fb6f229b81a82658bece1a4f587b4008d518f97f027e66819750762bd88b92a1",
+      "payload_size": 26,
+      "precedence_rank": 64,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "revocation_indicator"
+      ],
+      "backend_oid": 66008,
+      "candidate_id": "cand_2bea04f8b2c85ff2a4e0",
+      "definition": {
+        "attnums": [
+          5,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_09d6edb3fc7d05ccdfc35b50",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_2bea04f8b2c85ff2a4e0.fd.bin",
+      "payload_sha256": "ad212b1bafc5dc52d39c28ac868fee44d809d53008895a57a6d557314b2858ab",
+      "payload_size": 26,
+      "precedence_rank": 65,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "scofflaw_indicator"
+      ],
+      "backend_oid": 66009,
+      "candidate_id": "cand_d033eb981110aa21d3df",
+      "definition": {
+        "attnums": [
+          6,
+          9
+        ],
+        "statistics_name": "pgextadv_acq_4c1b5837e3647601e32f5ba2",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_d033eb981110aa21d3df.fd.bin",
+      "payload_sha256": "a3a6153463b76fcd138267f53694bc53f003bd7c948c9b8fe239330d74abbe24",
+      "payload_size": 40,
+      "precedence_rank": 66,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "suspension_indicator"
+      ],
+      "backend_oid": 66010,
+      "candidate_id": "cand_0ef1e644231e36b17de7",
+      "definition": {
+        "attnums": [
+          6,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_d4a432f71c376ea4b242759e",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_0ef1e644231e36b17de7.fd.bin",
+      "payload_sha256": "20ffc256c9f3e6a426e1066e58937745dffbc8d6c4f9ae8bef59ba8517a5558c",
+      "payload_size": 26,
+      "precedence_rank": 67,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "revocation_indicator"
+      ],
+      "backend_oid": 66011,
+      "candidate_id": "cand_dd4fa07161dcf5def8eb",
+      "definition": {
+        "attnums": [
+          6,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_cd778a5a2ad4d7410b4e52ad",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_dd4fa07161dcf5def8eb.fd.bin",
+      "payload_sha256": "f8a85c27fcf3bd4df9e2cef24dcafb4b3b85984f865659032ac044549599bf69",
+      "payload_size": 40,
+      "precedence_rank": 68,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "scofflaw_indicator",
+        "suspension_indicator"
+      ],
+      "backend_oid": 66012,
+      "candidate_id": "cand_86d407b8a724ee28f443",
+      "definition": {
+        "attnums": [
+          9,
+          10
+        ],
+        "statistics_name": "pgextadv_acq_7adcc982e7ef9e35157da58c",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": null,
+      "payload_sha256": null,
+      "payload_size": null,
+      "precedence_rank": 69,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "ABSENT_NATIVE"
+    },
+    {
+      "attributes": [
+        "scofflaw_indicator",
+        "revocation_indicator"
+      ],
+      "backend_oid": 66013,
+      "candidate_id": "cand_5400d6d245a511006593",
+      "definition": {
+        "attnums": [
+          9,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_ba86de044a03bdb4fb7592a2",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": "payloads/cand_5400d6d245a511006593.fd.bin",
+      "payload_sha256": "c83bcb17e96c5e945269921b5429bcd4b9d7e412979e247b8541763dd3816ecd",
+      "payload_size": 40,
+      "precedence_rank": 70,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "PRESENT"
+    },
+    {
+      "attributes": [
+        "suspension_indicator",
+        "revocation_indicator"
+      ],
+      "backend_oid": 66014,
+      "candidate_id": "cand_d102d0d6903dbc44935f",
+      "definition": {
+        "attnums": [
+          10,
+          11
+        ],
+        "statistics_name": "pgextadv_acq_cd220a4de6b8b8d324be3993",
+        "stxkind": "f"
+      },
+      "interpretation": {
+        "postgres_type": "stxddependencies",
+        "sender": "pg_dependencies_send"
+      },
+      "mechanism": "fd",
+      "payload_path": null,
+      "payload_sha256": null,
+      "payload_size": null,
+      "precedence_rank": 71,
+      "relation_fingerprint": "d3db8eed770c401b4d92dbe48876a5435f30d06695e94cfddd8e833ada37309c",
+      "relation_name": "public.dmv",
+      "relation_oid": 55903,
+      "state": "ABSENT_NATIVE"
+    }
+  ],
+  "format_version": 2,
+  "frozen_acquisition_sample": {
+    "captured_at": "2026-09-29T04:46:41.044861+00:00",
+    "row_count": 30000,
+    "sample_relation": "public.pgextadv_frozen_sample",
+    "semantic_sha256": "967842a7bd8d17ac11ea6c7aa99c01a6e3d75e4b6a9d9cad117800253bd22df1",
+    "serialization_sha256": "e47a12a2d74f9ee88a83a836280de6169edabbb82534d7be36d99f904081a178",
+    "source_relation_row_count": 11591877,
+    "statistics_target": 100,
+    "target_relation": "public.dmv",
+    "totalrows_used_by_builder": 11634600.0
+  },
+  "patch_commit": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",
+  "postgres_version": "16.14",
+  "repository_id": "dmv-m2-17b-frozen-sample-build-7",
+  "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471"
+}
