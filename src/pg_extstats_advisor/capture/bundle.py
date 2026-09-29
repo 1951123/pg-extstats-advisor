@@ -15,6 +15,10 @@ from pathlib import Path
 from typing import Any
 
 from pg_extstats_advisor.capture.manifest import canonical_digest
+from pg_extstats_advisor.statistics import (
+    DEFAULT_GLOBAL_STATISTICS_TARGET,
+    validate_global_statistics_target,
+)
 
 BUNDLE_SCHEMA_VERSION = "production-capture-bundle-v1"
 SNAPSHOT_MODES = {"strong_single_snapshot", "best_effort_multi_snapshot"}
@@ -67,6 +71,24 @@ def _relation_record(schema: Mapping[str, Any], relation_id: str) -> Mapping[str
         if isinstance(relation, Mapping) and relation.get("relation_id") == relation_id:
             return relation
     raise BundleVerificationError(f"unknown relation reference: {relation_id}")
+
+
+def _effective_global_statistics_target(environment: Mapping[str, Any]) -> int:
+    """Read the one effective target recorded by a v1 capture.
+
+    Older v1 fixtures did not expose the GUC field.  They are interpreted as
+    PostgreSQL's default for backwards compatibility; new captures should
+    always record ``default_statistics_target`` explicitly.
+    """
+
+    fields = environment.get("fields", {})
+    raw = fields.get("default_statistics_target", {}).get(
+        "value", DEFAULT_GLOBAL_STATISTICS_TARGET
+    )
+    try:
+        return validate_global_statistics_target(int(raw))
+    except (TypeError, ValueError) as error:
+        raise BundleVerificationError("invalid global statistics target") from error
 
 
 def _decode_sample(path: Path, row_count: int, column_count: int) -> list[list[str | None]]:
@@ -143,6 +165,7 @@ def verify_production_capture_bundle(path: Path) -> dict[str, Any]:
     version = str(_require(environment, "postgres_version", "environment"))
     if not re.fullmatch(r"\d+\.\d+", version):
         raise BundleVerificationError("malformed PostgreSQL version")
+    target = _effective_global_statistics_target(environment)
     query_items = workload.get("queries")
     if not isinstance(query_items, list):
         raise BundleVerificationError("workload.queries must be a list")
@@ -199,7 +222,16 @@ def verify_production_capture_bundle(path: Path) -> dict[str, Any]:
             raise BundleVerificationError("sample fidelity claim is not explicit")
     if bundle.get("sensitivity", {}).get("contains_full_base_table") is not False:
         raise BundleVerificationError("bundle must declare that it excludes the full base table")
-    return {"bundle_schema_version": BUNDLE_SCHEMA_VERSION, "semantic_digest": bundle["semantic_digest"], "relation_ids": relation_ids, "query_count": len(query_items), "effective_query_count": len(effective), "production_version": version, "snapshot_mode": mode}
+    return {
+        "bundle_schema_version": BUNDLE_SCHEMA_VERSION,
+        "semantic_digest": bundle["semantic_digest"],
+        "relation_ids": relation_ids,
+        "query_count": len(query_items),
+        "effective_query_count": len(effective),
+        "production_version": version,
+        "snapshot_mode": mode,
+        "global_statistics_target": target,
+    }
 
 
 def check_advisor_compatibility(path: Path, advisor_environment: Mapping[str, Any]) -> dict[str, Any]:
@@ -211,6 +243,18 @@ def check_advisor_compatibility(path: Path, advisor_environment: Mapping[str, An
     advisor_version = str(advisor_environment.get("postgres_version", ""))
     if advisor_version != required_version or advisor_version != SUPPORTED_VERSION:
         raise BundleCompatibilityError("v1 requires exact PostgreSQL 16.14")
+    bundle_target = int(verification["global_statistics_target"])
+    requested_target = advisor_environment.get(
+        "global_statistics_target", advisor_environment.get("statistics_target", bundle_target)
+    )
+    try:
+        requested_target = validate_global_statistics_target(int(requested_target))
+    except (TypeError, ValueError) as error:
+        raise BundleCompatibilityError("invalid advisor global statistics target") from error
+    if requested_target != bundle_target:
+        raise BundleCompatibilityError(
+            f"global statistics target mismatch: bundle={bundle_target}, advisor={requested_target}"
+        )
     supported_types = set(advisor_environment.get("supported_types", ["pg_catalog.text"]))
     schema = _json(Path(path) / "schema.json")
     for relation in schema["relations"]:
@@ -228,7 +272,13 @@ def check_advisor_compatibility(path: Path, advisor_environment: Mapping[str, An
         raise BundleCompatibilityError("workload analysis version mismatch")
     if bundle["compatibility"].get("ce_target_scope") != "single_relation_base_count":
         raise BundleCompatibilityError("unsupported CE target scope")
-    return {"compatible": True, "production_version": required_version, "advisor_version": advisor_version, **verification}
+    return {
+        "compatible": True,
+        "production_version": required_version,
+        "advisor_version": advisor_version,
+        "global_statistics_target": bundle_target,
+        **verification,
+    }
 
 
 def encode_sample(rows: list[list[str | None]]) -> bytes:

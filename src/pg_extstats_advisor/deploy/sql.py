@@ -9,6 +9,7 @@ from pg_extstats_advisor.candidates.model import CandidateCatalog
 from pg_extstats_advisor.deploy.model import DeploymentPlan
 from pg_extstats_advisor.models import Candidate, Design, MechanismKind
 from pg_extstats_advisor.search.model import SearchResult, candidate_catalog_digest
+from pg_extstats_advisor.statistics import validate_global_statistics_target
 
 
 def quote_identifier(value: str) -> str:
@@ -65,8 +66,8 @@ def build_deployment_plan(
     validation_relations: Iterable[str] = (),
 ) -> DeploymentPlan:
     catalog.validate_design(design)
-    if statistics_target is not None and not 0 <= statistics_target <= 10000:
-        raise ValueError("statistics target must be between 0 and 10000")
+    if statistics_target is not None:
+        validate_global_statistics_target(statistics_target, field="statistics_target")
     candidates = tuple(catalog.by_id[item] for item in design.candidate_ids)
     names = tuple(statistics_name(str(item.candidate_id)) for item in candidates)
     if len(names) != len(set(names)):

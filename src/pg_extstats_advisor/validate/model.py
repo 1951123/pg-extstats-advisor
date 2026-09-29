@@ -70,6 +70,12 @@ class ValidationProvenance:
     relation_row_counts: tuple[tuple[str, int], ...] = ()
     planner_settings: tuple[tuple[str, str], ...] = ()
 
+    @property
+    def global_statistics_target(self) -> int | None:
+        """Compatibility/reporting name for the evaluated external target."""
+
+        return self.statistics_target
+
 
 @dataclass(frozen=True, slots=True)
 class ValidationResult:

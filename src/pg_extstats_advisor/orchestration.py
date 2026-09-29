@@ -43,6 +43,7 @@ from pg_extstats_advisor.search.model import (
     SearchResult,
     candidate_catalog_digest,
 )
+from pg_extstats_advisor.statistics import validate_global_statistics_target
 from pg_extstats_advisor.validate.deployment import (
     build_validation_result,
     collect_fresh_payload_fingerprints,
@@ -69,6 +70,14 @@ def _digest(value: Any) -> str:
 
 def load_prepared_run(root: Path) -> PreparedRun:
     summary = json.loads((root / "prepare-summary.json").read_text())
+    summary_target = validate_global_statistics_target(
+        int(summary.get("global_statistics_target", summary["statistics_target"]))
+    )
+    if (
+        "global_statistics_target" in summary
+        and int(summary["statistics_target"]) != summary_target
+    ):
+        raise ValueError("prepared summary statistics-target aliases disagree")
     repository_path = root / "repository"
     repository = PayloadRepository.load(repository_path) if repository_path.exists() else None
     raw_workload = json.loads((root / "workload.json").read_text())
@@ -202,6 +211,10 @@ def load_prepared_run(root: Path) -> PreparedRun:
     )
     if (repository.payloads and repository.digest != summary["repository_digest"]) or incidence_digest != summary["incidence_digest"]:
         raise ValueError("prepared summary lineage mismatch")
+    if repository.payloads and repository.global_statistics_target != summary_target:
+        raise ValueError(
+            "prepared run target mismatch between summary and frozen acquisition realization"
+        )
     return PreparedRun(
         workload,
         catalog,
@@ -218,6 +231,10 @@ def load_prepared_run(root: Path) -> PreparedRun:
 
 def load_maintenance_model(root: Path) -> MaintenanceCostModel:
     raw = json.loads((root / "maintenance-model.json").read_text())
+    summary = json.loads((root / "prepare-summary.json").read_text())
+    summary_target = int(summary.get("global_statistics_target", summary["statistics_target"]))
+    if "global_statistics_target" in summary and int(summary["statistics_target"]) != summary_target:
+        raise ValueError("prepared summary statistics-target aliases disagree")
     if raw.get("model_type") == "unpriced-singleton-profile":
         raise ValueError(
             "maintenance cost unavailable for this run; singleton profiling may use "
@@ -225,8 +242,7 @@ def load_maintenance_model(root: Path) -> MaintenanceCostModel:
         )
     if raw.get("model_type") == "empirical-mechanism-count-v1":
         model = EmpiricalMechanismCountCostModel.from_artifact(raw)
-        summary = json.loads((root / "prepare-summary.json").read_text())
-        model.validate_runtime(int(summary["statistics_target"]))
+        model.validate_runtime(summary_target)
         return model
     if raw.get("format_version") != 1 or raw.get("model_type") != "preset-development":
         raise ValueError("unsupported maintenance model artifact")
@@ -337,6 +353,7 @@ def persist_search_result(root: Path, result: SearchResult) -> None:
         "selected_maintenance_cost": str(result.selected_maintenance_cost),
         "budget": {"value": str(result.budget.value), "unit": result.budget.unit},
         "cost_model_digest": result.cost_model_digest,
+        "global_statistics_target": result.config.global_statistics_target,
         "initial_design": list(result.initial_design.candidate_ids),
         "final_design": list(result.final_design.candidate_ids),
         "evaluated_moves_count": result.evaluated_moves_count,
@@ -394,10 +411,19 @@ def load_search_result(root: Path) -> SearchResult:
         )
         for r in trajectory_raw["records"]
     )
+    prepared = load_prepared_run(root)
+    if (
+        "global_statistics_target" in value
+        and int(value["global_statistics_target"]) != prepared.global_statistics_target
+    ):
+        raise ValueError("search result target does not match prepared fixed-target problem")
     config_raw = dict(value["config"])
     if result_format == 1 and "exact_bound_pruning" not in config_raw:
         # Format-1 results predate the exact-bound path and are exhaustive.
         config_raw["exact_bound_pruning"] = False
+    config_raw.setdefault("global_statistics_target", int(value.get("global_statistics_target", prepared.global_statistics_target)))
+    if int(config_raw["global_statistics_target"]) != prepared.global_statistics_target:
+        raise ValueError("search target does not match prepared fixed-target problem")
     state = _state(value["selected_state"])
     result = SearchResult(
         state,
@@ -427,7 +453,6 @@ def load_search_result(root: Path) -> SearchResult:
         or result.selected_state.aggregate_objective != result.selected_objective
     ):
         raise ValueError("search selected-state mismatch")
-    prepared = load_prepared_run(root)
     model = load_maintenance_model(root)
     if (
         result.workload_digest != prepared.workload.digest
@@ -493,6 +518,7 @@ def execute_search_stage(
         singleton_profile_digest=singleton_profile_digest,
         visible_candidate_count=len(visible_catalog.candidates),
         budget_mode=budget_mode,
+        global_statistics_target=prepared.global_statistics_target,
     )
     result = DeterministicBudgetSearch(
         evaluator, visible_catalog, model, MaintenanceBudget(budget, model.unit), config
@@ -507,11 +533,11 @@ def execute_recommendation_stage(root: Path) -> Path:
     visible_catalog = _visible_catalog_for_result(
         root, prepared, load_maintenance_model(root), result
     )
-    summary = json.loads((root / "prepare-summary.json").read_text())
+    target = prepared.global_statistics_target
     plan = build_search_deployment_plan(
         result,
         visible_catalog,
-        statistics_target=int(summary["statistics_target"]),
+        statistics_target=target,
         validation_relations=tuple(q.target_relation for q in prepared.workload.queries),
     )
     recommendation = {
@@ -538,6 +564,11 @@ def execute_recommendation_stage(root: Path) -> Path:
         "cost_model_digest": result.cost_model_digest,
         "deployment_plan_digest": plan.sql_digest,
         "statistics_target": plan.statistics_target,
+        "global_statistics_target": target,
+        "evaluated_statistics_target": target,
+        "statistics_target_role": "evaluated_external_configuration",
+        "target_optimization": "outside_current_scope",
+        "target_scope": "database/advisor_run",
         "source_search_result_digest": json.loads(
             (root / "search" / "result.json").read_text()
         )["digest"],
@@ -562,6 +593,8 @@ def execute_recommendation_stage(root: Path) -> Path:
         {
             "format_version": 1,
             "sql_digest": plan.sql_digest,
+            "global_statistics_target": target,
+            "evaluated_statistics_target": target,
             "create": plan.create_statements,
             "target": plan.target_statements,
             "analyze": plan.analyze_statements,
@@ -585,11 +618,11 @@ def execute_validation_stage(root: Path, connection: Connection[Any]) -> dict[st
     visible_catalog = _visible_catalog_for_result(
         root, prepared, load_maintenance_model(root), result
     )
-    summary = json.loads((root / "prepare-summary.json").read_text())
+    target = prepared.global_statistics_target
     plan = build_search_deployment_plan(
         result,
         visible_catalog,
-        statistics_target=int(summary["statistics_target"]),
+        statistics_target=target,
         validation_relations=tuple(q.target_relation for q in prepared.workload.queries),
     )
     deployment = PhysicalDeployer(connection, "cli-validation").deploy(plan)

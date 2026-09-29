@@ -19,6 +19,7 @@ from pg_extstats_advisor.deploy.sql import qualified_relation_name, quote_identi
 from pg_extstats_advisor.models import MechanismKind
 from pg_extstats_advisor.payloads.repository import PayloadRepository
 from pg_extstats_advisor.prepare.workload import RelationMetadata
+from pg_extstats_advisor.statistics import validate_global_statistics_target
 
 
 @dataclass(frozen=True, slots=True)
@@ -108,8 +109,7 @@ def acquire_payloads(
             "the MVP uses one global target"
         )
     target = statistics_target if global_statistics_target is None else global_statistics_target
-    if not 0 <= target <= 10000:
-        raise ValueError("global_statistics_target must be between 0 and 10000")
+    validate_global_statistics_target(target)
     if output_path.exists():
         raise FileExistsError(f"repository output already exists: {output_path}")
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -235,6 +235,11 @@ def acquire_payloads(
                 "method": "physical CREATE STATISTICS plus relation-grouped ANALYZE",
                 "statistics_target": target,
                 "global_statistics_target": target,
+                "realization_identity": {
+                    "global_statistics_target": target,
+                    "repository_id": repository_id,
+                    "acquisition_method": "physical CREATE STATISTICS plus relation-grouped ANALYZE",
+                },
                 "analyzed_relations": relations,
                 "analyze_count": len(relations),
                 "started_at": started,

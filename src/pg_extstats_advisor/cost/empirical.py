@@ -11,6 +11,7 @@ from typing import Any
 
 from pg_extstats_advisor.cost.model import MaintenanceCostModel, validated_decimal
 from pg_extstats_advisor.models import Candidate, MechanismKind
+from pg_extstats_advisor.statistics import validate_global_statistics_target
 
 MODEL_TYPE = "empirical-mechanism-count-v1"
 MODEL_UNIT = "milliseconds-per-analyze"
@@ -43,8 +44,7 @@ class EmpiricalMechanismCountCostModel(MaintenanceCostModel):
             "fd_ms_per_object",
             validated_decimal(self.fd_ms_per_object, "fd_ms_per_object"),
         )
-        if not 0 <= self.statistics_target <= 10000:
-            raise ValueError("statistics_target must be between 0 and 10000")
+        validate_global_statistics_target(self.statistics_target, field="statistics_target")
         if self.candidate_arity != 2:
             raise ValueError("empirical model candidate_arity must equal 2")
 

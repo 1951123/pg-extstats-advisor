@@ -14,6 +14,7 @@ from pg_extstats_advisor.candidates.model import CandidateCatalog
 from pg_extstats_advisor.cost.empirical import EmpiricalMechanismCountCostModel
 from pg_extstats_advisor.cost.preset import PresetMaintenanceCostModel
 from pg_extstats_advisor.incidence.index import IncidenceIndex
+from pg_extstats_advisor.models import AdvisorProblem
 from pg_extstats_advisor.payloads.repository import PayloadRepository
 from pg_extstats_advisor.prepare.acquisition import AcquisitionResult, acquire_payloads
 from pg_extstats_advisor.prepare.candidates import generate_candidates
@@ -21,6 +22,7 @@ from pg_extstats_advisor.prepare.config import PreparationConfig
 from pg_extstats_advisor.prepare.incidence import derive_incidence
 from pg_extstats_advisor.prepare.workload import ingest_workload
 from pg_extstats_advisor.search.model import candidate_catalog_digest
+from pg_extstats_advisor.statistics import validate_global_statistics_target
 from pg_extstats_advisor.workload.model import Workload
 
 
@@ -36,6 +38,22 @@ class PreparedRun:
     candidate_catalog_digest: str
     incidence_digest: str
     effective_workload_digest: str | None = None
+
+    @property
+    def global_statistics_target(self) -> int:
+        summary = json.loads((self.artifact_root / "prepare-summary.json").read_text())
+        raw = summary.get("global_statistics_target", summary.get("statistics_target", 100))
+        return validate_global_statistics_target(int(raw))
+
+    @property
+    def advisor_problem(self) -> AdvisorProblem:
+        return AdvisorProblem(
+            global_statistics_target=self.global_statistics_target,
+            workload_digest=self.workload.digest,
+            candidate_catalog_digest=self.candidate_catalog_digest,
+            realization_digest=self.repository.digest,
+            acquisition_identity=self.repository.repository_id,
+        )
 
 
 def _write(path: Path, value: Any) -> None:
@@ -183,6 +201,9 @@ def prepare_mvp(
         "upstream_sha256": upstream_sha256,
         "patch_commit": patch_commit,
         "statistics_target": config.statistics_target,
+        "global_statistics_target": config.global_statistics_target,
+        "target_scope": "database/advisor_run",
+        "target_optimization": "outside_current_scope",
         "query_count": len(ingested.workload.queries),
         "candidate_count": len(catalog.candidates),
         "realization_state_counts": {
@@ -230,6 +251,7 @@ def prepare_mvp(
         root / "run-manifest.json",
         {
             "format_version": 1,
+            "global_statistics_target": config.global_statistics_target,
             "stages": {
                 "prepare": {"complete": True, "artifact_digest": acquisition.repository.digest}
             },

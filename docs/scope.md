@@ -33,3 +33,13 @@ the target query boundary are part of correctness. Decoded JSON is never an
 authoritative execution representation. False-negative incidence is forbidden.
 Fresh deployment payload drift is distinct from hypothetical/native semantic
 fidelity.
+
+## Fixed global statistics target
+
+The PostgreSQL global statistics target is an external production/DBA input,
+not an optimization variable. The default is `global_statistics_target = 100`;
+an explicitly supplied positive integer is accepted and then remains fixed for
+the prepared problem and extstats search. Target grids and target selectors
+belong only to the historical M2.27 experimental modules. See
+`docs/statistics-target-scope.md` for the correctness, robustness, sampling,
+and maintenance-model boundaries.

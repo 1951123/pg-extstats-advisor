@@ -10,6 +10,10 @@ from typing import Any
 
 from pg_extstats_advisor.candidates.model import CandidateCatalog
 from pg_extstats_advisor.models import Candidate, CandidateId, MechanismKind
+from pg_extstats_advisor.statistics import (
+    DEFAULT_GLOBAL_STATISTICS_TARGET,
+    validate_global_statistics_target,
+)
 
 FORMAT_VERSION = 2
 
@@ -51,6 +55,14 @@ class PayloadRepository:
     def by_candidate(self) -> dict[CandidateId, FrozenPayload]:
         return {item.candidate.candidate_id: item for item in self.payloads}
 
+    @property
+    def global_statistics_target(self) -> int:
+        """Target bound to this realization (legacy manifests use the alias)."""
+
+        provenance = dict(self.payloads[0].acquisition) if self.payloads else {}
+        raw = provenance.get("global_statistics_target", provenance.get("statistics_target", 100))
+        return validate_global_statistics_target(int(raw))
+
     @classmethod
     def load(cls, root: Path) -> PayloadRepository:
         manifest_path = root / "manifest.json"
@@ -73,6 +85,19 @@ class PayloadRepository:
             raise ValueError(f"invalid repository manifest; missing={sorted(missing)}")
         payloads: list[FrozenPayload] = []
         seen: set[str] = set()
+        provenance = manifest["acquisition_provenance"]
+        legacy_target = provenance.get("statistics_target")
+        global_target = provenance.get(
+            "global_statistics_target",
+            legacy_target if legacy_target is not None else DEFAULT_GLOBAL_STATISTICS_TARGET,
+        )
+        if (
+            legacy_target is not None
+            and global_target is not None
+            and int(legacy_target) != int(global_target)
+        ):
+            raise ValueError("payload manifest statistics-target aliases disagree")
+        validate_global_statistics_target(int(global_target))
         for record in manifest["candidates"]:
             item_required = {
                 "candidate_id",

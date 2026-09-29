@@ -19,8 +19,28 @@ from pathlib import Path
 from typing import Any
 
 from pg_extstats_advisor.payloads.repository import PayloadRepository
+from pg_extstats_advisor.statistics import validate_global_statistics_target
 
 CACHE_SCHEMA_VERSION = 1
+
+
+def bind_statistics_target(
+    identity: Mapping[str, Any], global_statistics_target: int
+) -> dict[str, Any]:
+    """Return a cache identity explicitly bound to one external target.
+
+    ``statistics_target`` is accepted as a legacy alias, but conflicting
+    aliases fail closed.  The returned identity always carries the canonical
+    ``global_statistics_target`` key.
+    """
+
+    target = validate_global_statistics_target(global_statistics_target)
+    value = dict(identity)
+    for alias in ("statistics_target", "global_statistics_target"):
+        if alias in value and int(value[alias]) != target:
+            raise ValueError("cache identity statistics target mismatch")
+    value["global_statistics_target"] = target
+    return value
 
 
 def canonical_digest(value: Any) -> str:
@@ -99,6 +119,7 @@ def resolve_or_build_repository(
     expected_semantic_digest: str,
     build_repository: Callable[[Path], PayloadRepository | None],
     load_repository: Callable[[Path], PayloadRepository] = PayloadRepository.load,
+    global_statistics_target: int | None = None,
 ) -> CacheResolution:
     """Resolve a validated cache entry, rebuilding it from the frozen sample.
 
@@ -109,6 +130,14 @@ def resolve_or_build_repository(
 
     if not lineage_key or "/" in lineage_key or "\\" in lineage_key or lineage_key in {".", ".."}:
         raise ValueError("lineage_key must be a simple cache entry name")
+    if global_statistics_target is not None:
+        identity = bind_statistics_target(identity, global_statistics_target)
+    elif "statistics_target" in identity or "global_statistics_target" in identity:
+        # Canonicalize legacy callers so the target is always explicit in the
+        # persisted cache identity, while retaining the legacy alias in the
+        # identity for backwards-readable manifests.
+        raw_target = identity.get("global_statistics_target", identity.get("statistics_target"))
+        identity = bind_statistics_target(identity, int(raw_target))
     cache_root.mkdir(parents=True, exist_ok=True)
     entry = cache_root / lineage_key
     try:

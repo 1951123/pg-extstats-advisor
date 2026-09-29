@@ -10,16 +10,20 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from pg_extstats_advisor.statistics import (
+    DEFAULT_GLOBAL_STATISTICS_TARGET,
+    validate_global_statistics_target,
+)
+
 
 @dataclass(frozen=True, slots=True)
 class StatisticsTargetConfig:
     """One advisor-level target shared by ordinary and extended statistics."""
 
-    global_statistics_target: int = 100
+    global_statistics_target: int = DEFAULT_GLOBAL_STATISTICS_TARGET
 
     def __post_init__(self) -> None:
-        if not 0 <= self.global_statistics_target <= 10000:
-            raise ValueError("global_statistics_target must be between 0 and 10000")
+        validate_global_statistics_target(self.global_statistics_target)
 
 
 @dataclass(frozen=True, slots=True)
@@ -44,11 +48,23 @@ class PreparationConfig:
     maintenance: tuple[tuple[str, Any], ...]
     objective_membership_policy: str = "require_all_positive"
 
+    def __post_init__(self) -> None:
+        validate_global_statistics_target(self.statistics_target, field="statistics_target")
+
     @property
     def global_statistics_target(self) -> int:
         """Compatibility name for the single target used by the MVP."""
 
         return StatisticsTargetConfig(self.statistics_target).global_statistics_target
+
+    @property
+    def evaluated_statistics_target(self) -> int:
+        """The externally supplied target evaluated by this run.
+
+        This is a reporting alias, not a second decision variable.
+        """
+
+        return self.global_statistics_target
 
     @property
     def digest(self) -> str:
@@ -129,8 +145,7 @@ class PreparationConfig:
         target = int(acquisition.get("global_statistics_target", legacy_target if legacy_target is not None else 100))
         if legacy_target is not None and legacy_target != target:
             raise ValueError("statistics_target and global_statistics_target disagree")
-        if not 0 <= target <= 10000:
-            raise ValueError("statistics_target must be between 0 and 10000")
+        validate_global_statistics_target(target, field="statistics_target")
         explicit = tuple(
             ExplicitCandidate(str(item["relation"]), str(item["mechanism"]), tuple(item["columns"]))
             for item in candidates.get("explicit", [])

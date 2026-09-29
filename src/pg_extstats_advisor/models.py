@@ -2,12 +2,62 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 from dataclasses import dataclass
 from enum import Enum
 from typing import Any, NewType
 
+from pg_extstats_advisor.statistics import (
+    DEFAULT_GLOBAL_STATISTICS_TARGET,
+    validate_global_statistics_target,
+)
+
 QueryId = NewType("QueryId", str)
 CandidateId = NewType("CandidateId", str)
+
+
+@dataclass(frozen=True, slots=True)
+class AdvisorProblem:
+    """Identity of one fixed-target advisor problem.
+
+    The optional digests keep this small record usable at the API boundary
+    before all derived artifacts have been materialized.  Once present, they
+    bind the workload, candidate universe, frozen realization, and external
+    target into one immutable problem identity.  Search chooses only a design
+    for this problem; it cannot change the target.
+    """
+
+    global_statistics_target: int = DEFAULT_GLOBAL_STATISTICS_TARGET
+    workload_digest: str | None = None
+    candidate_catalog_digest: str | None = None
+    realization_digest: str | None = None
+    acquisition_identity: str | None = None
+
+    def __post_init__(self) -> None:
+        validate_global_statistics_target(self.global_statistics_target)
+
+    @property
+    def identity(self) -> dict[str, str | int]:
+        value: dict[str, str | int] = {
+            "global_statistics_target": self.global_statistics_target,
+        }
+        for name in (
+            "workload_digest",
+            "candidate_catalog_digest",
+            "realization_digest",
+            "acquisition_identity",
+        ):
+            item = getattr(self, name)
+            if item is not None:
+                value[name] = item
+        return value
+
+    @property
+    def digest(self) -> str:
+        return hashlib.sha256(
+            json.dumps(self.identity, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest()
 
 
 class MechanismKind(str, Enum):

@@ -10,6 +10,10 @@ from typing import Protocol
 
 from pg_extstats_advisor.cost.model import MaintenanceBudget
 from pg_extstats_advisor.models import Candidate, Design, EvaluationState, Move
+from pg_extstats_advisor.statistics import (
+    DEFAULT_GLOBAL_STATISTICS_TARGET,
+    validate_global_statistics_target,
+)
 
 
 class DesignEvaluator(Protocol):
@@ -32,6 +36,10 @@ class SearchConfig:
     singleton_profile_digest: str | None = None
     visible_candidate_count: int | None = None
     budget_mode: str = "absolute"
+    global_statistics_target: int = DEFAULT_GLOBAL_STATISTICS_TARGET
+
+    def __post_init__(self) -> None:
+        validate_global_statistics_target(self.global_statistics_target)
 
 
 @dataclass(frozen=True, slots=True)

@@ -10,6 +10,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from pg_extstats_advisor.statistics import validate_global_statistics_target
+
 
 @dataclass(frozen=True, slots=True)
 class CalibrationGates:
@@ -104,8 +106,7 @@ class CalibrationConfig:
         else:
             dsn = str(database["calibration_dsn"])
         target = int(raw["statistics_target"])
-        if not 0 <= target <= 10000:
-            raise ValueError("statistics_target must be between 0 and 10000")
+        validate_global_statistics_target(target, field="statistics_target")
         repetitions = int(raw.get("repetitions", 9))
         if repetitions < 2:
             raise ValueError("calibration requires at least two measured repetitions")

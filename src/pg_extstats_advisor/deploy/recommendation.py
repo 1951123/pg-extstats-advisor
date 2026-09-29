@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from pg_extstats_advisor.capture.manifest import canonical_digest
+from pg_extstats_advisor.statistics import validate_global_statistics_target
 
 
 @dataclass(frozen=True, slots=True)
@@ -22,8 +23,7 @@ class StatisticsConfiguration:
     scope: str = "database/advisor_run"
 
     def __post_init__(self) -> None:
-        if not 1 <= int(self.global_statistics_target) <= 10000:
-            raise ValueError("global_statistics_target must be between 1 and 10000")
+        validate_global_statistics_target(self.global_statistics_target)
         if self.scope != "database/advisor_run":
             raise ValueError("MVP target scope must be database/advisor_run")
 
@@ -38,3 +38,9 @@ class StatisticsConfiguration:
     @property
     def digest(self) -> str:
         return canonical_digest(self.as_dict())
+
+    @property
+    def evaluated_statistics_target(self) -> int:
+        """The target under which this design was evaluated, not a recommendation."""
+
+        return int(self.global_statistics_target)

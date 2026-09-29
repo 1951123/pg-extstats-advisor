@@ -48,6 +48,8 @@ gates and emitted the frozen model. See
 - PostgreSQL-native planner and CE semantics.
 - Fixed, explicit effective precedence.
 - Conservative candidate-to-query incidence and query-level reuse.
+- One externally supplied global statistics target (default `100`); the core
+  advisor optimizes extended-statistics design only and does not select `T`.
 
 ## Non-goals
 
@@ -109,3 +111,5 @@ M2 adds deterministic deployable SQL, physical deployment with a uniform target,
 fresh native payload fingerprints and CE, and a structured comparison against the
 frozen hypothetical prediction. It does not add runtime validation or maintenance
 cost fitting.
+
+The fixed-target scope is documented in `docs/statistics-target-scope.md`.
