@@ -1,4 +1,5 @@
 .build/
+.build/artifact-cache/
 .venv/
 __pycache__/
 *.py[cod]

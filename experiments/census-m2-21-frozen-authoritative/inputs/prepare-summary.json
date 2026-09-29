@@ -1,0 +1,36 @@
+{
+  "acquisition_analyze_count": 1,
+  "candidate_catalog_digest": "74727a871b3a601977885cbf96d25cda6e5ac38ef448d1815561bdc5988a425a",
+  "candidate_count": 4506,
+  "completed_at": "2026-09-28T07:58:20.800658+00:00",
+  "config_digest": "e055c20f1ed63e1e6e6dd62fb4050112bcba4fbf3c5e2288e5bcb063ad0d4993",
+  "fallback_query_count": 0,
+  "format_version": 1,
+  "incidence_digest": "0cd8466f654e21080914cf8444ad3ce3a093d9a7700d370b5ac6a4b9a28f66b4",
+  "incidence_edge_count": 19996,
+  "patch_commit": "aab7b323cf3b89179235ae3d0b40c9ce6a3f4009238b83b90da4f4e8a5d55b34",
+  "postgres_version": "16.14",
+  "query_count": 468,
+  "realization_state_counts": {
+    "ABSENT_NATIVE": 1109,
+    "PRESENT": 3397
+  },
+  "relation_compatibility": [
+    {
+      "acquisition_logical_fingerprint": "67b0c2f6b3960b655d3377bf2221964ea85fb6267b4a274b4db00d410c2eeac0",
+      "compatible": true,
+      "relation": "public.climate",
+      "source_logical_fingerprint": "67b0c2f6b3960b655d3377bf2221964ea85fb6267b4a274b4db00d410c2eeac0"
+    }
+  ],
+  "relation_count": 1,
+  "repository_digest": "c0167aa2a48d2c9cccf1249643dccffd737356ae0d97dcab84ea9ec8a97ad7fe",
+  "sql_analysis": {
+    "analysis_version": "pg16-mvp-v2",
+    "parser": "pglast",
+    "parser_version": "v7.18"
+  },
+  "statistics_target": 100,
+  "upstream_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",
+  "workload_digest": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215"
+}

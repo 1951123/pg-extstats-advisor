@@ -1,0 +1,27 @@
+{
+  "acquisition": {
+    "output_path": "experiments/census-m2-7/prepared-run",
+    "statistics_target": 100
+  },
+  "candidates": {
+    "explicit": [],
+    "max_candidate_arity": 2,
+    "max_candidates_per_relation": null,
+    "mechanisms": [
+      "mcv",
+      "fd"
+    ]
+  },
+  "database": {
+    "acquisition_dsn": "host=/root/projects/pg-extstats-advisor/.build/pg16.14-experiment-socket port=55436 dbname=pgextadv_exp16_census_m27_acq user=postgres",
+    "source_dsn": "host=/root/projects/pg-extstats-advisor/.build/pg16.14-experiment-socket port=55436 dbname=pgextadv_exp16_census user=postgres"
+  },
+  "maintenance": {
+    "artifact_path": "calibration/census-pg16.14-m2-6-r1/maintenance-model.json",
+    "type": "empirical-mechanism-count-v1"
+  },
+  "schema_version": 1,
+  "workload": {
+    "path": "experiments/census-m2-7/workload.json"
+  }
+}

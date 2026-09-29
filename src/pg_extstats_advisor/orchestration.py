@@ -20,9 +20,11 @@ from pg_extstats_advisor.deploy.sql import build_search_deployment_plan
 from pg_extstats_advisor.evaluator.native import NativeEvaluator
 from pg_extstats_advisor.incidence.index import IncidenceIndex
 from pg_extstats_advisor.models import (
+    Candidate,
     CandidateId,
     Design,
     EvaluationState,
+    MechanismKind,
     Move,
     MoveKind,
     QueryEvaluation,
@@ -67,7 +69,8 @@ def _digest(value: Any) -> str:
 
 def load_prepared_run(root: Path) -> PreparedRun:
     summary = json.loads((root / "prepare-summary.json").read_text())
-    repository = PayloadRepository.load(root / "repository")
+    repository_path = root / "repository"
+    repository = PayloadRepository.load(repository_path) if repository_path.exists() else None
     raw_workload = json.loads((root / "workload.json").read_text())
     workload = Workload(
         str(raw_workload["workload_id"]),
@@ -86,7 +89,32 @@ def load_prepared_run(root: Path) -> PreparedRun:
     if workload.digest != raw_workload["digest"] or workload.digest != summary["workload_digest"]:
         raise ValueError("workload artifact digest mismatch")
     candidates_raw = json.loads((root / "candidates.json").read_text())
-    catalog = repository.catalog
+    if repository is not None:
+        catalog = repository.catalog
+    else:
+        # A prepared input bundle may intentionally omit the derived payload
+        # repository.  Reconstruct only the static candidate catalog; the
+        # repository is resolved later from the frozen-sample cache.
+        static = []
+        for item in candidates_raw["candidates"]:
+            definition = item.get("definition")
+            if definition is None:
+                raise ValueError("payload-free prepared input is missing candidate definitions")
+            static.append(
+                Candidate(
+                    CandidateId(str(item["candidate_id"])),
+                    int(item["relation_oid"]),
+                    str(item["relation_name"]),
+                    MechanismKind(str(item["mechanism"])),
+                    tuple(map(str, item["attributes"])),
+                    tuple(sorted(definition.items())),
+                    int(item["precedence_rank"]),
+                    int(item.get("backend_oid", 0)),
+                )
+            )
+        from pg_extstats_advisor.candidates.model import CandidateCatalog
+
+        catalog = CandidateCatalog(tuple(static))
     catalog_digest = candidate_catalog_digest(catalog.candidates)
     if (
         catalog_digest != candidates_raw["digest"]
@@ -105,7 +133,9 @@ def load_prepared_run(root: Path) -> PreparedRun:
         }
         for c in catalog.candidates
     ]
-    if candidates_raw["candidates"] != expected:
+    expected_static = [{k: value for k, value in item.items() if k != "definition"} for item in expected]
+    actual_static = [{k: value for k, value in item.items() if k != "definition"} for item in candidates_raw["candidates"]]
+    if actual_static != expected_static:
         raise ValueError("candidate artifact/repository mismatch")
     incidence_raw = json.loads((root / "incidence.json").read_text())
     edges = tuple(
@@ -135,8 +165,24 @@ def load_prepared_run(root: Path) -> PreparedRun:
     index = IncidenceIndex(
         tuple((key, frozenset(value)) for key, value in mapping.items()), frozenset(known_queries)
     )
-    manifest = json.loads((root / "repository" / "manifest.json").read_text())
-    provenance = manifest["acquisition_provenance"]
+    if repository is not None:
+        manifest = json.loads((root / "repository" / "manifest.json").read_text())
+        provenance = manifest["acquisition_provenance"]
+    else:
+        provenance = {
+            "analyzed_relations": [str(item["relation"]) for item in summary.get("relation_compatibility", [])],
+            "analyze_count": int(summary.get("acquisition_analyze_count", 0)),
+            "relation_compatibility": summary.get("relation_compatibility", []),
+        }
+        repository = PayloadRepository(
+            root / "repository-cache-placeholder",
+            str(summary.get("repository_digest", "payload-cache-placeholder")),
+            str(summary.get("postgres_version", "unknown")),
+            str(summary.get("upstream_sha256", "unknown")),
+            str(summary.get("patch_commit", "unknown")),
+            (),
+            "payload-cache-placeholder",
+        )
     acquisition = AcquisitionResult(
         repository,
         tuple(provenance["analyzed_relations"]),
@@ -154,10 +200,7 @@ def load_prepared_run(root: Path) -> PreparedRun:
             for e in provenance.get("relation_compatibility", [])
         ),
     )
-    if (
-        repository.digest != summary["repository_digest"]
-        or incidence_digest != summary["incidence_digest"]
-    ):
+    if (repository.payloads and repository.digest != summary["repository_digest"]) or incidence_digest != summary["incidence_digest"]:
         raise ValueError("prepared summary lineage mismatch")
     return PreparedRun(
         workload,

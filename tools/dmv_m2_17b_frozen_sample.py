@@ -20,15 +20,24 @@ import psycopg
 from pg_extstats_advisor.evaluator.native import NativeEvaluator
 from pg_extstats_advisor.models import Design
 from pg_extstats_advisor.orchestration import load_prepared_run
+from pg_extstats_advisor.payloads.cache import (
+    repository_semantic_digest,
+    resolve_or_build_repository,
+)
 from pg_extstats_advisor.payloads.repository import PayloadRepository
 from pg_extstats_advisor.postgres.adapter import PostgresAdapter
-from pg_extstats_advisor.prepare.acquisition import acquire_payloads, cleanup_acquisition
+from pg_extstats_advisor.prepare.acquisition import (
+    AcquisitionResult,
+    acquire_payloads,
+    cleanup_acquisition,
+)
 from pg_extstats_advisor.prepare.workload import RelationMetadata
 
 REPO = Path(__file__).resolve().parents[1]
 PREPARED = REPO / "experiments/dmv-m2-15-singletons/prepared-run"
 DATASET = REPO / "experiments/environment/dmv-dataset.json"
 OUT = REPO / "experiments/dmv-m2-17b-frozen-acquisition-sample"
+CACHE_ROOT = REPO / ".build/artifact-cache"
 SAMPLE = REPO / "datasets/dmv-frozen-acquisition-sample-v1"
 DBNAME = "pgextadv_exp16_dmv"
 DSN = f"host={REPO}/.build/pg16.14-experiment-socket port=55436 dbname={DBNAME} user=postgres"
@@ -46,6 +55,10 @@ def digest(value: Any) -> str:
 
 def sql_setting(conn: psycopg.Connection, name: str, value: str) -> None:
     conn.execute("SELECT set_config(%s, %s, false)", (name, value))
+
+
+def quote_ident(value: str) -> str:
+    return '"' + value.replace('"', '""') + '"'
 
 
 def relation_metadata(dataset: dict[str, Any]) -> RelationMetadata:
@@ -139,9 +152,9 @@ def ordinary_stats_digest(conn: psycopg.Connection) -> tuple[str, list[dict[str,
 
 
 def baseline_estimate_vector(
-    conn: psycopg.Connection, prepared: Any, repository_path: Path
+    conn: psycopg.Connection, prepared: Any, repository_path: Path | PayloadRepository
 ) -> tuple[str, float, list[dict[str, Any]]]:
-    repository = PayloadRepository.load(repository_path)
+    repository = repository_path if isinstance(repository_path, PayloadRepository) else PayloadRepository.load(repository_path)
     evaluator = NativeEvaluator(
         prepared.workload,
         repository,
@@ -170,9 +183,17 @@ def add_sample_provenance(repo_path: Path, sample_manifest: dict[str, Any]) -> d
     return manifest
 
 
-def payload_state_equal(first: Path, second: Path) -> bool:
-    left = json.loads((first / "manifest.json").read_text())["candidates"]
-    right = json.loads((second / "manifest.json").read_text())["candidates"]
+def payload_state_equal(first: Path | PayloadRepository, second: Path | PayloadRepository) -> bool:
+    def rows(value: Path | PayloadRepository) -> list[dict[str, Any]]:
+        if isinstance(value, PayloadRepository):
+            return [
+                {"candidate_id": str(item.candidate.candidate_id), "mechanism": item.candidate.mechanism.value, "state": item.state.value, "payload_sha256": item.payload_sha256, "payload_size": len(item.payload) if item.payload is not None else None}
+                for item in value.payloads
+            ]
+        return json.loads((value / "manifest.json").read_text())["candidates"]
+
+    left = rows(first)
+    right = rows(second)
     if len(left) != len(right):
         return False
     return all(
@@ -183,6 +204,75 @@ def payload_state_equal(first: Path, second: Path) -> bool:
         and a["payload_size"] == b["payload_size"]
         for a, b in zip(left, right, strict=True)
     )
+
+
+def resolve_frozen_repository(
+    conn: psycopg.Connection,
+    prepared: Any,
+    metadata: RelationMetadata,
+    sample_info: dict[str, Any],
+    expected_semantic_digest: str,
+    lineage_key: str = "dmv-m2-17b-frozen-sample-v1",
+) -> PayloadRepository:
+    """Resolve a DMV repository from the persisted sample, never a tracked payload tree."""
+
+    build_env = json.loads((REPO / "experiments/environment/postgresql-16.14-build.json").read_text())
+    identity = {
+        "schema_version": 1,
+        "acquisition_sample_digest": sample_info["semantic_sha256"],
+        "sample_file_sha256": sample_info["serialization_sha256"],
+        "relation_schema_digest": digest(json.loads(DATASET.read_text())["ordered_column_schema"]),
+        "source_relation_digest": json.loads(DATASET.read_text()).get("logical_relation_fingerprint"),
+        "candidate_catalog_digest": prepared.candidate_catalog_digest,
+        "statistics_target": int(sample_info["statistics_target"]),
+        "postgres_version": "16.14",
+        "upstream_tarball_sha256": UPSTREAM_SHA,
+        "patch_sha256": PATCH_SHA,
+        "postgres_binary_sha256": build_env["postgres_binary_sha256"],
+        "build_input_digest": build_env["build_recipe_digest"],
+        "acquisition_schema_version": 2,
+    }
+
+    def build(repository_path: Path) -> PayloadRepository:
+        result = acquire_payloads(
+            conn,
+            prepared.catalog,
+            repository_path,
+            statistics_target=int(sample_info["statistics_target"]),
+            upstream_sha256=UPSTREAM_SHA,
+            patch_commit=PATCH_SHA,
+            repository_id=f"{lineage_key}-cache",
+            source_relations=(metadata,),
+        )
+        return result.repository
+
+    return resolve_or_build_repository(
+        CACHE_ROOT,
+        lineage_key,
+        identity=identity,
+        expected_semantic_digest=expected_semantic_digest,
+        build_repository=build,
+    ).repository
+
+
+def materialize_repository_stats(conn: psycopg.Connection, repository: PayloadRepository) -> None:
+    """Recreate the disposable shells needed for ordinary-statistics replay."""
+
+    for item in repository.payloads:
+        schema, relation = item.candidate.relation_name.split(".", 1)
+        definition = dict(item.candidate.definition)
+        name = str(definition["statistics_name"])
+        kind = "mcv" if item.candidate.mechanism.value == "mcv" else "dependencies"
+        attrs = ", ".join(quote_ident(column) for column in item.candidate.attributes)
+        conn.execute(
+            f"CREATE STATISTICS {quote_ident(schema)}.{quote_ident(name)} ({kind}) "
+            f"ON {attrs} FROM {quote_ident(schema)}.{quote_ident(relation)}"
+        )
+        conn.execute(
+            f"ALTER STATISTICS {quote_ident(schema)}.{quote_ident(name)} SET STATISTICS 100"
+        )
+    conn.execute(f"ANALYZE {TARGET_REL}")
+    conn.commit()
 
 
 def artifact_integrity_negative_control(expected_digest: str) -> dict[str, Any]:
@@ -243,6 +333,9 @@ def backend_invalid_sample_controls(conn: psycopg.Connection) -> dict[str, Any]:
 def capture_sample(conn: psycopg.Connection, prepared: Any, metadata: RelationMetadata) -> tuple[Any, dict[str, Any], dict[str, Any]]:
     shutil.rmtree(OUT / "build-1", ignore_errors=True)
     (OUT / "build-1").mkdir(parents=True)
+    CACHE_ROOT.mkdir(parents=True, exist_ok=True)
+    temporary_root = Path(tempfile.mkdtemp(prefix="dmv-capture-", dir=CACHE_ROOT))
+    repository_path = temporary_root / "repository"
     conn.execute(f"TRUNCATE {SAMPLE_REL}")
     sql_setting(conn, "pg_extstats.frozen_sample_mode", "capture")
     sql_setting(conn, "pg_extstats.frozen_sample_relation", SAMPLE_REL)
@@ -251,7 +344,7 @@ def capture_sample(conn: psycopg.Connection, prepared: Any, metadata: RelationMe
     result = acquire_payloads(
         conn,
         prepared.catalog,
-        OUT / "build-1" / "repository",
+        repository_path,
         statistics_target=100,
         upstream_sha256=UPSTREAM_SHA,
         patch_commit=PATCH_SHA,
@@ -278,11 +371,11 @@ def capture_sample(conn: psycopg.Connection, prepared: Any, metadata: RelationMe
         ).fetchone()[0]),
         "captured_at": datetime.now(UTC).isoformat(),
     }
-    manifest = add_sample_provenance(OUT / "build-1" / "repository", sample_info)
+    manifest = add_sample_provenance(repository_path, sample_info)
     repository_digest = digest(manifest)
     ordinary_digest, ordinary_records = ordinary_stats_digest(conn)
     vector_digest, baseline_objective, estimate_vector = baseline_estimate_vector(
-        conn, prepared, OUT / "build-1" / "repository"
+        conn, prepared, repository_path
     )
     build = {
         "build_id": "build-1-capture",
@@ -298,10 +391,18 @@ def capture_sample(conn: psycopg.Connection, prepared: Any, metadata: RelationMe
         "statistics_ext_count": int(conn.execute("SELECT count(*) FROM pg_statistic_ext").fetchone()[0]),
         "statistics_ext_data_count": int(conn.execute("SELECT count(*) FROM pg_statistic_ext_data").fetchone()[0]),
     }
+    shutil.rmtree(temporary_root, ignore_errors=True)
     return result, sample_info, build
 
 
-def replay_build(conn: psycopg.Connection, prepared: Any, metadata: RelationMetadata, sample_info: dict[str, Any], number: int) -> tuple[Any, dict[str, Any]]:
+def replay_build(
+    conn: psycopg.Connection,
+    prepared: Any,
+    metadata: RelationMetadata,
+    sample_info: dict[str, Any],
+    number: int,
+    expected_semantic_digest: str = "6bd8e770c1f39dc31365e3ae4dd4156af3025b437238956116ffbfafaa757443",
+) -> tuple[Any, dict[str, Any]]:
     out = OUT / f"build-{number}"
     shutil.rmtree(out, ignore_errors=True)
     out.mkdir(parents=True)
@@ -309,26 +410,24 @@ def replay_build(conn: psycopg.Connection, prepared: Any, metadata: RelationMeta
     sql_setting(conn, "pg_extstats.frozen_sample_relation", SAMPLE_REL)
     sql_setting(conn, "pg_extstats.frozen_totalrows", str(sample_info["totalrows_used_by_builder"]))
     started = time.perf_counter()
-    result = acquire_payloads(
+    repository = resolve_frozen_repository(
         conn,
-        prepared.catalog,
-        out / "repository",
-        statistics_target=100,
-        upstream_sha256=UPSTREAM_SHA,
-        patch_commit=PATCH_SHA,
-        repository_id=f"dmv-m2-17b-frozen-sample-build-{number}",
-        source_relations=(metadata,),
+        prepared,
+        metadata,
+        sample_info,
+        expected_semantic_digest,
     )
     elapsed = time.perf_counter() - started
-    manifest = add_sample_provenance(out / "repository", sample_info)
+    drop_acquisition_stats(conn)
+    materialize_repository_stats(conn, repository)
     ordinary_digest, ordinary_records = ordinary_stats_digest(conn)
     vector_digest, baseline_objective, estimate_vector = baseline_estimate_vector(
-        conn, prepared, out / "repository"
+        conn, prepared, repository
     )
     build = {
         "build_id": f"build-{number}-replay",
         "mode": "replay",
-        "repository_digest": digest(manifest),
+        "repository_digest": repository_semantic_digest(repository),
         "ordinary_statistics_digest": ordinary_digest,
         "ordinary_statistics": ordinary_records,
         "baseline_estimate_vector_digest": vector_digest,
@@ -339,7 +438,14 @@ def replay_build(conn: psycopg.Connection, prepared: Any, metadata: RelationMeta
         "statistics_ext_count": int(conn.execute("SELECT count(*) FROM pg_statistic_ext").fetchone()[0]),
         "statistics_ext_data_count": int(conn.execute("SELECT count(*) FROM pg_statistic_ext_data").fetchone()[0]),
     }
-    return result, build
+    acquisition_result = AcquisitionResult(
+        repository,
+        (TARGET_REL,),
+        1,
+        tuple(str(dict(item.candidate.definition)["statistics_name"]) for item in repository.payloads),
+        (),
+    )
+    return acquisition_result, build
 
 
 def smoke_negative_controls(conn: psycopg.Connection) -> dict[str, Any]:
@@ -433,6 +539,7 @@ def main() -> int:
     ext_dir = OUT / "extstats"
     base_dir.mkdir(exist_ok=True)
     ext_dir.mkdir(exist_ok=True)
+    repositories = {1: first, 2: second, 3: third}
     for number, build in ((1, build1), (2, build2), (3, build3)):
         (base_dir / f"build-{number}.json").write_text(
             json.dumps(
@@ -446,16 +553,15 @@ def main() -> int:
             )
             + "\n"
         )
-        manifest = json.loads((OUT / f"build-{number}" / "repository" / "manifest.json").read_text())
         ext_records = [
             {
-                "candidate_id": item["candidate_id"],
-                "mechanism": item["mechanism"],
-                "state": item["state"],
-                "payload_size": item["payload_size"],
-                "payload_sha256": item["payload_sha256"],
+                "candidate_id": str(item.candidate.candidate_id),
+                "mechanism": item.candidate.mechanism.value,
+                "state": item.state.value,
+                "payload_size": len(item.payload) if item.payload is not None else None,
+                "payload_sha256": item.payload_sha256,
             }
-            for item in manifest["candidates"]
+            for item in repositories[number].payloads
         ]
         (ext_dir / f"build-{number}.json").write_text(
             json.dumps({"records": ext_records, "record_digest": digest(ext_records)}, sort_keys=True, indent=2) + "\n"
@@ -468,8 +574,8 @@ def main() -> int:
                     "build2_build3": build2["ordinary_statistics_digest"] == build3["ordinary_statistics_digest"],
                 },
                 "payload_state_exact": {
-                    "build1_build2": payload_state_equal(OUT / "build-1" / "repository", OUT / "build-2" / "repository"),
-                    "build2_build3": payload_state_equal(OUT / "build-2" / "repository", OUT / "build-3" / "repository"),
+                    "build1_build2": payload_state_equal(first, second),
+                    "build2_build3": payload_state_equal(second, third),
                 },
                 "baseline_estimate_vector_exact": {
                     "build1_build2": build1["baseline_estimate_vector_digest"] == build2["baseline_estimate_vector_digest"],
@@ -493,8 +599,8 @@ def main() -> int:
         "ordinary_digest_exact_build2_build3": build2["ordinary_statistics_digest"] == build3["ordinary_statistics_digest"],
         "repository_digest_exact_build1_build2": build1["repository_digest"] == build2["repository_digest"],
         "repository_digest_exact_build2_build3": build2["repository_digest"] == build3["repository_digest"],
-        "payload_state_exact_build1_build2": payload_state_equal(OUT / "build-1" / "repository", OUT / "build-2" / "repository"),
-        "payload_state_exact_build2_build3": payload_state_equal(OUT / "build-2" / "repository", OUT / "build-3" / "repository"),
+        "payload_state_exact_build1_build2": payload_state_equal(first, second),
+        "payload_state_exact_build2_build3": payload_state_equal(second, third),
         "baseline_vector_exact_build1_build2": build1["baseline_estimate_vector_digest"] == build2["baseline_estimate_vector_digest"],
         "baseline_vector_exact_build2_build3": build2["baseline_estimate_vector_digest"] == build3["baseline_estimate_vector_digest"],
         "fresh_backend_session": True,

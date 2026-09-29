@@ -122,6 +122,12 @@ replans exactly the affected queries, and returns an updated immutable state.
 
 ## PostgreSQL injection boundary
 
+Frozen acquisition samples are authoritative inputs for native-payload
+lineages.  Reconstructed repositories are disposable, validated cache entries
+under `.build/artifact-cache/`; tracked experiment directories retain compact
+semantic summaries rather than payload blobs.  Cache identity binds the sample,
+catalog, schema, statistics target, and PostgreSQL build/patch provenance.
+
 The proposed PG16 patch is deliberately narrow:
 
 - after `RelationGetStatExtList()`, filter/reorder the local OID list before

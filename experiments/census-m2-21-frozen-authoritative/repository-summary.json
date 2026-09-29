@@ -1,0 +1,25 @@
+{
+  "artifact_type": "derived-repository-summary",
+  "build_input_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+  "candidate_catalog_digest": "74727a871b3a601977885cbf96d25cda6e5ac38ef448d1815561bdc5988a425a",
+  "format_version": 1,
+  "mechanism_counts": {
+    "fd": 2253,
+    "mcv": 2253
+  },
+  "patch_commit": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",
+  "postgres_binary_sha256": "a54fa02a96906b3853ee68d80f86e02cdaaa6bd2031822026ac943abcb171ba1",
+  "payload_digest_vector_digest": "c24d26d15971cd95fd0bff63b0a11985b6c01cd0cc0d312d4bf7a2e26ecfce33",
+  "postgres_version": "16.14",
+  "relation_schema_digest": "f6785ab2df1c169b897cdea4b8c5ba4990d75a5964d5db116ece9578a5a38e77",
+  "realization_state_counts": {
+    "ABSENT_NATIVE": 1105,
+    "PRESENT": 3401
+  },
+  "realization_state_vector_digest": "8666e0bc82705039b3b0b1b3a86be786f56192bfc0b5ddd1a1e5a34577f4a7af",
+  "sample_semantic_digest": "1cb881fa32920c1edc9473117ceacffe5f10f946204d8eb726066fb7b14649a9",
+  "semantic_repository_digest": "7e42ba7dbeb9a0a3a2539b1d6e72ab3fa04c5db31e931a6bca3485181bf6df85",
+  "statistics_target": 100,
+  "total_candidates": 4506,
+  "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471"
+}

@@ -1,0 +1,4686 @@
+{
+  "digest": "796ab606e825969ad91801c9795cd830ef40686568feef857d856921a8d42215",
+  "queries": [
+    {
+      "label": null,
+      "query_id": "census-q001",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iClass = 0 AND iKorean >= 0 AND iKorean <= 1 AND iMay75880 = 0 AND iRagechld >= 0 AND iRagechld <= 4 AND iRrelchld = 0",
+      "target_relation": "climate",
+      "truth": 398593.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q002",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome5 = 0 AND iOthrserv = 0 AND dPOB = 0 AND iRownchld = 0 AND iSex >= 0 AND iSex <= 1 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 1169696.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q003",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 11 AND iEnglish = 0 AND iMarital = 0 AND iPerscare = 2 AND iRagechld >= 0 AND iRagechld <= 4 AND dRearning = 0 AND iRspouse >= 1 AND iRspouse <= 3 AND iYearsch >= 0 AND iYearsch <= 10",
+      "target_relation": "climate",
+      "truth": 153603.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q004",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome2 = 0 AND dIncome7 = 0 AND dRearning >= 0 AND dRearning <= 3 AND iSex = 1 AND iTmpabsnt = 3",
+      "target_relation": "climate",
+      "truth": 353211.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q005",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 = 1 AND dAncstry2 = 1 AND iFertil >= 0 AND iFertil <= 1 AND dIncome2 = 0 AND dIncome4 = 0 AND dIncome8 = 0 AND iOthrserv = 0 AND iWork89 >= 0 AND iWork89 <= 1",
+      "target_relation": "climate",
+      "truth": 259137.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q006",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 9 AND dIncome3 = 0 AND dIndustry >= 3 AND dIndustry <= 5 AND iMay75880 = 0 AND iRemplpar >= 0 AND iRemplpar <= 221 AND iWork89 >= 0 AND iWork89 <= 1 AND iYearsch >= 10 AND iYearsch <= 13",
+      "target_relation": "climate",
+      "truth": 179263.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q007",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iImmigr = 0 AND dIncome4 >= 0 AND dIncome4 <= 1 AND dIndustry >= 9 AND dIndustry <= 11 AND iMay75880 = 0 AND iRagechld = 4 AND iRemplpar = 0 AND iRiders >= 0 AND iRiders <= 1 AND iRspouse >= 2 AND iRspouse <= 6 AND iSchool >= 1 AND iSchool <= 3 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 70879.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q008",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND dIncome1 >= 0 AND dIncome1 <= 1 AND dPOB = 0 AND iWork89 = 2",
+      "target_relation": "climate",
+      "truth": 348610.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q009",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 >= 0 AND iDisabl1 <= 2 AND dIncome8 = 0 AND iMay75880 = 0 AND iYearwrk >= 0 AND iYearwrk <= 1",
+      "target_relation": "climate",
+      "truth": 1692096.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q010",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHispanic = 0 AND iMilitary = 4 AND dPoverty = 2 AND iRelat2 = 0 AND iRownchld = 0 AND iRspouse = 1 AND iWorklwk = 1 AND iWWII = 0 AND iYearsch >= 1 AND iYearsch <= 13 AND iYearwrk >= 1 AND iYearwrk <= 7",
+      "target_relation": "climate",
+      "truth": 346092.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q011",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 = 2 AND iFertil = 0 AND dHours = 0 AND dIndustry >= 0 AND dIndustry <= 9 AND iLang1 = 2 AND iMobility = 2 AND iRPOB = 10 AND iRspouse = 1 AND iSubfam1 = 0 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 5897.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q012",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome5 = 0 AND dPoverty = 2 AND iRownchld >= 0 AND iRownchld <= 1 AND iSex >= 0 AND iSex <= 1 AND dTravtime = 0",
+      "target_relation": "climate",
+      "truth": 822409.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q013",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen >= 0 AND iCitizen <= 1 AND dHispanic = 0 AND iOthrserv = 0 AND iRelat2 = 0 AND iRemplpar >= 0 AND iRemplpar <= 111 AND iRrelchld = 0 AND iSchool = 1 AND iTmpabsnt = 0 AND dTravtime >= 2 AND dTravtime <= 3",
+      "target_relation": "climate",
+      "truth": 271365.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q014",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMobility >= 0 AND iMobility <= 2 AND iPerscare = 2 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 1733829.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q015",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 3 AND iFertil <= 6 AND dHispanic = 0 AND iLang1 = 2 AND iRagechld = 4 AND dRearning >= 0 AND dRearning <= 3 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 235902.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q016",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHour89 = 3 AND dIncome8 = 0 AND iMobility >= 1 AND iMobility <= 2 AND dPoverty >= 1 AND dPoverty <= 2 AND iRiders >= 1 AND iRiders <= 2 AND iYearsch >= 6 AND iYearsch <= 7 AND iYearwrk = 1",
+      "target_relation": "climate",
+      "truth": 21702.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q017",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iKorean = 0 AND iMay75880 = 0 AND iRagechld = 4 AND iRrelchld = 0 AND iSept80 = 0 AND dWeek89 = 0 AND iWork89 >= 0 AND iWork89 <= 2 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 282064.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q018",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen = 0 AND iFertil >= 0 AND iFertil <= 3 AND dIncome6 = 0 AND iRlabor >= 1 AND iRlabor <= 6 AND iSchool = 1 AND dWeek89 >= 0 AND dWeek89 <= 2",
+      "target_relation": "climate",
+      "truth": 1159605.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q019",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome1 >= 0 AND dIncome1 <= 3 AND dIncome2 >= 0 AND dIncome2 <= 1 AND dIncome4 = 0 AND iMeans >= 1 AND iMeans <= 10 AND iSept80 = 0 AND iSubfam1 = 0 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 729463.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q020",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 1 AND iClass <= 6 AND iEnglish >= 0 AND iEnglish <= 2 AND iPerscare >= 0 AND iPerscare <= 2 AND iRelat1 >= 1 AND iRelat1 <= 2 AND iWork89 >= 1 AND iWork89 <= 2 AND iWorklwk = 1",
+      "target_relation": "climate",
+      "truth": 382272.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q021",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHours >= 0 AND dHours <= 2 AND dIncome4 = 0 AND dIncome5 = 0 AND iMobility >= 1 AND iMobility <= 2 AND dPwgt1 >= 1 AND dPwgt1 <= 2 AND iSex = 0 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 307344.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q022",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND iDisabl1 = 2 AND dHispanic = 0 AND dIncome2 = 0 AND iKorean = 0 AND dOccup >= 0 AND dOccup <= 2 AND iRrelchld = 0 AND iWorklwk >= 0 AND iWorklwk <= 1",
+      "target_relation": "climate",
+      "truth": 22999.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q023",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHour89 >= 2 AND dHour89 <= 3 AND iImmigr >= 0 AND iImmigr <= 7 AND dIncome7 = 0 AND iPerscare >= 0 AND iPerscare <= 2 AND iRemplpar >= 0 AND iRemplpar <= 221 AND iRiders >= 0 AND iRiders <= 1 AND iTmpabsnt = 0",
+      "target_relation": "climate",
+      "truth": 532077.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q024",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND iDisabl1 = 2 AND iFertil >= 0 AND iFertil <= 3 AND iImmigr = 0 AND dIncome2 = 0 AND dIncome6 = 0 AND iRagechld >= 3 AND iRagechld <= 4 AND dRearning >= 0 AND dRearning <= 3 AND iRlabor >= 1 AND iRlabor <= 6",
+      "target_relation": "climate",
+      "truth": 222982.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q025",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iImmigr >= 0 AND iImmigr <= 1 AND dIncome6 = 0 AND dIncome7 = 0 AND iMarital >= 0 AND iMarital <= 4 AND iRownchld = 0 AND iTmpabsnt = 0",
+      "target_relation": "climate",
+      "truth": 1066437.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q026",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHispanic = 0 AND dOccup = 2",
+      "target_relation": "climate",
+      "truth": 436996.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q027",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 5 AND dDepart = 0 AND dIncome6 = 0 AND dIndustry >= 4 AND dIndustry <= 9 AND iMay75880 = 0 AND iOthrserv = 0 AND dPoverty = 2 AND dRearning = 0 AND iRelat1 >= 2 AND iRelat1 <= 9",
+      "target_relation": "climate",
+      "truth": 7271.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q028",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge = 4 AND dHispanic = 0 AND iMobillim >= 0 AND iMobillim <= 2 AND dPoverty = 2 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iSchool >= 1 AND iSchool <= 2 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 326562.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q029",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND dIncome7 = 0 AND iPerscare = 2 AND dPwgt1 >= 1 AND dPwgt1 <= 2 AND iRelat2 = 0 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 1245700.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q030",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND dIncome5 = 0",
+      "target_relation": "climate",
+      "truth": 1420650.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q031",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dOccup >= 0 AND dOccup <= 5 AND dPwgt1 = 1 AND iRelat1 >= 0 AND iRelat1 <= 2 AND iYearwrk >= 0 AND iYearwrk <= 4",
+      "target_relation": "climate",
+      "truth": 892639.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q032",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 3 AND dIncome7 = 0 AND dIndustry = 0 AND iMarital >= 0 AND iMarital <= 4 AND iMobillim = 2 AND iSex = 1 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 225688.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q033",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 >= 0 AND iDisabl2 <= 2 AND dIncome4 = 0 AND dRearning >= 2 AND dRearning <= 3 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 760578.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q034",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 = 2 AND iImmigr = 0 AND iMarital = 4 AND iMeans >= 1 AND iMeans <= 10 AND iMobility = 1 AND iRrelchld = 1 AND iSchool >= 1 AND iSchool <= 2 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 10499.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q035",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND dIncome1 = 2 AND iMarital = 4 AND dPOB = 0 AND iRownchld >= 0 AND iRownchld <= 1 AND iSchool >= 1 AND iSchool <= 2",
+      "target_relation": "climate",
+      "truth": 62443.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q036",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iImmigr = 0 AND dIncome6 = 0 AND dPwgt1 = 1 AND iRiders = 0 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND iVietnam = 0 AND iYearsch >= 6 AND iYearsch <= 10",
+      "target_relation": "climate",
+      "truth": 230215.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q037",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome2 = 0 AND iLooking >= 0 AND iLooking <= 2 AND iSubfam1 = 0 AND iWWII >= 0 AND iWWII <= 1",
+      "target_relation": "climate",
+      "truth": 2272797.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q038",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND dIncome2 = 0 AND dIncome5 = 0 AND iMobillim = 2 AND dPOB = 0 AND dWeek89 = 0",
+      "target_relation": "climate",
+      "truth": 240935.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q039",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHours >= 0 AND dHours <= 3 AND iRvetserv = 0 AND iYearsch >= 7 AND iYearsch <= 12",
+      "target_relation": "climate",
+      "truth": 906852.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q040",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iRrelchld >= 0 AND iRrelchld <= 1 AND iRspouse >= 0 AND iRspouse <= 6 AND iTmpabsnt = 0 AND iWorklwk = 1",
+      "target_relation": "climate",
+      "truth": 1073988.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q041",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND dHour89 = 0 AND dIndustry >= 3 AND dIndustry <= 4 AND iRownchld >= 0 AND iRownchld <= 1 AND iWWII = 0 AND iYearwrk >= 0 AND iYearwrk <= 1",
+      "target_relation": "climate",
+      "truth": 6134.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q042",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND iCitizen = 0 AND iDisabl2 >= 1 AND iDisabl2 <= 2 AND iFeb55 = 0 AND dHispanic = 0 AND iImmigr = 0 AND dIncome8 = 0 AND iMilitary = 4 AND dPwgt1 >= 1 AND dPwgt1 <= 2 AND iSubfam2 = 0 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 705244.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q043",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 0 AND iFertil <= 1 AND dHispanic = 0 AND dIncome7 = 0 AND iKorean = 0 AND iSubfam2 = 0 AND dTravtime >= 0 AND dTravtime <= 1",
+      "target_relation": "climate",
+      "truth": 939977.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q044",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome1 >= 0 AND dIncome1 <= 1 AND iLang1 = 2 AND iLooking >= 0 AND iLooking <= 2 AND iMobillim = 2 AND dRpincome >= 0 AND dRpincome <= 3 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 929332.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q045",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome2 = 0 AND dIncome3 = 0 AND iRrelchld = 0",
+      "target_relation": "climate",
+      "truth": 1686355.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q046",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iDisabl1 = 2 AND dIncome7 = 0 AND iKorean = 0 AND dOccup >= 1 AND dOccup <= 2 AND dPoverty >= 1 AND dPoverty <= 2 AND iRlabor >= 0 AND iRlabor <= 6 AND iWork89 >= 1 AND iWork89 <= 2 AND iYearwrk >= 0 AND iYearwrk <= 6",
+      "target_relation": "climate",
+      "truth": 667148.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q047",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND iRemplpar >= 0 AND iRemplpar <= 223 AND iRspouse >= 1 AND iRspouse <= 3 AND iSept80 = 0 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3",
+      "target_relation": "climate",
+      "truth": 1041828.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q048",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 = 2 AND iEnglish = 0 AND dIndustry >= 6 AND dIndustry <= 9 AND iLooking >= 0 AND iLooking <= 1 AND dRpincome >= 3 AND dRpincome <= 4 AND iWWII >= 0 AND iWWII <= 1",
+      "target_relation": "climate",
+      "truth": 290392.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q049",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND dPOB = 0 AND iRlabor >= 1 AND iRlabor <= 6 AND dRpincome >= 2 AND dRpincome <= 4 AND iSex = 1 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 688793.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q050",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND iDisabl2 >= 1 AND iDisabl2 <= 2 AND iImmigr = 0 AND dIncome6 = 0 AND iKorean = 0 AND iMeans >= 0 AND iMeans <= 1 AND iMobility = 1 AND iOthrserv = 0 AND iRiders = 0 AND iRspouse >= 1 AND iRspouse <= 6",
+      "target_relation": "climate",
+      "truth": 392605.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q051",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 >= 0 AND iDisabl2 <= 2 AND iImmigr = 0 AND dIncome3 = 0 AND dIncome6 >= 0 AND dIncome6 <= 1 AND iLang1 >= 1 AND iLang1 <= 2 AND iRownchld >= 0 AND iRownchld <= 1 AND iRrelchld = 0 AND iSubfam1 = 0 AND dWeek89 >= 0 AND dWeek89 <= 1 AND iWorklwk = 1",
+      "target_relation": "climate",
+      "truth": 328942.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q052",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 = 2 AND dHours = 0 AND iImmigr = 0 AND dIncome3 = 0 AND iLooking >= 0 AND iLooking <= 2 AND iMarital = 4 AND iMay75880 = 0 AND iMeans >= 0 AND iMeans <= 1 AND iRelat2 = 0 AND iTmpabsnt = 3 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 108683.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q053",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND dIncome5 >= 0 AND dIncome5 <= 1 AND dTravtime >= 0 AND dTravtime <= 2",
+      "target_relation": "climate",
+      "truth": 1206142.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q054",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 11 AND iLooking = 0 AND dOccup >= 0 AND dOccup <= 2 AND dPOB = 0 AND dRpincome = 4 AND iRspouse >= 0 AND iRspouse <= 1 AND dTravtime >= 0 AND dTravtime <= 5",
+      "target_relation": "climate",
+      "truth": 93489.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q055",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND dIncome2 = 0 AND dIndustry = 0 AND iRrelchld = 0 AND dTravtime >= 0 AND dTravtime <= 1 AND iWorklwk >= 0 AND iWorklwk <= 1",
+      "target_relation": "climate",
+      "truth": 26536.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q056",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND dDepart = 0 AND dHispanic = 0 AND dIndustry >= 0 AND dIndustry <= 9 AND iRagechld = 4 AND iRlabor >= 1 AND iRlabor <= 6 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 330951.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q057",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 1 AND iFertil >= 0 AND iFertil <= 5 AND dIncome4 >= 0 AND dIncome4 <= 1 AND dIncome6 = 0 AND iMeans >= 0 AND iMeans <= 1 AND dPOB = 0",
+      "target_relation": "climate",
+      "truth": 1640701.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q058",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen = 0 AND dIncome8 = 0 AND iMeans >= 0 AND iMeans <= 1 AND iMobility >= 1 AND iMobility <= 2 AND iOthrserv = 0 AND iYearsch = 4",
+      "target_relation": "climate",
+      "truth": 156786.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q059",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 3 AND dAncstry1 <= 11 AND dDepart >= 1 AND dDepart <= 3 AND iDisabl2 >= 0 AND iDisabl2 <= 2 AND dIncome3 = 0 AND dIncome4 >= 0 AND dIncome4 <= 1 AND iMeans >= 0 AND iMeans <= 1 AND dRearning = 0 AND iSchool >= 1 AND iSchool <= 2 AND dWeek89 = 1",
+      "target_relation": "climate",
+      "truth": 141.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q060",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 6 AND dAncstry2 >= 1 AND dAncstry2 <= 2 AND iAvail = 0 AND dHours = 0 AND dIncome2 = 0 AND iKorean = 0 AND iLang1 >= 1 AND iLang1 <= 2 AND dPwgt1 = 1 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 388216.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q061",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 = 0 AND dHours >= 0 AND dHours <= 4 AND iLooking >= 0 AND iLooking <= 2 AND iSept80 = 0 AND iSubfam2 = 0 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND iWWII = 0 AND iYearsch = 10",
+      "target_relation": "climate",
+      "truth": 107.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q062",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 1 AND dIncome3 = 0 AND iRelat2 >= 0 AND iRelat2 <= 1 AND iRspouse = 1 AND iRvetserv = 0 AND dTravtime = 0 AND iVietnam = 0 AND iWork89 = 0",
+      "target_relation": "climate",
+      "truth": 45.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q063",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND dHispanic = 0 AND dHour89 >= 1 AND dHour89 <= 4 AND dHours = 0 AND dIncome3 = 0 AND dIncome6 = 0 AND iOthrserv = 0 AND iPerscare >= 1 AND iPerscare <= 2 AND iRagechld >= 0 AND iRagechld <= 4",
+      "target_relation": "climate",
+      "truth": 125668.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q064",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen = 0 AND dPOB = 0 AND iRlabor >= 0 AND iRlabor <= 1 AND iSchool = 2 AND iWork89 >= 0 AND iWork89 <= 1",
+      "target_relation": "climate",
+      "truth": 408803.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q065",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 3 AND iDisabl1 = 2 AND iPerscare >= 0 AND iPerscare <= 2 AND dPoverty = 2 AND dPwgt1 = 1 AND iRelat1 >= 0 AND iRelat1 <= 1 AND dRpincome >= 2 AND dRpincome <= 4 AND iSex = 1",
+      "target_relation": "climate",
+      "truth": 207333.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q066",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 0 AND iFertil <= 3 AND dIncome1 >= 0 AND dIncome1 <= 1 AND iLang1 = 2 AND iLooking = 0 AND iRelat2 = 0 AND iRemplpar = 0 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 377578.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q067",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND iEnglish >= 0 AND iEnglish <= 2 AND iFeb55 >= 0 AND iFeb55 <= 1 AND dHispanic = 0 AND iRelat2 = 0 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iWorklwk = 2 AND iYearsch >= 5 AND iYearsch <= 9",
+      "target_relation": "climate",
+      "truth": 177698.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q068",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 3 AND iFeb55 = 0 AND dHispanic >= 0 AND dHispanic <= 6 AND iMobillim = 2 AND iRspouse = 1 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 138267.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q069",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 2 AND iEnglish >= 0 AND iEnglish <= 1 AND iFeb55 = 0 AND dHours = 0 AND iImmigr = 0 AND dIncome6 >= 0 AND dIncome6 <= 1 AND iMeans >= 0 AND iMeans <= 1 AND dOccup >= 0 AND dOccup <= 6 AND iRPOB = 10",
+      "target_relation": "climate",
+      "truth": 825370.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q070",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iImmigr = 0 AND iMobility = 1 AND dOccup = 0 AND iOthrserv = 0 AND iRelat2 = 0 AND iWorklwk >= 0 AND iWorklwk <= 2 AND dYrsserv >= 0 AND dYrsserv <= 1",
+      "target_relation": "climate",
+      "truth": 454965.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q071",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 3 AND dDepart <= 4 AND iFeb55 = 0 AND iLang1 = 2 AND iPerscare >= 0 AND iPerscare <= 2 AND iSept80 = 0 AND iWorklwk >= 1 AND iWorklwk <= 2 AND iWWII = 0 AND iYearsch >= 10 AND iYearsch <= 14",
+      "target_relation": "climate",
+      "truth": 358773.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q072",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 5 AND dPoverty >= 1 AND dPoverty <= 2 AND iRiders = 1 AND iSept80 = 0 AND iSex >= 0 AND iSex <= 1 AND iWork89 = 2 AND iYearsch = 10",
+      "target_relation": "climate",
+      "truth": 4079.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q073",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 2 AND dAncstry1 <= 11 AND iCitizen = 0 AND iFertil = 0 AND iSchool = 2 AND iSept80 = 0 AND dTravtime = 0 AND iYearwrk >= 1 AND iYearwrk <= 2",
+      "target_relation": "climate",
+      "truth": 7095.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q074",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHispanic = 0 AND iImmigr = 0 AND dIncome4 >= 0 AND dIncome4 <= 1 AND dIncome7 >= 0 AND dIncome7 <= 1 AND dIncome8 = 0 AND dRpincome >= 2 AND dRpincome <= 3 AND iRspouse >= 0 AND iRspouse <= 4 AND dTravtime >= 0 AND dTravtime <= 4 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 651009.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q075",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHispanic >= 0 AND dHispanic <= 3 AND dIncome1 = 0 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 1205588.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q076",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome1 >= 0 AND dIncome1 <= 1 AND iMobillim >= 0 AND iMobillim <= 2 AND iPerscare >= 1 AND iPerscare <= 2 AND iWork89 >= 1 AND iWork89 <= 2",
+      "target_relation": "climate",
+      "truth": 1227663.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q077",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHour89 = 0 AND dIncome1 = 0 AND dIndustry >= 4 AND dIndustry <= 9 AND iLang1 = 2 AND iMay75880 = 0 AND iMeans = 1 AND iMilitary = 4 AND iSex = 1 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 9841.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q078",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMobillim >= 0 AND iMobillim <= 1 AND iSex >= 0 AND iSex <= 1",
+      "target_relation": "climate",
+      "truth": 637228.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q079",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 6 AND iFeb55 = 0 AND dIncome7 = 0 AND dPOB = 0 AND iRPOB = 10",
+      "target_relation": "climate",
+      "truth": 1292111.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q080",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 0 AND iFertil <= 4 AND iImmigr = 0 AND dIncome4 = 0 AND iRvetserv = 0 AND iSchool = 1 AND iSex >= 0 AND iSex <= 1 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 850355.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q081",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 2 AND iDisabl1 = 2 AND dHispanic = 0 AND iMeans >= 0 AND iMeans <= 1 AND dOccup = 0 AND iRPOB >= 21 AND iRPOB <= 24 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 6565.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q082",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 = 2 AND iEnglish = 0 AND dHour89 >= 0 AND dHour89 <= 5 AND iMilitary >= 0 AND iMilitary <= 4 AND dOccup >= 0 AND dOccup <= 3 AND iPerscare = 2 AND dPOB = 0 AND dRearning >= 0 AND dRearning <= 3 AND iRPOB >= 22 AND iRPOB <= 51",
+      "target_relation": "climate",
+      "truth": 238695.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q083",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 = 2 AND iEnglish = 0 AND dIncome6 = 0",
+      "target_relation": "climate",
+      "truth": 1443409.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q084",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND dIncome6 = 0 AND iMay75880 = 0 AND iSubfam2 = 0 AND iWork89 >= 1 AND iWork89 <= 2",
+      "target_relation": "climate",
+      "truth": 1520636.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q085",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMay75880 = 0 AND iSex = 0",
+      "target_relation": "climate",
+      "truth": 1168118.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q086",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 5 AND dAge <= 7 AND iFertil >= 0 AND iFertil <= 3 AND dHour89 >= 0 AND dHour89 <= 3 AND dIncome5 >= 0 AND dIncome5 <= 1 AND iKorean = 0 AND dPwgt1 >= 0 AND dPwgt1 <= 2 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3",
+      "target_relation": "climate",
+      "truth": 544332.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q087",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIndustry >= 7 AND dIndustry <= 10 AND iMarital >= 1 AND iMarital <= 4 AND dPoverty >= 1 AND dPoverty <= 2 AND dPwgt1 = 1 AND iRemplpar = 0 AND iRownchld >= 0 AND iRownchld <= 1 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 179093.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q088",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND iRelat1 = 0 AND iRelat2 = 0 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 719027.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q089",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iLang1 >= 0 AND iLang1 <= 2 AND dOccup >= 0 AND dOccup <= 1 AND iOthrserv = 0 AND dPoverty = 2 AND iRelat2 = 0 AND iSex = 1",
+      "target_relation": "climate",
+      "truth": 598805.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q090",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND dIndustry >= 4 AND dIndustry <= 9 AND iLang1 = 2 AND iRPOB = 10 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 635781.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q091",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen >= 0 AND iCitizen <= 4 AND dDepart = 0 AND iDisabl2 >= 0 AND iDisabl2 <= 1 AND iImmigr >= 0 AND iImmigr <= 1 AND dIncome6 = 0 AND iMay75880 = 0 AND iMeans >= 0 AND iMeans <= 1 AND dOccup >= 0 AND dOccup <= 1 AND iRemplpar = 0 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 106189.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q092",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen >= 0 AND iCitizen <= 3 AND dIncome6 = 0 AND iRvetserv = 0 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 1991329.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q093",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iImmigr = 0 AND dIncome1 = 2 AND iMilitary = 4 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 275420.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q094",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND dIncome5 = 0 AND dIncome6 >= 0 AND dIncome6 <= 1 AND iMeans >= 0 AND iMeans <= 1 AND iMobility >= 0 AND iMobility <= 1 AND iOthrserv = 0 AND iRelat1 >= 0 AND iRelat1 <= 1",
+      "target_relation": "climate",
+      "truth": 508617.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q095",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 2 AND dIncome1 = 1 AND dIncome2 = 0 AND dPwgt1 = 1 AND iRelat1 >= 0 AND iRelat1 <= 2 AND iRspouse = 1 AND dTravtime >= 0 AND dTravtime <= 4",
+      "target_relation": "climate",
+      "truth": 101984.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q096",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND dIncome6 = 0 AND iLang1 >= 1 AND iLang1 <= 2 AND iSchool >= 1 AND iSchool <= 2 AND iVietnam = 0 AND iWork89 = 1 AND iWorklwk >= 1 AND iWorklwk <= 2 AND iYearwrk >= 0 AND iYearwrk <= 1",
+      "target_relation": "climate",
+      "truth": 982614.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q097",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen = 0 AND dIncome1 = 0 AND dIncome4 = 0 AND dIncome5 = 0 AND iMobility >= 1 AND iMobility <= 2 AND iPerscare >= 0 AND iPerscare <= 2 AND dRearning >= 0 AND dRearning <= 2 AND iRelat2 = 0 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 601053.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q098",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 2 AND iDisabl2 = 2 AND dHispanic = 0 AND dHour89 >= 0 AND dHour89 <= 3 AND iRelat2 = 0 AND dWeek89 >= 0 AND dWeek89 <= 1",
+      "target_relation": "climate",
+      "truth": 197834.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q099",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome6 = 0 AND dIndustry >= 5 AND dIndustry <= 10 AND iLooking = 0 AND iRagechld = 0 AND iRspouse >= 0 AND iRspouse <= 6 AND dWeek89 >= 0 AND dWeek89 <= 2 AND iWorklwk = 1 AND iYearsch >= 8 AND iYearsch <= 11 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 131909.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q100",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 2 AND iFertil <= 5 AND dIncome8 = 0 AND iMobillim = 2 AND iRvetserv = 0 AND iYearwrk >= 1 AND iYearwrk <= 2",
+      "target_relation": "climate",
+      "truth": 344112.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q101",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 0 AND iFertil <= 1 AND dHispanic = 0 AND dIncome2 = 0 AND dIncome7 = 0 AND iMeans >= 0 AND iMeans <= 1 AND iMilitary >= 1 AND iMilitary <= 4 AND dPOB = 0 AND iRPOB >= 10 AND iRPOB <= 23 AND dWeek89 = 1 AND iWork89 >= 1 AND iWork89 <= 2",
+      "target_relation": "climate",
+      "truth": 240488.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q102",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 11 AND dAncstry2 >= 1 AND dAncstry2 <= 2 AND dHours = 0 AND iImmigr = 0 AND dIncome3 = 0 AND iLang1 = 2 AND iOthrserv = 0 AND dRearning = 0 AND dRpincome >= 0 AND dRpincome <= 5 AND iSchool >= 1 AND iSchool <= 2",
+      "target_relation": "climate",
+      "truth": 620542.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q103",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND dIncome3 = 0 AND dIncome5 = 0 AND iLang1 = 2 AND iMeans >= 0 AND iMeans <= 1 AND iMobility >= 1 AND iMobility <= 2 AND iMobillim = 2 AND dPwgt1 = 1 AND iRownchld = 0 AND iRspouse >= 0 AND iRspouse <= 1 AND iRvetserv >= 0 AND iRvetserv <= 9 AND iYearsch >= 4 AND iYearsch <= 10",
+      "target_relation": "climate",
+      "truth": 166531.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q104",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 1 AND iEnglish = 0 AND dIncome2 >= 0 AND dIncome2 <= 1 AND iMay75880 = 0 AND dRearning = 0 AND iSex >= 0 AND iSex <= 1 AND iSubfam1 = 0 AND iWorklwk = 1",
+      "target_relation": "climate",
+      "truth": 17211.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q105",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iClass = 1 AND iFeb55 = 0 AND dHispanic = 0 AND dIncome8 = 0 AND iLang1 = 2 AND dOccup >= 0 AND dOccup <= 2 AND iRemplpar = 0",
+      "target_relation": "climate",
+      "truth": 381025.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q106",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass = 0 AND iDisabl2 >= 0 AND iDisabl2 <= 2 AND iSept80 = 0 AND iTmpabsnt = 0",
+      "target_relation": "climate",
+      "truth": 628124.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q107",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome5 = 0 AND dPOB = 0",
+      "target_relation": "climate",
+      "truth": 1926415.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q108",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 5 AND dAge <= 6 AND dAncstry2 >= 1 AND dAncstry2 <= 2 AND iClass = 1 AND dPOB = 0 AND iSex = 1",
+      "target_relation": "climate",
+      "truth": 127658.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q109",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 3 AND dDepart <= 5 AND dIncome6 = 0 AND iRelat2 = 0 AND iSex >= 0 AND iSex <= 1 AND iVietnam = 0 AND iWorklwk >= 0 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 703331.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q110",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome4 >= 0 AND dIncome4 <= 1 AND dIndustry >= 0 AND dIndustry <= 4 AND dRpincome >= 0 AND dRpincome <= 3 AND iSept80 = 0 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND dWeek89 >= 0 AND dWeek89 <= 1 AND iYearsch >= 7 AND iYearsch <= 13",
+      "target_relation": "climate",
+      "truth": 379116.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q111",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND dIncome8 = 0 AND iLang1 = 2 AND iMobility >= 1 AND iMobility <= 2 AND dOccup >= 0 AND dOccup <= 3 AND dPoverty = 2 AND iRownchld = 0 AND dRpincome >= 0 AND dRpincome <= 2 AND iSchool = 1 AND iWWII = 0 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 255610.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q112",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHispanic = 0 AND iMobillim = 2 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iSex >= 0 AND iSex <= 1",
+      "target_relation": "climate",
+      "truth": 1764831.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q113",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iClass >= 0 AND iClass <= 1 AND iDisabl1 = 2 AND iRPOB = 10 AND iSubfam1 = 0 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 625504.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q114",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND iLang1 >= 0 AND iLang1 <= 2 AND iOthrserv = 0 AND dPoverty = 2 AND iRPOB = 10 AND iWork89 >= 0 AND iWork89 <= 1",
+      "target_relation": "climate",
+      "truth": 1053495.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q115",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 3 AND iDisabl1 = 2 AND dHours >= 3 AND dHours <= 5 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3",
+      "target_relation": "climate",
+      "truth": 768400.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q116",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 2 AND dAncstry2 <= 3 AND iDisabl1 = 2 AND iFeb55 = 0 AND iFertil = 0 AND dHispanic = 0 AND iImmigr = 0 AND dIncome3 = 0 AND iMarital >= 0 AND iMarital <= 4 AND iRlabor = 1 AND iYearsch >= 9 AND iYearsch <= 10",
+      "target_relation": "climate",
+      "truth": 37366.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q117",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND iFeb55 = 0 AND dHispanic = 0 AND iImmigr = 0 AND dIncome8 >= 0 AND dIncome8 <= 1 AND dIndustry >= 0 AND dIndustry <= 7 AND iLang1 >= 0 AND iLang1 <= 2 AND iMobility = 1 AND iRspouse >= 1 AND iRspouse <= 4 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 464567.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q118",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMeans = 1 AND iMobility >= 1 AND iMobility <= 2 AND iRemplpar >= 0 AND iRemplpar <= 111 AND dRpincome >= 0 AND dRpincome <= 2 AND iYearwrk >= 0 AND iYearwrk <= 1 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 321199.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q119",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND iRagechld = 0 AND iRPOB = 23 AND iSubfam1 = 0 AND iYearwrk = 1",
+      "target_relation": "climate",
+      "truth": 59826.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q120",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 6 AND dDepart = 0 AND iDisabl2 >= 0 AND iDisabl2 <= 2 AND iMeans >= 0 AND iMeans <= 1 AND iMobility >= 0 AND iMobility <= 1 AND iRiders = 0 AND iSchool = 1",
+      "target_relation": "climate",
+      "truth": 332407.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q121",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 6 AND dDepart >= 0 AND dDepart <= 2 AND iDisabl2 = 2 AND iFeb55 = 0 AND iFertil >= 0 AND iFertil <= 4 AND dHispanic = 0 AND iRelat2 = 0 AND iRiders >= 0 AND iRiders <= 2 AND iRvetserv = 0",
+      "target_relation": "climate",
+      "truth": 650184.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q122",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND dIndustry >= 5 AND dIndustry <= 9 AND iPerscare >= 0 AND iPerscare <= 2 AND iRownchld >= 0 AND iRownchld <= 1 AND iRvetserv = 0 AND iSubfam1 = 0 AND dWeek89 >= 1 AND dWeek89 <= 2 AND dYrsserv >= 0 AND dYrsserv <= 1",
+      "target_relation": "climate",
+      "truth": 741291.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q123",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 3 AND iEnglish = 0 AND dIncome1 = 0 AND dIncome5 = 0 AND iMilitary >= 0 AND iMilitary <= 4 AND iMobillim = 2 AND iRagechld = 0 AND iWork89 = 1",
+      "target_relation": "climate",
+      "truth": 6026.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q124",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 0 AND iFertil <= 4 AND dIncome1 = 0 AND dPwgt1 >= 1 AND dPwgt1 <= 2 AND iRemplpar = 0 AND iRspouse >= 1 AND iRspouse <= 3 AND iWork89 >= 1 AND iWork89 <= 2",
+      "target_relation": "climate",
+      "truth": 321840.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q125",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND iRiders >= 0 AND iRiders <= 1 AND iRownchld = 1 AND iYearsch >= 6 AND iYearsch <= 14 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 48454.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q126",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 = 1 AND dHour89 >= 0 AND dHour89 <= 1 AND iKorean = 0 AND iLang1 = 2 AND dPwgt1 >= 1 AND dPwgt1 <= 2 AND iRelat2 = 0",
+      "target_relation": "climate",
+      "truth": 441492.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q127",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND iDisabl2 = 2 AND iEnglish = 0 AND iMarital >= 1 AND iMarital <= 4 AND iMeans >= 0 AND iMeans <= 1 AND iMilitary = 4 AND iOthrserv = 0 AND iWork89 >= 1 AND iWork89 <= 2",
+      "target_relation": "climate",
+      "truth": 461481.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q128",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 0 AND iFertil <= 7 AND dIncome3 = 0 AND dIncome7 = 0 AND dIncome8 = 0 AND iLang1 = 2 AND iPerscare = 2 AND iSubfam2 = 0 AND iWork89 >= 0 AND iWork89 <= 1",
+      "target_relation": "climate",
+      "truth": 1001001.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q129",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMobility = 2 AND dOccup >= 0 AND dOccup <= 1 AND iSept80 = 0 AND iSubfam1 = 0 AND dTravtime >= 0 AND dTravtime <= 1",
+      "target_relation": "climate",
+      "truth": 355198.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q130",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen = 0 AND dDepart >= 0 AND dDepart <= 3 AND dIncome7 = 0 AND dIncome8 = 0 AND dOccup = 0 AND iSex >= 0 AND iSex <= 1 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 811271.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q131",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iKorean = 0 AND dRearning >= 0 AND dRearning <= 3 AND iRrelchld >= 0 AND iRrelchld <= 1",
+      "target_relation": "climate",
+      "truth": 2121419.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q132",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHispanic = 0 AND iMeans = 1 AND iRelat2 = 0 AND iRlabor >= 1 AND iRlabor <= 6 AND iYearsch >= 5 AND iYearsch <= 14",
+      "target_relation": "climate",
+      "truth": 857091.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q133",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 1 AND dIncome1 >= 0 AND dIncome1 <= 1 AND iMilitary >= 0 AND iMilitary <= 4 AND dOccup = 0 AND iRlabor = 0",
+      "target_relation": "climate",
+      "truth": 574495.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q134",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 5 AND dHour89 >= 1 AND dHour89 <= 5 AND iMeans >= 0 AND iMeans <= 1 AND iMobillim >= 0 AND iMobillim <= 2 AND iRiders >= 0 AND iRiders <= 2 AND iRspouse >= 1 AND iRspouse <= 6 AND iSchool >= 1 AND iSchool <= 2 AND iSept80 = 0 AND dWeek89 >= 0 AND dWeek89 <= 2 AND iYearwrk >= 1 AND iYearwrk <= 3",
+      "target_relation": "climate",
+      "truth": 1081192.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q135",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 3 AND dAncstry1 <= 11 AND iClass >= 0 AND iClass <= 1 AND iLang1 = 2 AND dPOB >= 0 AND dPOB <= 6 AND iRemplpar = 0 AND iSex >= 0 AND iSex <= 1 AND iVietnam = 0 AND iYearwrk >= 0 AND iYearwrk <= 6",
+      "target_relation": "climate",
+      "truth": 242110.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q136",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iImmigr = 0 AND dIncome5 = 0 AND iSept80 = 0 AND iSex >= 0 AND iSex <= 1 AND iSubfam1 = 0 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 1763893.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q137",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome4 = 0 AND dIncome5 = 0 AND iMay75880 = 0 AND iRelat1 = 0 AND iWorklwk >= 1 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 428163.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q138",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 0 AND dAncstry1 <= 3 AND iClass >= 4 AND iClass <= 6 AND iFertil = 4 AND dIncome2 = 0 AND iLang1 >= 0 AND iLang1 <= 2 AND iMay75880 = 0 AND iRspouse = 1 AND iTmpabsnt = 0 AND dTravtime = 0",
+      "target_relation": "climate",
+      "truth": 393.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q139",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIndustry >= 0 AND dIndustry <= 10 AND iRelat2 = 0 AND dTravtime >= 0 AND dTravtime <= 1",
+      "target_relation": "climate",
+      "truth": 1527841.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q140",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND iDisabl2 = 2 AND iMeans >= 0 AND iMeans <= 1 AND dPoverty = 2 AND iRelat2 = 0 AND iRownchld >= 0 AND iRownchld <= 1 AND iRrelchld >= 0 AND iRrelchld <= 1 AND dWeek89 >= 0 AND dWeek89 <= 2",
+      "target_relation": "climate",
+      "truth": 1317605.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q141",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMilitary >= 0 AND iMilitary <= 4 AND dOccup >= 0 AND dOccup <= 3 AND iRelat2 = 0 AND iRlabor >= 0 AND iRlabor <= 1 AND iRPOB = 10 AND iSex = 1 AND iSubfam1 = 0 AND iYearwrk = 1",
+      "target_relation": "climate",
+      "truth": 249270.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q142",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHours >= 0 AND dHours <= 3 AND dIncome3 = 0 AND dIncome4 >= 0 AND dIncome4 <= 1 AND dIncome6 = 0 AND iRspouse >= 0 AND iRspouse <= 1 AND iSubfam1 = 0 AND iSubfam2 = 0 AND iWorklwk >= 0 AND iWorklwk <= 1",
+      "target_relation": "climate",
+      "truth": 903391.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q143",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 3 AND dIncome8 = 0 AND iKorean = 0 AND iMay75880 = 0 AND iMilitary >= 0 AND iMilitary <= 4 AND iRPOB = 10 AND iRrelchld = 0 AND iSchool >= 1 AND iSchool <= 2",
+      "target_relation": "climate",
+      "truth": 637974.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q144",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 2 AND iAvail = 0 AND iCitizen = 0 AND dHispanic = 0 AND dIncome6 = 0 AND dIndustry >= 1 AND dIndustry <= 7 AND iLooking >= 0 AND iLooking <= 2 AND iSept80 = 0 AND iYearwrk >= 0 AND iYearwrk <= 2",
+      "target_relation": "climate",
+      "truth": 419741.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q145",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 = 2 AND dIncome2 = 0 AND iRownchld = 0 AND dWeek89 >= 1 AND dWeek89 <= 2",
+      "target_relation": "climate",
+      "truth": 1142267.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q146",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHours >= 0 AND dHours <= 5 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 2363776.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q147",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish >= 0 AND iEnglish <= 2 AND dIncome1 >= 0 AND dIncome1 <= 1 AND iLooking >= 0 AND iLooking <= 2 AND iMobility >= 1 AND iMobility <= 2 AND dPoverty >= 0 AND dPoverty <= 2 AND dRpincome = 3 AND iSept80 = 0 AND iSex = 0",
+      "target_relation": "climate",
+      "truth": 67155.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q148",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iRelat2 = 0 AND dTravtime >= 0 AND dTravtime <= 3 AND iYearsch >= 1 AND iYearsch <= 11",
+      "target_relation": "climate",
+      "truth": 1523610.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q149",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 = 2 AND dRearning >= 3 AND dRearning <= 4 AND iRelat1 >= 1 AND iRelat1 <= 2 AND iSubfam1 = 0 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND dWeek89 >= 0 AND dWeek89 <= 2 AND iYearsch >= 8 AND iYearsch <= 11",
+      "target_relation": "climate",
+      "truth": 98701.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q150",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 3 AND dHours = 0 AND dIncome2 = 0 AND iLang1 = 2 AND iLooking = 0 AND dRpincome >= 0 AND dRpincome <= 2 AND iSept80 = 0 AND iSubfam1 = 0 AND iWork89 >= 1 AND iWork89 <= 2",
+      "target_relation": "climate",
+      "truth": 45407.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q151",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iImmigr = 0 AND dIncome1 >= 0 AND dIncome1 <= 1 AND dRearning >= 0 AND dRearning <= 3 AND iSubfam2 = 0 AND iYearsch = 10",
+      "target_relation": "climate",
+      "truth": 338234.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q152",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 2 AND iMay75880 = 0 AND iRlabor >= 1 AND iRlabor <= 6 AND dRpincome >= 0 AND dRpincome <= 2 AND iRspouse >= 1 AND iRspouse <= 6",
+      "target_relation": "climate",
+      "truth": 598922.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q153",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMeans >= 0 AND iMeans <= 1 AND iMobility >= 1 AND iMobility <= 2 AND iSept80 = 0 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 2052182.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q154",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIndustry >= 0 AND dIndustry <= 1 AND iLooking = 0 AND iSubfam1 = 0 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND iYearsch >= 1 AND iYearsch <= 11 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 503073.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q155",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 2 AND dIncome6 = 0 AND dWeek89 >= 0 AND dWeek89 <= 1 AND iWorklwk >= 0 AND iWorklwk <= 1",
+      "target_relation": "climate",
+      "truth": 878312.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q156",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 2 AND dAncstry1 <= 3 AND dHispanic = 0 AND dIncome8 = 0 AND dIndustry >= 0 AND dIndustry <= 3 AND iKorean = 0 AND iMeans = 0 AND dPoverty = 2 AND iRlabor >= 0 AND iRlabor <= 1 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 50441.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q157",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIndustry >= 2 AND dIndustry <= 7 AND iMeans >= 0 AND iMeans <= 1 AND dRearning >= 3 AND dRearning <= 4 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 252200.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q158",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iEnglish >= 0 AND iEnglish <= 1 AND iFertil = 0 AND dHours >= 0 AND dHours <= 3 AND dIncome5 = 0 AND iMobillim = 2 AND dPoverty = 2 AND dRearning >= 0 AND dRearning <= 2 AND iRelat1 >= 0 AND iRelat1 <= 7 AND iRrelchld = 0",
+      "target_relation": "climate",
+      "truth": 118767.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q159",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge = 5 AND iFeb55 = 0 AND dHour89 >= 0 AND dHour89 <= 5 AND dIncome6 = 0 AND dIncome8 = 0 AND iMarital >= 0 AND iMarital <= 4 AND iMobillim = 2 AND dPOB >= 0 AND dPOB <= 3 AND dPwgt1 >= 1 AND dPwgt1 <= 2 AND dRearning >= 2 AND dRearning <= 3 AND iRelat1 = 2 AND iRrelchld = 0 AND iRvetserv >= 0 AND iRvetserv <= 4",
+      "target_relation": "climate",
+      "truth": 3746.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q160",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 1 AND dIncome2 = 0 AND dIncome8 = 0 AND iRemplpar >= 112 AND iRemplpar <= 121 AND iRlabor >= 1 AND iRlabor <= 6 AND iSept80 = 0 AND dWeek89 >= 0 AND dWeek89 <= 2 AND dYrsserv >= 0 AND dYrsserv <= 1",
+      "target_relation": "climate",
+      "truth": 21041.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q161",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 >= 1 AND iDisabl1 <= 2 AND iFertil = 0 AND iMobility >= 1 AND iMobility <= 2 AND iRlabor >= 1 AND iRlabor <= 3 AND dRpincome = 0 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 16041.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q162",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND dIncome5 = 0 AND iMay75880 = 0 AND dOccup = 0 AND iRelat2 = 0 AND iRrelchld = 0 AND iTmpabsnt = 3 AND iYearsch >= 10 AND iYearsch <= 17",
+      "target_relation": "climate",
+      "truth": 66281.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q163",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 2 AND iAvail = 0 AND iFeb55 = 0 AND dIncome2 >= 0 AND dIncome2 <= 1 AND dPoverty = 2 AND iRelat2 = 0 AND iRlabor >= 0 AND iRlabor <= 1 AND iRspouse = 0 AND iWorklwk >= 0 AND iWorklwk <= 1",
+      "target_relation": "climate",
+      "truth": 358064.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q164",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 2 AND iEnglish >= 0 AND iEnglish <= 2 AND iImmigr = 0 AND iMobillim >= 0 AND iMobillim <= 2 AND dWeek89 = 2",
+      "target_relation": "climate",
+      "truth": 630303.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q165",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND iFertil >= 4 AND iFertil <= 5 AND dIncome6 = 0 AND dRearning >= 0 AND dRearning <= 3",
+      "target_relation": "climate",
+      "truth": 201557.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q166",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND dIncome4 >= 0 AND dIncome4 <= 1 AND iMilitary >= 2 AND iMilitary <= 4 AND iMobillim = 2 AND dOccup >= 0 AND dOccup <= 6 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 1665320.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q167",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 11 AND iAvail = 0 AND dIncome2 = 0 AND dIncome4 = 0 AND iKorean = 0 AND iRPOB >= 10 AND iRPOB <= 22 AND iYearsch >= 5 AND iYearsch <= 14 AND iYearwrk = 0",
+      "target_relation": "climate",
+      "truth": 119270.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q168",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHours >= 0 AND dHours <= 3 AND dIncome2 = 0 AND iMay75880 = 0 AND iMilitary >= 0 AND iMilitary <= 4 AND iRelat1 >= 0 AND iRelat1 <= 2 AND iRiders >= 0 AND iRiders <= 1",
+      "target_relation": "climate",
+      "truth": 1670761.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q169",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND dHours >= 0 AND dHours <= 5 AND iMarital = 4 AND dPOB = 0 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 909067.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q170",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass = 1 AND dHours = 0 AND dIncome2 >= 0 AND dIncome2 <= 1 AND dIncome6 = 0 AND iMobillim = 2 AND iRspouse >= 5 AND iRspouse <= 6 AND iSubfam2 = 0 AND iTmpabsnt = 0",
+      "target_relation": "climate",
+      "truth": 8406.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q171",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND dIncome1 >= 3 AND dIncome1 <= 4 AND iTmpabsnt = 0 AND iYearsch >= 7 AND iYearsch <= 10",
+      "target_relation": "climate",
+      "truth": 66170.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q172",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND dPOB = 0",
+      "target_relation": "climate",
+      "truth": 2200066.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q173",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 0 AND dAncstry1 <= 1 AND iClass = 1 AND dIncome5 = 0 AND iPerscare >= 1 AND iPerscare <= 2 AND dPwgt1 = 1 AND iRagechld >= 0 AND iRagechld <= 4 AND iSept80 = 0 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 311948.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q174",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 2 AND iMobility >= 1 AND iMobility <= 2 AND iRagechld >= 0 AND iRagechld <= 4 AND iYearwrk >= 0 AND iYearwrk <= 1",
+      "target_relation": "climate",
+      "truth": 1495191.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q175",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 0 AND dAncstry1 <= 3 AND iClass >= 0 AND iClass <= 1 AND iImmigr = 0 AND dIncome8 = 0 AND iMobility = 2 AND dOccup >= 0 AND dOccup <= 3 AND dRpincome >= 0 AND dRpincome <= 3",
+      "target_relation": "climate",
+      "truth": 368834.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q176",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iClass = 1 AND iMarital = 4 AND iMobility = 1 AND iRemplpar >= 0 AND iRemplpar <= 111 AND dRpincome >= 0 AND dRpincome <= 2 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 74825.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q177",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 2 AND iRelat1 >= 2 AND iRelat1 <= 9 AND iRiders >= 0 AND iRiders <= 1 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 781332.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q178",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome2 >= 0 AND dIncome2 <= 1 AND iMobility >= 1 AND iMobility <= 2 AND iRownchld >= 0 AND iRownchld <= 1",
+      "target_relation": "climate",
+      "truth": 2274789.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q179",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail >= 0 AND iAvail <= 4 AND iLang1 >= 1 AND iLang1 <= 2 AND iMarital >= 1 AND iMarital <= 4 AND dOccup = 0 AND iRemplpar = 0 AND iRspouse >= 1 AND iRspouse <= 6",
+      "target_relation": "climate",
+      "truth": 181126.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q180",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen >= 0 AND iCitizen <= 4 AND iDisabl2 >= 0 AND iDisabl2 <= 2 AND dIncome3 = 0 AND iKorean = 0 AND iLang1 = 2 AND iMay75880 = 0 AND iMobility = 2 AND iMobillim = 2 AND iPerscare >= 0 AND iPerscare <= 2 AND dPwgt1 = 1 AND iRagechld >= 0 AND iRagechld <= 2 AND iYearsch >= 5 AND iYearsch <= 11",
+      "target_relation": "climate",
+      "truth": 160412.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q181",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND dHour89 = 3 AND dIncome8 = 0 AND iMobillim >= 0 AND iMobillim <= 2 AND iRelat1 >= 0 AND iRelat1 <= 1 AND iRlabor >= 1 AND iRlabor <= 6",
+      "target_relation": "climate",
+      "truth": 431725.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q182",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 2347978.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q183",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome2 >= 0 AND dIncome2 <= 1 AND iMay75880 = 0 AND dPoverty >= 1 AND dPoverty <= 2 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iSex = 0 AND iSubfam2 >= 0 AND iSubfam2 <= 1 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 1048444.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q184",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 2 AND iDisabl1 = 0 AND iEnglish = 0 AND iImmigr = 0 AND iLooking = 0 AND iMay75880 = 0 AND iRelat2 = 0 AND dRpincome >= 2 AND dRpincome <= 4 AND iRspouse = 1 AND dTravtime >= 0 AND dTravtime <= 4",
+      "target_relation": "climate",
+      "truth": 13.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q185",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome1 >= 1 AND dIncome1 <= 2 AND dPOB = 0 AND iTmpabsnt = 0",
+      "target_relation": "climate",
+      "truth": 692006.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q186",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND iFertil = 0 AND iLang1 >= 1 AND iLang1 <= 2 AND dPoverty = 2 AND iRelat1 >= 1 AND iRelat1 <= 3 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 389708.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q187",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 5 AND iFertil = 0 AND dHispanic = 0 AND dHour89 >= 0 AND dHour89 <= 3 AND iMobillim >= 0 AND iMobillim <= 2 AND iRemplpar >= 0 AND iRemplpar <= 111 AND iRvetserv = 0 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 449865.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q188",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND dHispanic = 0 AND iMay75880 = 0 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 2220842.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q189",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHispanic = 0 AND iYearwrk >= 6 AND iYearwrk <= 7",
+      "target_relation": "climate",
+      "truth": 315698.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q190",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome2 >= 0 AND dIncome2 <= 1 AND dIncome8 = 0 AND iKorean = 0 AND iRiders = 0",
+      "target_relation": "climate",
+      "truth": 1408596.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q191",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 2 AND dAncstry2 >= 1 AND dAncstry2 <= 3 AND iKorean = 0 AND iMilitary = 4 AND iMobility >= 1 AND iMobility <= 2",
+      "target_relation": "climate",
+      "truth": 912882.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q192",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 7 AND iCitizen = 0 AND iDisabl1 = 2 AND iSchool = 1 AND iWorklwk >= 0 AND iWorklwk <= 1",
+      "target_relation": "climate",
+      "truth": 865763.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q193",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND dIncome5 = 0 AND dIncome7 = 0 AND dPOB = 0 AND dRpincome >= 0 AND dRpincome <= 2 AND dTravtime >= 0 AND dTravtime <= 3",
+      "target_relation": "climate",
+      "truth": 1104555.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q194",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND iDisabl2 = 2 AND dIncome7 = 0 AND iRlabor >= 0 AND iRlabor <= 1 AND iRspouse >= 1 AND iRspouse <= 4 AND iSubfam1 = 0 AND dTravtime >= 0 AND dTravtime <= 3 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 365975.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q195",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 = 1 AND dIncome2 = 0 AND dIncome8 = 0 AND iMobility = 1 AND iOthrserv = 0 AND iRemplpar = 0 AND iRownchld = 0 AND iRspouse >= 0 AND iRspouse <= 3 AND iSex >= 0 AND iSex <= 1 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND dTravtime = 1 AND dWeek89 >= 0 AND dWeek89 <= 1 AND iYearsch >= 4 AND iYearsch <= 5",
+      "target_relation": "climate",
+      "truth": 456.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q196",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 >= 0 AND iDisabl2 <= 2 AND iFeb55 = 0 AND iMay75880 = 0 AND iMobillim >= 0 AND iMobillim <= 2 AND dPoverty = 2 AND iRiders >= 0 AND iRiders <= 1 AND iRlabor >= 1 AND iRlabor <= 6 AND iSex = 1 AND iSubfam2 = 0 AND iTmpabsnt = 0",
+      "target_relation": "climate",
+      "truth": 432105.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q197",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHour89 >= 1 AND dHour89 <= 3 AND iImmigr = 0 AND iRagechld >= 0 AND iRagechld <= 3 AND iSept80 = 0 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 463363.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q198",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMobility >= 1 AND iMobility <= 2 AND dRearning >= 0 AND dRearning <= 2 AND iRelat1 = 0 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 437191.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q199",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 = 2 AND dHispanic = 0 AND dHours >= 0 AND dHours <= 4 AND dIncome1 >= 0 AND dIncome1 <= 3 AND iLooking >= 0 AND iLooking <= 1 AND dPoverty = 2 AND dTravtime = 0 AND iWorklwk >= 1 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 93461.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q200",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 1 AND dHour89 >= 0 AND dHour89 <= 2 AND dIncome1 = 0 AND iSchool >= 1 AND iSchool <= 2",
+      "target_relation": "climate",
+      "truth": 933647.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q201",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND dHours = 3 AND dIncome5 >= 0 AND dIncome5 <= 1 AND dIndustry >= 7 AND dIndustry <= 8 AND iMay75880 = 0 AND iRelat2 = 0 AND iRemplpar = 0",
+      "target_relation": "climate",
+      "truth": 2776.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q202",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND dIndustry >= 0 AND dIndustry <= 8 AND dPOB = 0 AND iRrelchld = 1 AND iRvetserv >= 0 AND iRvetserv <= 1",
+      "target_relation": "climate",
+      "truth": 53166.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q203",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND iAvail = 0 AND iFeb55 = 0 AND iMeans >= 0 AND iMeans <= 1 AND iPerscare = 0 AND iRownchld >= 0 AND iRownchld <= 1 AND iRspouse >= 0 AND iRspouse <= 1 AND iSex >= 0 AND iSex <= 1 AND dWeek89 >= 0 AND dWeek89 <= 2 AND iWorklwk >= 0 AND iWorklwk <= 2 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 340683.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q204",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome1 = 0 AND iMobility >= 0 AND iMobility <= 1 AND iPerscare >= 0 AND iPerscare <= 2 AND iRPOB = 10 AND iSex >= 0 AND iSex <= 1 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 599017.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q205",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND dHour89 >= 0 AND dHour89 <= 3 AND dIncome3 = 0 AND iMobillim = 2 AND dPOB = 0 AND iRemplpar >= 0 AND iRemplpar <= 111 AND iWorklwk >= 0 AND iWorklwk <= 1",
+      "target_relation": "climate",
+      "truth": 690215.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q206",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMarital >= 2 AND iMarital <= 4 AND iMay75880 = 0 AND dPoverty = 2 AND iRelat1 >= 1 AND iRelat1 <= 2 AND iSex >= 0 AND iSex <= 1 AND iSubfam2 = 0 AND iWorklwk >= 0 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 599603.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q207",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHour89 >= 0 AND dHour89 <= 1 AND dIncome7 = 0 AND iLooking >= 0 AND iLooking <= 2 AND iPerscare = 2",
+      "target_relation": "climate",
+      "truth": 633347.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q208",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND dHours >= 0 AND dHours <= 5 AND dIndustry >= 8 AND dIndustry <= 9 AND iRspouse = 1 AND iWork89 = 1",
+      "target_relation": "climate",
+      "truth": 199350.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q209",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND iFeb55 = 0 AND iFertil >= 0 AND iFertil <= 1 AND dIncome4 >= 0 AND dIncome4 <= 1 AND iMilitary = 4 AND dRearning >= 0 AND dRearning <= 2 AND iRelat1 >= 0 AND iRelat1 <= 2 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 325956.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q210",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND dIncome1 = 0 AND dPOB = 0 AND iWWII >= 0 AND iWWII <= 1",
+      "target_relation": "climate",
+      "truth": 1130667.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q211",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 2 AND iFeb55 = 0 AND dIncome1 >= 2 AND dIncome1 <= 4 AND iRlabor >= 1 AND iRlabor <= 6 AND iRownchld >= 0 AND iRownchld <= 1 AND iWork89 >= 1 AND iWork89 <= 2 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 236571.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q212",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen = 0 AND iFeb55 = 0 AND iMilitary = 4",
+      "target_relation": "climate",
+      "truth": 1383922.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q213",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome6 = 0 AND iLooking = 0 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 1707675.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q214",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome6 = 0 AND dIncome8 = 0 AND iMobillim = 2 AND iRiders >= 0 AND iRiders <= 1",
+      "target_relation": "climate",
+      "truth": 1524922.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q215",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 2 AND iFertil >= 0 AND iFertil <= 3 AND iMarital >= 0 AND iMarital <= 1 AND iRemplpar = 0 AND iSubfam1 = 0 AND dWeek89 >= 0 AND dWeek89 <= 1",
+      "target_relation": "climate",
+      "truth": 400017.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q216",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 3 AND dAge <= 4 AND iCitizen = 0 AND dIncome3 = 0 AND dIncome5 = 0 AND iMay75880 = 0",
+      "target_relation": "climate",
+      "truth": 654081.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q217",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish >= 0 AND iEnglish <= 1 AND iFertil >= 0 AND iFertil <= 4 AND iImmigr >= 0 AND iImmigr <= 5 AND dIncome5 = 0 AND dPoverty = 2",
+      "target_relation": "climate",
+      "truth": 1592492.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q218",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND iEnglish = 0 AND dHour89 = 3 AND iKorean = 0 AND iMilitary >= 2 AND iMilitary <= 4 AND iMobility = 1 AND iYearwrk = 2",
+      "target_relation": "climate",
+      "truth": 24613.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q219",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 = 1 AND dIncome1 >= 1 AND dIncome1 <= 3 AND iLang1 = 2 AND iOthrserv = 0 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 630737.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q220",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 0 AND dAncstry1 <= 1 AND dIncome6 = 0 AND dIncome7 = 0 AND iLang1 = 2 AND iRemplpar = 0 AND iRlabor = 1 AND iRownchld >= 0 AND iRownchld <= 1",
+      "target_relation": "climate",
+      "truth": 654249.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q221",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dRearning = 0 AND iRelat1 >= 0 AND iRelat1 <= 1 AND dWeek89 = 2",
+      "target_relation": "climate",
+      "truth": 1744.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q222",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHour89 >= 0 AND dHour89 <= 3 AND dIncome1 >= 0 AND dIncome1 <= 4 AND dIncome4 = 0 AND iRvetserv = 0",
+      "target_relation": "climate",
+      "truth": 1630915.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q223",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND dIncome1 >= 2 AND dIncome1 <= 4 AND dIncome7 = 0 AND iLang1 = 2 AND iLooking = 0 AND iWorklwk >= 1 AND iWorklwk <= 2 AND iWWII = 0 AND iYearsch >= 5 AND iYearsch <= 10",
+      "target_relation": "climate",
+      "truth": 137240.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q224",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 5 AND dAge <= 6 AND dHours = 0 AND dIncome1 >= 0 AND dIncome1 <= 3 AND dIncome2 = 0 AND iLooking = 2 AND iMay75880 = 0 AND iMilitary = 4 AND dWeek89 = 0",
+      "target_relation": "climate",
+      "truth": 106665.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q225",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND dPoverty >= 1 AND dPoverty <= 2 AND iRiders >= 0 AND iRiders <= 1 AND iWork89 = 1",
+      "target_relation": "climate",
+      "truth": 1102048.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q226",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMeans >= 0 AND iMeans <= 1 AND iMobillim >= 0 AND iMobillim <= 2 AND iRelat1 = 2 AND iSubfam2 = 0 AND iYearwrk >= 1 AND iYearwrk <= 6",
+      "target_relation": "climate",
+      "truth": 159353.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q227",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 0 AND iFertil <= 3 AND dIncome3 = 0 AND dIncome4 = 0 AND dIncome5 = 0 AND iWork89 >= 0 AND iWork89 <= 1",
+      "target_relation": "climate",
+      "truth": 1363819.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q228",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass = 0 AND dIncome3 = 0 AND dIncome8 = 0 AND dPoverty = 2 AND iRagechld >= 0 AND iRagechld <= 4",
+      "target_relation": "climate",
+      "truth": 764521.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q229",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 3 AND dAge <= 7 AND iClass >= 0 AND iClass <= 4 AND dIncome5 = 0 AND iRrelchld = 0 AND iRspouse >= 0 AND iRspouse <= 1 AND dWeek89 = 0 AND iYearwrk >= 0 AND iYearwrk <= 1",
+      "target_relation": "climate",
+      "truth": 10095.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q230",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 1 AND iRiders = 1 AND iRownchld >= 0 AND iRownchld <= 1 AND iRspouse >= 1 AND iRspouse <= 6",
+      "target_relation": "climate",
+      "truth": 70177.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q231",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iMarital >= 0 AND iMarital <= 4 AND iMeans >= 0 AND iMeans <= 1 AND iSubfam1 = 0 AND dTravtime = 0 AND iWorklwk >= 1 AND iWorklwk <= 2 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 623238.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q232",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND dHispanic = 0 AND dIndustry >= 7 AND dIndustry <= 8 AND iMobility >= 1 AND iMobility <= 2 AND iMobillim = 2 AND iRagechld >= 2 AND iRagechld <= 4 AND iSchool = 1",
+      "target_relation": "climate",
+      "truth": 161275.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q233",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND iLang1 >= 0 AND iLang1 <= 1 AND iMay75880 = 0 AND iMilitary >= 0 AND iMilitary <= 4 AND dOccup >= 0 AND dOccup <= 1 AND dPoverty >= 1 AND dPoverty <= 2 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 327116.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q234",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil = 0 AND iRelat2 = 0 AND iWWII >= 0 AND iWWII <= 1",
+      "target_relation": "climate",
+      "truth": 1435936.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q235",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome4 = 0 AND dIncome5 = 0 AND dPwgt1 = 1 AND iRelat2 = 0 AND iRPOB = 23 AND iRrelchld = 0 AND iSept80 = 0 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 60820.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q236",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 2 AND dAge <= 7 AND dAncstry2 = 1 AND iMobility = 1 AND iRelat2 = 0 AND iRemplpar >= 0 AND iRemplpar <= 221 AND iRvetserv = 0 AND iSept80 = 0 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 642283.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q237",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 4 AND dAge <= 5 AND dAncstry1 >= 1 AND dAncstry1 <= 3 AND iMay75880 = 0 AND dPwgt1 = 1 AND dWeek89 = 2",
+      "target_relation": "climate",
+      "truth": 155214.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q238",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 6 AND dIncome3 = 0 AND iLang1 = 2 AND iOthrserv = 0 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iRspouse >= 1 AND iRspouse <= 6 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 1516171.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q239",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND iAvail = 0 AND dHours >= 0 AND dHours <= 1",
+      "target_relation": "climate",
+      "truth": 994401.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q240",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHour89 >= 0 AND dHour89 <= 3 AND dHours = 0 AND iRownchld >= 0 AND iRownchld <= 1 AND iSex >= 0 AND iSex <= 1",
+      "target_relation": "climate",
+      "truth": 1307789.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q241",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHispanic = 0 AND dIncome3 = 0 AND dIndustry >= 0 AND dIndustry <= 8 AND dWeek89 >= 0 AND dWeek89 <= 2",
+      "target_relation": "climate",
+      "truth": 1938561.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q242",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND iEnglish = 0 AND dIncome4 = 0 AND dIncome8 = 0 AND iRagechld >= 0 AND iRagechld <= 4",
+      "target_relation": "climate",
+      "truth": 980678.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q243",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 7 AND iDisabl1 = 2 AND iKorean = 0 AND iMay75880 = 0 AND iRagechld >= 0 AND iRagechld <= 4 AND iRPOB >= 10 AND iRPOB <= 22 AND iRvetserv = 0 AND iYearwrk >= 0 AND iYearwrk <= 1",
+      "target_relation": "climate",
+      "truth": 531779.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q244",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 0 AND iFertil <= 4 AND iLooking = 0 AND iMeans = 1 AND iMobillim >= 0 AND iMobillim <= 2 AND dPOB = 0 AND iRownchld >= 0 AND iRownchld <= 1 AND iRspouse >= 0 AND iRspouse <= 1 AND iRvetserv = 0 AND iSchool >= 1 AND iSchool <= 2 AND iWorklwk >= 1 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 389359.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q245",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 11 AND iAvail = 0 AND iFertil >= 4 AND iFertil <= 7 AND iKorean = 0 AND iMobility >= 1 AND iMobility <= 2 AND iRemplpar = 0 AND dRpincome >= 2 AND dRpincome <= 3 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 187140.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q246",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 11 AND dDepart >= 0 AND dDepart <= 4 AND iDisabl2 >= 0 AND iDisabl2 <= 2 AND iFertil >= 1 AND iFertil <= 2 AND iImmigr >= 0 AND iImmigr <= 5 AND iOthrserv = 0 AND dPwgt1 >= 1 AND dPwgt1 <= 2 AND dWeek89 >= 0 AND dWeek89 <= 1 AND iWorklwk >= 0 AND iWorklwk <= 1 AND iYearsch >= 0 AND iYearsch <= 11 AND iYearwrk >= 1 AND iYearwrk <= 6",
+      "target_relation": "climate",
+      "truth": 35789.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q247",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND iMobillim = 2 AND dRpincome >= 0 AND dRpincome <= 2 AND iVietnam = 0 AND dWeek89 = 2",
+      "target_relation": "climate",
+      "truth": 136722.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q248",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMilitary >= 0 AND iMilitary <= 4 AND iRownchld >= 0 AND iRownchld <= 1 AND iSex >= 0 AND iSex <= 1 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 2363776.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q249",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iDisabl1 >= 0 AND iDisabl1 <= 2 AND dRpincome = 0 AND iSex >= 0 AND iSex <= 1 AND iYearwrk >= 0 AND iYearwrk <= 1",
+      "target_relation": "climate",
+      "truth": 593309.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q250",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHours = 0 AND iMarital = 4 AND dPOB = 0 AND iSex >= 0 AND iSex <= 1 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 709980.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q251",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND iImmigr = 0 AND dIndustry >= 5 AND dIndustry <= 8 AND iMarital >= 0 AND iMarital <= 2 AND iMobillim >= 0 AND iMobillim <= 2 AND iWorklwk >= 0 AND iWorklwk <= 2 AND iWWII >= 0 AND iWWII <= 1",
+      "target_relation": "climate",
+      "truth": 348151.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q252",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iImmigr = 0 AND iKorean = 0 AND iMarital = 4 AND iRelat1 >= 2 AND iRelat1 <= 5 AND iWorklwk >= 0 AND iWorklwk <= 2 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 714795.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q253",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 3 AND dAge <= 7 AND iAvail = 0 AND dIncome2 = 0 AND dIndustry >= 0 AND dIndustry <= 8 AND iKorean = 0 AND iMarital >= 0 AND iMarital <= 4 AND iMay75880 = 0 AND iMeans >= 0 AND iMeans <= 1 AND iRrelchld >= 0 AND iRrelchld <= 1",
+      "target_relation": "climate",
+      "truth": 1081644.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q254",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 1 AND iClass <= 2 AND iImmigr = 0 AND iMobillim = 2 AND dOccup >= 2 AND dOccup <= 3 AND dPOB >= 0 AND dPOB <= 4 AND dRearning >= 0 AND dRearning <= 2 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 284948.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q255",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome1 = 0 AND iRagechld = 0 AND iRlabor >= 0 AND iRlabor <= 6 AND iRvetserv >= 0 AND iRvetserv <= 10 AND iSex = 0 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 529453.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q256",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome3 = 0 AND dIncome8 = 0 AND dRearning = 0 AND iSchool >= 0 AND iSchool <= 1",
+      "target_relation": "climate",
+      "truth": 674979.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q257",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 2 AND dAge <= 3 AND iImmigr = 0 AND iKorean >= 0 AND iKorean <= 1 AND dPOB = 0 AND iRownchld >= 0 AND iRownchld <= 1",
+      "target_relation": "climate",
+      "truth": 552674.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q258",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND dHour89 >= 0 AND dHour89 <= 5 AND dIncome8 = 0 AND iLooking >= 0 AND iLooking <= 2 AND iMobillim >= 0 AND iMobillim <= 2 AND dPOB = 0 AND iRelat1 >= 0 AND iRelat1 <= 2 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 1838098.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q259",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome5 >= 0 AND dIncome5 <= 1 AND dIncome7 = 0 AND iLang1 >= 1 AND iLang1 <= 2 AND iMilitary >= 0 AND iMilitary <= 4 AND dRearning >= 0 AND dRearning <= 2 AND iRPOB >= 10 AND iRPOB <= 52 AND iSubfam2 = 0 AND iYearsch >= 14 AND iYearsch <= 15",
+      "target_relation": "climate",
+      "truth": 81192.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q260",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 1 AND dIncome5 = 1 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 295156.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q261",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome5 = 0 AND iLooking >= 0 AND iLooking <= 2 AND iRelat1 >= 0 AND iRelat1 <= 2",
+      "target_relation": "climate",
+      "truth": 1851132.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q262",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND iFertil >= 0 AND iFertil <= 1 AND dIncome1 >= 1 AND dIncome1 <= 3 AND dIncome5 >= 0 AND dIncome5 <= 1 AND iLang1 = 2 AND iOthrserv = 0 AND iRrelchld >= 0 AND iRrelchld <= 1",
+      "target_relation": "climate",
+      "truth": 463306.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q263",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 >= 0 AND iDisabl2 <= 2 AND dIncome4 >= 0 AND dIncome4 <= 1 AND dIncome5 = 0 AND dOccup = 1 AND iRownchld >= 0 AND iRownchld <= 1 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iSubfam2 = 0 AND dWeek89 >= 0 AND dWeek89 <= 2",
+      "target_relation": "climate",
+      "truth": 317411.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q264",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHours = 0 AND iRelat1 >= 1 AND iRelat1 <= 7 AND iRelat2 = 0 AND dRpincome = 2 AND iRPOB >= 10 AND iRPOB <= 24 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 185716.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q265",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 1 AND dDepart >= 0 AND dDepart <= 3 AND iDisabl2 >= 0 AND iDisabl2 <= 2 AND dIncome8 = 0 AND iMeans >= 0 AND iMeans <= 1 AND dRearning = 0 AND iRelat1 >= 0 AND iRelat1 <= 2",
+      "target_relation": "climate",
+      "truth": 911840.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q266",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 3 AND dAge <= 4 AND dAncstry1 >= 0 AND dAncstry1 <= 2 AND dIncome1 >= 0 AND dIncome1 <= 2 AND iMilitary = 4 AND iRelat1 >= 1 AND iRelat1 <= 6 AND iRPOB = 10",
+      "target_relation": "climate",
+      "truth": 145550.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q267",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 2 AND iFeb55 = 0 AND dIncome1 = 0 AND dIncome3 = 0 AND dPoverty >= 1 AND dPoverty <= 2 AND iRelat1 = 0 AND iRspouse >= 1 AND iRspouse <= 6 AND iSex = 0 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 29790.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q268",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen = 0 AND dHispanic = 0 AND iMilitary >= 2 AND iMilitary <= 4",
+      "target_relation": "climate",
+      "truth": 1660722.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q269",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 3 AND dAge <= 6 AND dAncstry2 >= 1 AND dAncstry2 <= 2 AND iEnglish = 0 AND iFeb55 >= 0 AND iFeb55 <= 1 AND dHour89 >= 2 AND dHour89 <= 3 AND dIncome1 >= 0 AND dIncome1 <= 2 AND dIncome4 = 0 AND dIncome5 = 0 AND iMilitary >= 2 AND iMilitary <= 4 AND iWorklwk >= 0 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 357564.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q270",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 3 AND iAvail = 0 AND dDepart >= 0 AND dDepart <= 2 AND dPwgt1 >= 0 AND dPwgt1 <= 1 AND iRelat1 = 0",
+      "target_relation": "climate",
+      "truth": 263520.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q271",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 4 AND iDisabl2 >= 0 AND iDisabl2 <= 2 AND iFeb55 = 0 AND dIncome5 = 0 AND dIndustry >= 5 AND dIndustry <= 9 AND iMarital >= 0 AND iMarital <= 4 AND iSchool = 1",
+      "target_relation": "climate",
+      "truth": 628648.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q272",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome3 = 0 AND iLooking = 0 AND iSept80 = 0 AND iVietnam = 0 AND iYearwrk >= 1 AND iYearwrk <= 6",
+      "target_relation": "climate",
+      "truth": 1053229.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q273",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND dHour89 >= 0 AND dHour89 <= 1 AND dHours >= 0 AND dHours <= 5 AND dPwgt1 = 1 AND iRownchld >= 0 AND iRownchld <= 1 AND dTravtime >= 0 AND dTravtime <= 2 AND dWeek89 = 1 AND iWork89 >= 1 AND iWork89 <= 2 AND iWWII = 0 AND dYrsserv >= 0 AND dYrsserv <= 1",
+      "target_relation": "climate",
+      "truth": 50770.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q274",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 7 AND iClass >= 0 AND iClass <= 1 AND dHour89 >= 1 AND dHour89 <= 3 AND iMeans = 0 AND dOccup >= 0 AND dOccup <= 5 AND dRearning = 0 AND iRemplpar >= 0 AND iRemplpar <= 223 AND iRiders >= 0 AND iRiders <= 1 AND iRownchld = 0 AND iRspouse >= 0 AND iRspouse <= 6 AND iVietnam = 0 AND dWeek89 >= 1 AND dWeek89 <= 2 AND iWork89 >= 0 AND iWork89 <= 1",
+      "target_relation": "climate",
+      "truth": 470.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q275",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 1 AND iDisabl1 = 2 AND iLooking >= 0 AND iLooking <= 2 AND dPoverty = 2 AND iRspouse = 1 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND dWeek89 = 0 AND iWorklwk >= 0 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 175240.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q276",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome8 = 0 AND dOccup >= 5 AND dOccup <= 6 AND dPwgt1 >= 1 AND dPwgt1 <= 2 AND iYearsch = 11",
+      "target_relation": "climate",
+      "truth": 52789.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q277",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMobillim = 2 AND iRrelchld = 0 AND iSubfam2 = 0 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND dTravtime >= 1 AND dTravtime <= 5 AND dWeek89 >= 0 AND dWeek89 <= 1 AND iWorklwk >= 1 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 338836.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q278",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 2 AND iFertil >= 0 AND iFertil <= 3 AND dIncome2 = 0 AND iMay75880 = 0 AND dPOB = 0",
+      "target_relation": "climate",
+      "truth": 1735006.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q279",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND iRiders >= 0 AND iRiders <= 1 AND iSept80 = 0 AND dTravtime >= 0 AND dTravtime <= 3 AND iVietnam >= 0 AND iVietnam <= 1 AND dWeek89 = 1",
+      "target_relation": "climate",
+      "truth": 193298.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q280",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome3 = 0 AND dPOB = 0 AND iRemplpar = 0 AND dRpincome >= 0 AND dRpincome <= 2 AND iSchool = 1 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 743580.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q281",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 2 AND dAncstry1 <= 6 AND dDepart >= 0 AND dDepart <= 2 AND dHour89 >= 0 AND dHour89 <= 4 AND iImmigr = 0 AND dIncome8 = 0 AND iSubfam1 = 0 AND iVietnam = 0 AND iYearwrk >= 1 AND iYearwrk <= 7",
+      "target_relation": "climate",
+      "truth": 80371.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q282",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 >= 0 AND iDisabl2 <= 2 AND dHispanic = 0 AND iMay75880 = 0 AND iMobillim >= 0 AND iMobillim <= 2 AND iRvetserv = 0 AND iSex = 0 AND iYearsch >= 10 AND iYearsch <= 11 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 266594.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q283",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 >= 0 AND iDisabl1 <= 2 AND dIncome7 = 1 AND iRemplpar = 0 AND iRiders >= 0 AND iRiders <= 1 AND iSchool = 1 AND iVietnam = 0 AND iWork89 >= 0 AND iWork89 <= 1",
+      "target_relation": "climate",
+      "truth": 39220.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q284",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 >= 0 AND iDisabl2 <= 2 AND dHispanic = 0 AND dIncome3 = 0 AND dPOB >= 0 AND dPOB <= 4 AND iRPOB >= 10 AND iRPOB <= 40 AND iWork89 = 1",
+      "target_relation": "climate",
+      "truth": 1152800.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q285",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iDisabl2 >= 0 AND iDisabl2 <= 1 AND dIncome2 = 0 AND dIncome4 = 0 AND iLooking = 0 AND dPoverty = 2 AND dPwgt1 = 1 AND iRlabor >= 1 AND iRlabor <= 6 AND iRPOB >= 10 AND iRPOB <= 21 AND iRrelchld = 0 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 1752.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q286",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iImmigr >= 0 AND iImmigr <= 1 AND dIncome5 = 0 AND dIncome7 = 0 AND iSept80 = 0 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 1815244.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q287",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iImmigr = 0 AND dIncome8 = 0 AND iMay75880 = 0 AND iMeans >= 0 AND iMeans <= 11 AND iSex = 1",
+      "target_relation": "climate",
+      "truth": 1103497.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q288",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMobility = 1 AND iOthrserv = 0 AND iRemplpar = 0 AND iRvetserv >= 0 AND iRvetserv <= 4 AND dWeek89 >= 0 AND dWeek89 <= 1 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 552211.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q289",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome2 = 0 AND dIncome7 = 0 AND dIndustry = 0 AND iMeans >= 0 AND iMeans <= 10 AND iMobillim = 2 AND iPerscare = 2 AND iYearsch = 10",
+      "target_relation": "climate",
+      "truth": 76429.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q290",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge = 7 AND iDisabl2 = 2 AND iFertil = 0 AND dHours >= 0 AND dHours <= 3 AND dIncome3 = 0 AND iLang1 = 2 AND iPerscare >= 0 AND iPerscare <= 2 AND iRemplpar = 0 AND iRrelchld >= 0 AND iRrelchld <= 1 AND dWeek89 >= 0 AND dWeek89 <= 2",
+      "target_relation": "climate",
+      "truth": 77710.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q291",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMeans = 0 AND iOthrserv = 0 AND iRvetserv = 0 AND iSex = 0 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 478360.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q292",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen >= 0 AND iCitizen <= 3 AND iClass >= 0 AND iClass <= 1 AND iMobillim = 2",
+      "target_relation": "climate",
+      "truth": 1277820.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q293",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 4 AND dAncstry2 >= 1 AND dAncstry2 <= 2 AND iFeb55 = 0 AND dIndustry >= 0 AND dIndustry <= 4 AND iOthrserv = 0 AND dRpincome = 0 AND iRPOB >= 10 AND iRPOB <= 52 AND iSept80 = 0 AND iWorklwk >= 1 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 140857.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q294",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 2 AND iDisabl1 = 2 AND dIncome5 >= 0 AND dIncome5 <= 1 AND iMobillim = 2 AND iRemplpar >= 111 AND iRemplpar <= 121 AND dTravtime = 0",
+      "target_relation": "climate",
+      "truth": 25429.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q295",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND dIncome3 = 0 AND iMeans = 0 AND dPwgt1 = 1 AND iRelat1 = 0 AND iWorklwk = 1",
+      "target_relation": "climate",
+      "truth": 365.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q296",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 1 AND dIncome7 >= 0 AND dIncome7 <= 1 AND iRlabor >= 0 AND iRlabor <= 6 AND iRrelchld >= 0 AND iRrelchld <= 1",
+      "target_relation": "climate",
+      "truth": 1983966.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q297",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 2 AND dAge <= 6 AND iDisabl2 >= 1 AND iDisabl2 <= 2 AND dHispanic = 0 AND dHours = 0 AND dIncome1 = 0 AND iRelat1 >= 0 AND iRelat1 <= 1 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iRvetserv = 0 AND iYearwrk >= 0 AND iYearwrk <= 1",
+      "target_relation": "climate",
+      "truth": 5238.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q298",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 11 AND iFertil >= 2 AND iFertil <= 3 AND iImmigr >= 0 AND iImmigr <= 1 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iSubfam1 = 0 AND iYearsch >= 0 AND iYearsch <= 3",
+      "target_relation": "climate",
+      "truth": 1148.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q299",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 2 AND dAge <= 7 AND iLang1 = 2 AND iMarital >= 0 AND iMarital <= 4 AND iMobillim = 2 AND iRiders >= 0 AND iRiders <= 1 AND dRpincome >= 2 AND dRpincome <= 4",
+      "target_relation": "climate",
+      "truth": 1213638.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q300",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 3 AND iEnglish >= 0 AND iEnglish <= 1 AND dIncome1 = 0 AND dIncome6 = 0 AND dIndustry = 7 AND iPerscare = 2 AND dYrsserv >= 0 AND dYrsserv <= 1",
+      "target_relation": "climate",
+      "truth": 27049.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q301",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND dHour89 >= 3 AND dHour89 <= 5 AND iKorean = 0 AND iLang1 >= 0 AND iLang1 <= 2 AND iMobility = 1 AND iRagechld >= 0 AND iRagechld <= 2 AND dRpincome >= 2 AND dRpincome <= 4 AND iRvetserv = 0 AND iSubfam2 >= 0 AND iSubfam2 <= 1 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 162911.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q302",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iLooking >= 0 AND iLooking <= 2 AND iRagechld >= 2 AND iRagechld <= 4 AND dRpincome = 0",
+      "target_relation": "climate",
+      "truth": 414632.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q303",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 2 AND dAge <= 7 AND dIncome1 >= 0 AND dIncome1 <= 1 AND dIncome3 = 0 AND dIncome7 = 0 AND iMilitary >= 3 AND iMilitary <= 4 AND dRearning >= 0 AND dRearning <= 2 AND iSubfam2 = 0 AND iYearwrk = 1",
+      "target_relation": "climate",
+      "truth": 444713.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q304",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 >= 0 AND iDisabl1 <= 1 AND iImmigr = 0 AND iLooking >= 0 AND iLooking <= 2 AND iRiders = 0 AND dYrsserv >= 0 AND dYrsserv <= 1",
+      "target_relation": "climate",
+      "truth": 739164.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q305",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil = 0 AND dIncome4 >= 0 AND dIncome4 <= 1 AND iMarital >= 0 AND iMarital <= 4 AND iPerscare = 2 AND iSept80 = 0 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 827125.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q306",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iSex >= 0 AND iSex <= 1 AND iVietnam >= 0 AND iVietnam <= 1 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 2168997.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q307",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iClass >= 0 AND iClass <= 1 AND dIncome3 = 0 AND dIncome5 = 0 AND dIndustry = 0 AND iMarital >= 0 AND iMarital <= 4 AND iMobillim >= 0 AND iMobillim <= 2 AND dPwgt1 = 1 AND iRelat1 >= 0 AND iRelat1 <= 2 AND iWork89 >= 1 AND iWork89 <= 2 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 86857.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q308",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND iDisabl1 >= 1 AND iDisabl1 <= 2 AND dIncome4 = 0 AND iRiders = 0 AND iRownchld >= 0 AND iRownchld <= 1 AND dWeek89 >= 0 AND dWeek89 <= 1 AND iWork89 >= 1 AND iWork89 <= 2 AND iYearsch >= 7 AND iYearsch <= 10",
+      "target_relation": "climate",
+      "truth": 285854.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q309",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 2 AND iFeb55 = 0 AND dRpincome >= 0 AND dRpincome <= 5 AND iSubfam1 = 0 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 1544579.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q310",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND dHispanic = 0 AND dIndustry >= 8 AND dIndustry <= 11 AND iMilitary = 4 AND iRagechld >= 0 AND iRagechld <= 2 AND iRiders >= 1 AND iRiders <= 2 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND dTravtime >= 0 AND dTravtime <= 5 AND iVietnam = 0 AND dWeek89 >= 0 AND dWeek89 <= 2",
+      "target_relation": "climate",
+      "truth": 168283.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q311",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass = 1 AND iEnglish = 0 AND dIncome7 = 0 AND iLooking = 0 AND dRearning >= 0 AND dRearning <= 2 AND iSubfam1 = 0 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 247865.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q312",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome2 = 0 AND dIncome3 = 0 AND iMobillim = 2 AND iYearsch >= 4 AND iYearsch <= 9",
+      "target_relation": "climate",
+      "truth": 463686.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q313",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iLooking = 0 AND iOthrserv = 0 AND iYearwrk = 1",
+      "target_relation": "climate",
+      "truth": 1123608.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q314",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND dDepart = 4 AND iMobility = 1 AND dPOB = 0 AND iRemplpar >= 0 AND iRemplpar <= 112 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 93808.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q315",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome6 = 0 AND iRiders >= 0 AND iRiders <= 1 AND iRspouse >= 0 AND iRspouse <= 1 AND iRvetserv = 0",
+      "target_relation": "climate",
+      "truth": 1294332.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q316",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND iVietnam = 0 AND iYearwrk >= 0 AND iYearwrk <= 1 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 1580565.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q317",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMay75880 = 0 AND iPerscare = 2 AND dPwgt1 >= 0 AND dPwgt1 <= 2 AND iRrelchld = 0",
+      "target_relation": "climate",
+      "truth": 1650592.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q318",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 >= 0 AND iDisabl1 <= 2 AND iFeb55 = 0 AND iImmigr = 0 AND dIncome6 = 0 AND iLooking = 0 AND iMeans = 0 AND dOccup >= 0 AND dOccup <= 5 AND iRownchld >= 0 AND iRownchld <= 1 AND iRspouse = 1",
+      "target_relation": "climate",
+      "truth": 20946.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q319",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND dOccup >= 0 AND dOccup <= 1 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 1231457.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q320",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass = 1 AND dDepart >= 1 AND dDepart <= 3 AND dIncome2 = 0 AND dIncome7 >= 0 AND dIncome7 <= 1 AND iPerscare = 2 AND dWeek89 >= 0 AND dWeek89 <= 1 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 131509.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q321",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND iEnglish = 0 AND dIncome8 = 0 AND iLooking = 0 AND dOccup >= 1 AND dOccup <= 6 AND iRvetserv = 10 AND iVietnam = 0 AND iWork89 >= 0 AND iWork89 <= 1",
+      "target_relation": "climate",
+      "truth": 16542.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q322",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND dHispanic = 0 AND iOthrserv = 0 AND iRelat1 >= 0 AND iRelat1 <= 1 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 1258949.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q323",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMeans >= 0 AND iMeans <= 1",
+      "target_relation": "climate",
+      "truth": 2314187.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q324",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen >= 0 AND iCitizen <= 3 AND dHour89 >= 0 AND dHour89 <= 4 AND dIncome3 = 0 AND dIndustry >= 0 AND dIndustry <= 8 AND dPoverty >= 1 AND dPoverty <= 2 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 1685672.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q325",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 2 AND iClass = 0 AND iLooking = 0 AND iOthrserv = 0 AND dPOB >= 0 AND dPOB <= 4",
+      "target_relation": "climate",
+      "truth": 568676.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q326",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail >= 0 AND iAvail <= 4 AND dHours >= 0 AND dHours <= 3 AND dIncome5 = 0 AND iLooking >= 0 AND iLooking <= 2 AND dPwgt1 >= 1 AND dPwgt1 <= 2 AND iRelat1 >= 0 AND iRelat1 <= 2 AND iSchool = 1 AND dTravtime >= 0 AND dTravtime <= 2",
+      "target_relation": "climate",
+      "truth": 441667.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q327",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 9 AND iLooking = 0 AND iRiders = 0 AND iTmpabsnt = 0",
+      "target_relation": "climate",
+      "truth": 511466.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q328",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iCitizen >= 0 AND iCitizen <= 3 AND iMarital >= 0 AND iMarital <= 4 AND dPoverty = 2 AND dPwgt1 >= 0 AND dPwgt1 <= 1 AND dRearning = 0 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 622981.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q329",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iDisabl1 >= 0 AND iDisabl1 <= 2 AND dIncome3 = 0 AND dIncome7 = 0 AND iMilitary = 4 AND iPerscare >= 1 AND iPerscare <= 2 AND dPOB = 0 AND iRelat1 >= 0 AND iRelat1 <= 1 AND iRiders >= 0 AND iRiders <= 2 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 881742.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q330",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND iImmigr = 0 AND dIncome3 = 0 AND dIncome5 = 0 AND iMeans = 0 AND iRiders >= 0 AND iRiders <= 1 AND dRpincome >= 0 AND dRpincome <= 2 AND iRspouse >= 1 AND iRspouse <= 4 AND iWorklwk >= 1 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 197577.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q331",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass = 1 AND iDisabl1 >= 1 AND iDisabl1 <= 2 AND iKorean = 0 AND iPerscare = 2 AND dPoverty = 2 AND dPwgt1 = 1 AND iRownchld = 0",
+      "target_relation": "climate",
+      "truth": 451838.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q332",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 6 AND dAge <= 7 AND iAvail = 0 AND iCitizen = 0 AND iClass >= 1 AND iClass <= 5 AND iFeb55 = 0 AND iOthrserv = 0 AND iRelat1 = 0 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iRvetserv = 0",
+      "target_relation": "climate",
+      "truth": 92028.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q333",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHours >= 0 AND dHours <= 5 AND iKorean = 0 AND iRownchld = 0",
+      "target_relation": "climate",
+      "truth": 1825452.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q334",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 4 AND iEnglish = 0 AND dIncome7 = 0 AND iKorean = 0 AND iRlabor >= 0 AND iRlabor <= 1 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 1271744.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q335",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 6 AND dAge <= 7 AND dAncstry2 = 1 AND iAvail = 0 AND iDisabl2 = 2 AND dIncome4 = 0 AND dIncome5 >= 0 AND dIncome5 <= 1 AND iMobillim >= 0 AND iMobillim <= 1 AND iRlabor = 1 AND iRPOB = 10 AND iRvetserv = 0 AND iSchool >= 1 AND iSchool <= 2 AND iTmpabsnt = 0 AND iWork89 >= 0 AND iWork89 <= 2 AND iWorklwk >= 0 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 500.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q336",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass = 0 AND iFeb55 >= 0 AND iFeb55 <= 1 AND dHispanic = 0 AND dIncome1 >= 0 AND dIncome1 <= 2 AND iLang1 >= 0 AND iLang1 <= 2 AND iRelat2 = 0 AND iRrelchld = 0 AND iRvetserv = 0 AND iSept80 = 0 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 331492.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q337",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 >= 1 AND iDisabl1 <= 2 AND dIncome8 = 0 AND iMilitary = 4 AND dOccup = 0 AND iRemplpar >= 0 AND iRemplpar <= 222",
+      "target_relation": "climate",
+      "truth": 358565.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q338",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND iDisabl1 = 2 AND iFeb55 >= 0 AND iFeb55 <= 1 AND dHispanic = 0 AND dHours >= 0 AND dHours <= 1 AND iPerscare = 2 AND dPwgt1 >= 1 AND dPwgt1 <= 2 AND iRelat1 = 0 AND iWorklwk >= 0 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 149378.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q339",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 2 AND iCitizen = 0 AND iMobillim >= 0 AND iMobillim <= 1 AND dPwgt1 >= 1 AND dPwgt1 <= 2 AND iRlabor >= 0 AND iRlabor <= 1 AND iRPOB >= 10 AND iRPOB <= 21 AND iRvetserv = 0 AND iSubfam1 >= 0 AND iSubfam1 <= 1 AND dTravtime = 0",
+      "target_relation": "climate",
+      "truth": 101134.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q340",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iPerscare = 2 AND iSchool >= 2 AND iSchool <= 3 AND iVietnam = 0 AND iYearsch >= 10 AND iYearsch <= 14",
+      "target_relation": "climate",
+      "truth": 135777.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q341",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHours >= 0 AND dHours <= 3 AND dIncome5 = 0 AND dIncome7 >= 0 AND dIncome7 <= 1 AND iMay75880 = 0 AND dRpincome >= 0 AND dRpincome <= 2",
+      "target_relation": "climate",
+      "truth": 1318248.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q342",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 >= 0 AND iDisabl2 <= 2 AND iEnglish >= 0 AND iEnglish <= 3 AND dHispanic = 0 AND dIncome3 = 0 AND dIncome4 = 0 AND iLang1 = 2 AND iLooking >= 0 AND iLooking <= 2 AND dOccup >= 0 AND dOccup <= 2 AND iRemplpar = 0 AND iRspouse = 0 AND iYearsch >= 4 AND iYearsch <= 11 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 8976.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q343",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 = 1 AND iCitizen = 0 AND iClass >= 0 AND iClass <= 1 AND dHispanic = 0 AND dHour89 = 1 AND dIncome1 >= 0 AND dIncome1 <= 2 AND iMeans >= 0 AND iMeans <= 10 AND dRearning >= 2 AND dRearning <= 3 AND iSubfam1 >= 0 AND iSubfam1 <= 3",
+      "target_relation": "climate",
+      "truth": 76614.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q344",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 3 AND iMeans >= 0 AND iMeans <= 10 AND iMobility >= 1 AND iMobility <= 2 AND iRelat2 = 0 AND iRiders >= 0 AND iRiders <= 1 AND dRpincome >= 0 AND dRpincome <= 2",
+      "target_relation": "climate",
+      "truth": 1157655.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q345",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND iAvail >= 0 AND iAvail <= 4 AND iPerscare >= 0 AND iPerscare <= 2 AND dRpincome = 4 AND iTmpabsnt = 0 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 164068.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q346",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iEnglish = 0 AND dIncome4 >= 0 AND dIncome4 <= 1 AND dIncome5 = 0 AND iMarital >= 0 AND iMarital <= 1 AND iPerscare = 2 AND iRelat1 >= 0 AND iRelat1 <= 2 AND iRemplpar = 0 AND iWorklwk = 2",
+      "target_relation": "climate",
+      "truth": 168194.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q347",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHour89 >= 0 AND dHour89 <= 2 AND iMay75880 = 0 AND iMobility >= 0 AND iMobility <= 1 AND iRelat1 = 0 AND iRlabor >= 0 AND iRlabor <= 6",
+      "target_relation": "climate",
+      "truth": 236434.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q348",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil = 0 AND iMilitary = 4 AND iMobility = 2 AND dOccup >= 2 AND dOccup <= 6 AND iSchool >= 1 AND iSchool <= 2 AND iVietnam = 0 AND iYearwrk = 1",
+      "target_relation": "climate",
+      "truth": 173479.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q349",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 2 AND dAge <= 3 AND dAncstry2 = 2 AND iAvail = 0 AND dDepart = 0 AND iEnglish = 0 AND iLang1 >= 1 AND iLang1 <= 2 AND iRelat1 >= 0 AND iRelat1 <= 2 AND iRemplpar = 0 AND iRrelchld = 0 AND iSept80 = 0 AND iSubfam1 = 0 AND iTmpabsnt = 0",
+      "target_relation": "climate",
+      "truth": 2028.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q350",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 3 AND dIncome2 = 0 AND dIncome6 >= 0 AND dIncome6 <= 1 AND iMilitary >= 1 AND iMilitary <= 4 AND iPerscare >= 0 AND iPerscare <= 2 AND iRemplpar >= 0 AND iRemplpar <= 111 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 452839.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q351",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND dIncome2 = 0 AND iRelat2 = 0 AND iSchool = 1",
+      "target_relation": "climate",
+      "truth": 1143782.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q352",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHours = 3 AND dIncome4 = 0 AND iKorean = 0 AND iLang1 = 2 AND iLooking >= 0 AND iLooking <= 2 AND dPoverty = 2 AND iSept80 = 0 AND iSex = 1",
+      "target_relation": "climate",
+      "truth": 138560.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q353",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 2 AND iFertil = 1 AND dIncome7 = 0 AND dIncome8 = 0 AND iMilitary = 4 AND dPoverty = 2 AND dRearning = 3 AND iSept80 = 0 AND dTravtime >= 0 AND dTravtime <= 5 AND iWorklwk >= 1 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 38645.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q354",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 7 AND iFeb55 = 0 AND dIncome6 = 0 AND iMay75880 = 0 AND iRagechld >= 0 AND iRagechld <= 4 AND iRiders = 0 AND iRlabor >= 0 AND iRlabor <= 1 AND iRrelchld >= 0 AND iRrelchld <= 1",
+      "target_relation": "climate",
+      "truth": 673253.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q355",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND dHour89 >= 0 AND dHour89 <= 1 AND dIndustry >= 4 AND dIndustry <= 8 AND iKorean = 0 AND iMarital >= 0 AND iMarital <= 4 AND iMay75880 = 0 AND iPerscare = 1 AND iRelat2 = 0 AND iRownchld >= 0 AND iRownchld <= 1 AND iVietnam = 0 AND dWeek89 >= 0 AND dWeek89 <= 2",
+      "target_relation": "climate",
+      "truth": 7156.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q356",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND dHispanic >= 0 AND dHispanic <= 4 AND iMay75880 = 0 AND iMobility >= 1 AND iMobility <= 2 AND dPoverty = 2 AND dPwgt1 = 0 AND iRownchld = 0 AND iRvetserv = 0 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 155793.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q357",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge = 7 AND dHour89 >= 3 AND dHour89 <= 4 AND iMeans >= 0 AND iMeans <= 1 AND iRagechld >= 0 AND iRagechld <= 1 AND iRelat2 = 0 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 12677.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q358",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish >= 0 AND iEnglish <= 3 AND dHispanic = 0 AND dIncome5 = 0 AND dIncome7 = 0 AND iMilitary >= 1 AND iMilitary <= 2 AND dOccup = 6 AND iRagechld = 0 AND iRownchld = 0",
+      "target_relation": "climate",
+      "truth": 31820.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q359",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 4 AND iDisabl2 = 2 AND dHours >= 1 AND dHours <= 2 AND iImmigr >= 0 AND iImmigr <= 2 AND dIncome8 = 0 AND iPerscare = 2 AND iRemplpar = 0 AND iRPOB = 10 AND iRspouse = 1 AND iSex >= 0 AND iSex <= 1 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 68548.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q360",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND iDisabl2 = 2 AND dIncome6 = 0 AND dIncome8 = 0 AND iSubfam2 = 0 AND iWWII = 0 AND iYearsch >= 0 AND iYearsch <= 10",
+      "target_relation": "climate",
+      "truth": 343254.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q361",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome1 = 0 AND iKorean = 0 AND iMay75880 = 0 AND dPOB = 0 AND iRelat1 >= 1 AND iRelat1 <= 2 AND dRpincome = 0 AND iRspouse >= 1 AND iRspouse <= 6 AND iWorklwk = 1 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 12111.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q362",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND dHour89 = 0 AND dHours = 0 AND iRelat1 >= 0 AND iRelat1 <= 1 AND iRvetserv = 0 AND iSchool >= 1 AND iSchool <= 2 AND iSubfam2 = 0 AND dWeek89 = 0",
+      "target_relation": "climate",
+      "truth": 343817.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q363",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 0 AND dAncstry1 <= 1 AND iClass = 0 AND iDisabl2 = 2 AND iPerscare >= 0 AND iPerscare <= 2 AND iRiders = 0 AND dWeek89 >= 0 AND dWeek89 <= 2",
+      "target_relation": "climate",
+      "truth": 188188.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q364",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 0 AND dAncstry1 <= 11 AND iAvail = 0 AND dIndustry >= 9 AND dIndustry <= 10 AND iMay75880 = 0 AND iMobility >= 1 AND iMobility <= 2 AND iMobillim >= 0 AND iMobillim <= 1 AND iRagechld >= 0 AND iRagechld <= 4 AND iRelat2 = 0 AND iSubfam1 = 0 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 5783.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q365",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 >= 0 AND iDisabl2 <= 2 AND dIncome1 >= 0 AND dIncome1 <= 3 AND dIncome6 = 0 AND iRrelchld = 0 AND iSex >= 0 AND iSex <= 1",
+      "target_relation": "climate",
+      "truth": 1701846.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q366",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND dIncome5 = 0 AND iMilitary = 4 AND iMobillim = 2 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 418698.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q367",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND iFertil >= 3 AND iFertil <= 5 AND dIncome5 = 0 AND dIndustry >= 0 AND dIndustry <= 4 AND iKorean = 0 AND iMeans >= 0 AND iMeans <= 10 AND dOccup >= 2 AND dOccup <= 6 AND iYearsch >= 11 AND iYearsch <= 14",
+      "target_relation": "climate",
+      "truth": 7035.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q368",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND iEnglish = 0 AND dIncome6 = 0 AND dIncome7 = 0 AND dIndustry >= 4 AND dIndustry <= 7 AND iRagechld = 4 AND iRPOB >= 23 AND iRPOB <= 52 AND iRrelchld = 0 AND iSubfam2 = 0 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 22641.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q369",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 5 AND dAge <= 7 AND dIncome5 = 0 AND dPOB = 4 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 24606.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q370",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND iMarital >= 1 AND iMarital <= 4 AND dRearning >= 0 AND dRearning <= 2 AND iRemplpar >= 0 AND iRemplpar <= 121 AND iRrelchld = 0 AND iRspouse >= 1 AND iRspouse <= 6 AND iSex = 0 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 105200.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q371",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 2 AND dAge <= 7 AND dHour89 >= 0 AND dHour89 <= 1 AND iLooking = 0 AND iPerscare = 2 AND iRemplpar = 0 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iRvetserv = 0 AND iSchool = 1 AND iTmpabsnt = 0",
+      "target_relation": "climate",
+      "truth": 129817.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q372",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND dDepart >= 4 AND dDepart <= 5 AND dIncome8 = 0 AND dPoverty = 2 AND iRlabor >= 1 AND iRlabor <= 6 AND iRrelchld >= 0 AND iRrelchld <= 1 AND dWeek89 >= 1 AND dWeek89 <= 2 AND iYearwrk >= 0 AND iYearwrk <= 1 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 311469.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q373",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 1 AND dAge <= 4 AND iEnglish >= 0 AND iEnglish <= 2 AND iFertil = 0 AND iRrelchld = 0 AND iSchool = 1",
+      "target_relation": "climate",
+      "truth": 332673.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q374",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen = 0 AND dDepart >= 0 AND dDepart <= 1 AND iFertil = 0 AND dHispanic = 0 AND dIncome1 >= 0 AND dIncome1 <= 1 AND dRearning = 0 AND iRlabor = 1 AND iSubfam1 = 0 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND iVietnam = 0 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 1703.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q375",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 2 AND iEnglish >= 0 AND iEnglish <= 3 AND dIncome7 = 0 AND iMilitary >= 0 AND iMilitary <= 4 AND iRPOB >= 10 AND iRPOB <= 31 AND dYrsserv >= 0 AND dYrsserv <= 1",
+      "target_relation": "climate",
+      "truth": 1411019.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q376",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 2 AND iEnglish >= 0 AND iEnglish <= 2 AND iPerscare = 2 AND dPOB = 0 AND dPoverty = 2 AND dRearning >= 0 AND dRearning <= 4 AND iRownchld >= 0 AND iRownchld <= 1 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 1288045.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q377",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iCitizen = 0 AND iFeb55 = 0 AND dHour89 >= 0 AND dHour89 <= 3 AND iMeans >= 0 AND iMeans <= 1 AND iRemplpar >= 0 AND iRemplpar <= 112 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 1357305.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q378",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 = 2 AND iDisabl2 >= 0 AND iDisabl2 <= 2 AND iFertil = 0 AND dIncome4 = 0 AND dOccup = 0 AND iOthrserv = 0 AND iRlabor >= 1 AND iRlabor <= 6 AND iSept80 = 0 AND iSubfam1 = 0 AND dWeek89 >= 0 AND dWeek89 <= 1",
+      "target_relation": "climate",
+      "truth": 49389.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q379",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND dIncome6 >= 0 AND dIncome6 <= 1 AND iRownchld = 0 AND iWork89 >= 1 AND iWork89 <= 2 AND iWorklwk >= 0 AND iWorklwk <= 2 AND iYearsch >= 4 AND iYearsch <= 11",
+      "target_relation": "climate",
+      "truth": 637023.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q380",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMilitary >= 2 AND iMilitary <= 4 AND iMobility >= 1 AND iMobility <= 2 AND iPerscare = 2 AND iRownchld = 0 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iRvetserv = 0 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 1447992.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q381",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart = 0 AND iImmigr = 0 AND dIncome5 >= 0 AND dIncome5 <= 1 AND iMobillim >= 1 AND iMobillim <= 2 AND iRelat1 = 2 AND iRemplpar >= 0 AND iRemplpar <= 221 AND iTmpabsnt = 0 AND dWeek89 = 0 AND iWorklwk >= 0 AND iWorklwk <= 2 AND iYearsch >= 11 AND iYearsch <= 14",
+      "target_relation": "climate",
+      "truth": 894.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q382",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND dIncome7 = 0 AND iLooking = 0 AND iMeans = 0 AND iRelat1 >= 0 AND iRelat1 <= 10 AND iRlabor >= 1 AND iRlabor <= 2 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 902.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q383",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass = 1 AND iDisabl2 = 2 AND iImmigr = 0 AND dIncome2 = 0 AND dIncome6 = 0 AND dIndustry >= 8 AND dIndustry <= 9 AND iMarital = 0 AND iMay75880 = 0 AND iOthrserv = 0 AND dWeek89 = 0",
+      "target_relation": "climate",
+      "truth": 13466.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q384",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHours >= 0 AND dHours <= 2 AND dIncome6 = 0 AND iMobility = 2 AND dPoverty = 2 AND iRiders >= 0 AND iRiders <= 2 AND iYearsch >= 1 AND iYearsch <= 13",
+      "target_relation": "climate",
+      "truth": 385760.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q385",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 >= 0 AND iDisabl1 <= 2 AND iFertil >= 0 AND iFertil <= 5 AND dIncome7 = 0 AND iKorean = 0 AND iLooking >= 0 AND iLooking <= 2 AND iMay75880 = 0 AND iRemplpar = 0 AND iRvetserv = 0",
+      "target_relation": "climate",
+      "truth": 1383239.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q386",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen >= 0 AND iCitizen <= 1 AND iFeb55 = 0 AND iMay75880 = 0 AND iRemplpar = 0 AND iRspouse = 1 AND iRvetserv = 0 AND iVietnam = 0 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 754488.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q387",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 11 AND iCitizen = 0 AND iDisabl2 = 2 AND dHispanic = 0 AND dHour89 >= 0 AND dHour89 <= 5 AND dIncome6 >= 0 AND dIncome6 <= 1 AND dIndustry >= 0 AND dIndustry <= 9 AND iLang1 = 2 AND iRelat2 = 0 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iSchool = 1",
+      "target_relation": "climate",
+      "truth": 1057289.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q388",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 4 AND dAge <= 7 AND dIncome3 = 0 AND iKorean = 0 AND iLang1 = 2 AND iMobillim = 2 AND iPerscare >= 0 AND iPerscare <= 2 AND iRownchld = 0 AND iSchool = 1 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 997894.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q389",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish >= 0 AND iEnglish <= 2 AND iFertil = 0 AND dIncome2 >= 0 AND dIncome2 <= 1 AND dIncome4 = 0 AND iMilitary = 4 AND iYearwrk = 1",
+      "target_relation": "climate",
+      "truth": 301463.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q390",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil = 1 AND iKorean = 0 AND iMobillim = 2 AND iRPOB >= 23 AND iRPOB <= 51 AND iRspouse >= 1 AND iRspouse <= 6 AND iRvetserv = 0 AND iSchool >= 1 AND iSchool <= 2",
+      "target_relation": "climate",
+      "truth": 45137.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q391",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dPoverty >= 1 AND dPoverty <= 2 AND dRpincome = 4 AND iSubfam1 = 0 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 262767.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q392",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHispanic = 0 AND iImmigr = 0 AND dIncome5 = 0 AND iMobillim >= 0 AND iMobillim <= 2 AND iRPOB >= 21 AND iRPOB <= 24 AND iRspouse >= 1 AND iRspouse <= 6 AND iSept80 = 0 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND dWeek89 >= 0 AND dWeek89 <= 1 AND iWorklwk >= 0 AND iWorklwk <= 1",
+      "target_relation": "climate",
+      "truth": 124135.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q393",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 1 AND iClass <= 3 AND dHispanic = 0 AND dIncome6 = 0 AND iPerscare >= 0 AND iPerscare <= 2 AND iRemplpar = 0 AND iRiders = 0 AND iSubfam1 = 0 AND iYearsch >= 6 AND iYearsch <= 14",
+      "target_relation": "climate",
+      "truth": 275485.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q394",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome2 = 0 AND iLooking >= 0 AND iLooking <= 1 AND iMeans = 1 AND iSchool = 1 AND iSex >= 0 AND iSex <= 1 AND iYearsch >= 10 AND iYearsch <= 14",
+      "target_relation": "climate",
+      "truth": 603177.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q395",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 0 AND iFertil <= 1 AND iMobility = 2 AND iRownchld >= 0 AND iRownchld <= 1 AND dRpincome = 2 AND iWork89 >= 0 AND iWork89 <= 2 AND iYearsch >= 0 AND iYearsch <= 1",
+      "target_relation": "climate",
+      "truth": 3645.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q396",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHour89 >= 0 AND dHour89 <= 2 AND dIncome2 = 0 AND dWeek89 >= 0 AND dWeek89 <= 1 AND iWork89 >= 0 AND iWork89 <= 1",
+      "target_relation": "climate",
+      "truth": 793138.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q397",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iClass >= 0 AND iClass <= 1 AND iDisabl1 >= 0 AND iDisabl1 <= 2 AND iEnglish = 0 AND iRrelchld = 0 AND iWork89 = 1",
+      "target_relation": "climate",
+      "truth": 706601.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q398",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 3 AND dIncome2 = 0 AND iLang1 >= 1 AND iLang1 <= 2 AND iMeans = 0 AND iSex >= 0 AND iSex <= 1 AND iSubfam1 = 0 AND iSubfam2 = 0 AND iYearsch >= 3 AND iYearsch <= 11",
+      "target_relation": "climate",
+      "truth": 935969.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q399",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dRearning >= 0 AND dRearning <= 4 AND iSchool = 1 AND dWeek89 = 0 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 512876.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q400",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome6 = 0 AND iLang1 = 2 AND dPoverty = 2 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iSubfam1 >= 0 AND iSubfam1 <= 1 AND iWork89 = 1 AND iYearwrk >= 1 AND iYearwrk <= 6",
+      "target_relation": "climate",
+      "truth": 1035018.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q401",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 1 AND iClass <= 3 AND iMobillim = 2 AND dPoverty = 2 AND iSept80 = 0 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 1009516.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q402",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome1 >= 0 AND dIncome1 <= 2 AND iRagechld >= 0 AND iRagechld <= 4 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 2145042.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q403",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHispanic = 0 AND iImmigr = 0 AND iOthrserv = 0 AND dPOB = 0 AND iRrelchld = 0 AND iRspouse = 0 AND iSubfam2 >= 0 AND iSubfam2 <= 1 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND dWeek89 >= 0 AND dWeek89 <= 1",
+      "target_relation": "climate",
+      "truth": 8307.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q404",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHispanic = 0 AND dIndustry >= 0 AND dIndustry <= 8 AND iPerscare >= 0 AND iPerscare <= 2 AND dRpincome >= 2 AND dRpincome <= 5 AND iRPOB >= 22 AND iRPOB <= 23 AND iWorklwk >= 1 AND iWorklwk <= 2 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 188496.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q405",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge = 7 AND dIncome3 = 0 AND dIncome5 = 0 AND dIncome8 = 0 AND iPerscare = 2 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 38854.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q406",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 11 AND dIncome3 = 0 AND dIncome5 = 0 AND dIncome8 = 0 AND dPOB = 0 AND iSubfam1 = 0 AND iSubfam2 >= 0 AND iSubfam2 <= 1",
+      "target_relation": "climate",
+      "truth": 1604905.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q407",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMobillim = 2 AND dOccup >= 0 AND dOccup <= 2 AND dPOB = 0 AND dPoverty = 2 AND dRearning = 0 AND iSubfam2 = 0 AND dTravtime = 0",
+      "target_relation": "climate",
+      "truth": 313327.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q408",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome1 >= 0 AND dIncome1 <= 2 AND dPOB = 0 AND iRownchld >= 0 AND iRownchld <= 1 AND iSubfam1 = 0 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 1728898.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q409",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl1 >= 1 AND iDisabl1 <= 2 AND iDisabl2 = 2 AND dIncome1 = 0 AND iMarital >= 0 AND iMarital <= 3 AND iOthrserv = 0 AND iRagechld = 0 AND iSubfam1 >= 0 AND iSubfam1 <= 1 AND iYearsch >= 6 AND iYearsch <= 11",
+      "target_relation": "climate",
+      "truth": 82337.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q410",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 = 1 AND iFertil >= 0 AND iFertil <= 5 AND dIncome7 = 0 AND iPerscare = 2 AND dPwgt1 = 2 AND iSex >= 0 AND iSex <= 1 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND iWork89 >= 1 AND iWork89 <= 2",
+      "target_relation": "climate",
+      "truth": 211887.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q411",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 = 1 AND iFeb55 = 0 AND dHours >= 0 AND dHours <= 3 AND iRownchld >= 0 AND iRownchld <= 1",
+      "target_relation": "climate",
+      "truth": 1095089.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q412",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil = 0 AND dIncome4 >= 0 AND dIncome4 <= 1 AND iLang1 >= 1 AND iLang1 <= 2 AND iMarital = 4 AND iRemplpar = 0 AND iVietnam = 0 AND iYearwrk >= 1 AND iYearwrk <= 5",
+      "target_relation": "climate",
+      "truth": 187290.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q413",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHours >= 0 AND dHours <= 5 AND dIncome2 = 0 AND dIncome6 = 0 AND iRagechld >= 0 AND iRagechld <= 4 AND dRpincome >= 2 AND dRpincome <= 3 AND dTravtime = 0 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 397182.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q414",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iRemplpar >= 0 AND iRemplpar <= 223 AND iTmpabsnt >= 0 AND iTmpabsnt <= 3 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 2363776.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q415",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iFeb55 = 0 AND iRspouse >= 1 AND iRspouse <= 3 AND iYearwrk = 1",
+      "target_relation": "climate",
+      "truth": 718699.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q416",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 0 AND iFertil <= 5 AND iMay75880 = 0 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 2288907.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q417",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 2 AND dAncstry1 <= 3 AND iMay75880 = 0 AND iRownchld = 0 AND iRPOB = 10",
+      "target_relation": "climate",
+      "truth": 110744.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q418",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome6 = 0 AND dPoverty = 2 AND dPwgt1 = 0 AND iSchool >= 1 AND iSchool <= 2",
+      "target_relation": "climate",
+      "truth": 329653.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q419",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome8 = 0 AND iRlabor = 6 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 620460.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q420",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 >= 0 AND iDisabl2 <= 2 AND iFeb55 >= 0 AND iFeb55 <= 1 AND iImmigr = 0 AND dIndustry >= 3 AND dIndustry <= 9 AND dRearning >= 0 AND dRearning <= 2 AND iRvetserv = 0 AND iSex = 1 AND iTmpabsnt = 3 AND iWorklwk >= 1 AND iWorklwk <= 2 AND iYearsch >= 10 AND iYearsch <= 11 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 66850.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q421",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 4 AND dHour89 >= 0 AND dHour89 <= 3 AND dIncome1 >= 2 AND dIncome1 <= 4 AND iRPOB = 10 AND iRvetserv >= 0 AND iRvetserv <= 8 AND iSex = 0",
+      "target_relation": "climate",
+      "truth": 116698.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q422",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 1 AND iDisabl2 >= 0 AND iDisabl2 <= 2 AND iFertil = 0 AND dHispanic = 0 AND iOthrserv = 0 AND iRspouse >= 0 AND iRspouse <= 1 AND iSchool = 1 AND iYearsch >= 1 AND iYearsch <= 14",
+      "target_relation": "climate",
+      "truth": 396910.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q423",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 >= 1 AND dAncstry2 <= 2 AND iEnglish = 0 AND iMilitary = 4 AND iPerscare >= 0 AND iPerscare <= 2 AND iRagechld >= 0 AND iRagechld <= 4 AND iYearsch >= 11 AND iYearsch <= 14",
+      "target_relation": "climate",
+      "truth": 461722.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q424",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen = 0 AND dIncome2 = 0 AND dIncome4 = 0 AND dWeek89 = 0 AND dYrsserv = 0",
+      "target_relation": "climate",
+      "truth": 892223.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q425",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iMobility >= 1 AND iMobility <= 2 AND dPoverty = 2 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 1907056.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q426",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND dIncome1 = 0 AND dPwgt1 = 1 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 461280.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q427",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome5 = 0 AND iMarital >= 0 AND iMarital <= 4 AND iMilitary = 4 AND dPwgt1 >= 0 AND dPwgt1 <= 1 AND iRagechld = 4",
+      "target_relation": "climate",
+      "truth": 341083.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q428",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 5 AND dAge <= 6 AND iClass = 1 AND dPOB = 0 AND iRelat1 = 1 AND iSept80 = 0 AND iYearwrk = 1",
+      "target_relation": "climate",
+      "truth": 72670.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q429",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 0 AND iFertil <= 3 AND iImmigr = 0 AND dIncome1 >= 0 AND dIncome1 <= 2 AND dIncome5 = 0 AND dIncome8 = 0 AND iKorean = 0 AND iMobility = 1 AND iOthrserv = 0 AND iSubfam1 = 0 AND iWork89 >= 0 AND iWork89 <= 1 AND iYearsch >= 5 AND iYearsch <= 11 AND dYrsserv >= 0 AND dYrsserv <= 1",
+      "target_relation": "climate",
+      "truth": 331756.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q430",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 >= 1 AND dAncstry1 <= 11 AND dAncstry2 = 1 AND iFertil >= 0 AND iFertil <= 3 AND dHispanic >= 0 AND dHispanic <= 2 AND iMeans >= 0 AND iMeans <= 1 AND dRearning >= 0 AND dRearning <= 5 AND iRelat2 = 0 AND iSept80 = 0 AND iWork89 >= 1 AND iWork89 <= 2",
+      "target_relation": "climate",
+      "truth": 853357.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q431",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 4 AND iEnglish >= 0 AND iEnglish <= 4 AND dHispanic = 0 AND dIncome6 = 0 AND iMay75880 = 0 AND iMilitary = 0 AND iMobillim = 2 AND iRvetserv = 0 AND dWeek89 = 0 AND iWorklwk >= 0 AND iWorklwk <= 1",
+      "target_relation": "climate",
+      "truth": 7892.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q432",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND dIncome7 = 0 AND iLang1 = 1 AND iOthrserv = 0",
+      "target_relation": "climate",
+      "truth": 287278.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q433",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome5 >= 0 AND dIncome5 <= 1 AND iKorean = 0 AND iMilitary >= 2 AND iMilitary <= 4 AND iRelat2 = 0 AND iRownchld >= 0 AND iRownchld <= 1 AND iRrelchld = 0 AND iSchool = 1",
+      "target_relation": "climate",
+      "truth": 1539629.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q434",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iClass >= 0 AND iClass <= 3 AND iLooking = 0 AND dPoverty = 2 AND iSubfam2 = 0 AND iYearwrk = 1",
+      "target_relation": "climate",
+      "truth": 829622.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q435",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND iFertil >= 0 AND iFertil <= 5 AND dHour89 >= 0 AND dHour89 <= 3 AND dIncome3 = 0 AND dIncome8 = 0 AND iMeans >= 0 AND iMeans <= 1 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 1775936.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q436",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome5 = 0 AND iMobility >= 0 AND iMobility <= 1 AND iRlabor = 1 AND iRrelchld = 0 AND iSept80 = 0 AND iSex = 1 AND iSubfam1 = 0",
+      "target_relation": "climate",
+      "truth": 236807.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q437",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome1 >= 0 AND dIncome1 <= 1 AND dIncome3 = 0 AND dIncome7 = 0 AND iKorean = 0 AND iMarital >= 0 AND iMarital <= 4 AND dOccup >= 0 AND dOccup <= 1 AND iPerscare = 2 AND dRpincome >= 0 AND dRpincome <= 2 AND iRrelchld = 0 AND iYearsch >= 5 AND iYearsch <= 10",
+      "target_relation": "climate",
+      "truth": 204527.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q438",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome5 = 0 AND dIndustry = 9 AND iKorean = 0 AND dPoverty = 2 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iRvetserv = 0 AND iSubfam1 = 0 AND iWork89 >= 1 AND iWork89 <= 2",
+      "target_relation": "climate",
+      "truth": 255502.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q439",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome1 >= 0 AND dIncome1 <= 3 AND dIncome4 >= 0 AND dIncome4 <= 1 AND iMilitary >= 0 AND iMilitary <= 4 AND iMobillim = 2 AND dPOB >= 0 AND dPOB <= 1 AND iRPOB >= 22 AND iRPOB <= 23 AND iRspouse >= 0 AND iRspouse <= 1 AND iSept80 = 0 AND dWeek89 >= 1 AND dWeek89 <= 2 AND iWork89 = 1",
+      "target_relation": "climate",
+      "truth": 143606.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q440",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dHour89 >= 0 AND dHour89 <= 5 AND iLooking = 0 AND dOccup >= 0 AND dOccup <= 2 AND iRelat2 = 0 AND iYearsch = 10 AND dYrsserv >= 0 AND dYrsserv <= 1",
+      "target_relation": "climate",
+      "truth": 158546.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q441",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIndustry >= 4 AND dIndustry <= 7 AND iLang1 >= 1 AND iLang1 <= 2 AND iMobillim >= 0 AND iMobillim <= 2 AND iSept80 >= 0 AND iSept80 <= 1 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 629054.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q442",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 3 AND dAge <= 7 AND dIncome3 = 0 AND iMeans = 0 AND iMobility = 1 AND iOthrserv = 0 AND iSex = 1 AND iWork89 >= 0 AND iWork89 <= 1",
+      "target_relation": "climate",
+      "truth": 45927.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q443",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAge >= 4 AND dAge <= 6 AND iDisabl1 >= 0 AND iDisabl1 <= 2 AND iDisabl2 = 2 AND dIncome8 = 0 AND dRpincome = 2 AND iSex >= 0 AND iSex <= 1 AND dTravtime >= 4 AND dTravtime <= 5",
+      "target_relation": "climate",
+      "truth": 70833.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q444",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 0 AND iFertil <= 4 AND dIncome7 = 0 AND dIncome8 >= 0 AND dIncome8 <= 1 AND iLooking >= 0 AND iLooking <= 2 AND iMobillim = 2 AND iRiders >= 0 AND iRiders <= 1 AND iRlabor = 1 AND iSchool = 1 AND iSex = 0 AND iSubfam2 = 0",
+      "target_relation": "climate",
+      "truth": 435379.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q445",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND dHour89 >= 0 AND dHour89 <= 5 AND dIncome2 = 0 AND dIncome3 = 0 AND dIndustry >= 8 AND dIndustry <= 9 AND iLang1 >= 0 AND iLang1 <= 2 AND iMarital = 0 AND iSubfam2 = 0 AND dWeek89 = 2",
+      "target_relation": "climate",
+      "truth": 127256.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q446",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iKorean = 0 AND dPoverty = 2",
+      "target_relation": "climate",
+      "truth": 2043794.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q447",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen = 0 AND iEnglish >= 0 AND iEnglish <= 1 AND dHispanic = 0 AND iImmigr = 0 AND dIncome2 >= 0 AND dIncome2 <= 1 AND dIncome4 = 0 AND dIncome8 = 0 AND iKorean = 0 AND iMarital = 2 AND iPerscare = 2 AND iRvetserv = 0",
+      "target_relation": "climate",
+      "truth": 70668.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q448",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry1 = 11 AND dDepart >= 0 AND dDepart <= 1 AND dIncome6 = 0 AND dPOB = 0 AND iRlabor = 1 AND iSex = 0 AND iYearsch >= 0 AND iYearsch <= 14 AND iYearwrk >= 0 AND iYearwrk <= 1",
+      "target_relation": "climate",
+      "truth": 13763.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q449",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND iFertil = 0 AND iRelat2 = 0 AND iRlabor >= 1 AND iRlabor <= 6 AND dRpincome >= 0 AND dRpincome <= 4",
+      "target_relation": "climate",
+      "truth": 783959.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q450",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome4 = 1 AND iLooking = 0 AND dPwgt1 >= 0 AND dPwgt1 <= 1 AND iVietnam = 0",
+      "target_relation": "climate",
+      "truth": 211782.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q451",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iKorean = 0 AND iLang1 = 2 AND iPerscare >= 0 AND iPerscare <= 2 AND dPoverty >= 1 AND dPoverty <= 2 AND iRelat1 >= 0 AND iRelat1 <= 2 AND iRlabor >= 1 AND iRlabor <= 6 AND dWeek89 >= 1 AND dWeek89 <= 2",
+      "target_relation": "climate",
+      "truth": 996172.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q452",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen = 0 AND dIncome4 = 0 AND iMarital >= 1 AND iMarital <= 4 AND iMobility >= 1 AND iMobility <= 2 AND iRelat1 >= 0 AND iRelat1 <= 2 AND iRelat2 = 0 AND iSchool = 1",
+      "target_relation": "climate",
+      "truth": 321309.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q453",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen = 0 AND iFertil >= 1 AND iFertil <= 3 AND dIncome2 = 0 AND dIncome7 = 0 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 559936.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q454",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil = 0 AND dHours >= 0 AND dHours <= 1 AND dIncome2 = 0 AND iLooking = 0 AND dPwgt1 >= 0 AND dPwgt1 <= 1 AND dRpincome >= 2 AND dRpincome <= 4 AND iRPOB = 10 AND iRrelchld = 0 AND iSex >= 0 AND iSex <= 1",
+      "target_relation": "climate",
+      "truth": 26723.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q455",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dDepart >= 0 AND dDepart <= 3 AND dIncome4 >= 0 AND dIncome4 <= 1 AND dIncome7 >= 0 AND dIncome7 <= 1 AND iMobillim >= 0 AND iMobillim <= 2 AND iRelat1 = 0 AND iRownchld = 0 AND iWorklwk >= 0 AND iWorklwk <= 2 AND iYearsch >= 9 AND iYearsch <= 11",
+      "target_relation": "climate",
+      "truth": 361639.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q456",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND iImmigr = 0 AND dIncome2 = 0 AND dIncome3 >= 0 AND dIncome3 <= 1 AND dIncome8 = 0 AND dIndustry = 0 AND iKorean = 0 AND dPoverty = 2 AND iRemplpar = 0",
+      "target_relation": "climate",
+      "truth": 188564.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q457",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dAncstry2 = 1 AND dIncome4 = 0 AND iLang1 >= 1 AND iLang1 <= 2 AND dTravtime >= 0 AND dTravtime <= 2 AND iWorklwk >= 1 AND iWorklwk <= 2 AND iYearsch >= 4 AND iYearsch <= 15",
+      "target_relation": "climate",
+      "truth": 642483.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q458",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 = 2 AND dIncome2 = 0 AND dIncome7 = 0 AND iLang1 = 2 AND iRemplpar = 0 AND iSchool >= 1 AND iSchool <= 2 AND dWeek89 >= 0 AND dWeek89 <= 1",
+      "target_relation": "climate",
+      "truth": 623980.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q459",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil >= 0 AND iFertil <= 4 AND dHour89 = 3 AND iImmigr = 0 AND iLang1 = 2 AND dOccup >= 0 AND dOccup <= 2 AND iRemplpar = 0 AND dTravtime >= 0 AND dTravtime <= 5",
+      "target_relation": "climate",
+      "truth": 251130.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q460",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE dIncome4 = 0 AND dOccup >= 1 AND dOccup <= 6 AND iRagechld >= 0 AND iRagechld <= 4 AND iVietnam = 0 AND iWorklwk >= 1 AND iWorklwk <= 2",
+      "target_relation": "climate",
+      "truth": 974689.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q461",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iAvail = 0 AND iCitizen = 0 AND dHour89 >= 2 AND dHour89 <= 5 AND dIncome1 >= 0 AND dIncome1 <= 3 AND dIncome7 = 0 AND iMarital >= 0 AND iMarital <= 4 AND dPOB = 0 AND dPwgt1 >= 1 AND dPwgt1 <= 3 AND iRelat1 >= 0 AND iRelat1 <= 1 AND iRspouse >= 0 AND iRspouse <= 1 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 409911.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q462",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iEnglish = 0 AND dIncome7 = 0 AND iMobillim >= 1 AND iMobillim <= 2 AND dRearning = 0",
+      "target_relation": "climate",
+      "truth": 418027.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q463",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iImmigr = 0 AND iMarital >= 1 AND iMarital <= 2 AND iMay75880 = 0 AND iRlabor = 1 AND iRrelchld >= 0 AND iRrelchld <= 1 AND iVietnam = 0 AND iWorklwk >= 0 AND iWorklwk <= 1 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 106892.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q464",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 = 2 AND iEnglish = 0 AND iRagechld = 0 AND iRelat1 >= 0 AND iRelat1 <= 1 AND iRemplpar = 0 AND iSept80 = 0",
+      "target_relation": "climate",
+      "truth": 511698.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q465",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iCitizen = 0 AND iDisabl1 = 0 AND iFeb55 = 0 AND iImmigr = 0 AND iMobillim >= 0 AND iMobillim <= 2 AND iRownchld = 0 AND iRspouse >= 1 AND iRspouse <= 6 AND iSubfam1 = 0 AND iSubfam2 = 0 AND iYearsch >= 9 AND iYearsch <= 10",
+      "target_relation": "climate",
+      "truth": 29.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q466",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFeb55 = 0 AND dIncome6 = 0 AND iKorean = 0 AND iLooking = 0 AND iRelat1 >= 0 AND iRelat1 <= 1 AND iRownchld = 0 AND iVietnam = 0 AND dWeek89 >= 0 AND dWeek89 <= 2 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 760304.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q467",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iDisabl2 >= 0 AND iDisabl2 <= 2 AND dHour89 >= 0 AND dHour89 <= 1 AND dIncome7 >= 0 AND dIncome7 <= 1 AND iLooking = 0 AND dOccup = 0 AND iRiders >= 0 AND iRiders <= 1 AND iTmpabsnt = 0",
+      "target_relation": "climate",
+      "truth": 608530.0
+    },
+    {
+      "label": null,
+      "query_id": "census-q468",
+      "relation_oids": [
+        16385
+      ],
+      "sql": "SELECT * FROM public.climate WHERE iFertil = 0 AND dHours = 0 AND iImmigr = 0 AND dIncome2 = 0 AND dWeek89 = 2 AND iWorklwk = 2 AND iWWII = 0",
+      "target_relation": "climate",
+      "truth": 12403.0
+    }
+  ],
+  "workload_id": "census-authoritative-m2-7"
+}

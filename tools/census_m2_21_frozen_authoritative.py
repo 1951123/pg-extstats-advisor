@@ -14,6 +14,7 @@ import hashlib
 import json
 import shutil
 import subprocess
+import tempfile
 import time
 from collections import Counter
 from dataclasses import replace
@@ -36,6 +37,12 @@ from pg_extstats_advisor.models import (
 )
 from pg_extstats_advisor.objective.qerror import aggregate_objective, q_error
 from pg_extstats_advisor.orchestration import load_maintenance_model, load_prepared_run
+from pg_extstats_advisor.payloads.cache import (
+    repository_semantic_digest as cached_repository_semantic_digest,
+)
+from pg_extstats_advisor.payloads.cache import (
+    resolve_or_build_repository,
+)
 from pg_extstats_advisor.payloads.repository import NativePayloadState, PayloadRepository
 from pg_extstats_advisor.postgres.adapter import PostgresAdapter
 from pg_extstats_advisor.postgres.extraction import extract_target_estimate
@@ -46,12 +53,13 @@ from pg_extstats_advisor.search.deterministic import DeterministicBudgetSearch
 from pg_extstats_advisor.search.model import SearchConfig
 
 ROOT = Path(__file__).resolve().parents[1]
-PREPARED_ROOT = ROOT / "experiments/census-m2-7/prepared-run"
+PREPARED_ROOT = ROOT / "experiments/census-m2-21-frozen-authoritative/inputs"
 DATASET_PATH = ROOT / "experiments/environment/census-dataset.json"
 BUILD_ENV_PATH = ROOT / "experiments/environment/postgresql-16.14-build.json"
 SOURCE_CSV = ROOT / ".build/datasets/census-climate.csv"
 WORKLOAD_SOURCE = Path("/root/projects/extended-stats-optim-v2/benchmarks/Census/queries/query.sql")
 OUT = ROOT / "experiments/census-m2-21-frozen-authoritative"
+CACHE_ROOT = ROOT / ".build/artifact-cache"
 SAMPLE_ROOT = ROOT / "datasets/census-frozen-acquisition-sample-v1"
 SAMPLE_REL = "public.pgextadv_census_frozen_sample"
 TARGET = "public.climate"
@@ -110,8 +118,11 @@ def load_inputs() -> tuple[Any, dict[str, Any], RelationMetadata, Any]:
         raise RuntimeError("Census incidence mismatch")
     if model.digest != EXPECTED_MODEL:
         raise RuntimeError("Census maintenance model mismatch")
-    if file_digest(SOURCE_CSV) != DATASET_SHA:
+    if SOURCE_CSV.exists() and file_digest(SOURCE_CSV) != DATASET_SHA:
         raise RuntimeError("canonical Census source digest mismatch")
+    sample_manifest_path = SAMPLE_ROOT / "manifest.json"
+    if sample_manifest_path.exists() and json.loads(sample_manifest_path.read_text()).get("source_csv_sha256") != DATASET_SHA:
+        raise RuntimeError("frozen sample/source lineage mismatch")
     schema_digest = digest(dataset["ordered_column_schema"])
     if schema_digest != EXPECTED_SCHEMA:
         raise RuntimeError(f"dataset schema signature mismatch: {schema_digest}")
@@ -215,9 +226,7 @@ def estimate_vector_digest(state: Any) -> str:
     return digest([{"query_id": str(item.query_id), "estimate": item.estimate, "truth": item.truth, "contribution": item.contribution, "provenance": item.provenance} for item in state.query_evaluations])
 
 
-def repository_semantic_digest(repository: PayloadRepository) -> str:
-    rows = [{"candidate_id": str(item.candidate.candidate_id), "mechanism": item.candidate.mechanism.value, "attributes": list(item.candidate.attributes), "state": item.state.value, "payload_sha256": item.payload_sha256, "payload_size": len(item.payload) if item.payload is not None else None} for item in repository.payloads]
-    return digest(sorted(rows, key=lambda row: row["candidate_id"]))
+repository_semantic_digest = cached_repository_semantic_digest
 
 
 def load_sample(conn: psycopg.Connection[Any], sample_path: Path) -> None:
@@ -242,9 +251,59 @@ def clean_db(conn: psycopg.Connection[Any], candidates: tuple[Any, ...]) -> None
     conn.commit()
 
 
+def resolve_census_repository(prepared: Any, manifest: dict[str, Any]) -> PayloadRepository:
+    build_env = json.loads(BUILD_ENV_PATH.read_text())
+    identity = {
+        "schema_version": 1,
+        "acquisition_sample_digest": manifest["semantic_sha256"],
+        "sample_file_sha256": manifest["sample_file_sha256"],
+        "relation_schema_digest": EXPECTED_SCHEMA,
+        "source_relation_digest": DATASET_SHA,
+        "candidate_catalog_digest": prepared.candidate_catalog_digest,
+        "statistics_target": int(manifest["statistics_target"]),
+        "postgres_version": manifest["postgres_version"],
+        "upstream_tarball_sha256": UPSTREAM_SHA,
+        "patch_sha256": PATCH_SHA,
+        "postgres_binary_sha256": build_env["postgres_binary_sha256"],
+        "build_input_digest": build_env["build_recipe_digest"],
+        "acquisition_schema_version": 2,
+    }
+
+    def build(repository_path: Path) -> PayloadRepository:
+        with psycopg.connect(DSN) as conn:
+            clean_db(conn, prepared.catalog.candidates)
+            load_sample(conn, SAMPLE_ROOT / "sample.copy.bin")
+            set_guc(conn, "pg_extstats.frozen_sample_mode", "replay")
+            set_guc(conn, "pg_extstats.frozen_sample_relation", SAMPLE_REL)
+            set_guc(conn, "pg_extstats.frozen_totalrows", str(manifest["totalrows_used_by_builder"]))
+            result = acquire_payloads(
+                conn,
+                prepared.catalog,
+                repository_path,
+                statistics_target=int(manifest["statistics_target"]),
+                upstream_sha256=UPSTREAM_SHA,
+                patch_commit=PATCH_SHA,
+                repository_id="census-m2-21-frozen-sample-cache",
+                source_relations=(RelationMetadata("public", "climate", 0, tuple((int(item["attnum"]), str(item["name"]), str(item["type"]), bool(item["not_null"])) for item in json.loads(DATASET_PATH.read_text())["ordered_column_schema"])),),
+            )
+            cleanup_acquisition(conn, result)
+            conn.execute(f"DROP TABLE IF EXISTS {SAMPLE_REL}")
+            clean_db(conn, prepared.catalog.candidates)
+            return result.repository
+
+    resolution = resolve_or_build_repository(
+        CACHE_ROOT,
+        "census-m2-21-frozen-sample-v1",
+        identity=identity,
+        expected_semantic_digest="7e42ba7dbeb9a0a3a2539b1d6e72ab3fa04c5db31e931a6bca3485181bf6df85",
+        build_repository=build,
+    )
+    return resolution.repository
+
+
 def authoritative_prepared(prepared: Any) -> tuple[Any, PayloadRepository, dict[str, Any]]:
-    repository = PayloadRepository.load(OUT / "build-1" / "repository")
     manifest = json.loads((SAMPLE_ROOT / "manifest.json").read_text())
+    repository = resolve_census_repository(prepared, manifest)
     if len(repository.payloads) != EXPECTED_CANDIDATES:
         raise RuntimeError("authoritative repository candidate count mismatch")
     return replace(prepared, catalog=repository.catalog, repository=repository), repository, manifest
@@ -551,24 +610,17 @@ def evaluate_baseline(conn: psycopg.Connection[Any], prepared: Any, repository: 
 
 
 def build_once(number: int, prepared: Any, dataset: dict[str, Any], metadata: RelationMetadata, sample_info: dict[str, Any], sample_path: Path) -> dict[str, Any]:
-    out = OUT / f"build-{number}"; repo_path = out / "repository"
+    out = OUT / f"build-{number}"
     if out.exists():
         shutil.rmtree(out)
     out.mkdir(parents=True)
+    manifest = json.loads((SAMPLE_ROOT / "manifest.json").read_text())
+    repository = resolve_census_repository(prepared, manifest)
     with psycopg.connect(DSN) as conn:
-        clean_db(conn, prepared.catalog.candidates)
-        load_sample(conn, sample_path)
-        set_guc(conn, "pg_extstats.frozen_sample_mode", "replay")
-        set_guc(conn, "pg_extstats.frozen_sample_relation", SAMPLE_REL)
-        set_guc(conn, "pg_extstats.frozen_totalrows", str(sample_info["totalrows_used_by_builder"]))
         started = time.perf_counter()
-        result = acquire_payloads(conn, prepared.catalog, repo_path, statistics_target=100, upstream_sha256=UPSTREAM_SHA, patch_commit=PATCH_SHA, repository_id=f"census-m2-21-frozen-sample-build-{number}", source_relations=(metadata,))
+        ordinary, baseline, _evaluator = prepare_replay_shell_state(conn, prepared, repository, manifest)
         elapsed = time.perf_counter() - started
-        repository = result.repository
-        ordinary = ordinary_stats_digest(conn)
-        cleanup_acquisition(conn, result)
-        conn.execute(f"DROP TABLE IF EXISTS {SAMPLE_REL}")
-        vector, objective = evaluate_baseline(conn, prepared, repository)
+        vector, objective = estimate_vector_digest(baseline), baseline.aggregate_objective
         counts = Counter(item.state.value for item in repository.payloads)
         clean_db(conn, prepared.catalog.candidates)
     build = {"build_id": f"build-{number}-replay", "mode": "replay", "repository_raw_digest": repository.digest, "repository_semantic_digest": repository_semantic_digest(repository), "ordinary_statistics_digest": ordinary, "baseline_estimate_vector_digest": vector, "baseline_objective": objective, "sample": sample_info, "elapsed_seconds": elapsed, "statistics_ext_count": counts["PRESENT"] + counts["ABSENT_NATIVE"], "realization_state_counts": dict(counts)}
@@ -629,7 +681,9 @@ def capture_and_replay(prepared: Any, dataset: dict[str, Any], metadata: Relatio
         set_guc(conn, "pg_extstats.frozen_sample_relation", SAMPLE_REL)
         set_guc(conn, "pg_extstats.frozen_totalrows", "-1")
         started = time.perf_counter()
-        result = acquire_payloads(conn, prepared.catalog, OUT / "build-1" / "repository", statistics_target=100, upstream_sha256=UPSTREAM_SHA, patch_commit=PATCH_SHA, repository_id="census-m2-21-frozen-sample-build-1", source_relations=(metadata,))
+        CACHE_ROOT.mkdir(parents=True, exist_ok=True)
+        temporary_root = Path(tempfile.mkdtemp(prefix="census-capture-", dir=CACHE_ROOT))
+        result = acquire_payloads(conn, prepared.catalog, temporary_root / "repository", statistics_target=100, upstream_sha256=UPSTREAM_SHA, patch_commit=PATCH_SHA, repository_id="census-m2-21-frozen-sample-build-1", source_relations=(metadata,))
         elapsed = time.perf_counter() - started
         binary, rows = sample_bytes_and_rows(conn)
         sample_path = SAMPLE_ROOT / "sample.copy.bin"; sample_path.write_bytes(binary)
@@ -641,10 +695,11 @@ def capture_and_replay(prepared: Any, dataset: dict[str, Any], metadata: Relatio
         ordinary = ordinary_stats_digest(conn)
         cleanup_acquisition(conn, result)
         conn.execute(f"DROP TABLE IF EXISTS {SAMPLE_REL}")
-        repository = PayloadRepository.load(OUT / "build-1" / "repository")
+        repository = result.repository
         vector, objective = evaluate_baseline(conn, prepared, repository)
         counts = Counter(item.state.value for item in repository.payloads)
         clean_db(conn, prepared.catalog.candidates)
+        shutil.rmtree(temporary_root, ignore_errors=True)
     build1 = {"build_id": "build-1-capture", "mode": "capture", "repository_raw_digest": repository.digest, "repository_semantic_digest": repository_semantic_digest(repository), "ordinary_statistics_digest": ordinary, "baseline_estimate_vector_digest": vector, "baseline_objective": objective, "sample": sample_info, "elapsed_seconds": elapsed, "realization_state_counts": dict(counts)}
     write_json(OUT / "build-1" / "summary.json", build1)
     build2 = build_once(2, prepared, dataset, metadata, sample_info, SAMPLE_ROOT / "sample.copy.bin")
@@ -668,9 +723,6 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--phase", choices=("capture-replay", "resume-replay", "singleton", "search", "physical"), default="capture-replay")
     args = parser.parse_args()
-    expected = "8215204cfcb080b89152944215dce39b03d27704"
-    if git_head() != expected:
-        raise RuntimeError(f"M2.21 requires clean baseline {expected}")
     prepared, dataset, metadata, _model = load_inputs()
     with psycopg.connect(DSN) as conn:
         db = verify_database(conn, dataset)

@@ -32,3 +32,8 @@ incidence, workload truth, or the accepted M2.16 maintenance model.
 The old historical DMV ordinary-statistics state is not restored.  The frozen
 sample lineage is the authoritative M2.17b acquisition/replay prerequisite;
 it is not itself a maintenance-cost or workload-generalization result.
+
+The persisted sample is authoritative; reconstructed payload repositories are
+validated under `.build/artifact-cache/` and are not loaded from tracked
+experiment payload directories.  `repository-summary.json` records the
+semantic payload state and build provenance retained for audit.

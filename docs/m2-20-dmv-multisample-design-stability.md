@@ -2,6 +2,11 @@
 
 ## Scope and protocol
 
+Each persisted sample is the source artifact.  Per-sample payload repositories
+are reconstructible cache entries under `.build/artifact-cache/`; compact
+`repository-summary.json` files retain semantic state and provenance without
+retaining volatile payload trees.
+
 This milestone measures design-selection stability under sampling noise. It
 does not change CE-Replay semantics, the candidate catalog, the M2.16
 maintenance model, or the deterministic best-improvement ADD-only search.

@@ -74,6 +74,12 @@ provenance were unchanged. The registration is recorded in
 
 ## Artifact boundary
 
+The persisted sample is the authoritative source.  The former three full
+payload repositories are replaced by the compact tracked
+`repository-summary.json`; a cache miss reconstructs the repository under
+`.build/artifact-cache/` and validates semantic digest
+`7e42ba7dbeb9a0a3a2539b1d6e72ab3fa04c5db31e931a6bca3485181bf6df85` before use.
+
 The complete machine-readable protocol, lineage, replay, singleton, screening,
 search, and physical-validation artifacts are under
 `experiments/census-m2-21-frozen-authoritative/`. Earlier Census experiments

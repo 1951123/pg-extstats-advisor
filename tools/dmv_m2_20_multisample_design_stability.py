@@ -28,6 +28,7 @@ from pg_extstats_advisor.cost.model import MaintenanceBudget
 from pg_extstats_advisor.evaluator.native import NativeEvaluator
 from pg_extstats_advisor.models import CandidateId, Design
 from pg_extstats_advisor.orchestration import load_prepared_run
+from pg_extstats_advisor.payloads.cache import repository_semantic_digest
 from pg_extstats_advisor.payloads.repository import PayloadRepository
 from pg_extstats_advisor.postgres.adapter import PostgresAdapter
 
@@ -192,7 +193,7 @@ def load_existing_sample(sample_name: str) -> dict[str, Any]:
     summary_path = sample_out / "build-1" / "summary.json"
     if not (sample_dir / "sample.copy.bin").exists() or not manifest_path.exists() or not summary_path.exists():
         raise RuntimeError(f"persisted sample {sample_name} is incomplete")
-    return {"name": sample_name, "sample_dir": str(sample_dir), "output_dir": str(sample_out), "manifest": json.loads(manifest_path.read_text()), "build1": json.loads(summary_path.read_text())}
+    return {"name": sample_name, "sample_dir": str(sample_dir), "output_dir": str(sample_out), "manifest": json.loads(manifest_path.read_text()), "build1": json.loads(summary_path.read_text()), "repository_summary_path": str(sample_out / "build-1" / "repository-summary.json")}
 
 
 def replay_sample(sample: dict[str, Any], prepared: Any, metadata: Any, number: int) -> dict[str, Any]:
@@ -207,13 +208,14 @@ def replay_sample(sample: dict[str, Any], prepared: Any, metadata: Any, number: 
     with psycopg.connect(DSN) as conn:
         load_persisted_sample(conn, sample_dir)
         acquisition.drop_acquisition_stats(conn)
-        result, build = acquisition.replay_build(conn, prepared, metadata, info, number)
+        repo_summary = json.loads(Path(sample["repository_summary_path"]).read_text())
+        result, build = acquisition.replay_build(conn, prepared, metadata, info, number, repo_summary["semantic_repository_digest"])
         acquisition.cleanup_acquisition(conn, result)
         conn.execute(f"DROP TABLE IF EXISTS {SAMPLE_REL}")
         create_shells(conn, tuple(prepared.catalog.candidates))
         conn.execute("SELECT set_config(%s,%s,false)", ("pg_extstats.frozen_sample_mode", "off"))
         conn.commit()
-        repo = PayloadRepository.load(sample_out / "build-1" / "repository")
+        repo = result.repository
         baseline = NativeEvaluator(prepared.workload, repo, prepared.incidence, PostgresAdapter(conn, repo)).evaluate_design(Design(()))
         build["ordinary_statistics_digest"] = ordinary_stats_digest(conn)
         build["baseline_estimate_vector_digest"] = estimate_vector_digest(baseline)
@@ -227,17 +229,44 @@ def repository_state_rows(repository: PayloadRepository) -> list[dict[str, Any]]
     return [{"candidate_id": str(item.candidate.candidate_id), "mechanism": item.candidate.mechanism.value, "attributes": list(item.candidate.attributes), "state": item.state.value, "payload_sha256": item.payload_sha256, "payload_size": len(item.payload) if item.payload is not None else None} for item in repository.payloads]
 
 
-def repository_semantic_digest(repository: PayloadRepository) -> str:
-    """Digest payload semantics while excluding acquisition timestamps/OIDs."""
-    return digest(sorted(repository_state_rows(repository), key=lambda row: row["candidate_id"]))
-
-
 def load_persisted_sample(conn: psycopg.Connection[Any], sample_dir: Path) -> None:
     conn.execute(f"DROP TABLE IF EXISTS {SAMPLE_REL}")
     conn.execute(f"CREATE UNLOGGED TABLE {SAMPLE_REL} (LIKE {TARGET} INCLUDING DEFAULTS)")
     with conn.cursor().copy(f"COPY {SAMPLE_REL} FROM STDIN (FORMAT binary)") as copy:
         copy.write((sample_dir / "sample.copy.bin").read_bytes())
     conn.commit()
+
+
+def persisted_repository(sample: dict[str, Any], prepared: Any, metadata: Any) -> PayloadRepository:
+    """Resolve a persisted DMV sample through the shared artifact cache."""
+
+    name = sample["name"]
+    sample_dir, _sample_out = configure_acquisition(name)
+    summary = json.loads(Path(sample["repository_summary_path"]).read_text())
+    info = sample["manifest"]
+    sample_info = {
+        "semantic_sha256": info["semantic_sha256"],
+        "serialization_sha256": info["sample_file_sha256"],
+        "statistics_target": int(info.get("statistics_target", 100)),
+        "totalrows_used_by_builder": info["totalrows_used_by_builder"],
+    }
+    with psycopg.connect(DSN) as conn:
+        load_persisted_sample(conn, sample_dir)
+        conn.execute("SELECT set_config(%s,%s,false)", ("pg_extstats.frozen_sample_mode", "replay"))
+        conn.execute("SELECT set_config(%s,%s,false)", ("pg_extstats.frozen_sample_relation", SAMPLE_REL))
+        conn.execute("SELECT set_config(%s,%s,false)", ("pg_extstats.frozen_totalrows", str(sample_info["totalrows_used_by_builder"])))
+        repo = acquisition.resolve_frozen_repository(
+            conn,
+            prepared,
+            metadata,
+            sample_info,
+            summary["semantic_repository_digest"],
+            lineage_key=f"dmv-m2-20-sample-{name.lower()}",
+        )
+        acquisition.drop_acquisition_stats(conn)
+        conn.execute(f"DROP TABLE IF EXISTS {SAMPLE_REL}")
+        conn.commit()
+    return repo
 
 
 def profile_sample(sample: dict[str, Any], prepared: Any, repository: PayloadRepository) -> dict[str, Any]:
@@ -248,16 +277,17 @@ def profile_sample(sample: dict[str, Any], prepared: Any, repository: PayloadRep
         acquisition.drop_acquisition_stats(conn)
         info = sample["manifest"]
         # Build physical definitions/payloads through replay before singleton evaluation.
+        repo_summary = json.loads(Path(sample["repository_summary_path"]).read_text())
         result, build = acquisition.replay_build(conn, prepared, METADATA, {
             "sample_relation": SAMPLE_REL, "target_relation": TARGET, "row_count": info["row_count"],
             "source_relation_row_count": info["source_relation_row_count"], "serialization_sha256": info["sample_file_sha256"],
             "semantic_sha256": info["semantic_sha256"], "statistics_target": 100, "totalrows_used_by_builder": info["totalrows_used_by_builder"], "captured_at": info["captured_at"],
-        }, 5)
+        }, 5, repo_summary["semantic_repository_digest"])
         acquisition.cleanup_acquisition(conn, result)
         conn.execute(f"DROP TABLE IF EXISTS {SAMPLE_REL}")
         create_shells(conn, tuple(prepared.catalog.candidates))
         conn.commit()
-        repo_for_profile = PayloadRepository.load(sample_out / "build-1" / "repository")
+        repo_for_profile = result.repository
         profile1 = singleton_tool.run_profile(prepared, repo_for_profile, DSN, "run-1")
         profile2 = singleton_tool.run_profile(prepared, repo_for_profile, DSN, "run-2-fresh-backend-session")
         semantic1 = [{key: value for key, value in row.items() if key != "elapsed_seconds"} for row in profile1["rows"]]
@@ -277,17 +307,18 @@ def profile_sample(sample: dict[str, Any], prepared: Any, repository: PayloadRep
 
 def prepare_search_state(sample: dict[str, Any], prepared: Any, candidates: tuple[Any, ...]) -> tuple[PayloadRepository, str, str, float]:
     sample_name = sample["name"]
-    sample_dir, sample_out = configure_acquisition(sample_name)
+    sample_dir, _sample_out = configure_acquisition(sample_name)
     info = sample["manifest"]
     with psycopg.connect(DSN) as conn:
         load_persisted_sample(conn, sample_dir)
         acquisition.drop_acquisition_stats(conn)
+        repo_summary = json.loads(Path(sample["repository_summary_path"]).read_text())
         result, build = acquisition.replay_build(conn, prepared, METADATA, {
             "sample_relation": SAMPLE_REL, "target_relation": TARGET, "row_count": info["row_count"],
             "source_relation_row_count": info["source_relation_row_count"], "serialization_sha256": info["sample_file_sha256"],
             "semantic_sha256": info["semantic_sha256"], "statistics_target": 100, "totalrows_used_by_builder": info["totalrows_used_by_builder"], "captured_at": info["captured_at"],
-        }, 7)
-        repo = PayloadRepository.load(sample_out / "build-1" / "repository")
+        }, 7, repo_summary["semantic_repository_digest"])
+        repo = result.repository
         build_base = build["ordinary_statistics_digest"]
         acquisition.cleanup_acquisition(conn, result)
         conn.execute(f"DROP TABLE IF EXISTS {SAMPLE_REL}")
@@ -364,14 +395,16 @@ def evaluate_cross_matrix(samples: dict[str, dict[str, Any]], designs: dict[str,
     matrix: list[dict[str, Any]] = []
     baseline_by_sample: dict[str, dict[str, Any]] = {}
     for eval_name in SAMPLES:
-        sample = samples[eval_name]; sample_dir, sample_out = configure_acquisition(eval_name); info = sample["manifest"]
+        sample = samples[eval_name]; sample_dir, _sample_out = configure_acquisition(eval_name); info = sample["manifest"]
         with psycopg.connect(DSN) as conn:
             load_persisted_sample(conn, sample_dir); acquisition.drop_acquisition_stats(conn)
-            result, build = acquisition.replay_build(conn, prepared, METADATA, {
+            replay_info = {
                 "sample_relation": SAMPLE_REL, "target_relation": TARGET, "row_count": info["row_count"], "source_relation_row_count": info["source_relation_row_count"], "serialization_sha256": info["sample_file_sha256"], "semantic_sha256": info["semantic_sha256"], "statistics_target": 100, "totalrows_used_by_builder": info["totalrows_used_by_builder"], "captured_at": info.get("captured_at", "historical-sample-a"),
-            }, 8)
-            repo = sample["repository"] if eval_name == "A" else PayloadRepository.load(sample_out / "build-1" / "repository")
-            replay_repo = PayloadRepository.load(sample_out / "build-8" / "repository")
+            }
+            repo_summary = json.loads(Path(sample["repository_summary_path"]).read_text())
+            result, build = acquisition.replay_build(conn, prepared, METADATA, replay_info, 8, repo_summary["semantic_repository_digest"])
+            repo = result.repository
+            replay_repo = result.repository
             if repository_semantic_digest(replay_repo) != repository_semantic_digest(repo):
                 raise RuntimeError(f"cross-evaluation repository mismatch for {eval_name}")
             base_digest = build["ordinary_statistics_digest"]
@@ -407,11 +440,15 @@ def main() -> int:
         raise RuntimeError("maintenance model digest mismatch")
     OUT.mkdir(parents=True, exist_ok=True)
     samples: dict[str, dict[str, Any]] = {}
-    a_manifest = json.loads((ROOT / "datasets/dmv-frozen-acquisition-sample-v1/manifest.json").read_text()); a_repo_path = ROOT / "experiments/dmv-m2-17b-frozen-acquisition-sample/build-1/repository"; a_repo = PayloadRepository.load(a_repo_path); a_build = json.loads((ROOT / "experiments/dmv-m2-17b-frozen-acquisition-sample/build-1/summary.json").read_text()); a_profile = json.loads((ROOT / "experiments/dmv-m2-17c-frozen-singletons/singleton-profile.json").read_text()); a_final = json.loads((ROOT / "experiments/dmv-m2-17d-frozen-full72-add/final-result.json").read_text())
-    if a_manifest["semantic_sha256"] != EXPECTED_SAMPLE_A or a_repo.digest != EXPECTED_REPOSITORY_A or a_final["selected_count"] != 31:
+    a_manifest = json.loads((ROOT / "datasets/dmv-frozen-acquisition-sample-v1/manifest.json").read_text()); a_build = json.loads((ROOT / "experiments/dmv-m2-17b-frozen-acquisition-sample/build-1/summary.json").read_text()); a_profile = json.loads((ROOT / "experiments/dmv-m2-17c-frozen-singletons/singleton-profile.json").read_text()); a_final = json.loads((ROOT / "experiments/dmv-m2-17d-frozen-full72-add/final-result.json").read_text())
+    a_summary = json.loads((ROOT / "experiments/dmv-m2-17b-frozen-acquisition-sample/build-1/repository-summary.json").read_text())
+    if a_manifest["semantic_sha256"] != EXPECTED_SAMPLE_A or a_summary["semantic_repository_digest"] != "6bd8e770c1f39dc31365e3ae4dd4156af3025b437238956116ffbfafaa757443" or a_final["selected_count"] != 31:
         raise RuntimeError("authoritative A lineage mismatch")
     a_signs = Counter("positive" if float(row["frozen_singleton_improvement"]) > 0 else "zero" if float(row["frozen_singleton_improvement"]) == 0 else "negative" for row in a_final["accepted_sequence"])
-    samples["A"] = {"name": "A", "manifest": a_manifest, "build1": a_build, "repository": a_repo, "repository_path": str(a_repo_path), "singleton": a_profile, "final": {"selected_design": a_final["selected_design"], "design_digest": EXPECTED_DESIGN_A, "baseline_objective": a_final["baseline_objective"], "final_objective": a_final["final_objective"], "relative_improvement": a_final["relative_improvement"], "selected_count": 31, "mcv_count": a_final["selected_mcv_count"], "fd_count": a_final["selected_fd_count"], "selected_present_count": a_final["selected_present_count"], "selected_absent_native_count": a_final["selected_absent_native_count"], "maintenance_cost": a_final["selected_maintenance_cost"], "rounds": a_final["round_count_including_final_no_improvement"], "elapsed_seconds": a_final["elapsed_seconds"], "accepted": a_final["accepted_sequence"], "accepted_singleton_positive": a_signs["positive"], "accepted_singleton_zero": a_signs["zero"], "accepted_singleton_negative": a_signs["negative"]}}
+    a_repo = None
+    samples["A"] = {"name": "A", "manifest": a_manifest, "build1": a_build, "repository": a_repo, "repository_path": None, "repository_summary_path": str(ROOT / "experiments/dmv-m2-17b-frozen-acquisition-sample/build-1/repository-summary.json"), "singleton": a_profile, "final": {"selected_design": a_final["selected_design"], "design_digest": EXPECTED_DESIGN_A, "baseline_objective": a_final["baseline_objective"], "final_objective": a_final["final_objective"], "relative_improvement": a_final["relative_improvement"], "selected_count": 31, "mcv_count": a_final["selected_mcv_count"], "fd_count": a_final["selected_fd_count"], "selected_present_count": a_final["selected_present_count"], "selected_absent_native_count": a_final["selected_absent_native_count"], "maintenance_cost": a_final["selected_maintenance_cost"], "rounds": a_final["round_count_including_final_no_improvement"], "elapsed_seconds": a_final["elapsed_seconds"], "accepted": a_final["accepted_sequence"], "accepted_singleton_positive": a_signs["positive"], "accepted_singleton_zero": a_signs["zero"], "accepted_singleton_negative": a_signs["negative"]}}
+    samples["A"]["repository"] = persisted_repository(samples["A"], prepared, metadata)
+    samples["A"]["repository_path"] = str(samples["A"]["repository"].root)
     for name in NEW_SAMPLES:
         sample_dir = DATASETS / f"dmv-frozen-acquisition-sample-v2-{name.lower()}"
         if resume and sample_dir.exists():
@@ -421,8 +458,8 @@ def main() -> int:
     for name in NEW_SAMPLES:
         sample = samples[name]
         b2 = replay_sample(sample, prepared, metadata, 2); b3 = replay_sample(sample, prepared, metadata, 3)
-        repo1 = PayloadRepository.load(Path(sample["output_dir"]) / "build-1" / "repository"); repo2 = PayloadRepository.load(Path(sample["output_dir"]) / "build-2" / "repository"); repo3 = PayloadRepository.load(Path(sample["output_dir"]) / "build-3" / "repository")
-        if not (repository_semantic_digest(repo1) == repository_semantic_digest(repo2) == repository_semantic_digest(repo3) and b2["ordinary_statistics_digest"] == b3["ordinary_statistics_digest"] and b2["baseline_estimate_vector_digest"] == b3["baseline_estimate_vector_digest"] and b2["baseline_objective"] == b3["baseline_objective"]):
+        repo1 = sample["repository"]
+        if not (b2["repository_semantic_digest"] == b3["repository_semantic_digest"] == repository_semantic_digest(repo1) and b2["ordinary_statistics_digest"] == b3["ordinary_statistics_digest"] and b2["baseline_estimate_vector_digest"] == b3["baseline_estimate_vector_digest"] and b2["baseline_objective"] == b3["baseline_objective"]):
             raise RuntimeError(f"replay determinism failed for {name}")
         sample["repository"] = repo1; sample["repository_path"] = str(Path(sample["output_dir"]) / "build-1" / "repository"); sample["build1"] = json.loads((Path(sample["output_dir"]) / "build-1" / "summary.json").read_text()); sample["replay2"] = b2; sample["replay3"] = b3
         sample = profile_sample(sample, prepared, repo1); samples[name] = sample
