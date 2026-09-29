@@ -47,3 +47,13 @@ payload rebuild in the screened-search hot path. Recommendations remain
 deployable physical-statistics definitions and carry the candidate-set and
 singleton-profile provenance needed to distinguish development outputs from
 full-universe results.
+
+## DMV status
+
+DMV singleton profiling is complete for the frozen 72-candidate catalog. M2.16
+also completed an independent, accepted DMV aggregate maintenance calibration
+on source-built PostgreSQL 16.14 at the uniform target 100; its mechanism
+weights are available as a benchmark-specific derived pricing artifact. No DMV
+screening fraction or budget search has been selected or run. The next DMV
+development step is an explicitly bounded full-universe ADD-only feasibility
+run, not an implicit transfer of the Census five-percent screen.

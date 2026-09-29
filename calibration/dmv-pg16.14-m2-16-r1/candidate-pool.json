@@ -1,0 +1,653 @@
+{
+  "candidate_arity": 2,
+  "candidates": [
+    {
+      "candidate_id": "cand_c614cf6de073226f0aa4",
+      "columns": [
+        "record_type",
+        "registration_class"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_2ec9b8cb3d864231"
+    },
+    {
+      "candidate_id": "cand_f5f353d914b36187882c",
+      "columns": [
+        "record_type",
+        "state"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_b3b20bee28e71aaf"
+    },
+    {
+      "candidate_id": "cand_ea5acfb9a4e9bf9c4ee2",
+      "columns": [
+        "record_type",
+        "county"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_a38dded9f8276543"
+    },
+    {
+      "candidate_id": "cand_f94acad130c4ac5b3553",
+      "columns": [
+        "record_type",
+        "body_type"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_6c18528aff03d754"
+    },
+    {
+      "candidate_id": "cand_6ca6020979af5e5766a4",
+      "columns": [
+        "record_type",
+        "fuel_type"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_0392e720db513bc0"
+    },
+    {
+      "candidate_id": "cand_08a7c0809e27527cb40f",
+      "columns": [
+        "record_type",
+        "scofflaw_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_8f426a292d58b97d"
+    },
+    {
+      "candidate_id": "cand_e25a986fe1b364e78595",
+      "columns": [
+        "record_type",
+        "suspension_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_6460eef9504ac656"
+    },
+    {
+      "candidate_id": "cand_bc69a49224dd80292b07",
+      "columns": [
+        "record_type",
+        "revocation_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_684aab968451c9af"
+    },
+    {
+      "candidate_id": "cand_4818ce79b7b4b07709c2",
+      "columns": [
+        "registration_class",
+        "state"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_d4e26b2a32bcc576"
+    },
+    {
+      "candidate_id": "cand_9f93544dce1d63b0f711",
+      "columns": [
+        "registration_class",
+        "county"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_c3496b98ad3b8ca6"
+    },
+    {
+      "candidate_id": "cand_c6f83d66ce3d1e079f11",
+      "columns": [
+        "registration_class",
+        "body_type"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_377382992bb117f6"
+    },
+    {
+      "candidate_id": "cand_1f420ce5268e234e658c",
+      "columns": [
+        "registration_class",
+        "fuel_type"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_2fc9932246babe4b"
+    },
+    {
+      "candidate_id": "cand_67f23918cdad906be4ea",
+      "columns": [
+        "registration_class",
+        "scofflaw_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_11198f998b2fd725"
+    },
+    {
+      "candidate_id": "cand_7513ba127d94672ed612",
+      "columns": [
+        "registration_class",
+        "suspension_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_7c6a89e0d9a8018a"
+    },
+    {
+      "candidate_id": "cand_b8a5e9986c1d9a33b825",
+      "columns": [
+        "registration_class",
+        "revocation_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_1cfc12764129dce3"
+    },
+    {
+      "candidate_id": "cand_93041865e5a926191d54",
+      "columns": [
+        "state",
+        "county"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_890daee9ade586a0"
+    },
+    {
+      "candidate_id": "cand_f9cdb92e50791f0d58b6",
+      "columns": [
+        "state",
+        "body_type"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_c4db07b8160888a2"
+    },
+    {
+      "candidate_id": "cand_2408bc6708d3e202809c",
+      "columns": [
+        "state",
+        "fuel_type"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_dde4086ae161c23b"
+    },
+    {
+      "candidate_id": "cand_560443d79842b416ea0d",
+      "columns": [
+        "state",
+        "scofflaw_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_f5ce8d2f6fbfd9b1"
+    },
+    {
+      "candidate_id": "cand_72a4065afe7511935b18",
+      "columns": [
+        "state",
+        "suspension_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_220a39f980e2b265"
+    },
+    {
+      "candidate_id": "cand_0fdc909a2a3cf9718db9",
+      "columns": [
+        "state",
+        "revocation_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_58c9c6ad959339ef"
+    },
+    {
+      "candidate_id": "cand_7531356383a7948fede1",
+      "columns": [
+        "county",
+        "body_type"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_05d21c40c2af8b97"
+    },
+    {
+      "candidate_id": "cand_d0bacba4d271fabbb378",
+      "columns": [
+        "county",
+        "fuel_type"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_788cb1f7de9e3b60"
+    },
+    {
+      "candidate_id": "cand_323246ee68602507a57d",
+      "columns": [
+        "county",
+        "scofflaw_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_832d6287fdfe9945"
+    },
+    {
+      "candidate_id": "cand_1f373962efd7e5718e85",
+      "columns": [
+        "county",
+        "suspension_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_a0d3777d12543a21"
+    },
+    {
+      "candidate_id": "cand_6161166747fb16ce38eb",
+      "columns": [
+        "county",
+        "revocation_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_280486d41b30ab61"
+    },
+    {
+      "candidate_id": "cand_0275ee8f6b218bf6a5a1",
+      "columns": [
+        "body_type",
+        "fuel_type"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_f753a68abedf14db"
+    },
+    {
+      "candidate_id": "cand_799d0072c9c0e8bc7bb8",
+      "columns": [
+        "body_type",
+        "scofflaw_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_f5608866ab2fd875"
+    },
+    {
+      "candidate_id": "cand_5005700887020f58d09a",
+      "columns": [
+        "body_type",
+        "suspension_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_3175f53b20bef6b3"
+    },
+    {
+      "candidate_id": "cand_b18e2586ffe14b36f703",
+      "columns": [
+        "body_type",
+        "revocation_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_ef60f3250d8c2e24"
+    },
+    {
+      "candidate_id": "cand_7bad1214667cfa5a9e86",
+      "columns": [
+        "fuel_type",
+        "scofflaw_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_892ecdfec082be8a"
+    },
+    {
+      "candidate_id": "cand_d81088ebd0b428f317e8",
+      "columns": [
+        "fuel_type",
+        "suspension_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_2e87f6117b8c9269"
+    },
+    {
+      "candidate_id": "cand_2cc7a6ce91fea1a3633f",
+      "columns": [
+        "fuel_type",
+        "revocation_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_8d0c249b14095c1b"
+    },
+    {
+      "candidate_id": "cand_a5d58adc88429a8a1a93",
+      "columns": [
+        "scofflaw_indicator",
+        "suspension_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_f78765647b7231be"
+    },
+    {
+      "candidate_id": "cand_4647f51bb46042cafc21",
+      "columns": [
+        "scofflaw_indicator",
+        "revocation_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_5dc5995bc7e81355"
+    },
+    {
+      "candidate_id": "cand_4766516fe513466787e9",
+      "columns": [
+        "suspension_indicator",
+        "revocation_indicator"
+      ],
+      "mechanism": "mcv",
+      "object_name": "pgextadv_cal_f61678e977b20909"
+    },
+    {
+      "candidate_id": "cand_850ffdf5fc1ceee3e08d",
+      "columns": [
+        "record_type",
+        "registration_class"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_8a1bcfd1e21f0b48"
+    },
+    {
+      "candidate_id": "cand_9a47b4882350bf5fccf9",
+      "columns": [
+        "record_type",
+        "state"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_6b430b6b5992af8c"
+    },
+    {
+      "candidate_id": "cand_6b0e7e9b7d7eb883405b",
+      "columns": [
+        "record_type",
+        "county"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_fe515998db2a5eb5"
+    },
+    {
+      "candidate_id": "cand_0715050eb032f5528139",
+      "columns": [
+        "record_type",
+        "body_type"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_004cff7a8d3a45ed"
+    },
+    {
+      "candidate_id": "cand_79ef5e4c653bbbb46dec",
+      "columns": [
+        "record_type",
+        "fuel_type"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_0ba3b9125e6c2fe0"
+    },
+    {
+      "candidate_id": "cand_835deeb29a9e7947a98b",
+      "columns": [
+        "record_type",
+        "scofflaw_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_093b404b2ed85ef9"
+    },
+    {
+      "candidate_id": "cand_b6cafc68143c6fa37e85",
+      "columns": [
+        "record_type",
+        "suspension_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_d0346b501bef15a5"
+    },
+    {
+      "candidate_id": "cand_f002ec4adfff3911240b",
+      "columns": [
+        "record_type",
+        "revocation_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_84e21ec5cdfafd53"
+    },
+    {
+      "candidate_id": "cand_d17d4fee04bca1295fdb",
+      "columns": [
+        "registration_class",
+        "state"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_fa8532320fad21cf"
+    },
+    {
+      "candidate_id": "cand_aea8cd0109869655caf1",
+      "columns": [
+        "registration_class",
+        "county"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_6d855b03aa6d09d1"
+    },
+    {
+      "candidate_id": "cand_c7f3b001bf1756cd2ed9",
+      "columns": [
+        "registration_class",
+        "body_type"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_8c777df2dca8b5e5"
+    },
+    {
+      "candidate_id": "cand_a06f9852e67c463f73a2",
+      "columns": [
+        "registration_class",
+        "fuel_type"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_6b116e22bcfe42b5"
+    },
+    {
+      "candidate_id": "cand_044e770ab213d0ef37b1",
+      "columns": [
+        "registration_class",
+        "scofflaw_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_c8f008004c37b638"
+    },
+    {
+      "candidate_id": "cand_01b1f84ca5c01d3f532f",
+      "columns": [
+        "registration_class",
+        "suspension_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_1916ab10c968ecc5"
+    },
+    {
+      "candidate_id": "cand_cfb64b0bf69c059cd760",
+      "columns": [
+        "registration_class",
+        "revocation_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_a5594918018fe873"
+    },
+    {
+      "candidate_id": "cand_bfad1c9b37411e1a5d68",
+      "columns": [
+        "state",
+        "county"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_11e8f8cd017a063f"
+    },
+    {
+      "candidate_id": "cand_6505783b203dc0346b49",
+      "columns": [
+        "state",
+        "body_type"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_3adbcce75f4e03db"
+    },
+    {
+      "candidate_id": "cand_7b08320f31dae1c5e9f4",
+      "columns": [
+        "state",
+        "fuel_type"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_b50b5a3570354561"
+    },
+    {
+      "candidate_id": "cand_867399ba1c9a9eab8364",
+      "columns": [
+        "state",
+        "scofflaw_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_3d4da78d118983d5"
+    },
+    {
+      "candidate_id": "cand_e95bcd15c94c80f62716",
+      "columns": [
+        "state",
+        "suspension_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_ebc7db0605a0bd39"
+    },
+    {
+      "candidate_id": "cand_0ffaccec3f557491b6ba",
+      "columns": [
+        "state",
+        "revocation_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_322deb0bc72e3d9b"
+    },
+    {
+      "candidate_id": "cand_f457f7acd881e6884fac",
+      "columns": [
+        "county",
+        "body_type"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_7675aa87ee6523e3"
+    },
+    {
+      "candidate_id": "cand_5e3a909effbf6f7d6e21",
+      "columns": [
+        "county",
+        "fuel_type"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_b2596adf61486d4f"
+    },
+    {
+      "candidate_id": "cand_cf35fb1b66d3371735fd",
+      "columns": [
+        "county",
+        "scofflaw_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_d2a64f8bcecfc324"
+    },
+    {
+      "candidate_id": "cand_4c7d493f98b0c50576d2",
+      "columns": [
+        "county",
+        "suspension_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_e0a9e847c8e394e9"
+    },
+    {
+      "candidate_id": "cand_663a31a8fc0678a2324b",
+      "columns": [
+        "county",
+        "revocation_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_99e15f9307d9cadc"
+    },
+    {
+      "candidate_id": "cand_bb3c9704bc50457d0385",
+      "columns": [
+        "body_type",
+        "fuel_type"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_203be9faecbb584e"
+    },
+    {
+      "candidate_id": "cand_a658273d38918de4ed71",
+      "columns": [
+        "body_type",
+        "scofflaw_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_5c7b6a1060c7ac49"
+    },
+    {
+      "candidate_id": "cand_9e3965b9e6ab7faacc4e",
+      "columns": [
+        "body_type",
+        "suspension_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_18a16ffd17df79f6"
+    },
+    {
+      "candidate_id": "cand_2bea04f8b2c85ff2a4e0",
+      "columns": [
+        "body_type",
+        "revocation_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_09d6edb3fc7d05cc"
+    },
+    {
+      "candidate_id": "cand_d033eb981110aa21d3df",
+      "columns": [
+        "fuel_type",
+        "scofflaw_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_4c1b5837e3647601"
+    },
+    {
+      "candidate_id": "cand_0ef1e644231e36b17de7",
+      "columns": [
+        "fuel_type",
+        "suspension_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_d4a432f71c376ea4"
+    },
+    {
+      "candidate_id": "cand_dd4fa07161dcf5def8eb",
+      "columns": [
+        "fuel_type",
+        "revocation_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_cd778a5a2ad4d741"
+    },
+    {
+      "candidate_id": "cand_86d407b8a724ee28f443",
+      "columns": [
+        "scofflaw_indicator",
+        "suspension_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_7adcc982e7ef9e35"
+    },
+    {
+      "candidate_id": "cand_5400d6d245a511006593",
+      "columns": [
+        "scofflaw_indicator",
+        "revocation_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_ba86de044a03bdb4"
+    },
+    {
+      "candidate_id": "cand_d102d0d6903dbc44935f",
+      "columns": [
+        "suspension_indicator",
+        "revocation_indicator"
+      ],
+      "mechanism": "fd",
+      "object_name": "pgextadv_cal_cd220a4de6b8b8d3"
+    }
+  ]
+}

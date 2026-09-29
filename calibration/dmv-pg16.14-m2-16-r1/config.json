@@ -1,0 +1,39 @@
+{
+  "benchmark": "DMV",
+  "build_provenance_path": "experiments/environment/postgresql-16.14-build.json",
+  "candidate_catalog_path": "experiments/dmv-m2-15-singletons/prepared-run/candidates.json",
+  "columns": [],
+  "count_levels": [
+    1,
+    2,
+    4,
+    8,
+    12,
+    18,
+    24,
+    30,
+    36
+  ],
+  "database": {
+    "calibration_dsn": "host=/root/projects/pg-extstats-advisor/.build/pg16.14-experiment-socket port=55436 dbname=pgextadv_exp16_dmv user=postgres"
+  },
+  "dataset_provenance_path": "experiments/environment/dmv-dataset.json",
+  "environment_description": "authoritative source-built PostgreSQL 16.14 DMV calibration; relation-grouped ANALYZE public.dmv; fixed target 100; no cache flush",
+  "expected_build_recipe_digest": "543e2a3c97f6c17d9e1fc3c0fff9fb87a63d76794f6313b69fa8f103781e61a9",
+  "gates": {
+    "max_cv": 0.1,
+    "max_heldout_relative_error": 0.15,
+    "max_same_count_subset_cv": 0.1,
+    "min_r_squared": 0.95
+  },
+  "output_path": "calibration/dmv-pg16.14-m2-16-r1",
+  "postgres_binary_path": "/root/projects/pg-extstats-advisor/.build/postgresql-16.14-install/bin/postgres",
+  "relation": "public.dmv",
+  "repetitions": 2,
+  "require_postgres_version": "16.14",
+  "schema_version": 1,
+  "seed": 20260929,
+  "stability_repetitions": 3,
+  "statistics_target": 100,
+  "subsets_per_count": 3
+}

@@ -1,0 +1,21 @@
+{
+  "benchmark": "DMV",
+  "candidate_catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+  "configuration_count": 64,
+  "ddl_included": false,
+  "dependent_variable": "full relation ANALYZE elapsed wall-clock seconds",
+  "execution_order": "deterministic seeded configuration shuffle",
+  "fit_configuration_count": 55,
+  "gates": {
+    "max_cv": 0.1,
+    "max_heldout_relative_error": 0.15,
+    "max_same_count_subset_cv": 0.1,
+    "min_r_squared": 0.95
+  },
+  "heldout_configuration_count": 6,
+  "measured_repetitions": 2,
+  "seed": 20260929,
+  "stability_configuration_count": 3,
+  "stability_repetitions": 3,
+  "warmup_count": 1
+}

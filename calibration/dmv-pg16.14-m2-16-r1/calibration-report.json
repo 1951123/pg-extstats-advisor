@@ -1,0 +1,472 @@
+{
+  "authority_status": "authoritative",
+  "calibration_provenance": {
+    "build_recipe_digest": "543e2a3c97f6c17d9e1fc3c0fff9fb87a63d76794f6313b69fa8f103781e61a9",
+    "cache_policy": "long-lived server; no cache flush; one untimed warmup per configuration",
+    "candidate_arity": 2,
+    "candidate_catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+    "candidate_catalog_path": "experiments/dmv-m2-15-singletons/prepared-run/candidates.json",
+    "column_schema": [
+      {
+        "attnum": 1,
+        "name": "record_type",
+        "not_null": false,
+        "type": "text"
+      },
+      {
+        "attnum": 2,
+        "name": "registration_class",
+        "not_null": false,
+        "type": "text"
+      },
+      {
+        "attnum": 3,
+        "name": "state",
+        "not_null": false,
+        "type": "text"
+      },
+      {
+        "attnum": 4,
+        "name": "county",
+        "not_null": false,
+        "type": "text"
+      },
+      {
+        "attnum": 5,
+        "name": "body_type",
+        "not_null": false,
+        "type": "text"
+      },
+      {
+        "attnum": 6,
+        "name": "fuel_type",
+        "not_null": false,
+        "type": "text"
+      },
+      {
+        "attnum": 7,
+        "name": "reg_valid_date",
+        "not_null": false,
+        "type": "text"
+      },
+      {
+        "attnum": 8,
+        "name": "color",
+        "not_null": false,
+        "type": "text"
+      },
+      {
+        "attnum": 9,
+        "name": "scofflaw_indicator",
+        "not_null": false,
+        "type": "text"
+      },
+      {
+        "attnum": 10,
+        "name": "suspension_indicator",
+        "not_null": false,
+        "type": "text"
+      },
+      {
+        "attnum": 11,
+        "name": "revocation_indicator",
+        "not_null": false,
+        "type": "text"
+      }
+    ],
+    "config_digest": "1f73a7d90dee00b5eaec802e582a4e69723322323693478b1afa751ae5124f48",
+    "database_identity": "pgextadv_exp16_dmv",
+    "dataset_provenance": {
+      "database_name": "pgextadv_exp16_dmv",
+      "dataset_id": "dmv-pg16.14-v1",
+      "format_version": 1,
+      "import_completed_at": "2026-09-28T06:23:53.374897+00:00",
+      "logical_relation_fingerprint": "7df509386693daab173476700bc361e9dd22e2c7fd8010a2758f6b6ada37253d",
+      "ordered_column_schema": [
+        {
+          "attnum": 1,
+          "name": "record_type",
+          "not_null": false,
+          "type": "text"
+        },
+        {
+          "attnum": 2,
+          "name": "registration_class",
+          "not_null": false,
+          "type": "text"
+        },
+        {
+          "attnum": 3,
+          "name": "state",
+          "not_null": false,
+          "type": "text"
+        },
+        {
+          "attnum": 4,
+          "name": "county",
+          "not_null": false,
+          "type": "text"
+        },
+        {
+          "attnum": 5,
+          "name": "body_type",
+          "not_null": false,
+          "type": "text"
+        },
+        {
+          "attnum": 6,
+          "name": "fuel_type",
+          "not_null": false,
+          "type": "text"
+        },
+        {
+          "attnum": 7,
+          "name": "reg_valid_date",
+          "not_null": false,
+          "type": "text"
+        },
+        {
+          "attnum": 8,
+          "name": "color",
+          "not_null": false,
+          "type": "text"
+        },
+        {
+          "attnum": 9,
+          "name": "scofflaw_indicator",
+          "not_null": false,
+          "type": "text"
+        },
+        {
+          "attnum": 10,
+          "name": "suspension_indicator",
+          "not_null": false,
+          "type": "text"
+        },
+        {
+          "attnum": 11,
+          "name": "revocation_indicator",
+          "not_null": false,
+          "type": "text"
+        }
+      ],
+      "postgres_build_recipe_digest": "5819ddaea94ea0a6aab89afcfd5a6258189032a325125831d95ea79bcf09871a",
+      "postgres_version": "16.14",
+      "preprocessing_import_script": "scripts/load_dmv_pg16.sh",
+      "relation": "public.dmv",
+      "relation_persistence": "u",
+      "relation_size_bytes": 1981145088,
+      "row_count": 11591877,
+      "schema_signature": "003f35c74401ac72aad3c6190d32ee7f132bdd25654b3c2403b2e47138115b3c",
+      "source_kind": "canonical benchmark CSV with deterministic btrim transformation",
+      "source_path": "/root/projects/extended-stats-optim-v2/benchmarks/DMV/data/original.csv",
+      "source_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a"
+    },
+    "environment_authoritative": true,
+    "environment_description": "authoritative source-built PostgreSQL 16.14 DMV calibration; relation-grouped ANALYZE public.dmv; fixed target 100; no cache flush",
+    "fd_candidate_pool_size": 36,
+    "hardware_provenance_complete": false,
+    "mcv_candidate_pool_size": 36,
+    "mechanisms": [
+      "mcv",
+      "fd"
+    ],
+    "pg_patch_sha256": "aab7b323cf3b89179235ae3d0b40c9ce6a3f4009238b83b90da4f4e8a5d55b34",
+    "postgres_binary_path": "/root/projects/pg-extstats-advisor/.build/postgresql-16.14-install/bin/postgres",
+    "postgres_version": "16.14",
+    "relation_identity": "public.dmv",
+    "relation_logical_fingerprint": "810a10b4abd501f78e43421aacca1201f0efbf72c8936c2acb919c4520d02f05",
+    "relation_persistence": "u",
+    "relation_physical_fingerprint": "8e59af7ba68f5b6b3a9782f1cbc7b33a6409430ff41b21738a0fbc637e2fd4c8",
+    "reltuples": 11607602.0,
+    "repetitions": 2,
+    "repo_commit": "eb8959e45d622a66639e754df0b4630b8dbe9901",
+    "row_count": 11591877,
+    "seed": 20260929,
+    "server_settings": {
+      "cpu_index_tuple_cost": "0.005",
+      "cpu_operator_cost": "0.0025",
+      "cpu_tuple_cost": "0.01",
+      "default_statistics_target": "100",
+      "effective_cache_size": "4GB",
+      "jit": "off",
+      "max_parallel_workers_per_gather": "2",
+      "random_page_cost": "4",
+      "work_mem": "4MB"
+    },
+    "stability_repetitions": 3,
+    "statistics_target": 100,
+    "timing_clock": "time.perf_counter",
+    "total_relation_bytes": 1981145088,
+    "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471"
+  },
+  "completed_at": "2026-09-29T00:59:11.670669+00:00",
+  "fit": {
+    "ci_caveat": "ordinary OLS approximation; repeated observations are not independent runs",
+    "coefficient_standard_errors": [
+      0.001059975643659232,
+      6.590033490228085e-05,
+      6.590033490228085e-05
+    ],
+    "fd_seconds_per_object": 0.006183028744709702,
+    "intercept_seconds": 0.12338941530622116,
+    "max_relative_error": 0.087039945433728,
+    "mcv_seconds_per_object": 0.0041515788285194505,
+    "median_relative_error": 0.020898850596795544,
+    "model": "T=intercept+beta_mcv*n_mcv+beta_fd*n_fd",
+    "normal_approximation_95_percent_intervals": [
+      [
+        0.12131186304464907,
+        0.12546696756779327
+      ],
+      [
+        0.00402241417211098,
+        0.004280743484927921
+      ],
+      [
+        0.006053864088301232,
+        0.006312193401118172
+      ]
+    ],
+    "r_squared": 0.9888024008749705,
+    "rmse_seconds": 0.006952293881139871,
+    "training_observations": 110
+  },
+  "format_version": 1,
+  "gate_failures": [],
+  "heldout": [
+    {
+      "absolute_error_seconds": 0.0009905168794279995,
+      "configuration_id": "mixed-1-1",
+      "n_fd": 1,
+      "n_mcv": 1,
+      "observed_mean_seconds": 0.13273350600002232,
+      "predicted_seconds": 0.13372402287945032,
+      "relative_error": 0.007462447947602868
+    },
+    {
+      "absolute_error_seconds": 0.009701799571273956,
+      "configuration_id": "mixed-1-12",
+      "n_fd": 12,
+      "n_mcv": 1,
+      "observed_mean_seconds": 0.1920355394999831,
+      "predicted_seconds": 0.20173733907125704,
+      "relative_error": 0.05052085461126225
+    },
+    {
+      "absolute_error_seconds": 0.0065403324931669615,
+      "configuration_id": "mixed-12-1",
+      "n_fd": 1,
+      "n_mcv": 12,
+      "observed_mean_seconds": 0.1728510574999973,
+      "predicted_seconds": 0.17939138999316426,
+      "relative_error": 0.03783796632639672
+    },
+    {
+      "absolute_error_seconds": 0.010440751557996897,
+      "configuration_id": "mixed-12-36",
+      "n_fd": 36,
+      "n_mcv": 12,
+      "observed_mean_seconds": 0.38535664450000695,
+      "predicted_seconds": 0.39579739605800385,
+      "relative_error": 0.02709373694994562
+    },
+    {
+      "absolute_error_seconds": 0.012179943069442922,
+      "configuration_id": "mixed-36-12",
+      "n_fd": 12,
+      "n_mcv": 36,
+      "observed_mean_seconds": 0.3348626549999949,
+      "predicted_seconds": 0.3470425980694378,
+      "relative_error": 0.036372951380449124
+    },
+    {
+      "absolute_error_seconds": 0.007561112557496308,
+      "configuration_id": "mixed-36-36",
+      "n_fd": 36,
+      "n_mcv": 36,
+      "observed_mean_seconds": 0.502996400499967,
+      "predicted_seconds": 0.49543528794247066,
+      "relative_error": 0.015032140488442331
+    }
+  ],
+  "maintenance_model_digest": "f8885af9b1411bb417dcb1fb93f5e368d5e89c0eac29e7803d0c5e8563204714",
+  "model_type": "empirical-mechanism-count-v1",
+  "stability": {
+    "fd_aggregate_signal_seconds": 0.22258903480954928,
+    "gates": {
+      "fit_r_squared": {
+        "observed": 0.9888024008749705,
+        "operator": ">=",
+        "passed": true,
+        "threshold": 0.95
+      },
+      "heldout_max_relative_error": {
+        "observed": 0.05052085461126225,
+        "operator": "<=",
+        "passed": true,
+        "threshold": 0.15
+      },
+      "nonnegative_slopes": {
+        "observed": {
+          "fd": 0.006183028744709702,
+          "mcv": 0.0041515788285194505
+        },
+        "operator": ">=",
+        "passed": true,
+        "threshold": 0
+      },
+      "same_count_subset_cv": {
+        "applicable": true,
+        "observed": 0.05443748420081332,
+        "operator": "<=",
+        "passed": true,
+        "threshold": 0.1
+      },
+      "within_configuration_cv": {
+        "observed": 0.0626777881926224,
+        "operator": "<=",
+        "passed": true,
+        "threshold": 0.1
+      }
+    },
+    "mcv_aggregate_signal_seconds": 0.14945683782670022,
+    "median_configuration_stddev_seconds": 0.0021838706558642254,
+    "same_count_subset_variability": [
+      {
+        "count": 1,
+        "mean_seconds": 0.12654691816665795,
+        "mechanism": "mcv",
+        "subset_count": 3,
+        "subset_mean_cv": 0.012163956232286572
+      },
+      {
+        "count": 2,
+        "mean_seconds": 0.13471867766666415,
+        "mechanism": "mcv",
+        "subset_count": 3,
+        "subset_mean_cv": 0.03652919054351503
+      },
+      {
+        "count": 4,
+        "mean_seconds": 0.13985094566665643,
+        "mechanism": "mcv",
+        "subset_count": 3,
+        "subset_mean_cv": 0.01404476765533171
+      },
+      {
+        "count": 8,
+        "mean_seconds": 0.1579362670000061,
+        "mechanism": "mcv",
+        "subset_count": 3,
+        "subset_mean_cv": 0.020697910835394316
+      },
+      {
+        "count": 12,
+        "mean_seconds": 0.17364436050001095,
+        "mechanism": "mcv",
+        "subset_count": 3,
+        "subset_mean_cv": 0.04968606687958617
+      },
+      {
+        "count": 18,
+        "mean_seconds": 0.20306812049999698,
+        "mechanism": "mcv",
+        "subset_count": 3,
+        "subset_mean_cv": 0.018351355241679607
+      },
+      {
+        "count": 24,
+        "mean_seconds": 0.22824653799999814,
+        "mechanism": "mcv",
+        "subset_count": 3,
+        "subset_mean_cv": 0.01967294278604011
+      },
+      {
+        "count": 30,
+        "mean_seconds": 0.2490337213333381,
+        "mechanism": "mcv",
+        "subset_count": 3,
+        "subset_mean_cv": 0.021943212696265188
+      },
+      {
+        "count": 36,
+        "mean_seconds": 0.26541126200000537,
+        "mechanism": "mcv",
+        "subset_count": 3,
+        "subset_mean_cv": 0.03298367545929925
+      },
+      {
+        "count": 1,
+        "mean_seconds": 0.129826006500006,
+        "mechanism": "fd",
+        "subset_count": 3,
+        "subset_mean_cv": 0.005673836763868834
+      },
+      {
+        "count": 2,
+        "mean_seconds": 0.13357648533334063,
+        "mechanism": "fd",
+        "subset_count": 3,
+        "subset_mean_cv": 0.037501942206402024
+      },
+      {
+        "count": 4,
+        "mean_seconds": 0.14816341683331302,
+        "mechanism": "fd",
+        "subset_count": 3,
+        "subset_mean_cv": 0.028143555463674606
+      },
+      {
+        "count": 8,
+        "mean_seconds": 0.1663802235000181,
+        "mechanism": "fd",
+        "subset_count": 3,
+        "subset_mean_cv": 0.014930527233004143
+      },
+      {
+        "count": 12,
+        "mean_seconds": 0.19517295333333587,
+        "mechanism": "fd",
+        "subset_count": 3,
+        "subset_mean_cv": 0.05443748420081332
+      },
+      {
+        "count": 18,
+        "mean_seconds": 0.23145320683332216,
+        "mechanism": "fd",
+        "subset_count": 3,
+        "subset_mean_cv": 0.012338998256825906
+      },
+      {
+        "count": 24,
+        "mean_seconds": 0.2757397851666686,
+        "mechanism": "fd",
+        "subset_count": 3,
+        "subset_mean_cv": 0.020845762553645716
+      },
+      {
+        "count": 30,
+        "mean_seconds": 0.3183490371666551,
+        "mechanism": "fd",
+        "subset_count": 3,
+        "subset_mean_cv": 0.03516398868520453
+      },
+      {
+        "count": 36,
+        "mean_seconds": 0.3394168913333336,
+        "mechanism": "fd",
+        "subset_count": 3,
+        "subset_mean_cv": 0.011946716795833423
+      },
+      {
+        "count": 24,
+        "mean_seconds": 0.2466153726666549,
+        "mechanism": "mixed",
+        "subset_count": 3,
+        "subset_mean_cv": 0.03389589746508225
+      }
+    ]
+  },
+  "status": "accepted"
+}

@@ -145,9 +145,22 @@ preprocessed with `truth > 0`, excluding `dmv.173` and `dmv.943` for an
 effective 1,963-query CE workload. The complete 36-pair/72-candidate universe
 was acquired on source-built PostgreSQL 16.14, including native
 `ABSENT_NATIVE` realizations, and profiled with the frozen native evaluator.
-DMV has no accepted maintenance model, so singleton ranking is explicitly
-unpriced and no Census calibration is transferred. No budget search or
-screening fraction was run; the next DMV decision remains pending.
+At the M2.15 checkpoint DMV had no accepted maintenance model, so its singleton
+ranking was explicitly unpriced and no Census calibration was transferred. No
+budget search or screening fraction was run at that checkpoint; M2.16 below
+resolves only the calibration question.
+
+## M2.16 DMV maintenance-cost calibration — complete
+
+An independent source-built PostgreSQL 16.14 calibration on the frozen DMV
+arity-two catalog passed the preregistered fit, held-out, repeated-measurement,
+same-count subset, and positive-slope gates. The accepted aggregate model is
+benchmark-, relation-, target-, arity-, and environment-specific; it does not
+transfer Census coefficients or claim per-candidate ANALYZE accuracy. A derived
+pricing catalog preserves all 72 M2.15 candidate IDs and supplies descriptive
+cost-aware singleton rankings only. No DMV budget search or screening fraction
+has been run; the next step is a bounded full-universe ADD-only feasibility
+study.
 
 ## M3 — plan/runtime validation
 
