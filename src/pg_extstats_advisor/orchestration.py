@@ -433,8 +433,6 @@ def execute_search_stage(
     elif search_mode != "full":
         raise ValueError("add-only search can use the full catalog or an explicit candidate set")
     if budget_mode == "candidate-set-total":
-        if candidate_set_path is None:
-            raise ValueError("candidate-set-total budget requires --candidate-set")
         ordered = visible_catalog.normalize_design(
             {item.candidate_id for item in visible_catalog.candidates}
         )
