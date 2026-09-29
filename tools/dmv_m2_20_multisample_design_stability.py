@@ -338,6 +338,8 @@ def compact_sample_record(sample: dict[str, Any]) -> dict[str, Any]:
         "singleton": sample.get("singleton"),
         "final": sample.get("final"),
     }
+    if "repository" in sample:
+        record["repository_semantic_digest"] = repository_semantic_digest(sample["repository"])
     for key in ("replay2", "replay3", "profile_build"):
         if key in sample:
             record[key] = compact_build_summary(sample[key])

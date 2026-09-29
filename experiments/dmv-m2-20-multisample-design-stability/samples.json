@@ -567,6 +567,7 @@
     },
     "name": "A",
     "repository_path": "/root/projects/pg-extstats-advisor/experiments/dmv-m2-17b-frozen-acquisition-sample/build-1/repository",
+    "repository_semantic_digest": "59dc8dbe007a81cbd10a11894ff8abf9b4a8f0cac11523221dbd63e34dd4ca7f",
     "singleton": {
       "acquisition_sample_binary_sha256": "c3b30ddfebf118cb9137bae122e2913e19e88d0cbee14b2c93e980c7693cf463",
       "acquisition_sample_digest": "59dc8dbe007a81cbd10a11894ff8abf9b4a8f0cac11523221dbd63e34dd4ca7f",
@@ -3541,6 +3542,7 @@
       "statistics_ext_data_count": 72
     },
     "repository_path": "/root/projects/pg-extstats-advisor/experiments/dmv-m2-20-multisample-design-stability/sample-b-acquisition/build-1/repository",
+    "repository_semantic_digest": "e7eec0762fb32dec736df5258dc5d9953ab5d0a28e66383dd78fb47bc2b446c6",
     "singleton": {
       "acquisition_sample_digest": "eaa2111cc3233acc8fddee05dd9c88907aa668e0197bc1884b4cfcb68fecf4b2",
       "baseline_estimate_vector_digest": "7241d8bd111cd6dae81203529306d15b03c022710f9bff81c23aa39c58ae4b87",
@@ -6388,6 +6390,7 @@
       "statistics_ext_data_count": 72
     },
     "repository_path": "/root/projects/pg-extstats-advisor/experiments/dmv-m2-20-multisample-design-stability/sample-c-acquisition/build-1/repository",
+    "repository_semantic_digest": "98435f5704f408e6dd7d41ed1f84b0b6349e9645e442af8f9f620bf2777e7232",
     "singleton": {
       "acquisition_sample_digest": "e25974bf493ad5d2046f40d8c0050e8e287ae09f247065b955bdcdc7f3e7d950",
       "baseline_estimate_vector_digest": "08d8d155273f0889832abe25b319bbd6a54bafbc5e2abdbaf03ae4a9858246c0",
@@ -9172,6 +9175,7 @@
       "statistics_ext_data_count": 72
     },
     "repository_path": "/root/projects/pg-extstats-advisor/experiments/dmv-m2-20-multisample-design-stability/sample-d-acquisition/build-1/repository",
+    "repository_semantic_digest": "ee9a8c4817ca73294ee3edc5aa07109429f9dcee752dd19ef4abb044b128a307",
     "singleton": {
       "acquisition_sample_digest": "62db231f1253fcc6c5223fe750d3a3d33496ff3320ac5a801abc6155c70c1fc9",
       "baseline_estimate_vector_digest": "24cbc3be31b52a833ceb6801d0b437df69272297002f5c88900bfd3877fa7c57",
@@ -11998,6 +12002,7 @@
       "statistics_ext_data_count": 72
     },
     "repository_path": "/root/projects/pg-extstats-advisor/experiments/dmv-m2-20-multisample-design-stability/sample-e-acquisition/build-1/repository",
+    "repository_semantic_digest": "753c8f8e6e87f19ba02c2de891d506ca8bccc55859bd70ed9e613f4774fa27fc",
     "singleton": {
       "acquisition_sample_digest": "967842a7bd8d17ac11ea6c7aa99c01a6e3d75e4b6a9d9cad117800253bd22df1",
       "baseline_estimate_vector_digest": "cc16cfc3e68748e6e97511c99ae16998201a140e1fa7e2b58c701b964d4591ad",
