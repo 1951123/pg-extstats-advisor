@@ -8,7 +8,45 @@
  #include "storage/bufmgr.h"
  #include "tcop/tcopprot.h"
  #include "utils/builtins.h"
-@@ -1452,6 +1453,7 @@
+@@ -1374,1 +1375,36 @@
+-		return;
++	{
++		/*
++		 * A hypothetical realization may intentionally have no physical
++		 * pg_statistic_ext_data row.  Treat only registered PRESENT kinds
++		 * as built; ordinary PostgreSQL definitions still produce no info.
++		 */
++		if (hypothetical_extstats_registered(statOid,
++										 HYPOTHETICAL_EXTSTATS_DEPENDENCIES))
++		{
++			StatisticExtInfo *info = makeNode(StatisticExtInfo);
++
++			info->statOid = statOid;
++			info->inherit = inh;
++			info->rel = rel;
++			info->kind = STATS_EXT_DEPENDENCIES;
++			info->keys = bms_copy(keys);
++			info->exprs = exprs;
++			*stainfos = lappend(*stainfos, info);
++		}
++
++		if (hypothetical_extstats_registered(statOid,
++										 HYPOTHETICAL_EXTSTATS_MCV))
++		{
++			StatisticExtInfo *info = makeNode(StatisticExtInfo);
++
++			info->statOid = statOid;
++			info->inherit = inh;
++			info->rel = rel;
++			info->kind = STATS_EXT_MCV;
++			info->keys = bms_copy(keys);
++			info->exprs = exprs;
++			*stainfos = lappend(*stainfos, info);
++		}
++
++		return;
++	}
+@@ -1452,6 +1488,7 @@
  	ListCell   *l;
  
  	statoidlist = RelationGetStatExtList(relation);
@@ -59,7 +97,7 @@
  						   BoolGetDatum(inh));
 --- a/src/backend/statistics/hypothetical.c
 +++ b/src/backend/statistics/hypothetical.c
-@@ -0,0 +1,347 @@
+@@ -0,0 +1,364 @@
 +/* Backend-local hypothetical extended-statistics overlay. */
 +#include "postgres.h"
 +#include "catalog/pg_statistic_ext.h"
@@ -154,6 +192,23 @@
 +		ereport(ERROR, (errmsg("active statistics object %u has no registered payload for kind %c",
 +			statoid, kind)));
 +	return entry->absent_native;
++}
++
++bool
++hypothetical_extstats_registered(Oid statoid, HypotheticalExtStatsKind kind)
++{
++	HypoPayloadKey key;
++
++	if (!HypoEnabled || HypoActive == NULL || HypoRepository == NULL ||
++		hash_search(HypoActive, &statoid, HASH_FIND, NULL) == NULL)
++		return false;
++	MemSet(&key, 0, sizeof(key));
++	key.statoid = statoid;
++	key.kind = kind;
++	{
++		HypoPayloadEntry *entry = hash_search(HypoRepository, &key, HASH_FIND, NULL);
++		return entry != NULL && !entry->absent_native;
++	}
 +}
 +
 +void
@@ -480,7 +535,7 @@
  ]
 --- a/src/include/statistics/hypothetical.h
 +++ b/src/include/statistics/hypothetical.h
-@@ -0,0 +1,50 @@
+@@ -0,0 +1,52 @@
 +/*-------------------------------------------------------------------------
 + *
 + * hypothetical.h
@@ -523,6 +578,8 @@
 +										  const bytea **payload);
 +extern bool hypothetical_extstats_absent_native(Oid statoid,
 +										  HypotheticalExtStatsKind kind);
++extern bool hypothetical_extstats_registered(Oid statoid,
++										 HypotheticalExtStatsKind kind);
 +
 +extern Datum pg_hypothetical_extstats_reset(PG_FUNCTION_ARGS);
 +extern Datum pg_hypothetical_extstats_register(PG_FUNCTION_ARGS);
