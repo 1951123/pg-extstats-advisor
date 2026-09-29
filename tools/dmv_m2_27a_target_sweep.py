@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import random
 import shutil
 import statistics
@@ -231,8 +232,11 @@ def evaluate_connection(c: psycopg.Connection[Any], queries: list[dict[str, Any]
         plan = c.execute(f"EXPLAIN (FORMAT JSON) {item['sql']}").fetchone()[0]
         estimate = extract_target_estimate(plan, "dmv")
         values.append({"query_id": item["query_id"], "estimate": estimate, "truth": item["truth"], "q_error": qerror(estimate, item["truth"])})
-    objective = statistics.fmean(item["q_error"] for item in values if item["q_error"] is not None)
-    return {"objective": objective, "estimate_vector_digest": digest(values), "q_error_vector_digest": digest([item["q_error"] for item in values]), "query_count": len(values)}
+    mean_qerror = statistics.fmean(item["q_error"] for item in values if item["q_error"] is not None)
+    aggregate_objective = math.fsum(item["q_error"] for item in values if item["q_error"] is not None)
+    # ``objective`` is retained for raw-v1 compatibility; it is the
+    # per-query mean, not the project's authoritative aggregate objective.
+    return {"objective": mean_qerror, "mean_qerror": mean_qerror, "aggregate_objective": aggregate_objective, "estimate_vector_digest": digest(values), "q_error_vector_digest": digest([item["q_error"] for item in values]), "query_count": len(values)}
 
 
 def fresh_replay(cell: dict[str, Any], queries: list[dict[str, Any]]) -> dict[str, Any]:
@@ -290,7 +294,7 @@ def sweep() -> None:
             hyp = c.execute("SELECT pg_hypothetical_extstats_active()").fetchone()[0]
             if ext_count != 0 or hyp not in (None, [], ""):
                 raise RuntimeError("extstats contamination detected during ordinary-only sweep")
-            result = {"statistics_target": target, "realization_id": realization, "canonical": realization == POLICY.canonical_realization_id, "sample_rows": len(sample_rows), "source_population_rows": SOURCE_ROWS, "native_analyze_equivalent": False, "snapshot_identity": cell["snapshot_identity"], "sample_semantic_digest": cell["semantic_sha256"], "ordinary_statistics_digest": stats["digest"], "ordinary_statistics": stats, "estimate_vector_digest": physical["estimate_vector_digest"], "q_error_vector_digest": physical["q_error_vector_digest"], "objective": physical["objective"], "extstats_count": ext_count, "hypothetical_active": hyp in (None, [], "")}
+            result = {"statistics_target": target, "realization_id": realization, "canonical": realization == POLICY.canonical_realization_id, "sample_rows": len(sample_rows), "source_population_rows": SOURCE_ROWS, "native_analyze_equivalent": False, "snapshot_identity": cell["snapshot_identity"], "sample_semantic_digest": cell["semantic_sha256"], "ordinary_statistics_digest": stats["digest"], "ordinary_statistics": stats, "estimate_vector_digest": physical["estimate_vector_digest"], "q_error_vector_digest": physical["q_error_vector_digest"], "objective": physical["objective"], "mean_qerror": physical["mean_qerror"], "aggregate_objective": physical["aggregate_objective"], "extstats_count": ext_count, "hypothetical_active": hyp in (None, [], "")}
             results.append(result)
             c.execute("RESET pg_extstats.frozen_sample_mode")
             c.execute("RESET pg_extstats.frozen_sample_relation")

@@ -1,0 +1,9 @@
+{
+  "canonical_metric": "aggregate_qerror_sum",
+  "compute_bug": false,
+  "definition": "F(T,r)=sum over fixed positive-truth workload of q_error",
+  "m2_26_objective": "math.fsum of QueryEvaluation.contribution",
+  "m2_27a_raw_objective": "statistics.fmean(q_error), a label/normalization bug corrected here; raw artifact preserved",
+  "mean_metric": "aggregate_qerror_sum / 1963",
+  "workload_size": 1963
+}
