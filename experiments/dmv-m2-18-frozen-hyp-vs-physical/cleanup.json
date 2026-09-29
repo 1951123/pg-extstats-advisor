@@ -1,0 +1,16 @@
+{
+  "repository_unchanged": true,
+  "runs": [
+    {
+      "baseline_after_cleanup": 42791.986480127205,
+      "baseline_digest_after_cleanup": "f3254350d068cbd625fffd5537cd25573961da71779977e73811c1d6acb4a93f",
+      "baseline_exact": true,
+      "baseline_vector_exact": true,
+      "hypothetical_active": true,
+      "residual_data_rows": 0,
+      "residual_statistics": 0,
+      "sample_relation_removed": true
+    }
+  ],
+  "sample_unchanged": true
+}

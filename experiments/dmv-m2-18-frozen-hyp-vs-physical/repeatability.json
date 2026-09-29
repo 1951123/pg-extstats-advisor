@@ -1,0 +1,19 @@
+{
+  "h_equals_p_run1": true,
+  "h_equals_p_run2": true,
+  "h_exact_across_runs": true,
+  "p_exact_across_runs": true,
+  "payload_exact_both_runs": true,
+  "run1": {
+    "h_digest": "24cc3f4f9cc2e4987d877e4bb7874f458cf84a9aa781733adb5d3a29189551a4",
+    "h_objective": 22014.061316846422,
+    "p_digest": "24cc3f4f9cc2e4987d877e4bb7874f458cf84a9aa781733adb5d3a29189551a4",
+    "p_objective": 22014.061316846422
+  },
+  "run2": {
+    "h_digest": "24cc3f4f9cc2e4987d877e4bb7874f458cf84a9aa781733adb5d3a29189551a4",
+    "h_objective": 22014.061316846422,
+    "p_digest": "24cc3f4f9cc2e4987d877e4bb7874f458cf84a9aa781733adb5d3a29189551a4",
+    "p_objective": 22014.061316846422
+  }
+}

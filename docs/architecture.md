@@ -43,6 +43,12 @@ sample. An authoritative experiment must either replay a persisted, checksummed
 sample or explicitly declare a separately versioned acquisition campaign before
 its evaluator or search results are treated as authoritative.
 
+For a fixed persisted acquisition sample, hypothetical extended-statistics
+replay must be planner-equivalent to physical deployment of statistics derived
+from that same sample. This is a conditional mechanism-realization invariant;
+it does not establish robustness across fresh samples or validate a maintenance
+cost model.
+
 ### 3. Incrementality ends at query granularity
 
 The incidence index maps every candidate to a conservative set of potentially

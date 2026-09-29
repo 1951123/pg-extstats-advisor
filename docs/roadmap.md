@@ -191,6 +191,16 @@ Earlier DMV experiments without persisted sample lineage remain historical
 evidence only and are not exact-continuation inputs. M2.16 remains accepted for
 its separate production-style native-ANALYZE maintenance question.
 
+## M2.18 DMV frozen-sample hypothetical-versus-physical validation — complete
+
+The M2.17d final design was validated against physical PostgreSQL statistics
+derived from the identical persisted acquisition sample. Hypothetical replay
+and a fresh no-overlay physical backend matched exactly for all 1,963 estimate
+rows and q-errors, the aggregate objective, and all 31 selected payloads; the
+comparison was repeated from a clean state. This is conditional mechanism
+fidelity only. It does not test fresh-sample robustness, maintenance-cost
+validity, or introduce a new search result.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,
