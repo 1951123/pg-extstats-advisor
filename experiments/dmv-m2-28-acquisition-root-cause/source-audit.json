@@ -1,0 +1,47 @@
+{
+  "extended_mcv": [
+    {
+      "file": "src/backend/statistics/mcv.c",
+      "finding": "Extended MCV construction is separate; no extstats are created in this study.",
+      "function": "statext_mcv_build",
+      "lines": "184-250"
+    }
+  ],
+  "native_sampling": [
+    {
+      "file": "src/backend/commands/analyze.c",
+      "finding": "BlockSampler selects blocks; rows are scanned from accepted blocks; Vitter reservoir selects rows; the result is sorted by physical position for correlation; total rows are extrapolated from sampled blocks.",
+      "function": "acquire_sample_rows",
+      "lines": "1104-1345"
+    },
+    {
+      "file": "src/backend/commands/analyze.c",
+      "finding": "Scalar ordinary statistics use compute_scalar_stats and minrows=300*target.",
+      "function": "std_typanalyze",
+      "lines": "1883-1950"
+    }
+  ],
+  "ordinary_mcv": [
+    {
+      "file": "src/backend/commands/analyze.c",
+      "finding": "Per-column MCV tracking is driven by sample rows and attstattarget.",
+      "function": "compute_distinct_stats",
+      "lines": "2038-2051,2077"
+    },
+    {
+      "file": "src/backend/utils/adt/selfuncs.c",
+      "finding": "Equality first checks MCV values; a miss uses remaining mass, null fraction, and estimated other distinct values.",
+      "function": "var_eq_const",
+      "lines": "334-448"
+    }
+  ],
+  "planner_combination": [
+    {
+      "file": "src/backend/utils/adt/selfuncs.c",
+      "finding": "Conjunction selectivity is combined by PostgreSQL's clause-list machinery; this report uses independence products only as explanatory controls, not as a claimed exact reconstruction.",
+      "function": "clauselist_selectivity",
+      "lines": "6545,6698"
+    }
+  ],
+  "source_root": "/root/projects/extended-stats-optim/postgresql-16.14"
+}

@@ -1,0 +1,128 @@
+{
+  "fixed_trim_set": [
+    "dmv.1037",
+    "dmv.179",
+    "dmv.1100",
+    "dmv.1384",
+    "dmv.1110",
+    "dmv.547",
+    "dmv.1885",
+    "dmv.255",
+    "dmv.736",
+    "dmv.1114",
+    "dmv.1581",
+    "dmv.1285",
+    "dmv.337",
+    "dmv.1201",
+    "dmv.562",
+    "dmv.1935",
+    "dmv.265",
+    "dmv.404",
+    "dmv.976",
+    "dmv.536"
+  ],
+  "full": {
+    "native": {
+      "quality_gains": [
+        0.001155921455561733,
+        0.006302449876463451
+      ],
+      "target_ordering": [
+        1000,
+        300,
+        100
+      ],
+      "values": {
+        "100": {
+          "aggregate_qerror": 41552.62617001414,
+          "query_count": 1963
+        },
+        "1000": {
+          "aggregate_qerror": 41243.01397079315,
+          "query_count": 1963
+        },
+        "300": {
+          "aggregate_qerror": 41504.594597889285,
+          "query_count": 1963
+        }
+      }
+    },
+    "reservoir": {
+      "quality_gains": [
+        0.02094256989486108,
+        0.37702842714929846
+      ],
+      "target_ordering": [
+        1000,
+        300,
+        100
+      ],
+      "values": {
+        "100": {
+          "aggregate_qerror": 90412.43341401726,
+          "query_count": 1963
+        },
+        "1000": {
+          "aggregate_qerror": 55144.79867118358,
+          "query_count": 1963
+        },
+        "300": {
+          "aggregate_qerror": 88518.96470787973,
+          "query_count": 1963
+        }
+      }
+    }
+  },
+  "trimmed": {
+    "native": {
+      "quality_gains": [
+        0.00830149670802424,
+        -0.0008674418460038684
+      ],
+      "target_ordering": [
+        300,
+        1000,
+        100
+      ],
+      "values": {
+        "100": {
+          "aggregate_qerror": 5488.9605551021805,
+          "query_count": 1943
+        },
+        "1000": {
+          "aggregate_qerror": 5448.115794834893,
+          "query_count": 1943
+        },
+        "300": {
+          "aggregate_qerror": 5443.393967123525,
+          "query_count": 1943
+        }
+      }
+    },
+    "reservoir": {
+      "quality_gains": [
+        0.0019737625023416735,
+        -0.5081969962600472
+      ],
+      "target_ordering": [
+        300,
+        100,
+        1000
+      ],
+      "values": {
+        "100": {
+          "aggregate_qerror": 2596.1049469979475,
+          "query_count": 1943
+        },
+        "1000": {
+          "aggregate_qerror": 3907.7095389591173,
+          "query_count": 1943
+        },
+        "300": {
+          "aggregate_qerror": 2590.9808524014193,
+          "query_count": 1943
+        }
+      }
+    }
+  }
+}

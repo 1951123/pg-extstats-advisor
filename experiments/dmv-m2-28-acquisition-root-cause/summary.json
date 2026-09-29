@@ -1,0 +1,533 @@
+{
+  "deployment_started": false,
+  "distribution": {
+    "100": {
+      "absolute_log_buckets": {
+        "0.05-0.5": 172,
+        "0.5-2": 1773,
+        "<=0.05": 17,
+        ">2": 1
+      },
+      "absolute_log_qerror_difference_quantiles": {
+        "max": 2.129804651513727,
+        "p50": 0.8708621305899016,
+        "p75": 0.8750587896847994,
+        "p90": 0.8867682173938383,
+        "p95": 0.9021921903022749,
+        "p99": 0.9378221368499587
+      },
+      "bucket_thresholds": {
+        "absolute_log": [
+          0.05,
+          0.5,
+          2.0
+        ],
+        "ratio": [
+          1.05,
+          2.0,
+          10.0
+        ]
+      },
+      "qerror_ratio_quantiles": {
+        "max": 2.7957133288680507,
+        "p50": 0.41878843867934235,
+        "p75": 0.46383227131040883,
+        "p90": 0.7482006921613932,
+        "p95": 1.2549664342043618,
+        "p99": 2.4177850162460945
+      },
+      "ratio_buckets": {
+        "1.05-2": 70,
+        "2-10": 54,
+        "<=1.05": 1839,
+        ">10": 0
+      }
+    },
+    "1000": {
+      "absolute_log_buckets": {
+        "0.05-0.5": 1956,
+        "0.5-2": 1,
+        "<=0.05": 6,
+        ">2": 0
+      },
+      "absolute_log_qerror_difference_quantiles": {
+        "max": 0.780158557549575,
+        "p50": 0.3448772275448411,
+        "p75": 0.34726264875045015,
+        "p90": 0.3557293034883169,
+        "p95": 0.3634401526863667,
+        "p99": 0.3784860196910717
+      },
+      "bucket_thresholds": {
+        "absolute_log": [
+          0.05,
+          0.5,
+          2.0
+        ],
+        "ratio": [
+          1.05,
+          2.0,
+          10.0
+        ]
+      },
+      "qerror_ratio_quantiles": {
+        "max": 2.1818181818181817,
+        "p50": 0.7083265772980327,
+        "p75": 0.7093651489810683,
+        "p90": 0.716028511106415,
+        "p95": 0.7611464968152866,
+        "p99": 1.4171202538619185
+      },
+      "ratio_buckets": {
+        "1.05-2": 65,
+        "2-10": 1,
+        "<=1.05": 1897,
+        ">10": 0
+      }
+    },
+    "300": {
+      "absolute_log_buckets": {
+        "0.05-0.5": 178,
+        "0.5-2": 1767,
+        "<=0.05": 18,
+        ">2": 0
+      },
+      "absolute_log_qerror_difference_quantiles": {
+        "max": 1.3049487216659381,
+        "p50": 0.8722468217290719,
+        "p75": 0.8762222282050068,
+        "p90": 0.8792958762855839,
+        "p95": 0.8868831710236628,
+        "p99": 0.9376088390014085
+      },
+      "bucket_thresholds": {
+        "absolute_log": [
+          0.05,
+          0.5,
+          2.0
+        ],
+        "ratio": [
+          1.05,
+          2.0,
+          10.0
+        ]
+      },
+      "qerror_ratio_quantiles": {
+        "max": 2.6881720430107525,
+        "p50": 0.4182585289492176,
+        "p75": 0.45852385679715046,
+        "p90": 0.7380672916681954,
+        "p95": 1.259704642658437,
+        "p99": 2.4032543500026025
+      },
+      "ratio_buckets": {
+        "1.05-2": 68,
+        "2-10": 55,
+        "<=1.05": 1840,
+        ">10": 0
+      }
+    }
+  },
+  "extstats_created": false,
+  "full_workload_reservoir_improvement": 33374.16603669615,
+  "hypotheses": {
+    "H1_physical_block_structure": {
+      "evidence_against": [
+        "M2.28 replays do not manipulate physical pages and therefore cannot isolate H1."
+      ],
+      "evidence_for": [
+        "PG16.14 native acquire_sample_rows is block-first and explicitly notes block-representation bias."
+      ],
+      "unresolved": true
+    },
+    "H2_reservoir_rng_or_stream_order": {
+      "evidence_against": [
+        "A single deterministic realization cannot separate RNG from sampling-path effects."
+      ],
+      "evidence_for": [
+        "reservoir and native samples have different acquisition semantics and canonical-A ordinary stats diverge."
+      ],
+      "unresolved": true
+    },
+    "H3_target_MCV_capacity_threshold": {
+      "evidence_against": [],
+      "evidence_for": [
+        "PG source makes MCV capacity and minimum-count decisions target-dependent; membership transitions are recorded in predicate-membership.csv."
+      ],
+      "unresolved": true
+    },
+    "H4_ndistinct_sensitivity": {
+      "evidence_against": [],
+      "evidence_for": [
+        "n_distinct and implied cardinality are compared per relevant column."
+      ],
+      "unresolved": true
+    },
+    "H5_histogram_capacity": {
+      "evidence_against": [
+        "The workload is dominated by equality/IN predicates; source equality path prioritizes MCV and fallback."
+      ],
+      "evidence_for": [
+        "Histogram counts and values are recorded."
+      ],
+      "unresolved": true
+    },
+    "H6_source_population_or_totalrows_mismatch": {
+      "evidence_against": [
+        "Frozen M2.26/M2.27a metadata and replay both use source population 11591877."
+      ],
+      "evidence_for": [],
+      "unresolved": false
+    },
+    "H7_reconstruction_bug": {
+      "evidence_against": [
+        "Bundle verification, sample digests, target metadata, extstats count, and workload/truth equality all pass."
+      ],
+      "evidence_for": [],
+      "unresolved": false
+    },
+    "H8_objective_pathology": {
+      "evidence_against": [],
+      "evidence_for": [
+        "M2.27b top contributors and fixed-set trimmed objective are reported."
+      ],
+      "unresolved": true
+    }
+  },
+  "input_audit": {
+    "bundle": {
+      "bundle_schema_version": "production-capture-bundle-v2",
+      "native_analyze_equivalent": false,
+      "snapshot_identity": "796fc76a6ecf5403e1dccd4ab3200312b3b84583409b691c8b874d5b8a44c400",
+      "target_cells": 9,
+      "target_policy_digest": "36dd1e7831ba132630177cf472b3b36f38eca155a3ee789f36c1e3ae18e70f70"
+    },
+    "replayed_ordinary_statistics_match_frozen_summaries": {
+      "native-T100": {
+        "match": true,
+        "mismatched_columns": []
+      },
+      "native-T1000": {
+        "match": true,
+        "mismatched_columns": []
+      },
+      "native-T300": {
+        "match": true,
+        "mismatched_columns": []
+      },
+      "reservoir-T100": {
+        "match": true,
+        "mismatched_columns": []
+      },
+      "reservoir-T1000": {
+        "match": true,
+        "mismatched_columns": []
+      },
+      "reservoir-T300": {
+        "match": true,
+        "mismatched_columns": []
+      }
+    },
+    "source_population_rows": 11591877,
+    "workload_equal": true,
+    "workload_size": 1963
+  },
+  "m2_27b_mean_target_ordering": {
+    "native": [
+      1000,
+      300,
+      100
+    ],
+    "note": "mean across A/B/C from M2.27b; trimmed analysis uses the fixed top-20 set on canonical A because the root-cause contrast is T300-A to T1000-A.",
+    "reservoir": [
+      1000,
+      100,
+      300
+    ]
+  },
+  "mcv_overlap": {
+    "100": {
+      "mcv_frequency_difference_quantiles": {
+        "max": 0.0051666600000000035,
+        "p50": 0.00033333319999999996,
+        "p75": 0.0008000000000000001,
+        "p90": 0.0017666664999999998,
+        "p95": 0.0024333319999999964,
+        "p99": 0.003366666999999997
+      },
+      "queried_constant_representation": {
+        "both": 142,
+        "native_only": 3,
+        "neither": 59,
+        "reservoir_only": 2
+      }
+    },
+    "1000": {
+      "mcv_frequency_difference_quantiles": {
+        "max": 0.00102329000000001,
+        "p50": 7.000000999999993e-05,
+        "p75": 0.00019666700000000106,
+        "p90": 0.0004033330000000005,
+        "p95": 0.0006066670000000017,
+        "p99": 0.0009300000000000003
+      },
+      "queried_constant_representation": {
+        "both": 173,
+        "native_only": 4,
+        "neither": 26,
+        "reservoir_only": 3
+      }
+    },
+    "300": {
+      "mcv_frequency_difference_quantiles": {
+        "max": 0.0022111000000000214,
+        "p50": 0.00018888840000000004,
+        "p75": 0.0004111109999999996,
+        "p90": 0.0012333339999999991,
+        "p95": 0.0018111099999999977,
+        "p99": 0.0021444450000000018
+      },
+      "queried_constant_representation": {
+        "both": 155,
+        "native_only": 2,
+        "neither": 45,
+        "reservoir_only": 4
+      }
+    }
+  },
+  "milestone": "M2.28",
+  "native_analyze_equivalent": false,
+  "primary_top_n": 20,
+  "production_accessed": false,
+  "recommendation": "Do not implement a block-aware sampler from M2.28 alone. The evidence establishes ordinary-statistics divergence and a plausible block-sensitive native path, but does not isolate block structure from target thresholds, stream-order effects, or objective concentration.",
+  "reconstruction_exclusion": {
+    "ordinary_replay_path": "same patched PG16.14 replay GUC used by M2.26/M2.27a; no extstats",
+    "production_reaccessed": false,
+    "sample_capacity_verified": true,
+    "sample_population_verified": true,
+    "stale_statistics": false,
+    "statistics_target_metadata_verified": true,
+    "target_override_hidden": false,
+    "workload_truth_mismatch": false
+  },
+  "reused_artifacts": [
+    "/root/projects/pg-extstats-advisor/experiments/dmv-m2-26-statistics-target-stability/baseline-stability.json",
+    "/root/projects/pg-extstats-advisor/experiments/dmv-m2-26-statistics-target-stability/ordinary-stats-stability.json",
+    "/root/projects/pg-extstats-advisor/experiments/dmv-m2-27a-reservoir-target-characterization/target-sweep.json",
+    "/root/projects/pg-extstats-advisor/experiments/dmv-m2-27b-target-selection-fidelity/top-contributors.csv",
+    "/root/projects/pg-extstats-advisor/.build/production-captures/dmv-m2-27a-v2"
+  ],
+  "search_started": false,
+  "selectivity_path_counts": {
+    "native-T100": {
+      "MCV_EXACT": 670,
+      "MCV_MISS_NDISTINCT_FALLBACK": 196
+    },
+    "native-T1000": {
+      "MCV_EXACT": 787,
+      "MCV_MISS_NDISTINCT_FALLBACK": 79
+    },
+    "native-T300": {
+      "MCV_EXACT": 707,
+      "MCV_MISS_NDISTINCT_FALLBACK": 159
+    },
+    "reservoir-T100": {
+      "MCV_EXACT": 656,
+      "MCV_MISS_NDISTINCT_FALLBACK": 210
+    },
+    "reservoir-T1000": {
+      "MCV_EXACT": 795,
+      "MCV_MISS_NDISTINCT_FALLBACK": 71
+    },
+    "reservoir-T300": {
+      "MCV_EXACT": 729,
+      "MCV_MISS_NDISTINCT_FALLBACK": 137
+    }
+  },
+  "source_audit": {
+    "extended_mcv": [
+      {
+        "file": "src/backend/statistics/mcv.c",
+        "finding": "Extended MCV construction is separate; no extstats are created in this study.",
+        "function": "statext_mcv_build",
+        "lines": "184-250"
+      }
+    ],
+    "native_sampling": [
+      {
+        "file": "src/backend/commands/analyze.c",
+        "finding": "BlockSampler selects blocks; rows are scanned from accepted blocks; Vitter reservoir selects rows; the result is sorted by physical position for correlation; total rows are extrapolated from sampled blocks.",
+        "function": "acquire_sample_rows",
+        "lines": "1104-1345"
+      },
+      {
+        "file": "src/backend/commands/analyze.c",
+        "finding": "Scalar ordinary statistics use compute_scalar_stats and minrows=300*target.",
+        "function": "std_typanalyze",
+        "lines": "1883-1950"
+      }
+    ],
+    "ordinary_mcv": [
+      {
+        "file": "src/backend/commands/analyze.c",
+        "finding": "Per-column MCV tracking is driven by sample rows and attstattarget.",
+        "function": "compute_distinct_stats",
+        "lines": "2038-2051,2077"
+      },
+      {
+        "file": "src/backend/utils/adt/selfuncs.c",
+        "finding": "Equality first checks MCV values; a miss uses remaining mass, null fraction, and estimated other distinct values.",
+        "function": "var_eq_const",
+        "lines": "334-448"
+      }
+    ],
+    "planner_combination": [
+      {
+        "file": "src/backend/utils/adt/selfuncs.c",
+        "finding": "Conjunction selectivity is combined by PostgreSQL's clause-list machinery; this report uses independence products only as explanatory controls, not as a claimed exact reconstruction.",
+        "function": "clauselist_selectivity",
+        "lines": "6545,6698"
+      }
+    ],
+    "source_root": "/root/projects/extended-stats-optim/postgresql-16.14"
+  },
+  "status": "complete",
+  "target_selection_fidelity_qualified": false,
+  "top20_qerror_reduction_share_of_full_workload_improvement": 1.0394535307671777,
+  "top20_reduction_sum": 34690.89472325384,
+  "top20_share_definition": "sum of the frozen M2.27b reservoir T300-A to T1000-A top-20 q-error reductions divided by the full canonical-A workload objective reduction; a value above 1 means non-top-20 queries have net offsetting regressions.",
+  "top_k_share_of_full_workload_improvement": {
+    "1": 0.6591475567003479,
+    "10": 1.038518392357452,
+    "20": 1.0394535307671777,
+    "3": 0.9765013043571734
+  },
+  "trimmed_objective": {
+    "fixed_trim_set": [
+      "dmv.1037",
+      "dmv.179",
+      "dmv.1100",
+      "dmv.1384",
+      "dmv.1110",
+      "dmv.547",
+      "dmv.1885",
+      "dmv.255",
+      "dmv.736",
+      "dmv.1114",
+      "dmv.1581",
+      "dmv.1285",
+      "dmv.337",
+      "dmv.1201",
+      "dmv.562",
+      "dmv.1935",
+      "dmv.265",
+      "dmv.404",
+      "dmv.976",
+      "dmv.536"
+    ],
+    "full": {
+      "native": {
+        "quality_gains": [
+          0.001155921455561733,
+          0.006302449876463451
+        ],
+        "target_ordering": [
+          1000,
+          300,
+          100
+        ],
+        "values": {
+          "100": {
+            "aggregate_qerror": 41552.62617001414,
+            "query_count": 1963
+          },
+          "1000": {
+            "aggregate_qerror": 41243.01397079315,
+            "query_count": 1963
+          },
+          "300": {
+            "aggregate_qerror": 41504.594597889285,
+            "query_count": 1963
+          }
+        }
+      },
+      "reservoir": {
+        "quality_gains": [
+          0.02094256989486108,
+          0.37702842714929846
+        ],
+        "target_ordering": [
+          1000,
+          300,
+          100
+        ],
+        "values": {
+          "100": {
+            "aggregate_qerror": 90412.43341401726,
+            "query_count": 1963
+          },
+          "1000": {
+            "aggregate_qerror": 55144.79867118358,
+            "query_count": 1963
+          },
+          "300": {
+            "aggregate_qerror": 88518.96470787973,
+            "query_count": 1963
+          }
+        }
+      }
+    },
+    "trimmed": {
+      "native": {
+        "quality_gains": [
+          0.00830149670802424,
+          -0.0008674418460038684
+        ],
+        "target_ordering": [
+          300,
+          1000,
+          100
+        ],
+        "values": {
+          "100": {
+            "aggregate_qerror": 5488.9605551021805,
+            "query_count": 1943
+          },
+          "1000": {
+            "aggregate_qerror": 5448.115794834893,
+            "query_count": 1943
+          },
+          "300": {
+            "aggregate_qerror": 5443.393967123525,
+            "query_count": 1943
+          }
+        }
+      },
+      "reservoir": {
+        "quality_gains": [
+          0.0019737625023416735,
+          -0.5081969962600472
+        ],
+        "target_ordering": [
+          300,
+          100,
+          1000
+        ],
+        "values": {
+          "100": {
+            "aggregate_qerror": 2596.1049469979475,
+            "query_count": 1943
+          },
+          "1000": {
+            "aggregate_qerror": 3907.7095389591173,
+            "query_count": 1943
+          },
+          "300": {
+            "aggregate_qerror": 2590.9808524014193,
+            "query_count": 1943
+          }
+        }
+      }
+    }
+  }
+}

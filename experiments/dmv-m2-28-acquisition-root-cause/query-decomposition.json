@@ -1,0 +1,4698 @@
+{
+  "dmv.1037": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 141438.0,
+        "independence_product": 0.029288395162438488,
+        "predicate_selectivities": [
+          0.071333334,
+          0.9927333327,
+          1.0,
+          0.41933334,
+          0.990099992,
+          0.99616665
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6.0
+      },
+      "native-T1000": {
+        "final_estimate": 140194.0,
+        "independence_product": 0.02903573528630428,
+        "predicate_selectivities": [
+          0.070803333,
+          0.99284999596,
+          1.0,
+          0.41974333,
+          0.9883633000000001,
+          0.99562335
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6.0
+      },
+      "native-T300": {
+        "final_estimate": 142285.0,
+        "independence_product": 0.02947305667136955,
+        "predicate_selectivities": [
+          0.072011109,
+          0.99267777537,
+          1.0,
+          0.41893333,
+          0.98891111,
+          0.9952111
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 346259.0,
+        "independence_product": 0.029882456961082594,
+        "predicate_selectivities": [
+          0.073266665,
+          0.9927333618699999,
+          1.0,
+          0.41733333,
+          0.9890999669999999,
+          0.9953
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 201988.0,
+        "independence_product": 0.02963178931448716,
+        "predicate_selectivities": [
+          0.072126666,
+          0.9927400326,
+          1.0,
+          0.42038,
+          0.988746649,
+          0.9956333
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 333979.0,
+        "independence_product": 0.028822345395194335,
+        "predicate_selectivities": [
+          0.07067778,
+          0.9925333443,
+          1.0,
+          0.41766667,
+          0.98817775,
+          0.9954889
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 141438.0,
+        "q_error": 23573.0
+      },
+      "native-T1000": {
+        "estimate": 140194.0,
+        "q_error": 23365.666666666668
+      },
+      "native-T300": {
+        "estimate": 142285.0,
+        "q_error": 23714.166666666668
+      },
+      "reservoir-T100": {
+        "estimate": 346259.0,
+        "q_error": 57709.833333333336
+      },
+      "reservoir-T1000": {
+        "estimate": 201988.0,
+        "q_error": 33664.666666666664
+      },
+      "reservoir-T300": {
+        "estimate": 333979.0,
+        "q_error": 55663.166666666664
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "TRL",
+          "BOAT"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "registration_class",
+        "constants": [
+          "PAS",
+          "COM",
+          "LTR",
+          "BOT",
+          "MOT",
+          "TRL",
+          "SRF",
+          "PSD",
+          "OMT",
+          "OMS",
+          "ATV",
+          "SNO",
+          "HOU",
+          "ORG",
+          "SEM",
+          "HIS",
+          "IRP",
+          "OMR",
+          "STA",
+          "AGR",
+          "SPO",
+          "FAR",
+          "RGL",
+          "MED"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "state",
+        "constants": [
+          "NY",
+          "NJ",
+          "OK",
+          "PA",
+          "MD",
+          "IL",
+          "TX",
+          "FL",
+          "GA",
+          "CT",
+          "IN",
+          "OH",
+          "WI",
+          "MA",
+          "AZ",
+          "CA",
+          "VA",
+          "NC",
+          "TN",
+          "NH",
+          "AL",
+          "VT",
+          "SC",
+          "MO",
+          "MN",
+          "CO",
+          "MI",
+          "DE",
+          "WA",
+          "NT",
+          "RI",
+          "AR"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "SUBN"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "fuel_type",
+        "constants": [
+          "GAS",
+          "NONE",
+          "DIESEL"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "revocation_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type IN ('TRL', 'BOAT') AND Registration_Class IN ('PAS', 'COM', 'LTR', 'BOT', 'MOT', 'TRL', 'SRF', 'PSD', 'OMT', 'OMS', 'ATV', 'SNO', 'HOU', 'ORG', 'SEM', 'HIS', 'IRP', 'OMR', 'STA', 'AGR', 'SPO', 'FAR', 'RGL', 'MED') AND State IN ('NY', 'NJ', 'OK', 'PA', 'MD', 'IL', 'TX', 'FL', 'GA', 'CT', 'IN', 'OH', 'WI', 'MA', 'AZ', 'CA', 'VA', 'NC', 'TN', 'NH', 'AL', 'VT', 'SC', 'MO', 'MN', 'CO', 'MI', 'DE', 'WA', 'NT', 'RI', 'AR') AND Body_Type = 'SUBN' AND Fuel_Type IN ('GAS', 'NONE', 'DIESEL') AND Revocation_Indicator = 'N'",
+    "truth": 6.0
+  },
+  "dmv.1100": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 2466.0,
+        "independence_product": 0.0005105436147623509,
+        "predicate_selectivities": [
+          0.92153335,
+          0.08133333300000001,
+          0.0704333331,
+          0.097533333,
+          0.99156666
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 1.0
+      },
+      "native-T1000": {
+        "final_estimate": 2480.0,
+        "independence_product": 0.0005133984346425448,
+        "predicate_selectivities": [
+          0.92067665,
+          0.083106667,
+          0.06977666596,
+          0.096996664,
+          0.99139
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 1.0
+      },
+      "native-T300": {
+        "final_estimate": 2383.0,
+        "independence_product": 0.0004934121897602111,
+        "predicate_selectivities": [
+          0.91954446,
+          0.081755554,
+          0.0681777782,
+          0.097144445,
+          0.9909667
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 1.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 6147.0,
+        "independence_product": 0.0005302744687154479,
+        "predicate_selectivities": [
+          0.9191333,
+          0.084233333,
+          0.06916666666,
+          0.099899998,
+          0.99123335
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 1.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 3467.0,
+        "independence_product": 0.0005084748926991701,
+        "predicate_selectivities": [
+          0.91965336,
+          0.082310001,
+          0.0692266665,
+          0.097876667,
+          0.99138
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 1.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 5927.0,
+        "independence_product": 0.0005113254996386171,
+        "predicate_selectivities": [
+          0.92116666,
+          0.08281111199999999,
+          0.06885555585,
+          0.09821110899999999,
+          0.9912222
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 1.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 2466.0,
+        "q_error": 2466.0
+      },
+      "native-T1000": {
+        "estimate": 2480.0,
+        "q_error": 2480.0
+      },
+      "native-T300": {
+        "estimate": 2383.0,
+        "q_error": 2383.0
+      },
+      "reservoir-T100": {
+        "estimate": 6147.0,
+        "q_error": 6147.0
+      },
+      "reservoir-T1000": {
+        "estimate": 3467.0,
+        "q_error": 3467.0
+      },
+      "reservoir-T300": {
+        "estimate": 5927.0,
+        "q_error": 5927.0
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "VEH"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "registration_class",
+        "constants": [
+          "COM",
+          "LTR"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "county",
+        "constants": [
+          "HERKIMER",
+          "GENESEE",
+          "OTSEGO",
+          "FULTON",
+          "GREENE",
+          "FRANKLIN",
+          "MONTGOMERY",
+          "CHENANGO",
+          "TIOGA",
+          "DELAWARE",
+          "WYOMING",
+          "ALLEGANY",
+          "CORTLAND",
+          "ESSEX",
+          "ORLEANS",
+          "SENECA",
+          "SCHOHARIE",
+          "LEWIS",
+          "YATES",
+          "SCHUYLER",
+          "HAMILTON"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "BOAT",
+          "LTRL",
+          "MCY",
+          "TRLR"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "suspension_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type = 'VEH' AND Registration_Class IN ('COM', 'LTR') AND County IN ('HERKIMER', 'GENESEE', 'OTSEGO', 'FULTON', 'GREENE', 'FRANKLIN', 'MONTGOMERY', 'CHENANGO', 'TIOGA', 'DELAWARE', 'WYOMING', 'ALLEGANY', 'CORTLAND', 'ESSEX', 'ORLEANS', 'SENECA', 'SCHOHARIE', 'LEWIS', 'YATES', 'SCHUYLER', 'HAMILTON') AND Body_Type IN ('BOAT', 'LTRL', 'MCY', 'TRLR') AND Suspension_Indicator = 'N'",
+    "truth": 1.0
+  },
+  "dmv.1110": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 5227.0,
+        "independence_product": 0.0010822550921052551,
+        "predicate_selectivities": [
+          0.92153335,
+          0.1137,
+          0.99610003358,
+          0.0247333325,
+          0.41933334,
+          0.9998
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 92.0
+      },
+      "native-T1000": {
+        "final_estimate": 5224.0,
+        "independence_product": 0.0010815830047571178,
+        "predicate_selectivities": [
+          0.92067665,
+          0.115333334,
+          0.9964299995,
+          0.024360001,
+          0.41974333,
+          0.9997467
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 92.0
+      },
+      "native-T300": {
+        "final_estimate": 5143.0,
+        "independence_product": 0.0010648919426729216,
+        "predicate_selectivities": [
+          0.91954446,
+          0.11503333,
+          0.9964333332799999,
+          0.024122222,
+          0.41893333,
+          0.99976665
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 92.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 12612.0,
+        "independence_product": 0.0010879820245970867,
+        "predicate_selectivities": [
+          0.9191333,
+          0.11776666799999999,
+          0.9966999667299999,
+          0.024166666500000003,
+          0.41733333,
+          0.9999
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 92.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 7349.0,
+        "independence_product": 0.0010778324977125386,
+        "predicate_selectivities": [
+          0.91965336,
+          0.114930001,
+          0.9964299998599999,
+          0.02435,
+          0.42038,
+          0.99978334
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 92.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 12475.0,
+        "independence_product": 0.0010762177114660083,
+        "predicate_selectivities": [
+          0.92116666,
+          0.114222222,
+          0.99662225472,
+          0.0245777775,
+          0.41766667,
+          0.9997889
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 92.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 5227.0,
+        "q_error": 56.81521739130435
+      },
+      "native-T1000": {
+        "estimate": 5224.0,
+        "q_error": 56.78260869565217
+      },
+      "native-T300": {
+        "estimate": 5143.0,
+        "q_error": 55.90217391304348
+      },
+      "reservoir-T100": {
+        "estimate": 12612.0,
+        "q_error": 137.08695652173913
+      },
+      "reservoir-T1000": {
+        "estimate": 7349.0,
+        "q_error": 79.8804347826087
+      },
+      "reservoir-T300": {
+        "estimate": 12475.0,
+        "q_error": 135.59782608695653
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "VEH"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "registration_class",
+        "constants": [
+          "COM",
+          "LTR",
+          "BOT"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "state",
+        "constants": [
+          "NY",
+          "NJ",
+          "OK",
+          "PA",
+          "MD",
+          "IL",
+          "TX",
+          "FL",
+          "GA"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "county",
+        "constants": [
+          "JEFFERSON",
+          "ST LAWRENCE",
+          "WAYNE"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "SUBN"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "scofflaw_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type = 'VEH' AND Registration_Class IN ('COM', 'LTR', 'BOT') AND State IN ('NY', 'NJ', 'OK', 'PA', 'MD', 'IL', 'TX', 'FL', 'GA') AND County IN ('JEFFERSON', 'ST LAWRENCE', 'WAYNE') AND Body_Type = 'SUBN' AND Scofflaw_Indicator = 'N'",
+    "truth": 92.0
+  },
+  "dmv.1114": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 2714.0,
+        "independence_product": 0.0006489326907434879,
+        "predicate_selectivities": [
+          0.00966666698,
+          0.11830634987301587,
+          0.567433328
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT"
+        ],
+        "truth": 571.0
+      },
+      "native-T1000": {
+        "final_estimate": 2829.0,
+        "independence_product": 0.0006801083033778499,
+        "predicate_selectivities": [
+          0.010493333,
+          0.11442634987301586,
+          0.5664199972
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT"
+        ],
+        "truth": 571.0
+      },
+      "native-T300": {
+        "final_estimate": 2882.0,
+        "independence_product": 0.0006924630717679327,
+        "predicate_selectivities": [
+          0.01062222228,
+          0.11492857037301588,
+          0.5672222109
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT"
+        ],
+        "truth": 571.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 6655.0,
+        "independence_product": 0.0006681685522502115,
+        "predicate_selectivities": [
+          0.01040000003,
+          0.11280634887301587,
+          0.5695333342
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT"
+        ],
+        "truth": 571.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 3968.0,
+        "independence_product": 0.0006742622822215231,
+        "predicate_selectivities": [
+          0.01027666636,
+          0.11594301487301588,
+          0.5658900007000001
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT"
+        ],
+        "truth": 571.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 6911.0,
+        "independence_product": 0.0006920337195647717,
+        "predicate_selectivities": [
+          0.01062222172,
+          0.11466190437301588,
+          0.5681888975
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT"
+        ],
+        "truth": 571.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 2714.0,
+        "q_error": 4.753064798598949
+      },
+      "native-T1000": {
+        "estimate": 2829.0,
+        "q_error": 4.954465849387041
+      },
+      "native-T300": {
+        "estimate": 2882.0,
+        "q_error": 5.047285464098073
+      },
+      "reservoir-T100": {
+        "estimate": 6655.0,
+        "q_error": 11.654991243432574
+      },
+      "reservoir-T1000": {
+        "estimate": 3968.0,
+        "q_error": 6.949211908931699
+      },
+      "reservoir-T300": {
+        "estimate": 6911.0,
+        "q_error": 12.103327495621716
+      }
+    },
+    "predicates": [
+      {
+        "column": "state",
+        "constants": [
+          "OK",
+          "PA",
+          "MD",
+          "IL",
+          "TX",
+          "FL",
+          "GA"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "county",
+        "constants": [
+          "ONEIDA",
+          "NIAGARA",
+          "OUT-OF-STATE",
+          "ULSTER",
+          "BROOME",
+          "SCHENECTADY",
+          "RENSSELAER",
+          "OSWEGO",
+          "ONTARIO"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "4DSD",
+          "PICK",
+          "2DSD",
+          "BOAT",
+          "LTRL",
+          "MCY",
+          "TRLR",
+          "VAN",
+          "CONV",
+          "ATV",
+          "SNOW",
+          "DUMP",
+          "BUS",
+          "H/TR",
+          "UTIL",
+          "SEMI",
+          "TRAC"
+        ],
+        "operator": "IN"
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE State IN ('OK', 'PA', 'MD', 'IL', 'TX', 'FL', 'GA') AND County IN ('ONEIDA', 'NIAGARA', 'OUT-OF-STATE', 'ULSTER', 'BROOME', 'SCHENECTADY', 'RENSSELAER', 'OSWEGO', 'ONTARIO') AND Body_Type IN ('4DSD', 'PICK', '2DSD', 'BOAT', 'LTRL', 'MCY', 'TRLR', 'VAN', 'CONV', 'ATV', 'SNOW', 'DUMP', 'BUS', 'H/TR', 'UTIL', 'SEMI', 'TRAC')",
+    "truth": 571.0
+  },
+  "dmv.1201": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 238.0,
+        "independence_product": 0.0037118617140812155,
+        "predicate_selectivities": [
+          0.115466666,
+          0.0987333329,
+          0.34390909080909093,
+          0.95056666,
+          0.9998,
+          0.99616665
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 52.0
+      },
+      "native-T1000": {
+        "final_estimate": 217.0,
+        "independence_product": 4.495666681635451e-05,
+        "predicate_selectivities": [
+          0.11323,
+          0.0965366678,
+          0.004353333399,
+          0.949146633,
+          0.9997467,
+          0.99562335
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 52.0
+      },
+      "native-T300": {
+        "final_estimate": 186.0,
+        "independence_product": 0.001847811550228944,
+        "predicate_selectivities": [
+          0.1131555545,
+          0.09615555419999999,
+          0.17989281046529412,
+          0.9488111100000001,
+          0.99976665,
+          0.9952111
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 52.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 590.0,
+        "independence_product": 0.003502153661140686,
+        "predicate_selectivities": [
+          0.11686666999999999,
+          0.0984999986,
+          0.3211151515118182,
+          0.9519999669999999,
+          0.9999,
+          0.9953
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 52.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 306.0,
+        "independence_product": 0.0006161575875768245,
+        "predicate_selectivities": [
+          0.114639999,
+          0.096716667,
+          0.05876878787845454,
+          0.949953316,
+          0.99978334,
+          0.9956333
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 52.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 500.0,
+        "independence_product": 0.002282021316040012,
+        "predicate_selectivities": [
+          0.1151,
+          0.0956555563,
+          0.21919738558980392,
+          0.95006664,
+          0.9997889,
+          0.9954889
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 52.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 238.0,
+        "q_error": 4.576923076923077
+      },
+      "native-T1000": {
+        "estimate": 217.0,
+        "q_error": 4.173076923076923
+      },
+      "native-T300": {
+        "estimate": 186.0,
+        "q_error": 3.576923076923077
+      },
+      "reservoir-T100": {
+        "estimate": 590.0,
+        "q_error": 11.346153846153847
+      },
+      "reservoir-T1000": {
+        "estimate": 306.0,
+        "q_error": 5.884615384615385
+      },
+      "reservoir-T300": {
+        "estimate": 500.0,
+        "q_error": 9.615384615384615
+      }
+    },
+    "predicates": [
+      {
+        "column": "registration_class",
+        "constants": [
+          "LTR",
+          "BOT",
+          "MOT",
+          "TRL",
+          "SRF"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "county",
+        "constants": [
+          "OSWEGO",
+          "ONTARIO",
+          "CHAUTAUQUA",
+          "JEFFERSON",
+          "ST LAWRENCE",
+          "WAYNE",
+          "PUTNAM",
+          "STEUBEN",
+          "CLINTON",
+          "CAYUGA",
+          "WARREN",
+          "CHEMUNG",
+          "TOMPKINS"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "TAXI",
+          "TOW",
+          "SEDN",
+          "REFG",
+          "RBM",
+          "RD/S",
+          "CMIX",
+          "TR/C",
+          "AMBU",
+          "LSV",
+          "FIRE",
+          "S/SP",
+          "HRSE",
+          "T/CR",
+          "SN/P",
+          "SWT",
+          "LIM",
+          "CUST",
+          "EMVR"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "fuel_type",
+        "constants": [
+          "GAS",
+          "NONE"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "scofflaw_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "revocation_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Registration_Class IN ('LTR', 'BOT', 'MOT', 'TRL', 'SRF') AND County IN ('OSWEGO', 'ONTARIO', 'CHAUTAUQUA', 'JEFFERSON', 'ST LAWRENCE', 'WAYNE', 'PUTNAM', 'STEUBEN', 'CLINTON', 'CAYUGA', 'WARREN', 'CHEMUNG', 'TOMPKINS') AND Body_Type IN ('TAXI', 'TOW', 'SEDN', 'REFG', 'RBM', 'RD/S', 'CMIX', 'TR/C', 'AMBU', 'LSV', 'FIRE', 'S/SP', 'HRSE', 'T/CR', 'SN/P', 'SWT', 'LIM', 'CUST', 'EMVR') AND Fuel_Type IN ('GAS', 'NONE') AND Scofflaw_Indicator = 'N' AND Revocation_Indicator = 'N'",
+    "truth": 52.0
+  },
+  "dmv.1285": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 8398.0,
+        "independence_product": 0.001899002818781802,
+        "predicate_selectivities": [
+          0.010233333,
+          0.18790634987301588,
+          0.9998,
+          0.99156666,
+          0.99616665
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2154.0
+      },
+      "native-T1000": {
+        "final_estimate": 7928.0,
+        "independence_product": 0.0017916578186201089,
+        "predicate_selectivities": [
+          0.009596666,
+          0.18919301687301587,
+          0.9997467,
+          0.99139,
+          0.99562335
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2154.0
+      },
+      "native-T300": {
+        "final_estimate": 7638.0,
+        "independence_product": 0.0017270444754540878,
+        "predicate_selectivities": [
+          0.009311111,
+          0.18811745737301588,
+          0.99976665,
+          0.9909667,
+          0.9952111
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2154.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 19315.0,
+        "independence_product": 0.0018176093725605525,
+        "predicate_selectivities": [
+          0.009666666,
+          0.19060634887301586,
+          0.9999,
+          0.99123335,
+          0.9953
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2154.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 10915.0,
+        "independence_product": 0.0017480190010659533,
+        "predicate_selectivities": [
+          0.009406666,
+          0.18830634887301587,
+          0.99978334,
+          0.99138,
+          0.9956333
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2154.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 20151.0,
+        "independence_product": 0.001897232354385587,
+        "predicate_selectivities": [
+          0.010144444,
+          0.18957301637301588,
+          0.9997889,
+          0.9912222,
+          0.9954889
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2154.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 8398.0,
+        "q_error": 3.8987929433611885
+      },
+      "native-T1000": {
+        "estimate": 7928.0,
+        "q_error": 3.680594243268338
+      },
+      "native-T300": {
+        "estimate": 7638.0,
+        "q_error": 3.5459610027855155
+      },
+      "reservoir-T100": {
+        "estimate": 19315.0,
+        "q_error": 8.967038068709378
+      },
+      "reservoir-T1000": {
+        "estimate": 10915.0,
+        "q_error": 5.067316620241411
+      },
+      "reservoir-T300": {
+        "estimate": 20151.0,
+        "q_error": 9.355153203342619
+      }
+    },
+    "predicates": [
+      {
+        "column": "registration_class",
+        "constants": [
+          "OMS"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "county",
+        "constants": [
+          "RICHMOND",
+          "NEW YORK",
+          "ALBANY",
+          "DUTCHESS",
+          "SARATOGA",
+          "ROCKLAND",
+          "ONEIDA",
+          "NIAGARA",
+          "OUT-OF-STATE",
+          "ULSTER"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "scofflaw_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "suspension_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "revocation_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Registration_Class = 'OMS' AND County IN ('RICHMOND', 'NEW YORK', 'ALBANY', 'DUTCHESS', 'SARATOGA', 'ROCKLAND', 'ONEIDA', 'NIAGARA', 'OUT-OF-STATE', 'ULSTER') AND Scofflaw_Indicator = 'N' AND Suspension_Indicator = 'N' AND Revocation_Indicator = 'N'",
+    "truth": 2154.0
+  },
+  "dmv.1384": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 9480.0,
+        "independence_product": 0.0019626694956162,
+        "predicate_selectivities": [
+          0.7991,
+          0.0027,
+          0.90966666
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6.0
+      },
+      "native-T1000": {
+        "final_estimate": 10472.0,
+        "independence_product": 0.002168125543182827,
+        "predicate_selectivities": [
+          0.8000433299999999,
+          0.0029833333,
+          0.9083833
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6.0
+      },
+      "native-T300": {
+        "final_estimate": 10296.0,
+        "independence_product": 0.0021317795782298016,
+        "predicate_selectivities": [
+          0.800377777,
+          0.0029333334,
+          0.908
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 22980.0,
+        "independence_product": 0.001982425214327059,
+        "predicate_selectivities": [
+          0.797066693,
+          0.0027333333,
+          0.9099333
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 15161.0,
+        "independence_product": 0.0022234072947351084,
+        "predicate_selectivities": [
+          0.799013368,
+          0.0030633332,
+          0.90838665
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 26834.0,
+        "independence_product": 0.002314927633241717,
+        "predicate_selectivities": [
+          0.7990777899999999,
+          0.0031888888,
+          0.90846664
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 9480.0,
+        "q_error": 1580.0
+      },
+      "native-T1000": {
+        "estimate": 10472.0,
+        "q_error": 1745.3333333333333
+      },
+      "native-T300": {
+        "estimate": 10296.0,
+        "q_error": 1716.0
+      },
+      "reservoir-T100": {
+        "estimate": 22980.0,
+        "q_error": 3830.0
+      },
+      "reservoir-T1000": {
+        "estimate": 15161.0,
+        "q_error": 2526.8333333333335
+      },
+      "reservoir-T300": {
+        "estimate": 26834.0,
+        "q_error": 4472.333333333333
+      }
+    },
+    "predicates": [
+      {
+        "column": "registration_class",
+        "constants": [
+          "PAS",
+          "COM"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "TRAC"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "fuel_type",
+        "constants": [
+          "GAS"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Registration_Class IN ('PAS', 'COM') AND Body_Type = 'TRAC' AND Fuel_Type = 'GAS'",
+    "truth": 6.0
+  },
+  "dmv.1581": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 4099.0,
+        "independence_product": 0.0016246742806938694,
+        "predicate_selectivities": [
+          0.960500017,
+          0.13286312034404255,
+          0.24836667,
+          0.051466665999999994,
+          0.9998,
+          0.99616665
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 941.0
+      },
+      "native-T1000": {
+        "final_estimate": 4092.0,
+        "independence_product": 0.0008471876461458498,
+        "predicate_selectivities": [
+          0.959253316,
+          0.07101333223,
+          0.245939997,
+          0.050803332,
+          0.9997467,
+          0.99562335
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 941.0
+      },
+      "native-T300": {
+        "final_estimate": 4016.0,
+        "independence_product": 0.0008315539753316085,
+        "predicate_selectivities": [
+          0.958277793,
+          0.07058888822,
+          0.246555554,
+          0.050111111,
+          0.99976665,
+          0.9952111
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 941.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 9889.0,
+        "independence_product": 0.0013949331293507698,
+        "predicate_selectivities": [
+          0.95886663,
+          0.11364444363444445,
+          0.246099996,
+          0.052266666,
+          0.9999,
+          0.9953
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 941.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 5778.0,
+        "independence_product": 0.0008474268010665278,
+        "predicate_selectivities": [
+          0.9591600259999999,
+          0.07085999881,
+          0.245876663,
+          0.050943334,
+          0.99978334,
+          0.9956333
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 941.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 9917.0,
+        "independence_product": 0.0008555468220737642,
+        "predicate_selectivities": [
+          0.96043333,
+          0.07049999837,
+          0.244977777,
+          0.051822222,
+          0.9997889,
+          0.9954889
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 941.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 4099.0,
+        "q_error": 4.3560042507970245
+      },
+      "native-T1000": {
+        "estimate": 4092.0,
+        "q_error": 4.348565356004251
+      },
+      "native-T300": {
+        "estimate": 4016.0,
+        "q_error": 4.267800212539851
+      },
+      "reservoir-T100": {
+        "estimate": 9889.0,
+        "q_error": 10.509032943676939
+      },
+      "reservoir-T1000": {
+        "estimate": 5778.0,
+        "q_error": 6.140276301806589
+      },
+      "reservoir-T300": {
+        "estimate": 9917.0,
+        "q_error": 10.538788522848034
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "VEH",
+          "TRL"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "registration_class",
+        "constants": [
+          "OMT",
+          "OMS",
+          "ATV",
+          "SNO",
+          "HOU",
+          "ORG",
+          "SEM",
+          "HIS",
+          "IRP",
+          "OMR",
+          "STA",
+          "AGR",
+          "SPO",
+          "FAR",
+          "RGL",
+          "MED",
+          "SCL",
+          "SPC",
+          "TRC",
+          "OML",
+          "LMB",
+          "TOW",
+          "ORC",
+          "AMB",
+          "ORM"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "county",
+        "constants": [
+          "QUEENS",
+          "ERIE",
+          "WESTCHESTER",
+          "MONROE"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "LTRL",
+          "MCY"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "scofflaw_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "revocation_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type IN ('VEH', 'TRL') AND Registration_Class IN ('OMT', 'OMS', 'ATV', 'SNO', 'HOU', 'ORG', 'SEM', 'HIS', 'IRP', 'OMR', 'STA', 'AGR', 'SPO', 'FAR', 'RGL', 'MED', 'SCL', 'SPC', 'TRC', 'OML', 'LMB', 'TOW', 'ORC', 'AMB', 'ORM') AND County IN ('QUEENS', 'ERIE', 'WESTCHESTER', 'MONROE') AND Body_Type IN ('LTRL', 'MCY') AND Scofflaw_Indicator = 'N' AND Revocation_Indicator = 'N'",
+    "truth": 941.0
+  },
+  "dmv.179": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 99393.0,
+        "independence_product": 0.02061006849782459,
+        "predicate_selectivities": [
+          0.92153335,
+          0.0635,
+          1.0,
+          0.356566665,
+          0.99156666,
+          0.99616665
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 12.0
+      },
+      "native-T1000": {
+        "final_estimate": 96527.0,
+        "independence_product": 0.01998511285168783,
+        "predicate_selectivities": [
+          0.92067665,
+          0.062329999999999997,
+          0.99866333281,
+          0.3533,
+          0.99139,
+          0.99562335
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 12.0
+      },
+      "native-T300": {
+        "final_estimate": 97050.0,
+        "independence_product": 0.020093267191280226,
+        "predicate_selectivities": [
+          0.91954446,
+          0.06285555500000001,
+          0.99871111106,
+          0.35295554399999995,
+          0.9909667,
+          0.9952111
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 12.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 236883.0,
+        "independence_product": 0.020475086300369483,
+        "predicate_selectivities": [
+          0.9191333,
+          0.063366669,
+          1.0,
+          0.356333335,
+          0.99123335,
+          0.9953
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 12.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 136254.0,
+        "independence_product": 0.019982227215841173,
+        "predicate_selectivities": [
+          0.91965336,
+          0.06250333300000001,
+          0.9986199998499999,
+          0.352676667,
+          0.99138,
+          0.9956333
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 12.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 233831.0,
+        "independence_product": 0.02017198938939696,
+        "predicate_selectivities": [
+          0.92116666,
+          0.06267777699999999,
+          0.99860003248,
+          0.354566677,
+          0.9912222,
+          0.9954889
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 12.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 99393.0,
+        "q_error": 8282.75
+      },
+      "native-T1000": {
+        "estimate": 96527.0,
+        "q_error": 8043.916666666667
+      },
+      "native-T300": {
+        "estimate": 97050.0,
+        "q_error": 8087.5
+      },
+      "reservoir-T100": {
+        "estimate": 236883.0,
+        "q_error": 19740.25
+      },
+      "reservoir-T1000": {
+        "estimate": 136254.0,
+        "q_error": 11354.5
+      },
+      "reservoir-T300": {
+        "estimate": 233831.0,
+        "q_error": 19485.916666666668
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "VEH"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "registration_class",
+        "constants": [
+          "BOT",
+          "MOT"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "state",
+        "constants": [
+          "NY",
+          "NJ",
+          "OK",
+          "PA",
+          "MD",
+          "IL",
+          "TX",
+          "FL",
+          "GA",
+          "CT",
+          "IN",
+          "OH",
+          "WI",
+          "MA",
+          "AZ",
+          "CA"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "4DSD",
+          "PICK"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "suspension_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "revocation_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type = 'VEH' AND Registration_Class IN ('BOT', 'MOT') AND State IN ('NY', 'NJ', 'OK', 'PA', 'MD', 'IL', 'TX', 'FL', 'GA', 'CT', 'IN', 'OH', 'WI', 'MA', 'AZ', 'CA') AND Body_Type IN ('4DSD', 'PICK') AND Suspension_Indicator = 'N' AND Revocation_Indicator = 'N'",
+    "truth": 12.0
+  },
+  "dmv.1885": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 129700.0,
+        "independence_product": 0.02685325359578189,
+        "predicate_selectivities": [
+          0.92153335,
+          0.718666664,
+          0.0409,
+          0.9998,
+          0.99156666
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 13599.0
+      },
+      "native-T1000": {
+        "final_estimate": 129745.0,
+        "independence_product": 0.026862644792115302,
+        "predicate_selectivities": [
+          0.92067665,
+          0.72216667,
+          0.040763333,
+          0.9997467,
+          0.99139
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 13599.0
+      },
+      "native-T300": {
+        "final_estimate": 129777.0,
+        "independence_product": 0.02686912609993519,
+        "predicate_selectivities": [
+          0.91954446,
+          0.72267777,
+          0.04081111,
+          0.99976665,
+          0.9909667
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 13599.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 321293.0,
+        "independence_product": 0.02771708347385288,
+        "predicate_selectivities": [
+          0.9191333,
+          0.723266669,
+          0.042066667,
+          0.9999,
+          0.99123335
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 13599.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 186474.0,
+        "independence_product": 0.027347285686704543,
+        "predicate_selectivities": [
+          0.91965336,
+          0.721769997,
+          0.041566666,
+          0.99978334,
+          0.99138
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 13599.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 318530.0,
+        "independence_product": 0.02747869434412353,
+        "predicate_selectivities": [
+          0.92116666,
+          0.723577778,
+          0.0416,
+          0.9997889,
+          0.9912222
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 13599.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 129700.0,
+        "q_error": 9.537465990146334
+      },
+      "native-T1000": {
+        "estimate": 129745.0,
+        "q_error": 9.540775056989485
+      },
+      "native-T300": {
+        "estimate": 129777.0,
+        "q_error": 9.543128171189059
+      },
+      "reservoir-T100": {
+        "estimate": 321293.0,
+        "q_error": 23.626222516361498
+      },
+      "reservoir-T1000": {
+        "estimate": 186474.0,
+        "q_error": 13.712331789102139
+      },
+      "reservoir-T300": {
+        "estimate": 318530.0,
+        "q_error": 23.423045812192072
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "VEH"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "county",
+        "constants": [
+          "SUFFOLK",
+          "NASSAU",
+          "QUEENS",
+          "ERIE",
+          "WESTCHESTER",
+          "MONROE",
+          "KINGS",
+          "ONONDAGA",
+          "ORANGE",
+          "BRONX",
+          "RICHMOND",
+          "NEW YORK",
+          "ALBANY",
+          "DUTCHESS",
+          "SARATOGA",
+          "ROCKLAND",
+          "ONEIDA"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "fuel_type",
+        "constants": [
+          "NONE"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "scofflaw_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "suspension_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type = 'VEH' AND County IN ('SUFFOLK', 'NASSAU', 'QUEENS', 'ERIE', 'WESTCHESTER', 'MONROE', 'KINGS', 'ONONDAGA', 'ORANGE', 'BRONX', 'RICHMOND', 'NEW YORK', 'ALBANY', 'DUTCHESS', 'SARATOGA', 'ROCKLAND', 'ONEIDA') AND Fuel_Type = 'NONE' AND Scofflaw_Indicator = 'N' AND Suspension_Indicator = 'N'",
+    "truth": 13599.0
+  },
+  "dmv.1935": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 1949.0,
+        "independence_product": 0.023590749709639883,
+        "predicate_selectivities": [
+          0.92153335,
+          0.095233333,
+          1.0,
+          0.29922121202454544,
+          0.90966666,
+          0.9998,
+          0.99156666,
+          0.99616665
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 653.0
+      },
+      "native-T1000": {
+        "final_estimate": 2094.0,
+        "independence_product": 0.00043359852856611134,
+        "predicate_selectivities": [
+          0.92067665,
+          0.092413333,
+          0.99915999948,
+          0.005690000046,
+          0.9083833,
+          0.9997467,
+          0.99139,
+          0.99562335
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 653.0
+      },
+      "native-T300": {
+        "final_estimate": 1872.0,
+        "independence_product": 0.010840897278262408,
+        "predicate_selectivities": [
+          0.91954446,
+          0.0926777775,
+          1.0,
+          0.14208823529078432,
+          0.908,
+          0.99976665,
+          0.9909667,
+          0.9952111
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 653.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 4849.0,
+        "independence_product": 0.021648651718227913,
+        "predicate_selectivities": [
+          0.9191333,
+          0.09486667,
+          1.0,
+          0.2765939394172727,
+          0.9099333,
+          0.9999,
+          0.99123335,
+          0.9953
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 653.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 2986.0,
+        "independence_product": 0.0018411332054261655,
+        "predicate_selectivities": [
+          0.91965336,
+          0.093796666,
+          0.99907999985,
+          0.02383181816481818,
+          0.90838665,
+          0.99978334,
+          0.99138,
+          0.9956333
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 653.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 4763.0,
+        "independence_product": 0.014135574636469441,
+        "predicate_selectivities": [
+          0.92116666,
+          0.094477778,
+          1.0,
+          0.1812261437652941,
+          0.90846664,
+          0.9997889,
+          0.9912222,
+          0.9954889
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 653.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 1949.0,
+        "q_error": 2.98468606431853
+      },
+      "native-T1000": {
+        "estimate": 2094.0,
+        "q_error": 3.2067381316998467
+      },
+      "native-T300": {
+        "estimate": 1872.0,
+        "q_error": 2.86676875957121
+      },
+      "reservoir-T100": {
+        "estimate": 4849.0,
+        "q_error": 7.4257274119448695
+      },
+      "reservoir-T1000": {
+        "estimate": 2986.0,
+        "q_error": 4.572741194486984
+      },
+      "reservoir-T300": {
+        "estimate": 4763.0,
+        "q_error": 7.294027565084226
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "VEH"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "registration_class",
+        "constants": [
+          "BOT",
+          "MOT",
+          "TRL",
+          "SRF"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "state",
+        "constants": [
+          "NY",
+          "NJ",
+          "OK",
+          "PA",
+          "MD",
+          "IL",
+          "TX",
+          "FL",
+          "GA",
+          "CT",
+          "IN",
+          "OH",
+          "WI",
+          "MA",
+          "AZ",
+          "CA",
+          "VA",
+          "NC",
+          "TN",
+          "NH"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "TANK",
+          "MOPD",
+          "TAXI",
+          "TOW",
+          "SEDN",
+          "REFG",
+          "RBM",
+          "RD/S",
+          "CMIX",
+          "TR/C",
+          "AMBU",
+          "LSV",
+          "FIRE",
+          "S/SP",
+          "HRSE",
+          "T/CR",
+          "SN/P",
+          "SWT",
+          "LIM"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "fuel_type",
+        "constants": [
+          "GAS"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "scofflaw_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "suspension_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "revocation_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type = 'VEH' AND Registration_Class IN ('BOT', 'MOT', 'TRL', 'SRF') AND State IN ('NY', 'NJ', 'OK', 'PA', 'MD', 'IL', 'TX', 'FL', 'GA', 'CT', 'IN', 'OH', 'WI', 'MA', 'AZ', 'CA', 'VA', 'NC', 'TN', 'NH') AND Body_Type IN ('TANK', 'MOPD', 'TAXI', 'TOW', 'SEDN', 'REFG', 'RBM', 'RD/S', 'CMIX', 'TR/C', 'AMBU', 'LSV', 'FIRE', 'S/SP', 'HRSE', 'T/CR', 'SN/P', 'SWT', 'LIM') AND Fuel_Type = 'GAS' AND Scofflaw_Indicator = 'N' AND Suspension_Indicator = 'N' AND Revocation_Indicator = 'N'",
+    "truth": 653.0
+  },
+  "dmv.255": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 345.0,
+        "independence_product": 0.003025206978269299,
+        "predicate_selectivities": [
+          0.92153335,
+          0.138833333,
+          0.5706901964117647,
+          0.0414333334
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT"
+        ],
+        "truth": 42.0
+      },
+      "native-T1000": {
+        "final_estimate": 330.0,
+        "independence_product": 0.0005903786900742122,
+        "predicate_selectivities": [
+          0.92067665,
+          0.137506666,
+          0.11893315753973684,
+          0.03921000006
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT"
+        ],
+        "truth": 42.0
+      },
+      "native-T300": {
+        "final_estimate": 321.0,
+        "independence_product": 0.0018641435740677894,
+        "predicate_selectivities": [
+          0.91954446,
+          0.137433333,
+          0.3851374677658139,
+          0.038300000199999996
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT"
+        ],
+        "truth": 42.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 789.0,
+        "independence_product": 0.003158753272746906,
+        "predicate_selectivities": [
+          0.9191333,
+          0.140266669,
+          0.622377777811111,
+          0.03936666666
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT"
+        ],
+        "truth": 42.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 458.0,
+        "independence_product": 0.0004210114590102866,
+        "predicate_selectivities": [
+          0.91965336,
+          0.13798333200000001,
+          0.08492523778057143,
+          0.0390666665
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT"
+        ],
+        "truth": 42.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 798.0,
+        "independence_product": 0.0013555978964873068,
+        "predicate_selectivities": [
+          0.92116666,
+          0.138866666,
+          0.2686635928661702,
+          0.03944444485
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT"
+        ],
+        "truth": 42.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 345.0,
+        "q_error": 8.214285714285714
+      },
+      "native-T1000": {
+        "estimate": 330.0,
+        "q_error": 7.857142857142857
+      },
+      "native-T300": {
+        "estimate": 321.0,
+        "q_error": 7.642857142857143
+      },
+      "reservoir-T100": {
+        "estimate": 789.0,
+        "q_error": 18.785714285714285
+      },
+      "reservoir-T1000": {
+        "estimate": 458.0,
+        "q_error": 10.904761904761905
+      },
+      "reservoir-T300": {
+        "estimate": 798.0,
+        "q_error": 19.0
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "VEH"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "registration_class",
+        "constants": [
+          "BOT",
+          "MOT",
+          "TRL",
+          "SRF",
+          "PSD",
+          "OMT",
+          "OMS",
+          "ATV"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "state",
+        "constants": [
+          "OK",
+          "PA",
+          "MD",
+          "IL",
+          "TX",
+          "FL",
+          "GA",
+          "CT",
+          "IN",
+          "OH",
+          "WI",
+          "MA",
+          "AZ",
+          "CA",
+          "VA",
+          "NC",
+          "TN",
+          "NH",
+          "AL",
+          "VT",
+          "SC",
+          "MO",
+          "MN",
+          "CO",
+          "MI",
+          "DE",
+          "WA",
+          "NT",
+          "RI",
+          "AR",
+          "NV"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "county",
+        "constants": [
+          "CHENANGO",
+          "TIOGA",
+          "DELAWARE",
+          "WYOMING",
+          "ALLEGANY",
+          "CORTLAND",
+          "ESSEX",
+          "ORLEANS",
+          "SENECA",
+          "SCHOHARIE",
+          "LEWIS",
+          "YATES",
+          "SCHUYLER",
+          "HAMILTON"
+        ],
+        "operator": "IN"
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type = 'VEH' AND Registration_Class IN ('BOT', 'MOT', 'TRL', 'SRF', 'PSD', 'OMT', 'OMS', 'ATV') AND State IN ('OK', 'PA', 'MD', 'IL', 'TX', 'FL', 'GA', 'CT', 'IN', 'OH', 'WI', 'MA', 'AZ', 'CA', 'VA', 'NC', 'TN', 'NH', 'AL', 'VT', 'SC', 'MO', 'MN', 'CO', 'MI', 'DE', 'WA', 'NT', 'RI', 'AR', 'NV') AND County IN ('CHENANGO', 'TIOGA', 'DELAWARE', 'WYOMING', 'ALLEGANY', 'CORTLAND', 'ESSEX', 'ORLEANS', 'SENECA', 'SCHOHARIE', 'LEWIS', 'YATES', 'SCHUYLER', 'HAMILTON')",
+    "truth": 42.0
+  },
+  "dmv.265": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 7055.0,
+        "independence_product": 0.051160392072496993,
+        "predicate_selectivities": [
+          0.960500017,
+          0.5449450983058823,
+          0.18003968287301586,
+          0.57609999477,
+          0.95056666,
+          0.9998,
+          0.99156666
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2848.0
+      },
+      "native-T1000": {
+        "final_estimate": 7230.0,
+        "independence_product": 0.009743733923963382,
+        "predicate_selectivities": [
+          0.959253316,
+          0.10544596439061403,
+          0.17787634987301587,
+          0.57567333047,
+          0.949146633,
+          0.9997467,
+          0.99139
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2848.0
+      },
+      "native-T300": {
+        "final_estimate": 7176.0,
+        "independence_product": 0.03387065248076188,
+        "predicate_selectivities": [
+          0.958277793,
+          0.3657927648123256,
+          0.17812856937301588,
+          0.57706665523,
+          0.9488111100000001,
+          0.99976665,
+          0.9909667
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2848.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 16935.0,
+        "independence_product": 0.05586619389898608,
+        "predicate_selectivities": [
+          0.95886663,
+          0.5984666667333333,
+          0.17850634887301586,
+          0.57800000096,
+          0.9519999669999999,
+          0.9999,
+          0.99123335
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2848.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 10088.0,
+        "independence_product": 0.006577632130226668,
+        "predicate_selectivities": [
+          0.9591600259999999,
+          0.07109142842342857,
+          0.17813301487301586,
+          0.57513333385,
+          0.949953316,
+          0.99978334,
+          0.99138
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2848.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 17439.0,
+        "independence_product": 0.02350881833205489,
+        "predicate_selectivities": [
+          0.96043333,
+          0.25142033012148934,
+          0.17896190437301587,
+          0.57778889735,
+          0.95006664,
+          0.9997889,
+          0.9912222
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2848.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 7055.0,
+        "q_error": 2.477176966292135
+      },
+      "native-T1000": {
+        "estimate": 7230.0,
+        "q_error": 2.538623595505618
+      },
+      "native-T300": {
+        "estimate": 7176.0,
+        "q_error": 2.519662921348315
+      },
+      "reservoir-T100": {
+        "estimate": 16935.0,
+        "q_error": 5.946278089887641
+      },
+      "reservoir-T1000": {
+        "estimate": 10088.0,
+        "q_error": 3.542134831460674
+      },
+      "reservoir-T300": {
+        "estimate": 17439.0,
+        "q_error": 6.123244382022472
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "VEH",
+          "TRL"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "state",
+        "constants": [
+          "NJ",
+          "OK",
+          "PA",
+          "MD",
+          "IL",
+          "TX",
+          "FL",
+          "GA",
+          "CT",
+          "IN",
+          "OH",
+          "WI",
+          "MA",
+          "AZ",
+          "CA",
+          "VA",
+          "NC",
+          "TN",
+          "NH",
+          "AL",
+          "VT",
+          "SC",
+          "MO",
+          "MN",
+          "CO",
+          "MI",
+          "DE",
+          "WA",
+          "NT",
+          "RI",
+          "AR"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "county",
+        "constants": [
+          "ALBANY",
+          "DUTCHESS",
+          "SARATOGA",
+          "ROCKLAND",
+          "ONEIDA",
+          "NIAGARA",
+          "OUT-OF-STATE",
+          "ULSTER",
+          "BROOME",
+          "SCHENECTADY",
+          "RENSSELAER"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "4DSD",
+          "PICK",
+          "2DSD",
+          "BOAT",
+          "LTRL",
+          "MCY",
+          "TRLR",
+          "VAN",
+          "CONV",
+          "ATV",
+          "SNOW",
+          "DUMP",
+          "BUS",
+          "H/TR",
+          "UTIL",
+          "SEMI",
+          "TRAC",
+          "H/WH",
+          "DELV",
+          "FLAT",
+          "P/SH",
+          "STAK",
+          "TANK",
+          "MOPD"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "fuel_type",
+        "constants": [
+          "GAS",
+          "NONE"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "scofflaw_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "suspension_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type IN ('VEH', 'TRL') AND State IN ('NJ', 'OK', 'PA', 'MD', 'IL', 'TX', 'FL', 'GA', 'CT', 'IN', 'OH', 'WI', 'MA', 'AZ', 'CA', 'VA', 'NC', 'TN', 'NH', 'AL', 'VT', 'SC', 'MO', 'MN', 'CO', 'MI', 'DE', 'WA', 'NT', 'RI', 'AR') AND County IN ('ALBANY', 'DUTCHESS', 'SARATOGA', 'ROCKLAND', 'ONEIDA', 'NIAGARA', 'OUT-OF-STATE', 'ULSTER', 'BROOME', 'SCHENECTADY', 'RENSSELAER') AND Body_Type IN ('4DSD', 'PICK', '2DSD', 'BOAT', 'LTRL', 'MCY', 'TRLR', 'VAN', 'CONV', 'ATV', 'SNOW', 'DUMP', 'BUS', 'H/TR', 'UTIL', 'SEMI', 'TRAC', 'H/WH', 'DELV', 'FLAT', 'P/SH', 'STAK', 'TANK', 'MOPD') AND Fuel_Type IN ('GAS', 'NONE') AND Scofflaw_Indicator = 'N' AND Suspension_Indicator = 'N'",
+    "truth": 2848.0
+  },
+  "dmv.337": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 5241.0,
+        "independence_product": 0.0010851041396157432,
+        "predicate_selectivities": [
+          0.163133333,
+          0.99566670025,
+          0.0213666665,
+          0.3166,
+          0.9998,
+          0.99156666,
+          0.99616665
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 1346.0
+      },
+      "native-T1000": {
+        "final_estimate": 5102.0,
+        "independence_product": 0.0010563384797643185,
+        "predicate_selectivities": [
+          0.1623933324,
+          0.9958766661999999,
+          0.02108333336,
+          0.31395,
+          0.9997467,
+          0.99139,
+          0.99562335
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 1346.0
+      },
+      "native-T300": {
+        "final_estimate": 4858.0,
+        "independence_product": 0.0010056952707473915,
+        "predicate_selectivities": [
+          0.1623111101,
+          0.99587777771,
+          0.0200888889,
+          0.3141111,
+          0.99976665,
+          0.9909667,
+          0.9952111
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 1346.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 13099.0,
+        "independence_product": 0.0011299888500952283,
+        "predicate_selectivities": [
+          0.16386666889999998,
+          0.99623330005,
+          0.02209999986,
+          0.3175,
+          0.9999,
+          0.99123335,
+          0.9953
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 1346.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 7352.0,
+        "independence_product": 0.001078225061522628,
+        "predicate_selectivities": [
+          0.1629899985,
+          0.99587666656,
+          0.0214433333,
+          0.31391,
+          0.99978334,
+          0.99138,
+          0.9956333
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 1346.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 12386.0,
+        "independence_product": 0.0010684847011820505,
+        "predicate_selectivities": [
+          0.16334444339999998,
+          0.9961889213899999,
+          0.02105555575,
+          0.31611112,
+          0.9997889,
+          0.9912222,
+          0.9954889
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 1346.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 5241.0,
+        "q_error": 3.8937592867756314
+      },
+      "native-T1000": {
+        "estimate": 5102.0,
+        "q_error": 3.790490341753343
+      },
+      "native-T300": {
+        "estimate": 4858.0,
+        "q_error": 3.609212481426449
+      },
+      "reservoir-T100": {
+        "estimate": 13099.0,
+        "q_error": 9.731797919762258
+      },
+      "reservoir-T1000": {
+        "estimate": 7352.0,
+        "q_error": 5.462109955423477
+      },
+      "reservoir-T300": {
+        "estimate": 12386.0,
+        "q_error": 9.202080237741455
+      }
+    },
+    "predicates": [
+      {
+        "column": "registration_class",
+        "constants": [
+          "BOT",
+          "MOT",
+          "TRL",
+          "SRF",
+          "PSD",
+          "OMT",
+          "OMS",
+          "ATV",
+          "SNO",
+          "HOU",
+          "ORG",
+          "SEM",
+          "HIS",
+          "IRP"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "state",
+        "constants": [
+          "NY",
+          "NJ",
+          "OK",
+          "PA",
+          "MD",
+          "IL",
+          "TX",
+          "FL"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "county",
+        "constants": [
+          "CORTLAND",
+          "ESSEX",
+          "ORLEANS",
+          "SENECA",
+          "SCHOHARIE",
+          "LEWIS",
+          "YATES",
+          "SCHUYLER",
+          "HAMILTON"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "4DSD"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "scofflaw_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "suspension_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "revocation_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Registration_Class IN ('BOT', 'MOT', 'TRL', 'SRF', 'PSD', 'OMT', 'OMS', 'ATV', 'SNO', 'HOU', 'ORG', 'SEM', 'HIS', 'IRP') AND State IN ('NY', 'NJ', 'OK', 'PA', 'MD', 'IL', 'TX', 'FL') AND County IN ('CORTLAND', 'ESSEX', 'ORLEANS', 'SENECA', 'SCHOHARIE', 'LEWIS', 'YATES', 'SCHUYLER', 'HAMILTON') AND Body_Type = '4DSD' AND Scofflaw_Indicator = 'N' AND Suspension_Indicator = 'N' AND Revocation_Indicator = 'N'",
+    "truth": 1346.0
+  },
+  "dmv.404": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 89111.0,
+        "independence_product": 0.019771898421752202,
+        "predicate_selectivities": [
+          0.92153335,
+          0.738,
+          0.23737301587301587,
+          0.129966666,
+          0.95056666,
+          0.9998,
+          0.99156666
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 38782.0
+      },
+      "native-T1000": {
+        "final_estimate": 90758.0,
+        "independence_product": 0.020123448938917692,
+        "predicate_selectivities": [
+          0.92067665,
+          0.73775333,
+          0.23964968387301588,
+          0.131413331,
+          0.949146633,
+          0.9997467,
+          0.99139
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 38782.0
+      },
+      "native-T300": {
+        "final_estimate": 90627.0,
+        "independence_product": 0.020089705188455476,
+        "predicate_selectivities": [
+          0.91954446,
+          0.7391,
+          0.24045078937301587,
+          0.13077777799999998,
+          0.9488111100000001,
+          0.99976665,
+          0.9909667
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 38782.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 222523.0,
+        "independence_product": 0.020557342495899758,
+        "predicate_selectivities": [
+          0.9191333,
+          0.73483336,
+          0.2397730148730159,
+          0.134533331,
+          0.9519999669999999,
+          0.9999,
+          0.99123335
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 38782.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 128615.0,
+        "independence_product": 0.020200046796141475,
+        "predicate_selectivities": [
+          0.91965336,
+          0.7375467,
+          0.23961634887301586,
+          0.132,
+          0.949953316,
+          0.99978334,
+          0.99138
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 38782.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 220426.0,
+        "independence_product": 0.020361596395841706,
+        "predicate_selectivities": [
+          0.92116666,
+          0.7368889,
+          0.24010634937301586,
+          0.132688888,
+          0.95006664,
+          0.9997889,
+          0.9912222
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 38782.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 89111.0,
+        "q_error": 2.2977412201536795
+      },
+      "native-T1000": {
+        "estimate": 90758.0,
+        "q_error": 2.3402093754834716
+      },
+      "native-T300": {
+        "estimate": 90627.0,
+        "q_error": 2.336831519777216
+      },
+      "reservoir-T100": {
+        "estimate": 222523.0,
+        "q_error": 5.737790727657161
+      },
+      "reservoir-T1000": {
+        "estimate": 128615.0,
+        "q_error": 3.3163581042751793
+      },
+      "reservoir-T300": {
+        "estimate": 220426.0,
+        "q_error": 5.68371925119901
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "VEH"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "registration_class",
+        "constants": [
+          "PAS"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "county",
+        "constants": [
+          "BRONX",
+          "RICHMOND",
+          "NEW YORK",
+          "ALBANY",
+          "DUTCHESS",
+          "SARATOGA",
+          "ROCKLAND",
+          "ONEIDA",
+          "NIAGARA",
+          "OUT-OF-STATE",
+          "ULSTER",
+          "BROOME",
+          "SCHENECTADY"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "BOAT",
+          "LTRL",
+          "MCY",
+          "TRLR",
+          "VAN",
+          "CONV"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "fuel_type",
+        "constants": [
+          "GAS",
+          "NONE"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "scofflaw_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "suspension_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type = 'VEH' AND Registration_Class = 'PAS' AND County IN ('BRONX', 'RICHMOND', 'NEW YORK', 'ALBANY', 'DUTCHESS', 'SARATOGA', 'ROCKLAND', 'ONEIDA', 'NIAGARA', 'OUT-OF-STATE', 'ULSTER', 'BROOME', 'SCHENECTADY') AND Body_Type IN ('BOAT', 'LTRL', 'MCY', 'TRLR', 'VAN', 'CONV') AND Fuel_Type IN ('GAS', 'NONE') AND Scofflaw_Indicator = 'N' AND Suspension_Indicator = 'N'",
+    "truth": 38782.0
+  },
+  "dmv.536": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 5133.0,
+        "independence_product": 0.001134773199429813,
+        "predicate_selectivities": [
+          0.92153335,
+          0.982466666,
+          0.24993968287301588,
+          0.1226333337,
+          0.0409,
+          0.9998
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2651.0
+      },
+      "native-T1000": {
+        "final_estimate": 5234.0,
+        "independence_product": 0.0011568402680152555,
+        "predicate_selectivities": [
+          0.92067665,
+          0.9832533294,
+          0.2508063508730159,
+          0.1250266652,
+          0.040763333,
+          0.9997467
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2651.0
+      },
+      "native-T300": {
+        "final_estimate": 5248.0,
+        "independence_product": 0.0011597137597215922,
+        "predicate_selectivities": [
+          0.91954446,
+          0.9831666641,
+          0.25185078937301586,
+          0.1248333324,
+          0.04081111,
+          0.99976665
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2651.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 12732.0,
+        "independence_product": 0.0011726564046135144,
+        "predicate_selectivities": [
+          0.9191333,
+          0.9829333619,
+          0.2504063488730159,
+          0.1232333332,
+          0.042066667,
+          0.9999
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2651.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 7519.0,
+        "independence_product": 0.0011771755523415843,
+        "predicate_selectivities": [
+          0.91965336,
+          0.9828466995,
+          0.2508630148730159,
+          0.1249233333,
+          0.041566666,
+          0.99978334
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2651.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 13017.0,
+        "independence_product": 0.001198726874622821,
+        "predicate_selectivities": [
+          0.92116666,
+          0.9830444554,
+          0.2512063493730159,
+          0.1267000013,
+          0.0416,
+          0.9997889
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 2651.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 5133.0,
+        "q_error": 1.9362504715201811
+      },
+      "native-T1000": {
+        "estimate": 5234.0,
+        "q_error": 1.974349302150132
+      },
+      "native-T300": {
+        "estimate": 5248.0,
+        "q_error": 1.979630328178046
+      },
+      "reservoir-T100": {
+        "estimate": 12732.0,
+        "q_error": 4.802715956242928
+      },
+      "reservoir-T1000": {
+        "estimate": 7519.0,
+        "q_error": 2.836288193134666
+      },
+      "reservoir-T300": {
+        "estimate": 13017.0,
+        "q_error": 4.910222557525462
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "VEH"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "registration_class",
+        "constants": [
+          "PAS",
+          "COM",
+          "LTR",
+          "BOT",
+          "MOT",
+          "TRL",
+          "SRF",
+          "PSD",
+          "OMT",
+          "OMS",
+          "ATV",
+          "SNO",
+          "HOU",
+          "ORG",
+          "SEM",
+          "HIS",
+          "IRP"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "county",
+        "constants": [
+          "BRONX",
+          "RICHMOND",
+          "NEW YORK",
+          "ALBANY",
+          "DUTCHESS",
+          "SARATOGA",
+          "ROCKLAND",
+          "ONEIDA",
+          "NIAGARA",
+          "OUT-OF-STATE",
+          "ULSTER",
+          "BROOME",
+          "SCHENECTADY",
+          "RENSSELAER"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "MCY",
+          "TRLR",
+          "VAN",
+          "CONV",
+          "ATV",
+          "SNOW",
+          "DUMP",
+          "BUS",
+          "H/TR",
+          "UTIL",
+          "SEMI",
+          "TRAC",
+          "H/WH",
+          "DELV"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "fuel_type",
+        "constants": [
+          "NONE"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "scofflaw_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type = 'VEH' AND Registration_Class IN ('PAS', 'COM', 'LTR', 'BOT', 'MOT', 'TRL', 'SRF', 'PSD', 'OMT', 'OMS', 'ATV', 'SNO', 'HOU', 'ORG', 'SEM', 'HIS', 'IRP') AND County IN ('BRONX', 'RICHMOND', 'NEW YORK', 'ALBANY', 'DUTCHESS', 'SARATOGA', 'ROCKLAND', 'ONEIDA', 'NIAGARA', 'OUT-OF-STATE', 'ULSTER', 'BROOME', 'SCHENECTADY', 'RENSSELAER') AND Body_Type IN ('MCY', 'TRLR', 'VAN', 'CONV', 'ATV', 'SNOW', 'DUMP', 'BUS', 'H/TR', 'UTIL', 'SEMI', 'TRAC', 'H/WH', 'DELV') AND Fuel_Type = 'NONE' AND Scofflaw_Indicator = 'N'",
+    "truth": 2651.0
+  },
+  "dmv.547": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 1548.0,
+        "independence_product": 0.00032059297890492454,
+        "predicate_selectivities": [
+          0.92153335,
+          0.99556666611,
+          0.0084,
+          0.041599998699999995
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 37.0
+      },
+      "native-T1000": {
+        "final_estimate": 1675.0,
+        "independence_product": 0.00034680426771433554,
+        "predicate_selectivities": [
+          0.92067665,
+          0.99550332926,
+          0.009113333,
+          0.0415200003
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 37.0
+      },
+      "native-T300": {
+        "final_estimate": 1730.0,
+        "independence_product": 0.0003581716679945247,
+        "predicate_selectivities": [
+          0.91954446,
+          0.99562221981,
+          0.009322222,
+          0.041966666699999995
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 37.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 3579.0,
+        "independence_product": 0.00030878649146672736,
+        "predicate_selectivities": [
+          0.9191333,
+          0.99556669517,
+          0.0085,
+          0.0397
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 37.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 2304.0,
+        "independence_product": 0.00033786678748736593,
+        "predicate_selectivities": [
+          0.91965336,
+          0.99532003255,
+          0.008986667,
+          0.041073333
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 37.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 3788.0,
+        "independence_product": 0.0003267722829804176,
+        "predicate_selectivities": [
+          0.92116666,
+          0.9953777887399999,
+          0.008744445,
+          0.0407555544
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 37.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 1548.0,
+        "q_error": 41.83783783783784
+      },
+      "native-T1000": {
+        "estimate": 1675.0,
+        "q_error": 45.270270270270274
+      },
+      "native-T300": {
+        "estimate": 1730.0,
+        "q_error": 46.75675675675676
+      },
+      "reservoir-T100": {
+        "estimate": 3579.0,
+        "q_error": 96.72972972972973
+      },
+      "reservoir-T1000": {
+        "estimate": 2304.0,
+        "q_error": 62.270270270270274
+      },
+      "reservoir-T300": {
+        "estimate": 3788.0,
+        "q_error": 102.37837837837837
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "VEH"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "registration_class",
+        "constants": [
+          "PAS",
+          "COM",
+          "LTR",
+          "BOT",
+          "MOT",
+          "TRL",
+          "SRF",
+          "PSD",
+          "OMT",
+          "OMS",
+          "ATV",
+          "SNO",
+          "HOU",
+          "ORG",
+          "SEM",
+          "HIS",
+          "IRP",
+          "OMR",
+          "STA",
+          "AGR",
+          "SPO",
+          "FAR",
+          "RGL",
+          "MED",
+          "SCL",
+          "SPC",
+          "TRC"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "ATV"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "fuel_type",
+        "constants": [
+          "DIESEL",
+          "ELECTRIC"
+        ],
+        "operator": "IN"
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type = 'VEH' AND Registration_Class IN ('PAS', 'COM', 'LTR', 'BOT', 'MOT', 'TRL', 'SRF', 'PSD', 'OMT', 'OMS', 'ATV', 'SNO', 'HOU', 'ORG', 'SEM', 'HIS', 'IRP', 'OMR', 'STA', 'AGR', 'SPO', 'FAR', 'RGL', 'MED', 'SCL', 'SPC', 'TRC') AND Body_Type = 'ATV' AND Fuel_Type IN ('DIESEL', 'ELECTRIC')",
+    "truth": 37.0
+  },
+  "dmv.562": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 1104.0,
+        "independence_product": 0.0691158170210897,
+        "predicate_selectivities": [
+          0.92153335,
+          1.0,
+          1.0,
+          0.0831666661,
+          0.913166668,
+          0.9998,
+          0.99156666,
+          0.99616665
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 214.0
+      },
+      "native-T1000": {
+        "final_estimate": 510.0,
+        "independence_product": 0.03157922661872647,
+        "predicate_selectivities": [
+          0.92067665,
+          0.99790999588,
+          0.45736035088019295,
+          0.0837166658,
+          0.9097099940000001,
+          0.9997467,
+          0.99139,
+          0.99562335
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 214.0
+      },
+      "native-T300": {
+        "final_estimate": 679.0,
+        "independence_product": 0.05933521746326489,
+        "predicate_selectivities": [
+          0.91954446,
+          0.9980222197899999,
+          0.8608762273990698,
+          0.083733334,
+          0.909677764,
+          0.99976665,
+          0.9909667,
+          0.9952111
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 214.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 2971.0,
+        "independence_product": 0.06751975192771267,
+        "predicate_selectivities": [
+          0.9191333,
+          0.99786669519,
+          1.0,
+          0.0818333334,
+          0.911933331,
+          0.9999,
+          0.99123335,
+          0.9953
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 214.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 728.0,
+        "independence_product": 0.0293480401184026,
+        "predicate_selectivities": [
+          0.91965336,
+          0.9979133658,
+          0.4298647619014285,
+          0.0828166665,
+          0.910263334,
+          0.99978334,
+          0.99138,
+          0.9956333
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 214.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 1411.0,
+        "independence_product": 0.04817904437027929,
+        "predicate_selectivities": [
+          0.92116666,
+          0.99797778872,
+          0.7030721040244681,
+          0.0830222226,
+          0.910100011,
+          0.9997889,
+          0.9912222,
+          0.9954889
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 214.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 1104.0,
+        "q_error": 5.158878504672897
+      },
+      "native-T1000": {
+        "estimate": 510.0,
+        "q_error": 2.383177570093458
+      },
+      "native-T300": {
+        "estimate": 679.0,
+        "q_error": 3.1728971962616823
+      },
+      "reservoir-T100": {
+        "estimate": 2971.0,
+        "q_error": 13.883177570093459
+      },
+      "reservoir-T1000": {
+        "estimate": 728.0,
+        "q_error": 3.4018691588785046
+      },
+      "reservoir-T300": {
+        "estimate": 1411.0,
+        "q_error": 6.593457943925234
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "VEH"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "registration_class",
+        "constants": [
+          "PAS",
+          "COM",
+          "LTR",
+          "BOT",
+          "MOT",
+          "TRL",
+          "SRF",
+          "PSD",
+          "OMT",
+          "OMS",
+          "ATV",
+          "SNO",
+          "HOU",
+          "ORG",
+          "SEM",
+          "HIS",
+          "IRP",
+          "OMR",
+          "STA",
+          "AGR",
+          "SPO",
+          "FAR",
+          "RGL",
+          "MED",
+          "SCL",
+          "SPC",
+          "TRC",
+          "OML",
+          "LMB",
+          "TOW",
+          "ORC"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "state",
+        "constants": [
+          "CA",
+          "VA",
+          "NC",
+          "TN",
+          "NH",
+          "AL",
+          "VT",
+          "SC",
+          "MO",
+          "MN",
+          "CO",
+          "MI",
+          "DE",
+          "WA",
+          "NT",
+          "RI",
+          "AR",
+          "NV",
+          "ME",
+          "KY",
+          "DC",
+          "WV",
+          "UT",
+          "KS",
+          "LA",
+          "ON",
+          "NM",
+          "NU",
+          "MT",
+          "OR",
+          "NE",
+          "HI",
+          "IA",
+          "AK",
+          "MS",
+          "SD",
+          "QC",
+          "WY",
+          "ND"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "county",
+        "constants": [
+          "SULLIVAN",
+          "CATTARAUGUS",
+          "MADISON",
+          "COLUMBIA",
+          "LIVINGSTON",
+          "WASHINGTON",
+          "HERKIMER",
+          "GENESEE",
+          "OTSEGO",
+          "FULTON",
+          "GREENE",
+          "FRANKLIN",
+          "MONTGOMERY",
+          "CHENANGO",
+          "TIOGA",
+          "DELAWARE",
+          "WYOMING",
+          "ALLEGANY",
+          "CORTLAND"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "SUBN",
+          "4DSD",
+          "PICK",
+          "2DSD",
+          "BOAT",
+          "LTRL",
+          "MCY",
+          "TRLR"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "scofflaw_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "suspension_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "revocation_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type = 'VEH' AND Registration_Class IN ('PAS', 'COM', 'LTR', 'BOT', 'MOT', 'TRL', 'SRF', 'PSD', 'OMT', 'OMS', 'ATV', 'SNO', 'HOU', 'ORG', 'SEM', 'HIS', 'IRP', 'OMR', 'STA', 'AGR', 'SPO', 'FAR', 'RGL', 'MED', 'SCL', 'SPC', 'TRC', 'OML', 'LMB', 'TOW', 'ORC') AND State IN ('CA', 'VA', 'NC', 'TN', 'NH', 'AL', 'VT', 'SC', 'MO', 'MN', 'CO', 'MI', 'DE', 'WA', 'NT', 'RI', 'AR', 'NV', 'ME', 'KY', 'DC', 'WV', 'UT', 'KS', 'LA', 'ON', 'NM', 'NU', 'MT', 'OR', 'NE', 'HI', 'IA', 'AK', 'MS', 'SD', 'QC', 'WY', 'ND') AND County IN ('SULLIVAN', 'CATTARAUGUS', 'MADISON', 'COLUMBIA', 'LIVINGSTON', 'WASHINGTON', 'HERKIMER', 'GENESEE', 'OTSEGO', 'FULTON', 'GREENE', 'FRANKLIN', 'MONTGOMERY', 'CHENANGO', 'TIOGA', 'DELAWARE', 'WYOMING', 'ALLEGANY', 'CORTLAND') AND Body_Type IN ('SUBN', '4DSD', 'PICK', '2DSD', 'BOAT', 'LTRL', 'MCY', 'TRLR') AND Scofflaw_Indicator = 'N' AND Suspension_Indicator = 'N' AND Revocation_Indicator = 'N'",
+    "truth": 214.0
+  },
+  "dmv.736": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 38989.0,
+        "independence_product": 0.008588431623052055,
+        "predicate_selectivities": [
+          0.92153335,
+          0.738,
+          1.0,
+          0.2659396813730159,
+          0.57569999477,
+          0.0824999987,
+          0.9998
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6863.0
+      },
+      "native-T1000": {
+        "final_estimate": 38220.0,
+        "independence_product": 0.008426334775276755,
+        "predicate_selectivities": [
+          0.92067665,
+          0.73775333,
+          1.0,
+          0.2622530169730159,
+          0.57503999713,
+          0.0822833333,
+          0.9997467
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6863.0
+      },
+      "native-T300": {
+        "final_estimate": 38560.0,
+        "independence_product": 0.00850320643398147,
+        "predicate_selectivities": [
+          0.91954446,
+          0.7391,
+          1.0,
+          0.2622174573730159,
+          0.57654443303,
+          0.0827777767,
+          0.99976665
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6863.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 90843.0,
+        "independence_product": 0.00834837905903519,
+        "predicate_selectivities": [
+          0.9191333,
+          0.73483336,
+          1.0,
+          0.2617730151730159,
+          0.57753333428,
+          0.081766667,
+          0.9999
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6863.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 54251.0,
+        "independence_product": 0.008470364196233367,
+        "predicate_selectivities": [
+          0.91965336,
+          0.7375467,
+          1.0,
+          0.26305968227301585,
+          0.57456333385,
+          0.082639999,
+          0.99978334
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6863.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 91881.0,
+        "independence_product": 0.008442058074724219,
+        "predicate_selectivities": [
+          0.92116666,
+          0.7368889,
+          1.0,
+          0.26165079447301587,
+          0.57727778625,
+          0.08235555439999999,
+          0.9997889
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 6863.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 38989.0,
+        "q_error": 5.6810432755354805
+      },
+      "native-T1000": {
+        "estimate": 38220.0,
+        "q_error": 5.568993151682937
+      },
+      "native-T300": {
+        "estimate": 38560.0,
+        "q_error": 5.618534168730876
+      },
+      "reservoir-T100": {
+        "estimate": 90843.0,
+        "q_error": 13.23663121084074
+      },
+      "reservoir-T1000": {
+        "estimate": 54251.0,
+        "q_error": 7.904852105493225
+      },
+      "reservoir-T300": {
+        "estimate": 91881.0,
+        "q_error": 13.387877021710622
+      }
+    },
+    "predicates": [
+      {
+        "column": "record_type",
+        "constants": [
+          "VEH"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "registration_class",
+        "constants": [
+          "PAS"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "state",
+        "constants": [
+          "NY",
+          "NJ",
+          "OK",
+          "PA",
+          "MD",
+          "IL",
+          "TX",
+          "FL",
+          "GA",
+          "CT",
+          "IN",
+          "OH",
+          "WI",
+          "MA",
+          "AZ",
+          "CA",
+          "VA",
+          "NC",
+          "TN",
+          "NH",
+          "AL",
+          "VT",
+          "SC",
+          "MO",
+          "MN",
+          "CO",
+          "MI",
+          "DE",
+          "WA"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "county",
+        "constants": [
+          "ROCKLAND",
+          "ONEIDA",
+          "NIAGARA",
+          "OUT-OF-STATE",
+          "ULSTER",
+          "BROOME",
+          "SCHENECTADY",
+          "RENSSELAER",
+          "OSWEGO",
+          "ONTARIO",
+          "CHAUTAUQUA",
+          "JEFFERSON",
+          "ST LAWRENCE",
+          "WAYNE",
+          "PUTNAM",
+          "STEUBEN",
+          "CLINTON",
+          "CAYUGA",
+          "WARREN",
+          "CHEMUNG",
+          "TOMPKINS",
+          "SULLIVAN",
+          "CATTARAUGUS",
+          "MADISON",
+          "COLUMBIA",
+          "LIVINGSTON",
+          "WASHINGTON",
+          "HERKIMER",
+          "GENESEE",
+          "OTSEGO",
+          "FULTON"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "4DSD",
+          "PICK",
+          "2DSD",
+          "BOAT",
+          "LTRL",
+          "MCY",
+          "TRLR",
+          "VAN",
+          "CONV",
+          "ATV",
+          "SNOW",
+          "DUMP",
+          "BUS",
+          "H/TR",
+          "UTIL",
+          "SEMI",
+          "TRAC",
+          "H/WH",
+          "DELV",
+          "FLAT",
+          "P/SH",
+          "STAK",
+          "TANK"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "fuel_type",
+        "constants": [
+          "NONE",
+          "DIESEL",
+          "ELECTRIC"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "scofflaw_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE Record_Type = 'VEH' AND Registration_Class = 'PAS' AND State IN ('NY', 'NJ', 'OK', 'PA', 'MD', 'IL', 'TX', 'FL', 'GA', 'CT', 'IN', 'OH', 'WI', 'MA', 'AZ', 'CA', 'VA', 'NC', 'TN', 'NH', 'AL', 'VT', 'SC', 'MO', 'MN', 'CO', 'MI', 'DE', 'WA') AND County IN ('ROCKLAND', 'ONEIDA', 'NIAGARA', 'OUT-OF-STATE', 'ULSTER', 'BROOME', 'SCHENECTADY', 'RENSSELAER', 'OSWEGO', 'ONTARIO', 'CHAUTAUQUA', 'JEFFERSON', 'ST LAWRENCE', 'WAYNE', 'PUTNAM', 'STEUBEN', 'CLINTON', 'CAYUGA', 'WARREN', 'CHEMUNG', 'TOMPKINS', 'SULLIVAN', 'CATTARAUGUS', 'MADISON', 'COLUMBIA', 'LIVINGSTON', 'WASHINGTON', 'HERKIMER', 'GENESEE', 'OTSEGO', 'FULTON') AND Body_Type IN ('4DSD', 'PICK', '2DSD', 'BOAT', 'LTRL', 'MCY', 'TRLR', 'VAN', 'CONV', 'ATV', 'SNOW', 'DUMP', 'BUS', 'H/TR', 'UTIL', 'SEMI', 'TRAC', 'H/WH', 'DELV', 'FLAT', 'P/SH', 'STAK', 'TANK') AND Fuel_Type IN ('NONE', 'DIESEL', 'ELECTRIC') AND Scofflaw_Indicator = 'N'",
+    "truth": 6863.0
+  },
+  "dmv.976": {
+    "decomposition": {
+      "native-T100": {
+        "final_estimate": 1493.0,
+        "independence_product": 0.08870719373413687,
+        "predicate_selectivities": [
+          1.0,
+          0.0909666655,
+          0.9889000014,
+          0.990099992,
+          0.9998,
+          0.99616665
+        ],
+        "selectivity_paths": [
+          "MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 427.0
+      },
+      "native-T1000": {
+        "final_estimate": 671.0,
+        "independence_product": 0.04400591828139344,
+        "predicate_selectivities": [
+          0.49244807017843856,
+          0.0919066654,
+          0.9883299938000001,
+          0.9883633000000001,
+          0.9997467,
+          0.99562335
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 427.0
+      },
+      "native-T300": {
+        "final_estimate": 917.0,
+        "independence_product": 0.08095628280211283,
+        "predicate_selectivities": [
+          0.9073878553060465,
+          0.0917111113,
+          0.9886999853999999,
+          0.98891111,
+          0.99976665,
+          0.9952111
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 427.0
+      },
+      "reservoir-T100": {
+        "final_estimate": 4174.0,
+        "independence_product": 0.09022750528961758,
+        "predicate_selectivities": [
+          1.0,
+          0.0926999998,
+          0.9887999975,
+          0.9890999669999999,
+          0.9999,
+          0.9953
+        ],
+        "selectivity_paths": [
+          "MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 427.0
+      },
+      "reservoir-T1000": {
+        "final_estimate": 958.0,
+        "independence_product": 0.041221462384313505,
+        "predicate_selectivities": [
+          0.4655790476157143,
+          0.0910066674,
+          0.9884766673,
+          0.988746649,
+          0.99978334,
+          0.9956333
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 427.0
+      },
+      "reservoir-T300": {
+        "final_estimate": 1862.0,
+        "independence_product": 0.0655759565176448,
+        "predicate_selectivities": [
+          0.7456252955138297,
+          0.0905111119,
+          0.9879666785000001,
+          0.98817775,
+          0.9997889,
+          0.9954889
+        ],
+        "selectivity_paths": [
+          "MCV_EXACT+MCV_MISS_NDISTINCT_FALLBACK",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT",
+          "MCV_EXACT"
+        ],
+        "truth": 427.0
+      }
+    },
+    "estimates": {
+      "native-T100": {
+        "estimate": 1493.0,
+        "q_error": 3.496487119437939
+      },
+      "native-T1000": {
+        "estimate": 671.0,
+        "q_error": 1.5714285714285714
+      },
+      "native-T300": {
+        "estimate": 917.0,
+        "q_error": 2.1475409836065573
+      },
+      "reservoir-T100": {
+        "estimate": 4174.0,
+        "q_error": 9.775175644028103
+      },
+      "reservoir-T1000": {
+        "estimate": 958.0,
+        "q_error": 2.243559718969555
+      },
+      "reservoir-T300": {
+        "estimate": 1862.0,
+        "q_error": 4.360655737704918
+      }
+    },
+    "predicates": [
+      {
+        "column": "state",
+        "constants": [
+          "CA",
+          "VA",
+          "NC",
+          "TN",
+          "NH",
+          "AL",
+          "VT",
+          "SC",
+          "MO",
+          "MN",
+          "CO",
+          "MI",
+          "DE",
+          "WA",
+          "NT",
+          "RI",
+          "AR",
+          "NV",
+          "ME",
+          "KY",
+          "DC",
+          "WV",
+          "UT",
+          "KS",
+          "LA",
+          "ON",
+          "NM",
+          "NU",
+          "MT",
+          "OR",
+          "NE",
+          "HI",
+          "IA",
+          "AK",
+          "MS",
+          "SD",
+          "QC",
+          "WY",
+          "ND",
+          "PR",
+          "ID"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "county",
+        "constants": [
+          "STEUBEN",
+          "CLINTON",
+          "CAYUGA",
+          "WARREN",
+          "CHEMUNG",
+          "TOMPKINS",
+          "SULLIVAN",
+          "CATTARAUGUS",
+          "MADISON",
+          "COLUMBIA",
+          "LIVINGSTON",
+          "WASHINGTON",
+          "HERKIMER",
+          "GENESEE",
+          "OTSEGO",
+          "FULTON",
+          "GREENE"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "body_type",
+        "constants": [
+          "SUBN",
+          "4DSD",
+          "PICK",
+          "2DSD",
+          "BOAT",
+          "LTRL",
+          "MCY",
+          "TRLR",
+          "VAN",
+          "CONV",
+          "ATV",
+          "SNOW",
+          "DUMP",
+          "BUS",
+          "H/TR",
+          "UTIL",
+          "SEMI",
+          "TRAC",
+          "H/WH"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "fuel_type",
+        "constants": [
+          "GAS",
+          "NONE",
+          "DIESEL"
+        ],
+        "operator": "IN"
+      },
+      {
+        "column": "scofflaw_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      },
+      {
+        "column": "revocation_indicator",
+        "constants": [
+          "N"
+        ],
+        "operator": "="
+      }
+    ],
+    "sql": "SELECT COUNT(*) FROM DMV  WHERE State IN ('CA', 'VA', 'NC', 'TN', 'NH', 'AL', 'VT', 'SC', 'MO', 'MN', 'CO', 'MI', 'DE', 'WA', 'NT', 'RI', 'AR', 'NV', 'ME', 'KY', 'DC', 'WV', 'UT', 'KS', 'LA', 'ON', 'NM', 'NU', 'MT', 'OR', 'NE', 'HI', 'IA', 'AK', 'MS', 'SD', 'QC', 'WY', 'ND', 'PR', 'ID') AND County IN ('STEUBEN', 'CLINTON', 'CAYUGA', 'WARREN', 'CHEMUNG', 'TOMPKINS', 'SULLIVAN', 'CATTARAUGUS', 'MADISON', 'COLUMBIA', 'LIVINGSTON', 'WASHINGTON', 'HERKIMER', 'GENESEE', 'OTSEGO', 'FULTON', 'GREENE') AND Body_Type IN ('SUBN', '4DSD', 'PICK', '2DSD', 'BOAT', 'LTRL', 'MCY', 'TRLR', 'VAN', 'CONV', 'ATV', 'SNOW', 'DUMP', 'BUS', 'H/TR', 'UTIL', 'SEMI', 'TRAC', 'H/WH') AND Fuel_Type IN ('GAS', 'NONE', 'DIESEL') AND Scofflaw_Indicator = 'N' AND Revocation_Indicator = 'N'",
+    "truth": 427.0
+  }
+}
