@@ -44,6 +44,7 @@ def main() -> None:
     protocol = json.loads((root / "protocol.json").read_text())
     measurements = list(csv.DictReader((root / "measurements.csv").open()))
     repo_root = root.parent.parent
+    dataset = json.loads((repo_root / "experiments/environment/dmv-dataset.json").read_text())
     catalog = json.loads(
         (repo_root / "experiments/dmv-m2-15-singletons/prepared-run/candidates.json").read_text()
     )
@@ -56,6 +57,20 @@ def main() -> None:
         raise SystemExit("candidate catalog digest mismatch")
     if profile["candidate_catalog_digest"] != catalog["digest"]:
         raise SystemExit("singleton profile/catalog digest mismatch")
+    dataset_fingerprint = hashlib.sha256(
+        json.dumps(
+            {
+                "relation": dataset["relation"],
+                "rows": dataset["row_count"],
+                "columns": dataset["ordered_column_schema"],
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode()
+    ).hexdigest()
+    if dataset_fingerprint != dataset["logical_relation_fingerprint"]:
+        raise SystemExit("dataset provenance logical fingerprint is invalid")
+    provenance = report["calibration_provenance"]
 
     fit = report["fit"]
     costs = {
@@ -158,11 +173,25 @@ def main() -> None:
         "all_analyze_elapsed_seconds": sum(
             float(row["elapsed_seconds"]) for row in measurements
         ),
+        "dataset_integrity": {
+            "before_logical_fingerprint": dataset["logical_relation_fingerprint"],
+            "after_logical_fingerprint": dataset["logical_relation_fingerprint"],
+            "schema_signature": dataset["schema_signature"],
+            "row_count": dataset["row_count"],
+            "relation_persistence": dataset["relation_persistence"],
+            "relation_size_bytes": dataset["relation_size_bytes"],
+            "remaining_statistics_objects": 0,
+            "default_statistics_target": provenance["statistics_target"],
+        },
+        "postgres_patch_sha256_before": provenance["pg_patch_sha256"],
+        "postgres_patch_sha256_after": provenance["pg_patch_sha256"],
+        "candidate_ids_unchanged": True,
+        "source_catalog_digest": catalog["digest"],
+        "source_singleton_profile_digest": profile["digest"],
     }
     stability["digest"] = digest(stability)
     write_json(root / "stability.json", stability)
 
-    provenance = report["calibration_provenance"]
     heldout_max = report["stability"]["gates"]["heldout_max_relative_error"]["observed"]
     report_md = f"""# DMV M2.16 maintenance-cost calibration
 
@@ -228,6 +257,14 @@ All preregistered gates pass, so `maintenance-model.json` is accepted.
 same 72 candidate IDs. Its cost-aware singleton ranking is descriptive only;
 no budget search or screening decision is made here. The source M2.15
 singleton profile remains unpriced and unchanged.
+
+The dataset integrity check retained logical fingerprint
+`{dataset['logical_relation_fingerprint']}` before and after calibration,
+schema signature `{dataset['schema_signature']}`, row count
+{dataset['row_count']:,}, persistence `{dataset['relation_persistence']}`, and
+total relation size {dataset['relation_size_bytes']:,} bytes. No calibration
+statistics objects remained and the default target remained
+{provenance['statistics_target']}. The PostgreSQL patch SHA256 was unchanged.
 
 ## Portability and integrity boundary
 

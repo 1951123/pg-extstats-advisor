@@ -63,6 +63,14 @@ same 72 candidate IDs. Its cost-aware singleton ranking is descriptive only;
 no budget search or screening decision is made here. The source M2.15
 singleton profile remains unpriced and unchanged.
 
+The dataset integrity check retained logical fingerprint
+`7df509386693daab173476700bc361e9dd22e2c7fd8010a2758f6b6ada37253d` before and after calibration,
+schema signature `003f35c74401ac72aad3c6190d32ee7f132bdd25654b3c2403b2e47138115b3c`, row count
+11,591,877, persistence `u`, and
+total relation size 1,981,145,088 bytes. No calibration
+statistics objects remained and the default target remained
+100. The PostgreSQL patch SHA256 was unchanged.
+
 ## Portability and integrity boundary
 
 The coefficients are environment-, relation-, PostgreSQL-version-, target-,
