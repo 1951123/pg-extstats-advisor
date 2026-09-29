@@ -38,6 +38,11 @@ all extended-statistics payloads are built from that same sample and captured
 empty, or incompatible sample relations. This is an acquisition-lineage
 mechanism, not a search objective or a maintenance-cost claim.
 
+No new authoritative CE experiment may depend on an unpersisted `ANALYZE`
+sample. An authoritative experiment must either replay a persisted, checksummed
+sample or explicitly declare a separately versioned acquisition campaign before
+its evaluator or search results are treated as authoritative.
+
 ### 3. Incrementality ends at query granularity
 
 The incidence index maps every candidate to a conservative set of potentially

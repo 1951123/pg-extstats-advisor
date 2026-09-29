@@ -54,3 +54,7 @@ Maintenance calibration, benchmark search, deployment validation, future plan
 experiments, and future execution/runtime work must use this same profile unless a
 new versioned experiment campaign is explicitly declared. Integration fixtures may
 use another environment only when marked non-authoritative.
+
+Authoritative CE experiments may not depend on an unpersisted `ANALYZE` sample.
+They must replay a persisted, checksummed acquisition sample or declare a new
+versioned acquisition campaign with its own lineage before results are accepted.

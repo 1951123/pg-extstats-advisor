@@ -162,6 +162,17 @@ cost-aware singleton rankings only. No DMV budget search or screening fraction
 has been run; the next step is a bounded full-universe ADD-only feasibility
 study.
 
+## M2.17c DMV frozen-sample singleton refresh — complete
+
+The DMV singleton profile was refreshed twice from the persisted M2.17b sample,
+including a fresh-backend repeat. All 72 candidate identities and the frozen
+baseline vector matched exactly; 70 payloads were `PRESENT` and two remained
+explicit `ABSENT_NATIVE`. This is a frozen-sample semantic validation artifact,
+not a search result, a new acquisition, or a refit of the M2.16 model. The
+historical M2.15 profile is retained only for descriptive comparison and is not
+used as search input. The next bounded step is the unscreened full-catalog
+ADD-only feasibility run.
+
 ## M3 — plan/runtime validation
 
 Capture baseline and selected-design CE and plans, classify plan-shape changes,

@@ -1,0 +1,74 @@
+{
+  "absent_native": [
+    {
+      "attributes": [
+        "record_type",
+        "county"
+      ],
+      "candidate_id": "cand_6b0e7e9b7d7eb883405b",
+      "singleton_improvement": 0.0,
+      "singleton_objective": 42791.986480127205,
+      "singleton_rank": 40
+    },
+    {
+      "attributes": [
+        "scofflaw_indicator",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_86d407b8a724ee28f443",
+      "singleton_improvement": 0.0,
+      "singleton_objective": 42791.986480127205,
+      "singleton_rank": 41
+    }
+  ],
+  "counts": {
+    "ABSENT_NATIVE": {
+      "zero": 2
+    },
+    "PRESENT": {
+      "negative": 31,
+      "positive": 39
+    },
+    "all": {
+      "negative": 31,
+      "positive": 39,
+      "zero": 2
+    },
+    "fd": {
+      "negative": 15,
+      "positive": 19,
+      "zero": 2
+    },
+    "mcv": {
+      "negative": 16,
+      "positive": 20
+    }
+  },
+  "positive_utility_concentration": {
+    "top_10pct": {
+      "count": 7,
+      "improvement_sum": 23493.71113302771,
+      "positive_improvement_sum": 23493.71113302771
+    },
+    "top_1pct": {
+      "count": 1,
+      "improvement_sum": 20384.61382564497,
+      "positive_improvement_sum": 20384.61382564497
+    },
+    "top_20pct": {
+      "count": 14,
+      "improvement_sum": 23589.047253831013,
+      "positive_improvement_sum": 23589.047253831013
+    },
+    "top_50pct": {
+      "count": 36,
+      "improvement_sum": 23609.07951182918,
+      "positive_improvement_sum": 23609.07951182918
+    },
+    "top_5pct": {
+      "count": 3,
+      "improvement_sum": 23135.704173766935,
+      "positive_improvement_sum": 23135.704173766935
+    }
+  }
+}
