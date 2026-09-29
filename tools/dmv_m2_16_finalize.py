@@ -42,6 +42,8 @@ def main() -> None:
     report = json.loads(report_path.read_text())
     model = json.loads((root / "maintenance-model.json").read_text())
     protocol = json.loads((root / "protocol.json").read_text())
+    config_artifact = json.loads((root / "config.json").read_text())
+    configurations = json.loads((root / "configurations.json").read_text())["configurations"]
     measurements = list(csv.DictReader((root / "measurements.csv").open()))
     repo_root = root.parent.parent
     dataset = json.loads((repo_root / "experiments/environment/dmv-dataset.json").read_text())
@@ -71,6 +73,56 @@ def main() -> None:
     if dataset_fingerprint != dataset["logical_relation_fingerprint"]:
         raise SystemExit("dataset provenance logical fingerprint is invalid")
     provenance = report["calibration_provenance"]
+
+    protocol.update(
+        {
+            "format_version": 1,
+            "benchmark": config_artifact["benchmark"],
+            "repo_commit": provenance["repo_commit"],
+            "postgres_version": provenance["postgres_version"],
+            "postgres_binary_path": provenance["postgres_binary_path"],
+            "postgres_patch_sha256": provenance["pg_patch_sha256"],
+            "build_recipe_digest": provenance["build_recipe_digest"],
+            "upstream_tarball_sha256": provenance["upstream_tarball_sha256"],
+            "relation": provenance["relation_identity"],
+            "statistics_target": provenance["statistics_target"],
+            "candidate_catalog_path": provenance["candidate_catalog_path"],
+            "candidate_catalog_digest": provenance["candidate_catalog_digest"],
+            "candidate_pool_sizes": {
+                "mcv": provenance["mcv_candidate_pool_size"],
+                "fd": provenance["fd_candidate_pool_size"],
+            },
+            "candidate_arity": provenance["candidate_arity"],
+            "dataset_provenance": {
+                "dataset_id": dataset["dataset_id"],
+                "source_sha256": dataset["source_sha256"],
+                "schema_signature": dataset["schema_signature"],
+                "logical_relation_fingerprint": dataset["logical_relation_fingerprint"],
+                "row_count": dataset["row_count"],
+                "relation_persistence": dataset["relation_persistence"],
+                "relation_size_bytes": dataset["relation_size_bytes"],
+            },
+            "configuration_design": {
+                "count_levels": config_artifact["count_levels"],
+                "subsets_per_count": config_artifact["subsets_per_count"],
+                "seed": config_artifact["seed"],
+                "fit_ids": [item["configuration_id"] for item in configurations if item["role"] == "fit"],
+                "heldout_ids": [
+                    item["configuration_id"] for item in configurations if item["role"] == "held-out"
+                ],
+                "stability_ids": [
+                    item["configuration_id"] for item in configurations if item["role"] == "stability"
+                ],
+            },
+            "repetition_policy": {
+                "warmups_per_configuration": protocol["warmup_count"],
+                "measured_repetitions": protocol["measured_repetitions"],
+                "stability_repetitions": protocol["stability_repetitions"],
+                "timed_operation": protocol["dependent_variable"],
+            },
+        }
+    )
+    write_json(root / "protocol.json", protocol)
 
     fit = report["fit"]
     costs = {
