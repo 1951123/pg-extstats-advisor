@@ -1,0 +1,165 @@
+{
+  "budget_search_started": false,
+  "candidate_catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+  "candidate_count": 72,
+  "controlled_replay_statistics_population_rows": 11591877,
+  "copy_client_reservoir_used": false,
+  "determinism": {
+    "T100-A": {
+      "comparisons": {
+        "baseline_objective": [
+          41552.62617001414,
+          41552.62617001414
+        ],
+        "baseline_vector_digest": [
+          "bb81d12e6bc5ba96ea743163ec0caa1fac2067f7721cacc65beed9333a20e741",
+          "bb81d12e6bc5ba96ea743163ec0caa1fac2067f7721cacc65beed9333a20e741"
+        ],
+        "extstats_digest": [
+          "8a944729719d95cd9b7185d2de8c14bbeee9679619ec19810348a2291ea8d34d",
+          "8a944729719d95cd9b7185d2de8c14bbeee9679619ec19810348a2291ea8d34d"
+        ],
+        "ordinary_digest": [
+          "62df036d222537aa9c058693380a46a057acf4243aa587137648ee921b3dc65a",
+          "62df036d222537aa9c058693380a46a057acf4243aa587137648ee921b3dc65a"
+        ],
+        "singleton_profile_digest": [
+          "adca0cbf957c8d9301e34508eebb22b57267c0e2a97652358831c9fee2cba2ea",
+          "adca0cbf957c8d9301e34508eebb22b57267c0e2a97652358831c9fee2cba2ea"
+        ]
+      },
+      "exact": true
+    },
+    "T1000-A": {
+      "comparisons": {
+        "baseline_objective": [
+          41243.01397079315,
+          41243.01397079315
+        ],
+        "baseline_vector_digest": [
+          "164e6ac26273d5b8757efa22ae9498d93d9b468488ea0091fe7698ec72b26a2f",
+          "164e6ac26273d5b8757efa22ae9498d93d9b468488ea0091fe7698ec72b26a2f"
+        ],
+        "extstats_digest": [
+          "bfacb8e04dc99f8d1b073a98d13817ee3bd94a8bee0e662883ce936f21306a53",
+          "bfacb8e04dc99f8d1b073a98d13817ee3bd94a8bee0e662883ce936f21306a53"
+        ],
+        "ordinary_digest": [
+          "b1cff2fef3857ffa35a6f4222ef19e14817da01f8d70041aea58c55cad29cd2e",
+          "b1cff2fef3857ffa35a6f4222ef19e14817da01f8d70041aea58c55cad29cd2e"
+        ],
+        "singleton_profile_digest": [
+          "cf603f68a0597c7456c876d96be51bf4bd66b392c86e88b1c236725807ef41a1",
+          "cf603f68a0597c7456c876d96be51bf4bd66b392c86e88b1c236725807ef41a1"
+        ]
+      },
+      "exact": true
+    },
+    "T300-A": {
+      "comparisons": {
+        "baseline_objective": [
+          41504.594597889285,
+          41504.594597889285
+        ],
+        "baseline_vector_digest": [
+          "8ebdff8fe19c9c945ed228fd8fb81565b92f86ee4f5a64686ab01da1358951be",
+          "8ebdff8fe19c9c945ed228fd8fb81565b92f86ee4f5a64686ab01da1358951be"
+        ],
+        "extstats_digest": [
+          "6b79896b9723556333fe720485e81a84afcb4ecc5c02ce972ea90f91aef2c729",
+          "6b79896b9723556333fe720485e81a84afcb4ecc5c02ce972ea90f91aef2c729"
+        ],
+        "ordinary_digest": [
+          "1b02998517ae73d7fd868f9b0ee51b6cd18de2cbcd3656dbf2f36ceadeb1875c",
+          "1b02998517ae73d7fd868f9b0ee51b6cd18de2cbcd3656dbf2f36ceadeb1875c"
+        ],
+        "singleton_profile_digest": [
+          "af759a1cae7caf7b9b8d1212703b53aed1df46a93e159bddb84d7ffc91ca8057",
+          "af759a1cae7caf7b9b8d1212703b53aed1df46a93e159bddb84d7ffc91ca8057"
+        ]
+      },
+      "exact": true
+    }
+  },
+  "effective_workload_digest": "e790933cfc4f0f42d92807170b76cec080621c5b463dab83e23474a0a51151d8",
+  "global_statistics_target": "single shared T for ordinary columns and all 72 extstats",
+  "historical_context": {
+    "m2_20": "descriptive prior native T100 multisample lineage; not merged",
+    "m2_25": "descriptive reservoir/COPY lineage; not merged"
+  },
+  "milestone": "M2.26",
+  "native_sample_rows": {
+    "T100-A": 30000,
+    "T100-B": 30000,
+    "T100-C": 30000,
+    "T1000-A": 300000,
+    "T1000-B": 300000,
+    "T1000-C": 300000,
+    "T300-A": 90000,
+    "T300-B": 90000,
+    "T300-C": 90000
+  },
+  "patch_sha256": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",
+  "postgres_build_recipe_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+  "realizations_per_target": 3,
+  "replay_count": 9,
+  "sample_names": [
+    "T100-A",
+    "T100-B",
+    "T100-C",
+    "T300-A",
+    "T300-B",
+    "T300-C",
+    "T1000-A",
+    "T1000-B",
+    "T1000-C"
+  ],
+  "sampling_method": "native PostgreSQL 16.14 block sampler + native reservoir + patched capture hook",
+  "search_started": false,
+  "shared_sample_audit": "all ordinary and extended-statistics builders consumed each exact persisted native sample; no secondary sampling/downsampling",
+  "source_dataset_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a",
+  "source_relation": "public.dmv",
+  "source_rows": 11591877,
+  "status": "complete",
+  "target_cache_identity_distinct": true,
+  "target_capacity_formula": "ComputeExtStatisticsRows yields approximately 300*T for this 72-object DMV catalog; persisted row count is authoritative",
+  "targets": [
+    100,
+    300,
+    1000
+  ],
+  "trends": [
+    {
+      "baseline_mean": 41710.8037341174,
+      "baseline_stdev": 477.8085223320209,
+      "sample_rows": [
+        30000,
+        30000,
+        30000
+      ],
+      "target": 100
+    },
+    {
+      "baseline_mean": 41491.91673131656,
+      "baseline_stdev": 131.91869168373515,
+      "sample_rows": [
+        90000,
+        90000,
+        90000
+      ],
+      "target": 300
+    },
+    {
+      "baseline_mean": 41448.94039752111,
+      "baseline_stdev": 213.54240118840332,
+      "sample_rows": [
+        300000,
+        300000,
+        300000
+      ],
+      "target": 1000
+    }
+  ],
+  "upstream_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",
+  "workload_digest": "0e8ef80c0da0d6a9810b2e8f8910034f8a743804a3859b2c9b61d461b8d0bf4c"
+}

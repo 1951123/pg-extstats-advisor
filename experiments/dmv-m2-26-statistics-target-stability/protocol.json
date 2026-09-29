@@ -1,0 +1,37 @@
+{
+  "budget_search_started": false,
+  "candidate_catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+  "candidate_count": 72,
+  "controlled_replay_statistics_population_rows": 11591877,
+  "copy_client_reservoir_used": false,
+  "effective_workload_digest": "e790933cfc4f0f42d92807170b76cec080621c5b463dab83e23474a0a51151d8",
+  "global_statistics_target": "single shared T for ordinary columns and all 72 extstats",
+  "milestone": "M2.26",
+  "patch_sha256": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",
+  "postgres_build_recipe_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+  "realizations_per_target": 3,
+  "sample_names": [
+    "T100-A",
+    "T100-B",
+    "T100-C",
+    "T300-A",
+    "T300-B",
+    "T300-C",
+    "T1000-A",
+    "T1000-B",
+    "T1000-C"
+  ],
+  "sampling_method": "native PostgreSQL 16.14 block sampler + native reservoir + patched capture hook",
+  "search_started": false,
+  "source_dataset_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a",
+  "source_relation": "public.dmv",
+  "source_rows": 11591877,
+  "status": "running",
+  "targets": [
+    100,
+    300,
+    1000
+  ],
+  "upstream_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",
+  "workload_digest": "0e8ef80c0da0d6a9810b2e8f8910034f8a743804a3859b2c9b61d461b8d0bf4c"
+}

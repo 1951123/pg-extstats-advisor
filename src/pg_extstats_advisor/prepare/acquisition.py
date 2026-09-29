@@ -91,12 +91,25 @@ def acquire_payloads(
     catalog: CandidateCatalog,
     output_path: Path,
     *,
-    statistics_target: int,
+    statistics_target: int = 100,
+    global_statistics_target: int | None = None,
     upstream_sha256: str,
     patch_commit: str,
     repository_id: str,
     source_relations: tuple[RelationMetadata, ...],
 ) -> AcquisitionResult:
+    if (
+        global_statistics_target is not None
+        and statistics_target != 100
+        and statistics_target != global_statistics_target
+    ):
+        raise ValueError(
+            "statistics_target and global_statistics_target disagree; "
+            "the MVP uses one global target"
+        )
+    target = statistics_target if global_statistics_target is None else global_statistics_target
+    if not 0 <= target <= 10000:
+        raise ValueError("global_statistics_target must be between 0 and 10000")
     if output_path.exists():
         raise FileExistsError(f"repository output already exists: {output_path}")
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -104,6 +117,11 @@ def acquire_payloads(
     created: list[tuple[str, str]] = []
     started = datetime.now(UTC).isoformat()
     try:
+        # Ordinary column statistics use this session target.  Extended
+        # statistics definitions below receive the identical value explicitly.
+        connection.execute(
+            "SELECT set_config('default_statistics_target', %s, false)", (str(target),)
+        )
         version = str(connection.execute("SHOW server_version").fetchone()[0])
         source_by_name = {item.qualified_name: item for item in source_relations}
         relation_names = tuple(sorted({item.relation_name for item in catalog.candidates}))
@@ -130,7 +148,7 @@ def acquire_payloads(
                 f"ON {attributes} FROM {qualified_relation_name(candidate.relation_name)}"
             )
             connection.execute(
-                f"ALTER STATISTICS {quote_identifier(schema)}.{quote_identifier(name)} SET STATISTICS {statistics_target}"
+                f"ALTER STATISTICS {quote_identifier(schema)}.{quote_identifier(name)} SET STATISTICS {target}"
             )
             row = connection.execute(
                 "SELECT e.oid,e.stxrelid,e.stxkind FROM pg_statistic_ext e JOIN pg_namespace n ON n.oid=e.stxnamespace "
@@ -215,7 +233,8 @@ def acquire_payloads(
             "patch_commit": patch_commit,
             "acquisition_provenance": {
                 "method": "physical CREATE STATISTICS plus relation-grouped ANALYZE",
-                "statistics_target": statistics_target,
+                "statistics_target": target,
+                "global_statistics_target": target,
                 "analyzed_relations": relations,
                 "analyze_count": len(relations),
                 "started_at": started,

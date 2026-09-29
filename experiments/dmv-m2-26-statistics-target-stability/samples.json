@@ -1,0 +1,780 @@
+{
+  "candidate_ids": [
+    "cand_c614cf6de073226f0aa4",
+    "cand_f5f353d914b36187882c",
+    "cand_ea5acfb9a4e9bf9c4ee2",
+    "cand_f94acad130c4ac5b3553",
+    "cand_6ca6020979af5e5766a4",
+    "cand_08a7c0809e27527cb40f",
+    "cand_e25a986fe1b364e78595",
+    "cand_bc69a49224dd80292b07",
+    "cand_4818ce79b7b4b07709c2",
+    "cand_9f93544dce1d63b0f711",
+    "cand_c6f83d66ce3d1e079f11",
+    "cand_1f420ce5268e234e658c",
+    "cand_67f23918cdad906be4ea",
+    "cand_7513ba127d94672ed612",
+    "cand_b8a5e9986c1d9a33b825",
+    "cand_93041865e5a926191d54",
+    "cand_f9cdb92e50791f0d58b6",
+    "cand_2408bc6708d3e202809c",
+    "cand_560443d79842b416ea0d",
+    "cand_72a4065afe7511935b18",
+    "cand_0fdc909a2a3cf9718db9",
+    "cand_7531356383a7948fede1",
+    "cand_d0bacba4d271fabbb378",
+    "cand_323246ee68602507a57d",
+    "cand_1f373962efd7e5718e85",
+    "cand_6161166747fb16ce38eb",
+    "cand_0275ee8f6b218bf6a5a1",
+    "cand_799d0072c9c0e8bc7bb8",
+    "cand_5005700887020f58d09a",
+    "cand_b18e2586ffe14b36f703",
+    "cand_7bad1214667cfa5a9e86",
+    "cand_d81088ebd0b428f317e8",
+    "cand_2cc7a6ce91fea1a3633f",
+    "cand_a5d58adc88429a8a1a93",
+    "cand_4647f51bb46042cafc21",
+    "cand_4766516fe513466787e9",
+    "cand_850ffdf5fc1ceee3e08d",
+    "cand_9a47b4882350bf5fccf9",
+    "cand_6b0e7e9b7d7eb883405b",
+    "cand_0715050eb032f5528139",
+    "cand_79ef5e4c653bbbb46dec",
+    "cand_835deeb29a9e7947a98b",
+    "cand_b6cafc68143c6fa37e85",
+    "cand_f002ec4adfff3911240b",
+    "cand_d17d4fee04bca1295fdb",
+    "cand_aea8cd0109869655caf1",
+    "cand_c7f3b001bf1756cd2ed9",
+    "cand_a06f9852e67c463f73a2",
+    "cand_044e770ab213d0ef37b1",
+    "cand_01b1f84ca5c01d3f532f",
+    "cand_cfb64b0bf69c059cd760",
+    "cand_bfad1c9b37411e1a5d68",
+    "cand_6505783b203dc0346b49",
+    "cand_7b08320f31dae1c5e9f4",
+    "cand_867399ba1c9a9eab8364",
+    "cand_e95bcd15c94c80f62716",
+    "cand_0ffaccec3f557491b6ba",
+    "cand_f457f7acd881e6884fac",
+    "cand_5e3a909effbf6f7d6e21",
+    "cand_cf35fb1b66d3371735fd",
+    "cand_4c7d493f98b0c50576d2",
+    "cand_663a31a8fc0678a2324b",
+    "cand_bb3c9704bc50457d0385",
+    "cand_a658273d38918de4ed71",
+    "cand_9e3965b9e6ab7faacc4e",
+    "cand_2bea04f8b2c85ff2a4e0",
+    "cand_d033eb981110aa21d3df",
+    "cand_0ef1e644231e36b17de7",
+    "cand_dd4fa07161dcf5def8eb",
+    "cand_86d407b8a724ee28f443",
+    "cand_5400d6d245a511006593",
+    "cand_d102d0d6903dbc44935f"
+  ],
+  "samples": [
+    {
+      "actual_native_sample_rows": 30000,
+      "capacity_source": "PostgreSQL 16.14 ComputeExtStatisticsRows; observed persisted native rows",
+      "captured_at": "2026-09-29T11:58:12.206222+00:00",
+      "catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+      "elapsed_seconds": 0.9534878490012488,
+      "expected_capacity_from_source_formula": 30000,
+      "native_capture": true,
+      "native_requested_sample_capacity": 30000,
+      "observed_native_reltuples": 11591877.0,
+      "postgres_build_recipe_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+      "random_provenance": "fresh backend native pg_global_prng_state; PostgreSQL exposes no user seed for ANALYZE reservoir",
+      "repository_path": "/root/projects/pg-extstats-advisor/.build/artifact-cache/dmv-statistics-target-stability-v1/T100-A/repository",
+      "repository_semantic_digest": "66c4223bbec41b7b618c1c860bf96fbd337c524520f391c661d9067b017692c8",
+      "requested_native_sample_rows": 30000,
+      "requested_target": 100,
+      "sample_name": "T100-A",
+      "sample_rows": 30000,
+      "sample_semantic_digest": "61b628a159bc66fd32394805fd90f67fb7579fab6a7e8396bee904bd35004d83",
+      "sample_sha256": "43c9d75d456649b039b4675f32fcdf89a7d97dae24078e39244508d209bbdbd0",
+      "sampling": "PostgreSQL 16.14 native block sampler + native reservoir + patched capture hook",
+      "source_dataset_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a",
+      "source_relation_rows": 11591877,
+      "target": 100,
+      "target_propagation": {
+        "column_targets": [
+          {
+            "attstattarget": 100,
+            "column": "record_type"
+          },
+          {
+            "attstattarget": 100,
+            "column": "registration_class"
+          },
+          {
+            "attstattarget": 100,
+            "column": "state"
+          },
+          {
+            "attstattarget": 100,
+            "column": "county"
+          },
+          {
+            "attstattarget": 100,
+            "column": "body_type"
+          },
+          {
+            "attstattarget": 100,
+            "column": "fuel_type"
+          },
+          {
+            "attstattarget": 100,
+            "column": "reg_valid_date"
+          },
+          {
+            "attstattarget": 100,
+            "column": "color"
+          },
+          {
+            "attstattarget": 100,
+            "column": "scofflaw_indicator"
+          },
+          {
+            "attstattarget": 100,
+            "column": "suspension_indicator"
+          },
+          {
+            "attstattarget": 100,
+            "column": "revocation_indicator"
+          }
+        ],
+        "default_statistics_target": 100,
+        "ext_count": 72,
+        "ext_target_max": 100,
+        "ext_target_min": 100
+      },
+      "totalrows_controlled": 11591877
+    },
+    {
+      "actual_native_sample_rows": 30000,
+      "capacity_source": "PostgreSQL 16.14 ComputeExtStatisticsRows; observed persisted native rows",
+      "captured_at": "2026-09-29T11:58:24.744707+00:00",
+      "catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+      "elapsed_seconds": 0.7989344369998435,
+      "expected_capacity_from_source_formula": 30000,
+      "native_capture": true,
+      "native_requested_sample_capacity": 30000,
+      "observed_native_reltuples": 11591877.0,
+      "postgres_build_recipe_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+      "random_provenance": "fresh backend native pg_global_prng_state; PostgreSQL exposes no user seed for ANALYZE reservoir",
+      "repository_path": "/root/projects/pg-extstats-advisor/.build/artifact-cache/dmv-statistics-target-stability-v1/T100-B/repository",
+      "repository_semantic_digest": "a5da106db4dfe5e8a7ba3e00ea731134eb9b205950d18ba168d5f136ef821ee4",
+      "requested_native_sample_rows": 30000,
+      "requested_target": 100,
+      "sample_name": "T100-B",
+      "sample_rows": 30000,
+      "sample_semantic_digest": "8a53cff05403751dc31f6fe37cff12a2eda6d1d559ca9f76286e196e8a78e598",
+      "sample_sha256": "3a1bbcf7f5ed559d5e6f457e218b33349a2b6bc861f650fa6960aec3e9fabab7",
+      "sampling": "PostgreSQL 16.14 native block sampler + native reservoir + patched capture hook",
+      "source_dataset_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a",
+      "source_relation_rows": 11591877,
+      "target": 100,
+      "target_propagation": {
+        "column_targets": [
+          {
+            "attstattarget": 100,
+            "column": "record_type"
+          },
+          {
+            "attstattarget": 100,
+            "column": "registration_class"
+          },
+          {
+            "attstattarget": 100,
+            "column": "state"
+          },
+          {
+            "attstattarget": 100,
+            "column": "county"
+          },
+          {
+            "attstattarget": 100,
+            "column": "body_type"
+          },
+          {
+            "attstattarget": 100,
+            "column": "fuel_type"
+          },
+          {
+            "attstattarget": 100,
+            "column": "reg_valid_date"
+          },
+          {
+            "attstattarget": 100,
+            "column": "color"
+          },
+          {
+            "attstattarget": 100,
+            "column": "scofflaw_indicator"
+          },
+          {
+            "attstattarget": 100,
+            "column": "suspension_indicator"
+          },
+          {
+            "attstattarget": 100,
+            "column": "revocation_indicator"
+          }
+        ],
+        "default_statistics_target": 100,
+        "ext_count": 72,
+        "ext_target_max": 100,
+        "ext_target_min": 100
+      },
+      "totalrows_controlled": 11591877
+    },
+    {
+      "actual_native_sample_rows": 30000,
+      "capacity_source": "PostgreSQL 16.14 ComputeExtStatisticsRows; observed persisted native rows",
+      "captured_at": "2026-09-29T11:58:25.803877+00:00",
+      "catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+      "elapsed_seconds": 0.7528713840001728,
+      "expected_capacity_from_source_formula": 30000,
+      "native_capture": true,
+      "native_requested_sample_capacity": 30000,
+      "observed_native_reltuples": 11591877.0,
+      "postgres_build_recipe_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+      "random_provenance": "fresh backend native pg_global_prng_state; PostgreSQL exposes no user seed for ANALYZE reservoir",
+      "repository_path": "/root/projects/pg-extstats-advisor/.build/artifact-cache/dmv-statistics-target-stability-v1/T100-C/repository",
+      "repository_semantic_digest": "2314476c9d7fe95d40846a48364350afda79bbcb28637ae847915f37aaa7d429",
+      "requested_native_sample_rows": 30000,
+      "requested_target": 100,
+      "sample_name": "T100-C",
+      "sample_rows": 30000,
+      "sample_semantic_digest": "eb82ff0a6e41390e7598797d6d27cee50bae852010e8847f26299d5e6aa4aacb",
+      "sample_sha256": "5cc81ccd6a9822901e8716220bdb3069d6e59a43ad5ddef0960c339f2e9b7ead",
+      "sampling": "PostgreSQL 16.14 native block sampler + native reservoir + patched capture hook",
+      "source_dataset_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a",
+      "source_relation_rows": 11591877,
+      "target": 100,
+      "target_propagation": {
+        "column_targets": [
+          {
+            "attstattarget": 100,
+            "column": "record_type"
+          },
+          {
+            "attstattarget": 100,
+            "column": "registration_class"
+          },
+          {
+            "attstattarget": 100,
+            "column": "state"
+          },
+          {
+            "attstattarget": 100,
+            "column": "county"
+          },
+          {
+            "attstattarget": 100,
+            "column": "body_type"
+          },
+          {
+            "attstattarget": 100,
+            "column": "fuel_type"
+          },
+          {
+            "attstattarget": 100,
+            "column": "reg_valid_date"
+          },
+          {
+            "attstattarget": 100,
+            "column": "color"
+          },
+          {
+            "attstattarget": 100,
+            "column": "scofflaw_indicator"
+          },
+          {
+            "attstattarget": 100,
+            "column": "suspension_indicator"
+          },
+          {
+            "attstattarget": 100,
+            "column": "revocation_indicator"
+          }
+        ],
+        "default_statistics_target": 100,
+        "ext_count": 72,
+        "ext_target_max": 100,
+        "ext_target_min": 100
+      },
+      "totalrows_controlled": 11591877
+    },
+    {
+      "actual_native_sample_rows": 90000,
+      "capacity_source": "PostgreSQL 16.14 ComputeExtStatisticsRows; observed persisted native rows",
+      "captured_at": "2026-09-29T11:58:28.474414+00:00",
+      "catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+      "elapsed_seconds": 2.1701775980036473,
+      "expected_capacity_from_source_formula": 90000,
+      "native_capture": true,
+      "native_requested_sample_capacity": 90000,
+      "observed_native_reltuples": 11591877.0,
+      "postgres_build_recipe_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+      "random_provenance": "fresh backend native pg_global_prng_state; PostgreSQL exposes no user seed for ANALYZE reservoir",
+      "repository_path": "/root/projects/pg-extstats-advisor/.build/artifact-cache/dmv-statistics-target-stability-v1/T300-A/repository",
+      "repository_semantic_digest": "dad988f02961204e7430e2a92d2b4c9fd300ec9d9bd679d4fa01211bd574d05f",
+      "requested_native_sample_rows": 90000,
+      "requested_target": 300,
+      "sample_name": "T300-A",
+      "sample_rows": 90000,
+      "sample_semantic_digest": "ef191853b5cb42e3bf258ad5c89643a7fcaf30afe76a2879f6fc730d51a009c2",
+      "sample_sha256": "1b1be74df27a77f563e0536d81d06d7fb62fbd6dc6336d675317e31ac54157ee",
+      "sampling": "PostgreSQL 16.14 native block sampler + native reservoir + patched capture hook",
+      "source_dataset_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a",
+      "source_relation_rows": 11591877,
+      "target": 300,
+      "target_propagation": {
+        "column_targets": [
+          {
+            "attstattarget": 300,
+            "column": "record_type"
+          },
+          {
+            "attstattarget": 300,
+            "column": "registration_class"
+          },
+          {
+            "attstattarget": 300,
+            "column": "state"
+          },
+          {
+            "attstattarget": 300,
+            "column": "county"
+          },
+          {
+            "attstattarget": 300,
+            "column": "body_type"
+          },
+          {
+            "attstattarget": 300,
+            "column": "fuel_type"
+          },
+          {
+            "attstattarget": 300,
+            "column": "reg_valid_date"
+          },
+          {
+            "attstattarget": 300,
+            "column": "color"
+          },
+          {
+            "attstattarget": 300,
+            "column": "scofflaw_indicator"
+          },
+          {
+            "attstattarget": 300,
+            "column": "suspension_indicator"
+          },
+          {
+            "attstattarget": 300,
+            "column": "revocation_indicator"
+          }
+        ],
+        "default_statistics_target": 300,
+        "ext_count": 72,
+        "ext_target_max": 300,
+        "ext_target_min": 300
+      },
+      "totalrows_controlled": 11591877
+    },
+    {
+      "actual_native_sample_rows": 90000,
+      "capacity_source": "PostgreSQL 16.14 ComputeExtStatisticsRows; observed persisted native rows",
+      "captured_at": "2026-09-29T11:58:31.009973+00:00",
+      "catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+      "elapsed_seconds": 2.0483321260035154,
+      "expected_capacity_from_source_formula": 90000,
+      "native_capture": true,
+      "native_requested_sample_capacity": 90000,
+      "observed_native_reltuples": 11591877.0,
+      "postgres_build_recipe_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+      "random_provenance": "fresh backend native pg_global_prng_state; PostgreSQL exposes no user seed for ANALYZE reservoir",
+      "repository_path": "/root/projects/pg-extstats-advisor/.build/artifact-cache/dmv-statistics-target-stability-v1/T300-B/repository",
+      "repository_semantic_digest": "1bb564dd8bbb38b05355eb5449f31dc25a1f7d9aa42bf944bde37dd0bfee77fe",
+      "requested_native_sample_rows": 90000,
+      "requested_target": 300,
+      "sample_name": "T300-B",
+      "sample_rows": 90000,
+      "sample_semantic_digest": "921cc9fd1d33cb918cdb87e6d0be79d9a9dc8bbedf3caa44ab1c84963194452f",
+      "sample_sha256": "805b0b1d167c62e72c087546bf1dcc90a93d34e609fb1fa323f7ef507859edd0",
+      "sampling": "PostgreSQL 16.14 native block sampler + native reservoir + patched capture hook",
+      "source_dataset_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a",
+      "source_relation_rows": 11591877,
+      "target": 300,
+      "target_propagation": {
+        "column_targets": [
+          {
+            "attstattarget": 300,
+            "column": "record_type"
+          },
+          {
+            "attstattarget": 300,
+            "column": "registration_class"
+          },
+          {
+            "attstattarget": 300,
+            "column": "state"
+          },
+          {
+            "attstattarget": 300,
+            "column": "county"
+          },
+          {
+            "attstattarget": 300,
+            "column": "body_type"
+          },
+          {
+            "attstattarget": 300,
+            "column": "fuel_type"
+          },
+          {
+            "attstattarget": 300,
+            "column": "reg_valid_date"
+          },
+          {
+            "attstattarget": 300,
+            "column": "color"
+          },
+          {
+            "attstattarget": 300,
+            "column": "scofflaw_indicator"
+          },
+          {
+            "attstattarget": 300,
+            "column": "suspension_indicator"
+          },
+          {
+            "attstattarget": 300,
+            "column": "revocation_indicator"
+          }
+        ],
+        "default_statistics_target": 300,
+        "ext_count": 72,
+        "ext_target_max": 300,
+        "ext_target_min": 300
+      },
+      "totalrows_controlled": 11591877
+    },
+    {
+      "actual_native_sample_rows": 90000,
+      "capacity_source": "PostgreSQL 16.14 ComputeExtStatisticsRows; observed persisted native rows",
+      "captured_at": "2026-09-29T11:58:33.380975+00:00",
+      "catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+      "elapsed_seconds": 1.8945870630050194,
+      "expected_capacity_from_source_formula": 90000,
+      "native_capture": true,
+      "native_requested_sample_capacity": 90000,
+      "observed_native_reltuples": 11591877.0,
+      "postgres_build_recipe_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+      "random_provenance": "fresh backend native pg_global_prng_state; PostgreSQL exposes no user seed for ANALYZE reservoir",
+      "repository_path": "/root/projects/pg-extstats-advisor/.build/artifact-cache/dmv-statistics-target-stability-v1/T300-C/repository",
+      "repository_semantic_digest": "ee559f8750fddd4701026dd0186691baf97164c2673615ca7d974f3b36053d7c",
+      "requested_native_sample_rows": 90000,
+      "requested_target": 300,
+      "sample_name": "T300-C",
+      "sample_rows": 90000,
+      "sample_semantic_digest": "67f0af294e04471eead5f5f1b6aa339395bad72144fabfd20f95c68a55edd077",
+      "sample_sha256": "caa19d9962c60db72728741a82a3a65a5b58f09e7aa20525cfdfba15268c236b",
+      "sampling": "PostgreSQL 16.14 native block sampler + native reservoir + patched capture hook",
+      "source_dataset_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a",
+      "source_relation_rows": 11591877,
+      "target": 300,
+      "target_propagation": {
+        "column_targets": [
+          {
+            "attstattarget": 300,
+            "column": "record_type"
+          },
+          {
+            "attstattarget": 300,
+            "column": "registration_class"
+          },
+          {
+            "attstattarget": 300,
+            "column": "state"
+          },
+          {
+            "attstattarget": 300,
+            "column": "county"
+          },
+          {
+            "attstattarget": 300,
+            "column": "body_type"
+          },
+          {
+            "attstattarget": 300,
+            "column": "fuel_type"
+          },
+          {
+            "attstattarget": 300,
+            "column": "reg_valid_date"
+          },
+          {
+            "attstattarget": 300,
+            "column": "color"
+          },
+          {
+            "attstattarget": 300,
+            "column": "scofflaw_indicator"
+          },
+          {
+            "attstattarget": 300,
+            "column": "suspension_indicator"
+          },
+          {
+            "attstattarget": 300,
+            "column": "revocation_indicator"
+          }
+        ],
+        "default_statistics_target": 300,
+        "ext_count": 72,
+        "ext_target_max": 300,
+        "ext_target_min": 300
+      },
+      "totalrows_controlled": 11591877
+    },
+    {
+      "actual_native_sample_rows": 300000,
+      "capacity_source": "PostgreSQL 16.14 ComputeExtStatisticsRows; observed persisted native rows",
+      "captured_at": "2026-09-29T11:58:42.490670+00:00",
+      "catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+      "elapsed_seconds": 8.024057784001343,
+      "expected_capacity_from_source_formula": 300000,
+      "native_capture": true,
+      "native_requested_sample_capacity": 300000,
+      "observed_native_reltuples": 11591877.0,
+      "postgres_build_recipe_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+      "random_provenance": "fresh backend native pg_global_prng_state; PostgreSQL exposes no user seed for ANALYZE reservoir",
+      "repository_path": "/root/projects/pg-extstats-advisor/.build/artifact-cache/dmv-statistics-target-stability-v1/T1000-A/repository",
+      "repository_semantic_digest": "f3300569b023d31ac0dad2998eee5d037933ceb47fbd6b2c853c3674af7880f9",
+      "requested_native_sample_rows": 300000,
+      "requested_target": 1000,
+      "sample_name": "T1000-A",
+      "sample_rows": 300000,
+      "sample_semantic_digest": "f91021bf4d9ffebc8194c140f3cd3d1dbf9a806bf426dd6af4a7e2a362451ad5",
+      "sample_sha256": "e286cb7b5fd4c3e5ad7438ba7b48fb9b7946441c46ab411099b1de8706d8bff1",
+      "sampling": "PostgreSQL 16.14 native block sampler + native reservoir + patched capture hook",
+      "source_dataset_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a",
+      "source_relation_rows": 11591877,
+      "target": 1000,
+      "target_propagation": {
+        "column_targets": [
+          {
+            "attstattarget": 1000,
+            "column": "record_type"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "registration_class"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "state"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "county"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "body_type"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "fuel_type"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "reg_valid_date"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "color"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "scofflaw_indicator"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "suspension_indicator"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "revocation_indicator"
+          }
+        ],
+        "default_statistics_target": 1000,
+        "ext_count": 72,
+        "ext_target_max": 1000,
+        "ext_target_min": 1000
+      },
+      "totalrows_controlled": 11591877
+    },
+    {
+      "actual_native_sample_rows": 300000,
+      "capacity_source": "PostgreSQL 16.14 ComputeExtStatisticsRows; observed persisted native rows",
+      "captured_at": "2026-09-29T11:58:53.220380+00:00",
+      "catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+      "elapsed_seconds": 7.599179228003777,
+      "expected_capacity_from_source_formula": 300000,
+      "native_capture": true,
+      "native_requested_sample_capacity": 300000,
+      "observed_native_reltuples": 11591877.0,
+      "postgres_build_recipe_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+      "random_provenance": "fresh backend native pg_global_prng_state; PostgreSQL exposes no user seed for ANALYZE reservoir",
+      "repository_path": "/root/projects/pg-extstats-advisor/.build/artifact-cache/dmv-statistics-target-stability-v1/T1000-B/repository",
+      "repository_semantic_digest": "04224f91efddf1da265f86db3a9521da8655ebaa7ad1983fed7fa2ecdb360c00",
+      "requested_native_sample_rows": 300000,
+      "requested_target": 1000,
+      "sample_name": "T1000-B",
+      "sample_rows": 300000,
+      "sample_semantic_digest": "d1f2ed09f05a5fe493b081fdf5cdbfa25d91b98c20b937602a3c2fb4ca60b122",
+      "sample_sha256": "8e1a0b3990b4c2d380300918b2663af25420f0be7c1811cbe082a88f97b30149",
+      "sampling": "PostgreSQL 16.14 native block sampler + native reservoir + patched capture hook",
+      "source_dataset_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a",
+      "source_relation_rows": 11591877,
+      "target": 1000,
+      "target_propagation": {
+        "column_targets": [
+          {
+            "attstattarget": 1000,
+            "column": "record_type"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "registration_class"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "state"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "county"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "body_type"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "fuel_type"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "reg_valid_date"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "color"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "scofflaw_indicator"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "suspension_indicator"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "revocation_indicator"
+          }
+        ],
+        "default_statistics_target": 1000,
+        "ext_count": 72,
+        "ext_target_max": 1000,
+        "ext_target_min": 1000
+      },
+      "totalrows_controlled": 11591877
+    },
+    {
+      "actual_native_sample_rows": 300000,
+      "capacity_source": "PostgreSQL 16.14 ComputeExtStatisticsRows; observed persisted native rows",
+      "captured_at": "2026-09-29T11:59:01.946482+00:00",
+      "catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+      "elapsed_seconds": 7.657527575996937,
+      "expected_capacity_from_source_formula": 300000,
+      "native_capture": true,
+      "native_requested_sample_capacity": 300000,
+      "observed_native_reltuples": 11591877.0,
+      "postgres_build_recipe_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+      "random_provenance": "fresh backend native pg_global_prng_state; PostgreSQL exposes no user seed for ANALYZE reservoir",
+      "repository_path": "/root/projects/pg-extstats-advisor/.build/artifact-cache/dmv-statistics-target-stability-v1/T1000-C/repository",
+      "repository_semantic_digest": "7d357b705a43f4fd50476959972985b91ec4d69dc0a389f163e53e9ed0a21b41",
+      "requested_native_sample_rows": 300000,
+      "requested_target": 1000,
+      "sample_name": "T1000-C",
+      "sample_rows": 300000,
+      "sample_semantic_digest": "d08241a8ad0467149d12974605da613d6636f1ec1ec671b69901285347816c94",
+      "sample_sha256": "eb1a1603a3138f9a1017f46ad9d2c9ad369c49118ff6e42c877ae3cb64555f23",
+      "sampling": "PostgreSQL 16.14 native block sampler + native reservoir + patched capture hook",
+      "source_dataset_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a",
+      "source_relation_rows": 11591877,
+      "target": 1000,
+      "target_propagation": {
+        "column_targets": [
+          {
+            "attstattarget": 1000,
+            "column": "record_type"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "registration_class"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "state"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "county"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "body_type"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "fuel_type"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "reg_valid_date"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "color"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "scofflaw_indicator"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "suspension_indicator"
+          },
+          {
+            "attstattarget": 1000,
+            "column": "revocation_indicator"
+          }
+        ],
+        "default_statistics_target": 1000,
+        "ext_count": 72,
+        "ext_target_max": 1000,
+        "ext_target_min": 1000
+      },
+      "totalrows_controlled": 11591877
+    }
+  ]
+}

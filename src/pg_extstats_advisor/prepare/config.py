@@ -12,6 +12,17 @@ from typing import Any
 
 
 @dataclass(frozen=True, slots=True)
+class StatisticsTargetConfig:
+    """One advisor-level target shared by ordinary and extended statistics."""
+
+    global_statistics_target: int = 100
+
+    def __post_init__(self) -> None:
+        if not 0 <= self.global_statistics_target <= 10000:
+            raise ValueError("global_statistics_target must be between 0 and 10000")
+
+
+@dataclass(frozen=True, slots=True)
 class ExplicitCandidate:
     relation: str
     mechanism: str
@@ -32,6 +43,12 @@ class PreparationConfig:
     statistics_target: int
     maintenance: tuple[tuple[str, Any], ...]
     objective_membership_policy: str = "require_all_positive"
+
+    @property
+    def global_statistics_target(self) -> int:
+        """Compatibility name for the single target used by the MVP."""
+
+        return StatisticsTargetConfig(self.statistics_target).global_statistics_target
 
     @property
     def digest(self) -> str:
@@ -71,6 +88,7 @@ class PreparationConfig:
             },
             "acquisition": {
                 "statistics_target": self.statistics_target,
+                "global_statistics_target": self.global_statistics_target,
                 "output_path": str(self.output_path),
             },
             "maintenance": dict(self.maintenance),
@@ -107,7 +125,10 @@ class PreparationConfig:
         cap = candidates.get("max_candidates_per_relation")
         if cap is not None and int(cap) <= 0:
             raise ValueError("max_candidates_per_relation must be positive")
-        target = int(acquisition["statistics_target"])
+        legacy_target = int(acquisition["statistics_target"]) if "statistics_target" in acquisition else None
+        target = int(acquisition.get("global_statistics_target", legacy_target if legacy_target is not None else 100))
+        if legacy_target is not None and legacy_target != target:
+            raise ValueError("statistics_target and global_statistics_target disagree")
         if not 0 <= target <= 10000:
             raise ValueError("statistics_target must be between 0 and 10000")
         explicit = tuple(

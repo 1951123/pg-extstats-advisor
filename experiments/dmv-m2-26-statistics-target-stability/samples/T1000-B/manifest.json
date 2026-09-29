@@ -1,0 +1,79 @@
+{
+  "actual_native_sample_rows": 300000,
+  "capacity_source": "PostgreSQL 16.14 ComputeExtStatisticsRows; observed persisted native rows",
+  "captured_at": "2026-09-29T11:58:53.220380+00:00",
+  "catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+  "elapsed_seconds": 7.599179228003777,
+  "expected_capacity_from_source_formula": 300000,
+  "native_capture": true,
+  "native_requested_sample_capacity": 300000,
+  "observed_native_reltuples": 11591877.0,
+  "postgres_build_recipe_digest": "94941ca606a390ad4a0c540158aa49b199820b21603bfd626acaa12948836c25",
+  "postgres_version": "PostgreSQL 16.14",
+  "random_provenance": "fresh backend native pg_global_prng_state; PostgreSQL exposes no user seed for ANALYZE reservoir",
+  "repository_path": "/root/projects/pg-extstats-advisor/.build/artifact-cache/dmv-statistics-target-stability-v1/T1000-B/repository",
+  "repository_semantic_digest": "04224f91efddf1da265f86db3a9521da8655ebaa7ad1983fed7fa2ecdb360c00",
+  "requested_native_sample_rows": 300000,
+  "requested_target": 1000,
+  "sample_name": "T1000-B",
+  "sample_rows": 300000,
+  "sample_semantic_digest": "d1f2ed09f05a5fe493b081fdf5cdbfa25d91b98c20b937602a3c2fb4ca60b122",
+  "sample_sha256": "8e1a0b3990b4c2d380300918b2663af25420f0be7c1811cbe082a88f97b30149",
+  "sampling": "PostgreSQL 16.14 native block sampler + native reservoir + patched capture hook",
+  "source_dataset_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a",
+  "source_relation_rows": 11591877,
+  "target": 1000,
+  "target_propagation": {
+    "column_targets": [
+      {
+        "attstattarget": 1000,
+        "column": "record_type"
+      },
+      {
+        "attstattarget": 1000,
+        "column": "registration_class"
+      },
+      {
+        "attstattarget": 1000,
+        "column": "state"
+      },
+      {
+        "attstattarget": 1000,
+        "column": "county"
+      },
+      {
+        "attstattarget": 1000,
+        "column": "body_type"
+      },
+      {
+        "attstattarget": 1000,
+        "column": "fuel_type"
+      },
+      {
+        "attstattarget": 1000,
+        "column": "reg_valid_date"
+      },
+      {
+        "attstattarget": 1000,
+        "column": "color"
+      },
+      {
+        "attstattarget": 1000,
+        "column": "scofflaw_indicator"
+      },
+      {
+        "attstattarget": 1000,
+        "column": "suspension_indicator"
+      },
+      {
+        "attstattarget": 1000,
+        "column": "revocation_indicator"
+      }
+    ],
+    "default_statistics_target": 1000,
+    "ext_count": 72,
+    "ext_target_max": 1000,
+    "ext_target_min": 1000
+  },
+  "totalrows_controlled": 11591877
+}

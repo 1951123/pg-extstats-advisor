@@ -3,8 +3,9 @@ from pathlib import Path
 import pytest
 
 from pg_extstats_advisor.models import QueryId, WorkloadQuery
+from pg_extstats_advisor.prepare.acquisition import acquire_payloads
 from pg_extstats_advisor.prepare.candidates import generate_candidates
-from pg_extstats_advisor.prepare.config import PreparationConfig
+from pg_extstats_advisor.prepare.config import PreparationConfig, StatisticsTargetConfig
 from pg_extstats_advisor.prepare.incidence import derive_incidence
 from pg_extstats_advisor.prepare.workload import (
     IngestedWorkload,
@@ -69,6 +70,33 @@ def test_candidate_generation_is_canonical_deterministic_and_capped() -> None:
 def test_candidate_generation_rejects_non_mvp_arity() -> None:
     with pytest.raises(ValueError, match="max_candidate_arity=2"):
         generate_candidates(config(arity=3), ingested())
+
+
+def test_global_statistics_target_is_the_mvp_single_target() -> None:
+    assert StatisticsTargetConfig().global_statistics_target == 100
+    assert config().global_statistics_target == 100
+    assert config().global_statistics_target == config().statistics_target
+    assert config().__class__(
+        1, "source", "acquisition", Path("workload.json"), Path("run"),
+        ("mcv", "fd"), 2, None, (), 300, ()
+    ).global_statistics_target == 300
+    with pytest.raises(ValueError, match="global_statistics_target"):
+        StatisticsTargetConfig(10001)
+
+
+def test_acquisition_rejects_conflicting_target_aliases(tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="one global target"):
+        acquire_payloads(
+            None,  # type: ignore[arg-type]
+            None,  # type: ignore[arg-type]
+            tmp_path / "repository",
+            statistics_target=200,
+            global_statistics_target=300,
+            upstream_sha256="upstream",
+            patch_commit="patch",
+            repository_id="target-conflict",
+            source_relations=(),
+        )
 
 
 def test_incidence_precise_and_fallback_are_conservative() -> None:
