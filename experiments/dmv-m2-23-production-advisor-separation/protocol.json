@@ -1,0 +1,85 @@
+{
+  "milestone": "M2.23",
+  "status": "complete_prototype",
+  "baseline_commit": "02401c74c22d610b646663eaed102a2818d7d7c9",
+  "stock": {
+    "source_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",
+    "binary": ".build/postgresql-16.14-stock-install/bin/postgres",
+    "binary_sha256": "154e03469ee1e0cdbf54db9325877df0146384bdf9e553611809aa4be9d84d40",
+    "version": "16.14",
+    "port": 55437,
+    "data_directory": ".build/pg16.14-production-sim",
+    "socket_directory": ".build/pg16.14-production-sim-socket",
+    "hypothetical_functions": "absent",
+    "source_patch_symbol_count": 0
+  },
+  "advisor": {
+    "binary": ".build/postgresql-16.14-install/bin/postgres",
+    "binary_sha256": "a54fa02a96906b3853ee68d80f86e02cdaaa6bd2031822026ac943abcb171ba1",
+    "version": "16.14",
+    "port": 55438,
+    "data_directory": ".build/pg16.14-advisor-cluster",
+    "socket_directory": ".build/pg16.14-advisor-socket"
+  },
+  "production_relation": {
+    "relation": "public.dmv",
+    "source_sha256": "ae310972b7ac08629d135a1da7c580e3fe603bfc2e665e1969005bd481d4605a",
+    "rows": 11591877,
+    "columns": 11,
+    "types": "nullable text",
+    "persistence": "UNLOGGED",
+    "restart_check": "clean restart retained rows; explicit canonical reload and count check repeated"
+  },
+  "workload": {
+    "raw_source_sha256": "1953dc96e00c8caeeb9d363070853d27a6548ce43ab14772d8e7637af9c2cd22",
+    "raw_queries": 1965,
+    "effective_queries": 1963,
+    "excluded_query_ids": ["dmv.173", "dmv.943"],
+    "effective_digest": "e790933cfc4f0f42d92807170b76cec080621c5b463dab83e23474a0a51151d8"
+  },
+  "capture": {
+    "artifact_directory": ".build/production-captures/dmv-m2-23-v1",
+    "sealed": true,
+    "root_semantic_digest": "4ab35dc7ecb21d5707ce4e384329118633f907fd6ed58fa7652268fdb649aba8",
+    "consistency": "best-effort/multi-snapshot",
+    "truth_method": "1965 exact SELECT COUNT(*) statements on one exported repeatable-read snapshot shared by eight workers",
+    "truth_elapsed_seconds": 436.290622795,
+    "sample_method": "stock COPY SELECT stream plus deterministic client-side reservoir, seed 22323",
+    "sample_rows": 30000,
+    "sample_semantic_digest": "98c42090cbd2e92a5390379d6bfd2ff4350766ea4651836af106bce2ee0ee50a",
+    "sample_binary_digest": "80d2dd605099d2a53ddced5a30a325c4896d6258056277b842023cfb30e6207f",
+    "artifact_bytes": 8932229,
+    "role": "pgextadv_m223_capture",
+    "read_only": true,
+    "mutation_audit": {"CREATE TABLE": "rejected", "CREATE STATISTICS": "rejected", "INSERT": "rejected"}
+  },
+  "shutdown_gate": {
+    "production_stopped_before_advisor": true,
+    "pg_isready_55437": "no response",
+    "production_reconnected": false
+  },
+  "advisor_reconstruction": {
+    "used_only_sealed_capture": true,
+    "used_canonical_csv": false,
+    "used_production_data_directory": false,
+    "advisor_relation_rows": 30000,
+    "sample_staging_rows": 30000,
+    "original_relation_rows": 11591877,
+    "frozen_totalrows": 11591877,
+    "ordinary_statistics_digest": "b833015894099758cf362d1436319388c83851e0eb067d3ce8561981bc277604",
+    "repository_digest": "893705417f1f4c134c0e96f8a4022d76c6ac8f82c9b7c22c359dc73c06194f51",
+    "candidate_count": 72,
+    "realization_states": {"PRESENT": 70, "ABSENT_NATIVE": 2},
+    "baseline_objective": 88053.61940613187,
+    "estimate_vector_digest": "6be99060002f3be7c49070e20ba57ecf520a5970f01f42053707dcf02bad1274"
+  },
+  "oracle_comparison": {
+    "oracle_sample_a_semantic_digest": "59dc8dbe007a81cbd10a11894ff8abf9b4a8f0cac11523221dbd63e34dd4ca7f",
+    "oracle_baseline_objective": 42791.986480127205,
+    "oracle_repository_digest": "0e928015a57a20624775c355e6dbb08e56cedd4437f5f54a7d0801c5aa7c6807",
+    "prototype_differs": true,
+    "equivalence_claim": false
+  },
+  "search_started": false,
+  "patch_modified": false
+}
