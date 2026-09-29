@@ -29,6 +29,15 @@ are materialized in an isolated acquisition environment, sampled once with
 `ANALYZE`, and frozen before search. The search hot path never analyzes or
 regenerates payloads.
 
+For reproducible acquisition validation, the sample itself can be frozen before
+the payload repository: one native PostgreSQL sample is persisted with a
+semantic/serialization checksum, then replayed by the backend-local
+`pg_extstats.frozen_sample_mode=replay` path. Ordinary column statistics and
+all extended-statistics payloads are built from that same sample and captured
+`totalrows`; replay validates the target schema and fails closed on missing,
+empty, or incompatible sample relations. This is an acquisition-lineage
+mechanism, not a search objective or a maintenance-cost claim.
+
 ### 3. Incrementality ends at query granularity
 
 The incidence index maps every candidate to a conservative set of potentially

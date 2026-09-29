@@ -1,0 +1,15 @@
+{
+  "benchmark": "DMV",
+  "calibration_rerun": false,
+  "candidate_catalog_digest": "99de997c7c2b46592523c939f1d03b962aaab8cb76c1204532f351027d0f2b73",
+  "effective_workload_digest": "e790933cfc4f0f42d92807170b76cec080621c5b463dab83e23474a0a51151d8",
+  "incidence_digest": "ff320b0c6c54397ce361f4f83a625f9df34c05e5fa0423282d4169dbe2090d71",
+  "milestone": "M2.17b",
+  "sample_relation": "public.pgextadv_frozen_sample",
+  "screening_started": false,
+  "search_started": false,
+  "source_audit": "experiments/dmv-m2-17b-frozen-acquisition-sample/source-audit.md",
+  "source_workload": "/root/projects/pg-extstats-advisor/experiments/dmv-m2-15-singletons/prepared-run",
+  "statistics_target": 100,
+  "target_relation": "public.dmv"
+}

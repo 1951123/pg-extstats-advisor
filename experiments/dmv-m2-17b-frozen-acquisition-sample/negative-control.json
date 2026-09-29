@@ -1,0 +1,33 @@
+{
+  "artifact": {
+    "corrupted_digest_rejected": true,
+    "original_digest_valid": true,
+    "validation": "sha256 before backend replay"
+  },
+  "invalid_backend": {
+    "missing_relation": {
+      "message": "relation \"public.frozen_missing_sample\" does not exist",
+      "rejected": true,
+      "sqlstate": "42P01"
+    },
+    "row_count_empty": {
+      "message": "frozen sample relation is empty",
+      "rejected": true,
+      "sqlstate": "22023"
+    },
+    "schema_mismatch": {
+      "message": "frozen sample column count does not match analyzed relation",
+      "rejected": true,
+      "sqlstate": "42804"
+    },
+    "type_mismatch": {
+      "message": "frozen sample column 1 type metadata does not match analyzed relation",
+      "rejected": true,
+      "sqlstate": "42804"
+    }
+  },
+  "normal": {
+    "normal_analyze_mode": "off",
+    "normal_analyze_succeeded": true
+  }
+}

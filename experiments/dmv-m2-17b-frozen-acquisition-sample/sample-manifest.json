@@ -1,0 +1,84 @@
+{
+  "dataset_id": "dmv-pg16.14-v1",
+  "format_version": 1,
+  "ordered_column_schema": [
+    {
+      "attnum": 1,
+      "name": "record_type",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 2,
+      "name": "registration_class",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 3,
+      "name": "state",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 4,
+      "name": "county",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 5,
+      "name": "body_type",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 6,
+      "name": "fuel_type",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 7,
+      "name": "reg_valid_date",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 8,
+      "name": "color",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 9,
+      "name": "scofflaw_indicator",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 10,
+      "name": "suspension_indicator",
+      "not_null": false,
+      "type": "text"
+    },
+    {
+      "attnum": 11,
+      "name": "revocation_indicator",
+      "not_null": false,
+      "type": "text"
+    }
+  ],
+  "patch_sha256": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",
+  "patch_source": "pg/patches/postgresql-16.14-hypothetical-extstats.patch",
+  "replay_contract": "backend-local frozen sample relation; no sampling from target relation",
+  "row_count": 30000,
+  "sample_file": "sample.copy.bin",
+  "sample_file_sha256": "09fa0baedb3f4a152a9e372fb3e916d2bac0f1bbdb1701d32d0c2f835606010c",
+  "sample_relation": "public.pgextadv_frozen_sample",
+  "sampling_algorithm": "PostgreSQL 16.14 native block sampler + Vitter reservoir; rows sorted by physical TID",
+  "semantic_sha256": "6f0f127ff6484ac8c20d5057b5704c68978b1f60cfffd922cea966225527dac4",
+  "statistics_target": 100,
+  "target_relation": "public.dmv",
+  "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471"
+}

@@ -1,0 +1,15 @@
+{
+  "baseline_estimate_vector_exact": {
+    "build1_build2": true,
+    "build2_build3": true
+  },
+  "fresh_backend_session": true,
+  "ordinary_statistics_exact": {
+    "build1_build2": true,
+    "build2_build3": true
+  },
+  "payload_state_exact": {
+    "build1_build2": true,
+    "build2_build3": true
+  }
+}
