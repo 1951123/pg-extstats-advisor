@@ -12,6 +12,8 @@ RUNTIME=$EXPERIMENT/runtime
 CACHE=$EXPERIMENT/cache
 PROVENANCE=$EXPERIMENT/build-provenance.json
 SUMMARY=$EXPERIMENT/lifecycle-summary.json
+export PGEXT_POSTGRES_PASSWORD=${PGEXT_POSTGRES_PASSWORD:-m233_pg_${RANDOM}_${RANDOM}}
+export PGEXT_CAPTURE_PASSWORD=${PGEXT_CAPTURE_PASSWORD:-m233_capture_${RANDOM}_${RANDOM}}
 
 [[ -f "$PG_TARBALL" ]] || { echo "missing PG_TARBALL: $PG_TARBALL" >&2; exit 2; }
 actual_sha=$(sha256sum "$PG_TARBALL" | awk '{print $1}')
@@ -45,8 +47,6 @@ advisor_pg_provenance=$(docker run --rm --entrypoint cat pg-extstats-advisor/adv
 docker run --rm --entrypoint sh pg-extstats-advisor/advisor:cleanroom -c 'test "$(id -u)" != 0 && test ! -e /root/projects && /opt/venv/bin/python -c "import pg_extstats_advisor, sys; assert not any(\"/root/projects\" in x for x in sys.path)"'
 docker run --rm --entrypoint /opt/venv/bin/python pg-extstats-advisor/capture:cleanroom -c 'import pg_extstats_advisor; print(pg_extstats_advisor.__file__)' > "$RUNTIME/wheel-import.txt"
 
-export PGEXT_POSTGRES_PASSWORD=m233_pg_${RANDOM}_${RANDOM}
-export PGEXT_CAPTURE_PASSWORD=m233_capture_${RANDOM}_${RANDOM}
 capture_dsn=postgresql://capture:$PGEXT_CAPTURE_PASSWORD@production:5432/demo
 postgres_dsn=postgresql://postgres:$PGEXT_POSTGRES_PASSWORD@validation-production:5432/demo
 
