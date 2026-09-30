@@ -21,6 +21,7 @@ if [[ ! -s "$PGDATA/PG_VERSION" ]]; then
     printf "port = %s\n" "$PGPORT"
     printf "default_statistics_target = %s\n" "${DEFAULT_STATISTICS_TARGET:-100}"
   } >>"$PGDATA/postgresql.conf"
+  printf 'host all all 0.0.0.0/0 scram-sha-256\n' >>"$PGDATA/pg_hba.conf"
 fi
 
 "$PG_BIN/postgres" -D "$PGDATA" -k /tmp -p "$PGPORT" &
