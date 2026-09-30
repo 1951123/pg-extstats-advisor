@@ -71,7 +71,7 @@ until "${COMPOSE[@]}" exec -T production /opt/postgresql-16.14-stock/bin/pg_isre
 "${COMPOSE[@]}" exec -T production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 < examples/docker-cleanroom/fixture.sql > "$RUNTIME/fixture-load-production.txt"
 
 set +e
-"${COMPOSE[@]}" run --rm -e PGEXT_CAPTURE_DSN="$capture_dsn" capture capture --dsn "$capture_dsn" --relation public.fixture --workload /fixture/workload.json --output /artifacts/capture --statistics-target 100 --sample-rows 8 > "$RUNTIME/capture.stdout" 2> "$RUNTIME/capture.stderr"
+"${COMPOSE[@]}" run --rm -e PGEXT_CAPTURE_DSN="$capture_dsn" capture capture --dsn "$capture_dsn" --relation public.fixture --workload /fixture/workload.json --output /artifacts/capture --statistics-target 100 --sample-rows 7 > "$RUNTIME/capture.stdout" 2> "$RUNTIME/capture.stderr"
 rc=$?
 set -e
 if [[ $rc -eq 0 ]]; then capture_status=PASS; fi
@@ -87,7 +87,7 @@ if [[ $rc -ne 0 ]]; then corruption_status=PASS; fi
 
 "${COMPOSE[@]}" stop production >/dev/null
 set +e
-"${COMPOSE[@]}" run --rm -e PGEXT_CAPTURE_DSN="$capture_dsn" capture capture --dsn "$capture_dsn" --relation public.fixture --workload /fixture/workload.json --output /artifacts/unavailable --statistics-target 100 --sample-rows 8 > "$RUNTIME/unavailable-capture.stdout" 2> "$RUNTIME/unavailable-capture.stderr"
+"${COMPOSE[@]}" run --rm -e PGEXT_CAPTURE_DSN="$capture_dsn" capture capture --dsn "$capture_dsn" --relation public.fixture --workload /fixture/workload.json --output /artifacts/unavailable --statistics-target 100 --sample-rows 7 > "$RUNTIME/unavailable-capture.stdout" 2> "$RUNTIME/unavailable-capture.stderr"
 rc=$?
 set -e
 if [[ $rc -ne 0 ]] && grep -Eqi 'connect|connection|failed' "$RUNTIME/unavailable-capture.stderr"; then unavailable_capture_status=PASS; fi
