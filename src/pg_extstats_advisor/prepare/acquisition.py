@@ -66,6 +66,10 @@ def _relation_fingerprint(connection: Connection[Any], relation: str) -> str:
     ).hexdigest()
 
 
+def _text(value: object) -> str:
+    return value.decode() if isinstance(value, (bytes, bytearray)) else str(value)
+
+
 def _acquisition_logical_metadata(connection: Connection[Any], relation: str) -> RelationMetadata:
     row = connection.execute(
         "SELECT n.nspname,c.relname,c.oid FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace "
@@ -80,10 +84,10 @@ def _acquisition_logical_metadata(connection: Connection[Any], relation: str) ->
         (row[2],),
     ).fetchall()
     return RelationMetadata(
-        str(row[0]),
-        str(row[1]),
+        _text(row[0]),
+        _text(row[1]),
         int(row[2]),
-        tuple((int(a), str(b), str(c), bool(d)) for a, b, c, d in columns),
+        tuple((int(a), _text(b), _text(c), bool(d)) for a, b, c, d in columns),
     )
 
 
