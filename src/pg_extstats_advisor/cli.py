@@ -16,6 +16,7 @@ from pg_extstats_advisor.calibration import CalibrationConfig, run_calibration
 from pg_extstats_advisor.capture.fixed import verify_fixed_t_bundle
 from pg_extstats_advisor.capture.workflow import CaptureConfig, capture_fixed_t
 from pg_extstats_advisor.deploy.bundle import RecommendationBundle, validate_recommendation_bundle
+from pg_extstats_advisor.deploy.preflight import run_preflight
 from pg_extstats_advisor.errors import AdvisorCLIError, ExitCode
 from pg_extstats_advisor.orchestration import (
     cleanup_acquisition_stage,
@@ -112,6 +113,12 @@ def _parser() -> argparse.ArgumentParser:
     validate.add_argument("--validation-dsn")
     inspect = commands.add_parser("inspect", help="print a recommendation summary")
     inspect.add_argument("artifact", type=Path)
+    preflight = commands.add_parser(
+        "preflight", help="read-only production compatibility check for a recommendation"
+    )
+    preflight.add_argument("recommendation", type=Path)
+    preflight.add_argument("--production-dsn", "--dsn", dest="production_dsn")
+    preflight.add_argument("--json", action="store_true", help="emit the structured report")
     cleanup = commands.add_parser(
         "cleanup-acquisition", help="drop only this run's acquisition handles"
     )
@@ -256,6 +263,26 @@ def main(argv: list[str] | None = None) -> int:
             mcv = sum(item.get("mechanism") == "mcv" for item in selected)
             fd = sum(item.get("mechanism") == "fd" for item in selected)
             print(json.dumps({"evaluated_statistics_target": bundle.evaluated_statistics_target, "baseline_objective": bundle.baseline_objective, "final_objective": bundle.final_objective, "selected_count": len(bundle.selected_design), "mcv_count": mcv, "fd_count": fd, "selected_maintenance_cost": bundle.selected_maintenance_cost, "statistics_names": [item.get("statistics_name") for item in selected]}, sort_keys=True))
+        elif args.command == "preflight":
+            report = run_preflight(args.recommendation, _dsn(args.production_dsn, "PGEXT_PRODUCTION_DSN"))
+            exit_code = int(report.pop("_exit_code", 0))
+            if args.json:
+                print(json.dumps(report, sort_keys=True))
+            else:
+                for check in report["checks"]:
+                    status = check["status"]
+                    suffix = f": {check['message']}" if check.get("message") else ""
+                    print(f"{check['name']}: {status}{suffix}")
+                    if status == "FAIL":
+                        if check["name"] != "schema" and "expected" in check:
+                            print(f"  expected: {check['expected']}")
+                        if check["name"] != "schema" and "observed" in check:
+                            print(f"  observed: {check['observed']}")
+                        if check["name"] == "schema":
+                            print("  details: rerun with --json for the portable schema diff")
+                print(f"\nPRE-FLIGHT: {report['status']}")
+                print(f"recommendation digest: {report['recommendation_digest']}")
+            return exit_code
         elif args.command == "cleanup-acquisition":
             with psycopg.connect(_dsn(args.acquisition_dsn, "PGEXT_ACQUISITION_DSN")) as connection:
                 cleanup_acquisition_stage(args.run_dir, connection)

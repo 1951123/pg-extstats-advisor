@@ -63,6 +63,27 @@ and `ANALYZE`; it does not use the hypothetical extension API or mutate the
 database target.  Rollback drops only the recommendation's deterministic
 statistics names in reverse order.  There is no automatic deployment.
 
+## Deployment preflight
+
+`preflight` is a read-only, fail-closed compatibility check for a product
+recommendation. It validates the artifact before opening the production
+connection, then reads PostgreSQL 16.14 version, the effective global target,
+permissions, relation schema, target overrides, deterministic name collisions,
+and equivalent existing extstats. It never creates, drops, alters, analyzes,
+or changes a target.
+
+```text
+pg-extstats-advisor preflight recommendation/recommendation.json \
+  --production-dsn "$PGEXT_PRODUCTION_DSN"
+pg-extstats-advisor preflight recommendation/recommendation.json \
+  --production-dsn "$PGEXT_PRODUCTION_DSN" --json
+```
+
+Compatibility drift returns exit code `3`; insufficient read-only visibility
+returns `4`; malformed recommendations return `5`. The preflight role needs
+`CONNECT`, schema `USAGE`, catalog visibility, and `SELECT` on the relation,
+but not `CREATE`, `INSERT`, `ANALYZE`, `ALTER`, or superuser privilege.
+
 The product scope is intentionally limited to PostgreSQL 16.14, one base
 relation, arity-two MCV/dependency candidates, and selection cardinality
 estimation.  Joins, multi-table designs, target optimization, and privacy

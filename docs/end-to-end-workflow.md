@@ -23,6 +23,12 @@ recommendation bundle plus ordinary PostgreSQL `CREATE STATISTICS`,
 The generated deployment statements are stock-PostgreSQL DDL; the patched
 cluster is required only for native payload replay during evaluation.
 
+Before a DBA applies that DDL, the recommendation can be checked with the
+read-only `preflight` command against a production validation role. It fails
+closed on PostgreSQL-version, fixed-target, portable-schema, target-override,
+deterministic-name, or equivalent-extstats drift and never performs deployment
+or `ANALYZE`.
+
 Cold and warm runs must agree exactly on repository semantic digest, baseline
 estimate vector/objective, selected design, objective, and modeled cost.  A
 cache hit is a derived-artifact optimization, never a replacement for the

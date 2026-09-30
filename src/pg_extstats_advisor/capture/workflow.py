@@ -77,7 +77,7 @@ def _records(path: Path, relation_id: str) -> list[dict[str, Any]]:
 
 def _relation_schema(connection: psycopg.Connection[Any], relation: str, target: int) -> tuple[dict[str, Any], int]:
     row = connection.execute(
-        "SELECT n.nspname,c.relname,c.oid FROM pg_class c JOIN pg_namespace n "
+        "SELECT n.nspname,c.relname,c.oid,c.relkind FROM pg_class c JOIN pg_namespace n "
         "ON n.oid=c.relnamespace WHERE c.oid=to_regclass(%s) AND c.relkind IN ('r','p')",
         (relation,),
     ).fetchone()
@@ -99,7 +99,11 @@ def _relation_schema(connection: psycopg.Connection[Any], relation: str, target:
         }
         for attnum, name, _typ, notnull in columns
     ]
-    relation_record: dict[str, Any] = {"relation_id": f"{row[0]}.{row[1]}", "columns": portable_columns}
+    relation_record: dict[str, Any] = {
+        "relation_id": f"{row[0]}.{row[1]}",
+        "relation_kind": str(row[3]),
+        "columns": portable_columns,
+    }
     relation_record["schema_digest"] = canonical_digest(
         {key: value for key, value in relation_record.items() if key != "schema_digest"}
     )

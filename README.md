@@ -112,6 +112,13 @@ fresh native payload fingerprints and CE, and a structured comparison against th
 frozen hypothetical prediction. It does not add runtime validation or maintenance
 cost fitting.
 
+The product-shaped path also provides a read-only, fail-closed deployment
+preflight and a DBA runbook. Preflight checks exact PostgreSQL 16.14, the fixed
+effective target, portable schema identity, target overrides, deterministic
+name collisions, and equivalent existing extstats before a DBA manually reviews
+`deploy.sql`. It never deploys, changes a target, or runs `ANALYZE`; see
+`docs/dba-runbook.md`.
+
 The fixed-target scope is documented in `docs/statistics-target-scope.md`.
 
 ## Core workflow

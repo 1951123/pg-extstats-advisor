@@ -1,0 +1,537 @@
+{
+  "acquisition_identity": {
+    "capture_bundle_digest": "b6aeedbf4a68c727af1c4ba64f0ec9b59e7b557f1d429c06ae29928ea5fc4f09",
+    "capture_timestamp": "2026-09-29T15:43:26.323961+00:00",
+    "repository_semantic_digest": "76299f63617f5739cde9d78d7b2fb151ba7db0acdaaaff987f0916297c001580",
+    "sample_semantic_digest": "d0f7d8507e623fec60860534120655d5b69d3e4c0eadfe3654de477827f7318c"
+  },
+  "baseline_objective": 87564.20552919351,
+  "bundle_type": "fixed-t-recommendation-v1",
+  "candidate_catalog_digest": "bdde21867bdef1c754640e6669b3d8fe6d675d7bf9222335bbf5f1fc99117c36",
+  "capture_bundle_digest": "b6aeedbf4a68c727af1c4ba64f0ec9b59e7b557f1d429c06ae29928ea5fc4f09",
+  "compatibility": {
+    "advisor_replay_requires_patch": true,
+    "postgres_version": "16.14",
+    "requires_patch": false,
+    "sample_realization_authoritative": true,
+    "target_precondition": 100
+  },
+  "deployment_ddl": [
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_f94acad130c4ac5b3553_6c18528aff\" (mcv) ON \"record_type\", \"body_type\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_6ca6020979af5e5766a4_0392e720db\" (mcv) ON \"record_type\", \"fuel_type\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_e25a986fe1b364e78595_6460eef950\" (mcv) ON \"record_type\", \"suspension_indicator\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_bc69a49224dd80292b07_684aab9684\" (mcv) ON \"record_type\", \"revocation_indicator\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_560443d79842b416ea0d_f5ce8d2f6f\" (mcv) ON \"state\", \"scofflaw_indicator\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_323246ee68602507a57d_832d6287fd\" (mcv) ON \"county\", \"scofflaw_indicator\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_6161166747fb16ce38eb_280486d41b\" (mcv) ON \"county\", \"revocation_indicator\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_0275ee8f6b218bf6a5a1_f753a68abe\" (mcv) ON \"body_type\", \"fuel_type\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_5005700887020f58d09a_3175f53b20\" (mcv) ON \"body_type\", \"suspension_indicator\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_7bad1214667cfa5a9e86_892ecdfec0\" (mcv) ON \"fuel_type\", \"scofflaw_indicator\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_2cc7a6ce91fea1a3633f_8d0c249b14\" (mcv) ON \"fuel_type\", \"revocation_indicator\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_4647f51bb46042cafc21_5dc5995bc7\" (mcv) ON \"scofflaw_indicator\", \"revocation_indicator\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_9a47b4882350bf5fccf9_6b430b6b59\" (dependencies) ON \"record_type\", \"state\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_c7f3b001bf1756cd2ed9_8c777df2dc\" (dependencies) ON \"registration_class\", \"body_type\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_a06f9852e67c463f73a2_6b116e22bc\" (dependencies) ON \"registration_class\", \"fuel_type\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_5e3a909effbf6f7d6e21_b2596adf61\" (dependencies) ON \"county\", \"fuel_type\" FROM \"public\".\"dmv\"",
+    "CREATE STATISTICS \"public\".\"pgextadv_cand_2bea04f8b2c85ff2a4e0_09d6edb3fc\" (dependencies) ON \"body_type\", \"revocation_indicator\" FROM \"public\".\"dmv\"",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_f94acad130c4ac5b3553_6c18528aff\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_6ca6020979af5e5766a4_0392e720db\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_e25a986fe1b364e78595_6460eef950\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_bc69a49224dd80292b07_684aab9684\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_560443d79842b416ea0d_f5ce8d2f6f\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_323246ee68602507a57d_832d6287fd\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_6161166747fb16ce38eb_280486d41b\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_0275ee8f6b218bf6a5a1_f753a68abe\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_5005700887020f58d09a_3175f53b20\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_7bad1214667cfa5a9e86_892ecdfec0\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_2cc7a6ce91fea1a3633f_8d0c249b14\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_4647f51bb46042cafc21_5dc5995bc7\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_9a47b4882350bf5fccf9_6b430b6b59\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_c7f3b001bf1756cd2ed9_8c777df2dc\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_a06f9852e67c463f73a2_6b116e22bc\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_5e3a909effbf6f7d6e21_b2596adf61\" SET STATISTICS 100",
+    "ALTER STATISTICS \"public\".\"pgextadv_cand_2bea04f8b2c85ff2a4e0_09d6edb3fc\" SET STATISTICS 100",
+    "ANALYZE \"public\".\"dmv\""
+  ],
+  "digest": "4d2fc74ae9e45d5421638f719c26c544a310c8180b75b93b53a88ff6071e9741",
+  "evaluated_statistics_target": 100,
+  "final_objective": 44998.09562064825,
+  "format_version": 1,
+  "maintenance_model_digest": "f8885af9b1411bb417dcb1fb93f5e368d5e89c0eac29e7803d0c5e8563204714",
+  "problem_provenance": {
+    "candidate_catalog_digest": "bdde21867bdef1c754640e6669b3d8fe6d675d7bf9222335bbf5f1fc99117c36",
+    "problem_digest": "b3a8f8f5ed78f2a99f7f82df2a233e64fc0c15c607d6fdcb6e195d65156f60d2",
+    "realization_digest": "76299f63617f5739cde9d78d7b2fb151ba7db0acdaaaff987f0916297c001580",
+    "target": 100,
+    "workload_digest": "37caa165104b3e45a723b7c817d6210d2f27c4b0ed328c6b0428724a56030fdc"
+  },
+  "rollback_ddl": [
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_2bea04f8b2c85ff2a4e0_09d6edb3fc\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_5e3a909effbf6f7d6e21_b2596adf61\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_a06f9852e67c463f73a2_6b116e22bc\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_c7f3b001bf1756cd2ed9_8c777df2dc\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_9a47b4882350bf5fccf9_6b430b6b59\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_4647f51bb46042cafc21_5dc5995bc7\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_2cc7a6ce91fea1a3633f_8d0c249b14\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_7bad1214667cfa5a9e86_892ecdfec0\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_5005700887020f58d09a_3175f53b20\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_0275ee8f6b218bf6a5a1_f753a68abe\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_6161166747fb16ce38eb_280486d41b\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_323246ee68602507a57d_832d6287fd\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_560443d79842b416ea0d_f5ce8d2f6f\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_bc69a49224dd80292b07_684aab9684\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_e25a986fe1b364e78595_6460eef950\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_6ca6020979af5e5766a4_0392e720db\"",
+    "DROP STATISTICS IF EXISTS \"public\".\"pgextadv_cand_f94acad130c4ac5b3553_6c18528aff\""
+  ],
+  "schema_binding": {
+    "columns": [
+      {
+        "attnum": 1,
+        "collation": {
+          "name": "default",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.default"
+        },
+        "name": "record_type",
+        "nullable": true,
+        "type": {
+          "kind": "builtin",
+          "name": "text",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.text"
+        },
+        "typmod": "-1"
+      },
+      {
+        "attnum": 2,
+        "collation": {
+          "name": "default",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.default"
+        },
+        "name": "registration_class",
+        "nullable": true,
+        "type": {
+          "kind": "builtin",
+          "name": "text",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.text"
+        },
+        "typmod": "-1"
+      },
+      {
+        "attnum": 3,
+        "collation": {
+          "name": "default",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.default"
+        },
+        "name": "state",
+        "nullable": true,
+        "type": {
+          "kind": "builtin",
+          "name": "text",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.text"
+        },
+        "typmod": "-1"
+      },
+      {
+        "attnum": 4,
+        "collation": {
+          "name": "default",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.default"
+        },
+        "name": "county",
+        "nullable": true,
+        "type": {
+          "kind": "builtin",
+          "name": "text",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.text"
+        },
+        "typmod": "-1"
+      },
+      {
+        "attnum": 5,
+        "collation": {
+          "name": "default",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.default"
+        },
+        "name": "body_type",
+        "nullable": true,
+        "type": {
+          "kind": "builtin",
+          "name": "text",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.text"
+        },
+        "typmod": "-1"
+      },
+      {
+        "attnum": 6,
+        "collation": {
+          "name": "default",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.default"
+        },
+        "name": "fuel_type",
+        "nullable": true,
+        "type": {
+          "kind": "builtin",
+          "name": "text",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.text"
+        },
+        "typmod": "-1"
+      },
+      {
+        "attnum": 7,
+        "collation": {
+          "name": "default",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.default"
+        },
+        "name": "reg_valid_date",
+        "nullable": true,
+        "type": {
+          "kind": "builtin",
+          "name": "text",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.text"
+        },
+        "typmod": "-1"
+      },
+      {
+        "attnum": 8,
+        "collation": {
+          "name": "default",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.default"
+        },
+        "name": "color",
+        "nullable": true,
+        "type": {
+          "kind": "builtin",
+          "name": "text",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.text"
+        },
+        "typmod": "-1"
+      },
+      {
+        "attnum": 9,
+        "collation": {
+          "name": "default",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.default"
+        },
+        "name": "scofflaw_indicator",
+        "nullable": true,
+        "type": {
+          "kind": "builtin",
+          "name": "text",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.text"
+        },
+        "typmod": "-1"
+      },
+      {
+        "attnum": 10,
+        "collation": {
+          "name": "default",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.default"
+        },
+        "name": "suspension_indicator",
+        "nullable": true,
+        "type": {
+          "kind": "builtin",
+          "name": "text",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.text"
+        },
+        "typmod": "-1"
+      },
+      {
+        "attnum": 11,
+        "collation": {
+          "name": "default",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.default"
+        },
+        "name": "revocation_indicator",
+        "nullable": true,
+        "type": {
+          "kind": "builtin",
+          "name": "text",
+          "namespace": "pg_catalog",
+          "portable_name": "pg_catalog.text"
+        },
+        "typmod": "-1"
+      }
+    ],
+    "relation_id": "public.dmv",
+    "relation_kind": [
+      "r",
+      "p"
+    ],
+    "schema_digest": "27d6660edbeeef961bdc14afe3c10ca0ca6ff14ac74e622cd2e1239ee8588a8d"
+  },
+  "scope": {
+    "candidate_arity": 2,
+    "mechanisms": [
+      "mcv",
+      "fd"
+    ],
+    "query_scope": "base_relation_selection",
+    "relation_count": 1
+  },
+  "search_metadata": {
+    "accepted_moves": 17,
+    "algorithm": "contextual-greedy-local-v1",
+    "budget": "372.045872636249472",
+    "evaluated_moves": 1102,
+    "evaluator_calls": 1103,
+    "termination_reason": "add-local-optimum"
+  },
+  "selected_design": [
+    "cand_f94acad130c4ac5b3553",
+    "cand_6ca6020979af5e5766a4",
+    "cand_e25a986fe1b364e78595",
+    "cand_bc69a49224dd80292b07",
+    "cand_560443d79842b416ea0d",
+    "cand_323246ee68602507a57d",
+    "cand_6161166747fb16ce38eb",
+    "cand_0275ee8f6b218bf6a5a1",
+    "cand_5005700887020f58d09a",
+    "cand_7bad1214667cfa5a9e86",
+    "cand_2cc7a6ce91fea1a3633f",
+    "cand_4647f51bb46042cafc21",
+    "cand_9a47b4882350bf5fccf9",
+    "cand_c7f3b001bf1756cd2ed9",
+    "cand_a06f9852e67c463f73a2",
+    "cand_5e3a909effbf6f7d6e21",
+    "cand_2bea04f8b2c85ff2a4e0"
+  ],
+  "selected_design_digest": "e43934f3129697b557889e01b2b4fbd349dc229a45951be76c1e3d21dd12f18d",
+  "selected_maintenance_cost": "80.734089665781910",
+  "selected_objects": [
+    {
+      "attributes": [
+        "record_type",
+        "body_type"
+      ],
+      "candidate_id": "cand_f94acad130c4ac5b3553",
+      "maintenance_cost": "4.15157882851945",
+      "mechanism": "mcv",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_f94acad130c4ac5b3553_6c18528aff"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_6ca6020979af5e5766a4",
+      "maintenance_cost": "4.15157882851945",
+      "mechanism": "mcv",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_6ca6020979af5e5766a4_0392e720db"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_e25a986fe1b364e78595",
+      "maintenance_cost": "4.15157882851945",
+      "mechanism": "mcv",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_e25a986fe1b364e78595_6460eef950"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_bc69a49224dd80292b07",
+      "maintenance_cost": "4.15157882851945",
+      "mechanism": "mcv",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_bc69a49224dd80292b07_684aab9684"
+    },
+    {
+      "attributes": [
+        "state",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_560443d79842b416ea0d",
+      "maintenance_cost": "4.15157882851945",
+      "mechanism": "mcv",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_560443d79842b416ea0d_f5ce8d2f6f"
+    },
+    {
+      "attributes": [
+        "county",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_323246ee68602507a57d",
+      "maintenance_cost": "4.15157882851945",
+      "mechanism": "mcv",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_323246ee68602507a57d_832d6287fd"
+    },
+    {
+      "attributes": [
+        "county",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_6161166747fb16ce38eb",
+      "maintenance_cost": "4.15157882851945",
+      "mechanism": "mcv",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_6161166747fb16ce38eb_280486d41b"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_0275ee8f6b218bf6a5a1",
+      "maintenance_cost": "4.15157882851945",
+      "mechanism": "mcv",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_0275ee8f6b218bf6a5a1_f753a68abe"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "suspension_indicator"
+      ],
+      "candidate_id": "cand_5005700887020f58d09a",
+      "maintenance_cost": "4.15157882851945",
+      "mechanism": "mcv",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_5005700887020f58d09a_3175f53b20"
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "scofflaw_indicator"
+      ],
+      "candidate_id": "cand_7bad1214667cfa5a9e86",
+      "maintenance_cost": "4.15157882851945",
+      "mechanism": "mcv",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_7bad1214667cfa5a9e86_892ecdfec0"
+    },
+    {
+      "attributes": [
+        "fuel_type",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_2cc7a6ce91fea1a3633f",
+      "maintenance_cost": "4.15157882851945",
+      "mechanism": "mcv",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_2cc7a6ce91fea1a3633f_8d0c249b14"
+    },
+    {
+      "attributes": [
+        "scofflaw_indicator",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_4647f51bb46042cafc21",
+      "maintenance_cost": "4.15157882851945",
+      "mechanism": "mcv",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_4647f51bb46042cafc21_5dc5995bc7"
+    },
+    {
+      "attributes": [
+        "record_type",
+        "state"
+      ],
+      "candidate_id": "cand_9a47b4882350bf5fccf9",
+      "maintenance_cost": "6.183028744709702",
+      "mechanism": "fd",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_9a47b4882350bf5fccf9_6b430b6b59"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "body_type"
+      ],
+      "candidate_id": "cand_c7f3b001bf1756cd2ed9",
+      "maintenance_cost": "6.183028744709702",
+      "mechanism": "fd",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_c7f3b001bf1756cd2ed9_8c777df2dc"
+    },
+    {
+      "attributes": [
+        "registration_class",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_a06f9852e67c463f73a2",
+      "maintenance_cost": "6.183028744709702",
+      "mechanism": "fd",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_a06f9852e67c463f73a2_6b116e22bc"
+    },
+    {
+      "attributes": [
+        "county",
+        "fuel_type"
+      ],
+      "candidate_id": "cand_5e3a909effbf6f7d6e21",
+      "maintenance_cost": "6.183028744709702",
+      "mechanism": "fd",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_5e3a909effbf6f7d6e21_b2596adf61"
+    },
+    {
+      "attributes": [
+        "body_type",
+        "revocation_indicator"
+      ],
+      "candidate_id": "cand_2bea04f8b2c85ff2a4e0",
+      "maintenance_cost": "6.183028744709702",
+      "mechanism": "fd",
+      "payload_state": "PRESENT",
+      "relation": "public.dmv",
+      "statistics_name": "pgextadv_cand_2bea04f8b2c85ff2a4e0_09d6edb3fc"
+    }
+  ],
+  "statistics_target_role": "evaluated_external_configuration",
+  "truth_identity": {
+    "query_count": 1965,
+    "truth_semantic_digest": "acf0083d35de6dad8d10d316d440f0d3202fc6dcacd1ce1f1a6f4d5befc22062"
+  },
+  "workload_identity": {
+    "query_count": 1963,
+    "workload_digest": "37caa165104b3e45a723b7c817d6210d2f27c4b0ed328c6b0428724a56030fdc"
+  }
+}

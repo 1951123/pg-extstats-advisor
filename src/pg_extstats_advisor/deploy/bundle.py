@@ -38,6 +38,7 @@ class RecommendationBundle:
     capture_bundle_digest: str | None = None
     selected_objects: tuple[dict[str, Any], ...] = ()
     scope: dict[str, Any] | None = None
+    schema_binding: dict[str, Any] | None = None
 
     def __post_init__(self) -> None:
         target = validate_global_statistics_target(self.evaluated_statistics_target)
@@ -52,6 +53,19 @@ class RecommendationBundle:
         object.__setattr__(self, "selected_design_digest", expected)
         if self.capture_bundle_digest is not None and not self.capture_bundle_digest:
             raise ValueError("capture bundle digest cannot be empty")
+        if self.schema_binding is not None:
+            required_schema = {"relation_id", "relation_kind", "columns", "schema_digest"}
+            if not required_schema.issubset(self.schema_binding):
+                raise ValueError("recommendation schema binding is incomplete")
+            if not self.schema_binding["columns"]:
+                raise ValueError("recommendation schema binding has no columns")
+            identity = {
+                "relation_id": str(self.schema_binding["relation_id"]),
+                "relation_kind": list(map(str, self.schema_binding["relation_kind"])),
+                "columns": list(self.schema_binding["columns"]),
+            }
+            if self.schema_binding["schema_digest"] != canonical_digest(identity):
+                raise ValueError("recommendation schema binding digest mismatch")
         if self.selected_objects:
             ids = {str(item.get("candidate_id", "")) for item in self.selected_objects}
             if ids != set(map(str, self.selected_design)):
@@ -100,6 +114,8 @@ class RecommendationBundle:
             value["selected_objects"] = list(self.selected_objects)
         if self.scope is not None:
             value["scope"] = self.scope
+        if self.schema_binding is not None:
+            value["schema_binding"] = self.schema_binding
         if include_digest:
             value["digest"] = self.digest
         return value
@@ -138,6 +154,7 @@ class RecommendationBundle:
             raw.get("capture_bundle_digest"),
             tuple(dict(item) for item in raw.get("selected_objects", [])),
             (dict(raw["scope"]) if raw.get("scope") is not None else None),
+            (dict(raw["schema_binding"]) if raw.get("schema_binding") is not None else None),
         )
 
 

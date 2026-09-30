@@ -21,6 +21,7 @@ from pg_extstats_advisor.capture.manifest import (
     seal_manifest,
     verify_manifest,
 )
+from pg_extstats_advisor.capture.schema import schema_binding_from_record
 from pg_extstats_advisor.capture.target_policy import (
     TargetGridPolicy,
     TargetOverride,
@@ -42,6 +43,7 @@ __all__ = [
     "canonical_digest",
     "check_advisor_compatibility",
     "inspect_override_rows",
+    "schema_binding_from_record",
     "seal_manifest",
     "validate_override_rows",
     "verify_bundle_v2",
