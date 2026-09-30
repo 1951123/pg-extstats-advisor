@@ -19,8 +19,7 @@ RUN apt-get update \
     && (apt-get install -y --no-install-recommends postgresql-client-16 || apt-get install -y --no-install-recommends postgresql-client) \
     && apt-get install -y --no-install-recommends python3 python3-venv ca-certificates \
     && rm -rf /var/lib/apt/lists/* \
-    && groupadd --gid 1000 advisorio \
-    && useradd --create-home --uid 10001 --gid advisorio --shell /usr/sbin/nologin advisor
+    && useradd --create-home --uid 10001 --gid 1000 --shell /usr/sbin/nologin advisor
 COPY --from=wheel-builder /wheel/*.whl /tmp/
 RUN python3 -m venv /opt/venv \
     && /opt/venv/bin/pip install --no-cache-dir /tmp/*.whl 'psycopg[binary]>=3.2,<4' \
