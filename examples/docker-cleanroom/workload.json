@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "workload_id": "docker-cleanroom-fixture-v1",
+  "queries": [
+    {
+      "query_id": "q_hot_x",
+      "sql": "SELECT count(*) FROM public.fixture WHERE a = 'hot' AND b = 'x'",
+      "truth": 0,
+      "target_relation": "public.fixture"
+    }
+  ]
+}

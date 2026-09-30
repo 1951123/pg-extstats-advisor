@@ -17,6 +17,8 @@ pgdata/
 data/
 payload-repositories/
 experiments/scratch/
+experiments/m2-33-docker-cleanroom/runtime/
+experiments/m2-33-docker-cleanroom/cache/
 experiments/census-m2-7/prepared-run*/
 experiments/census-m2-7/budgets/
 experiments/census-m2-7/v2/budgets/*/search/

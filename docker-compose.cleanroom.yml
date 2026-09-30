@@ -1,0 +1,43 @@
+services:
+  production:
+    image: pg-extstats-advisor/stock-postgres:16.14
+    environment:
+      POSTGRES_DB: demo
+      POSTGRES_PASSWORD: ${PGEXT_POSTGRES_PASSWORD:?set by the lifecycle runner}
+      CAPTURE_PASSWORD: ${PGEXT_CAPTURE_PASSWORD:?set by the lifecycle runner}
+      DEFAULT_STATISTICS_TARGET: "100"
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - cleanroom-production-data:/var/lib/postgresql/data
+
+  validation-production:
+    image: pg-extstats-advisor/stock-postgres:16.14
+    environment:
+      POSTGRES_DB: demo
+      POSTGRES_PASSWORD: ${PGEXT_POSTGRES_PASSWORD:?set by the lifecycle runner}
+      CAPTURE_PASSWORD: ${PGEXT_CAPTURE_PASSWORD:?set by the lifecycle runner}
+      DEFAULT_STATISTICS_TARGET: "100"
+    ports:
+      - "127.0.0.1:55434:5432"
+    volumes:
+      - cleanroom-validation-data:/var/lib/postgresql/data
+
+  capture:
+    image: pg-extstats-advisor/capture:cleanroom
+    volumes:
+      - ./examples/docker-cleanroom:/fixture:ro
+      - ./experiments/m2-33-docker-cleanroom/runtime:/artifacts
+    working_dir: /work
+
+  advisor:
+    image: pg-extstats-advisor/advisor:cleanroom
+    volumes:
+      - ./examples/docker-cleanroom:/fixture:ro
+      - ./experiments/m2-33-docker-cleanroom/runtime:/artifacts
+      - ./experiments/m2-33-docker-cleanroom/cache:/cache
+    working_dir: /work
+
+volumes:
+  cleanroom-production-data:
+  cleanroom-validation-data:

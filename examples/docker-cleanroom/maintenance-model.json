@@ -1,0 +1,18 @@
+{
+  "format_version": 1,
+  "model_type": "empirical-mechanism-count-v1",
+  "model_version": "docker-cleanroom-v1",
+  "status": "accepted",
+  "unit": "milliseconds-per-analyze",
+  "statistics_target": 100,
+  "candidate_arity": 2,
+  "parameters": {
+    "mcv_ms_per_object": "1.000000",
+    "fd_ms_per_object": "2.000000"
+  },
+  "provenance": {
+    "scope": "deterministic clean-room fixture only",
+    "not_a_postgresql_universal_cost_claim": true
+  },
+  "digest": "0501736b951a6aeeb84c1dda03080b2dadab98b1ed7c4f0af60da85989e1cfb4"
+}

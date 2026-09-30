@@ -1,0 +1,27 @@
+{
+  "format_version": 1,
+  "candidates": [
+    {
+      "candidate_id": "fixture_mcv_ab",
+      "relation_name": "public.fixture",
+      "mechanism": "mcv",
+      "attributes": ["a", "b"],
+      "definition": {
+        "statistics_name": "pgextadv_fixture_mcv_ab_0c5040d25b",
+        "stxkind": "m"
+      },
+      "precedence_rank": 0
+    },
+    {
+      "candidate_id": "fixture_fd_ab",
+      "relation_name": "public.fixture",
+      "mechanism": "fd",
+      "attributes": ["a", "b"],
+      "definition": {
+        "statistics_name": "pgextadv_fixture_fd_ab_50dc10e59b",
+        "stxkind": "f"
+      },
+      "precedence_rank": 1
+    }
+  ]
+}

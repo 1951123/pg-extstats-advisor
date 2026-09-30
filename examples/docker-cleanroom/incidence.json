@@ -1,0 +1,7 @@
+{
+  "format_version": 1,
+  "edges": [
+    {"candidate_id": "fixture_mcv_ab", "query_id": "q_hot_x"},
+    {"candidate_id": "fixture_fd_ab", "query_id": "q_hot_x"}
+  ]
+}

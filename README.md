@@ -151,3 +151,8 @@ Review the generated standard PostgreSQL `deploy.sql` and
 change control. Samples can contain real production values; privacy and
 encryption remain deployment responsibilities. See `docs/cli.md` and
 `docs/artifact-contracts.md` for the supported scope and contracts.
+
+For a local Ubuntu 24.04 Docker clean-room reproduction using a tiny
+non-sensitive fixture, see [`docs/docker.md`](docs/docker.md). The clean-room
+path builds both stock and patched PostgreSQL 16.14 images locally and does
+not require a production DSN during offline advising.
