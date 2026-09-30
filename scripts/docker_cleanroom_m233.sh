@@ -62,7 +62,7 @@ unavailable_capture_status=FAIL
 
 "${COMPOSE[@]}" up -d production >/dev/null
 until "${COMPOSE[@]}" exec -T production /opt/postgresql-16.14-stock/bin/pg_isready -h 127.0.0.1 -p 5432 >/dev/null 2>&1; do sleep 1; done
-"${COMPOSE[@]}" exec -T production /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 < examples/docker-cleanroom/fixture.sql > "$RUNTIME/fixture-load-production.txt"
+"${COMPOSE[@]}" exec -T production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 < examples/docker-cleanroom/fixture.sql > "$RUNTIME/fixture-load-production.txt"
 
 set +e
 "${COMPOSE[@]}" run --rm -e PGEXT_CAPTURE_DSN="$capture_dsn" capture capture --dsn "$capture_dsn" --relation public.fixture --workload /fixture/workload.json --output /artifacts/capture --statistics-target 100 --sample-rows 8 > "$RUNTIME/capture.stdout" 2> "$RUNTIME/capture.stderr"
@@ -92,33 +92,33 @@ advisor_status=PASS
 
 "${COMPOSE[@]}" up -d validation-production >/dev/null
 until "${COMPOSE[@]}" exec -T validation-production /opt/postgresql-16.14-stock/bin/pg_isready -h 127.0.0.1 -p 5432 >/dev/null 2>&1; do sleep 1; done
-"${COMPOSE[@]}" exec -T validation-production /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 < examples/docker-cleanroom/fixture.sql > "$RUNTIME/fixture-load-validation.txt"
+"${COMPOSE[@]}" exec -T validation-production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 < examples/docker-cleanroom/fixture.sql > "$RUNTIME/fixture-load-validation.txt"
 
 set +e
 "${COMPOSE[@]}" run --rm capture preflight /artifacts/recommendation-cold/recommendation.json --production-dsn "$postgres_dsn" --json > "$RUNTIME/preflight-wrong-default.stdout" 2> "$RUNTIME/preflight-wrong-default.stderr"
 set -e
-"${COMPOSE[@]}" exec -T validation-production /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 -c "ALTER SYSTEM SET default_statistics_target = 50; SELECT pg_reload_conf();" >/dev/null
+"${COMPOSE[@]}" exec -T validation-production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 -c "ALTER SYSTEM SET default_statistics_target = 50; SELECT pg_reload_conf();" >/dev/null
 set +e
 "${COMPOSE[@]}" run --rm capture preflight /artifacts/recommendation-cold/recommendation.json --production-dsn "$postgres_dsn" --json > "$RUNTIME/preflight-wrong-t.stdout" 2> "$RUNTIME/preflight-wrong-t.stderr"
 rc=$?
 set -e
 if [[ $rc -ne 0 ]]; then wrong_t_status=PASS; fi
-"${COMPOSE[@]}" exec -T validation-production /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 -c "ALTER SYSTEM SET default_statistics_target = 100; SELECT pg_reload_conf();" >/dev/null
+"${COMPOSE[@]}" exec -T validation-production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 -c "ALTER SYSTEM SET default_statistics_target = 100; SELECT pg_reload_conf();" >/dev/null
 "${COMPOSE[@]}" run --rm capture preflight /artifacts/recommendation-cold/recommendation.json --production-dsn "$postgres_dsn" --json > "$RUNTIME/preflight.stdout" 2> "$RUNTIME/preflight.stderr"
 preflight_status=PASS
 
 sed '/^ANALYZE /d' "$RUNTIME/recommendation-cold/deploy.sql" > "$RUNTIME/deploy-without-analyze.sql"
 export PGPASSWORD="$PGEXT_POSTGRES_PASSWORD"
-"${COMPOSE[@]}" exec -T validation-production /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 < "$RUNTIME/deploy-without-analyze.sql" > "$RUNTIME/deploy-without-analyze.stdout"
+"${COMPOSE[@]}" exec -T validation-production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 < "$RUNTIME/deploy-without-analyze.sql" > "$RUNTIME/deploy-without-analyze.stdout"
 set +e
 "${COMPOSE[@]}" run --rm capture verify-deployment /artifacts/recommendation-cold/recommendation.json --production-dsn "$postgres_dsn" --json > "$RUNTIME/verify-missing-analyze.stdout" 2> "$RUNTIME/verify-missing-analyze.stderr"
 rc=$?
 set -e
 if [[ $rc -ne 0 ]]; then missing_analyze_status=PASS; fi
-"${COMPOSE[@]}" exec -T validation-production /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 -c 'ANALYZE public.fixture' > "$RUNTIME/analyze.stdout"
+"${COMPOSE[@]}" exec -T validation-production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 -c 'ANALYZE public.fixture' > "$RUNTIME/analyze.stdout"
 "${COMPOSE[@]}" run --rm capture verify-deployment /artifacts/recommendation-cold/recommendation.json --production-dsn "$postgres_dsn" --json > "$RUNTIME/verify-deployment.stdout" 2> "$RUNTIME/verify-deployment.stderr"
 deployment_status=PASS
-"${COMPOSE[@]}" exec -T validation-production /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 < "$RUNTIME/recommendation-cold/rollback.sql" > "$RUNTIME/rollback.stdout"
+"${COMPOSE[@]}" exec -T validation-production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 < "$RUNTIME/recommendation-cold/rollback.sql" > "$RUNTIME/rollback.stdout"
 "${COMPOSE[@]}" run --rm capture verify-rollback /artifacts/recommendation-cold/recommendation.json --production-dsn "$postgres_dsn" --json > "$RUNTIME/verify-rollback.stdout" 2> "$RUNTIME/verify-rollback.stderr"
 rollback_status=PASS
 unset PGPASSWORD

@@ -24,7 +24,7 @@ RUN echo 'f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471  /tmp
        '  "patch_sha256": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",' \
        '  "configure_args": ["--prefix=/opt/postgresql-16.14-advisor", "--without-readline", "--without-zlib", "--without-icu"],' \
        '  "compiler": "gcc",' \
-       "  \"compiler_version\": \"$(gcc --version | head -n1)\"" \
+       '  "compiler_version": "'"$(gcc --version | head -n1)'"' \
        '}' > /tmp/postgres-build-provenance.json
 
 FROM ubuntu:24.04 AS wheel-builder
