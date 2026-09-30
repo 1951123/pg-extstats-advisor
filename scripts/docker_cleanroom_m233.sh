@@ -7,6 +7,7 @@ PROJECT=pgextadv_m233
 COMPOSE=(docker compose -p "$PROJECT" -f docker-compose.cleanroom.yml)
 PG_TARBALL=${PG_TARBALL:-/root/projects/extended-stats-optim/postgresql-16.14.tar.bz2}
 EXPECTED_TARBALL_SHA=f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471
+PULL_FLAG=${M233_PULL_FLAG:---pull}
 EXPERIMENT=$ROOT/experiments/m2-33-docker-cleanroom
 RUNTIME=$EXPERIMENT/runtime
 CACHE=$EXPERIMENT/cache
@@ -37,9 +38,9 @@ git archive --format=tar HEAD | tar -xf - -C "$context"
 cp "$PG_TARBALL" "$context/postgresql-16.14.tar.bz2"
 
 echo "building clean-room images"
-docker build --pull --no-cache -f "$context/docker/stock-postgres.Dockerfile" -t pg-extstats-advisor/stock-postgres:16.14 "$context"
-docker build --pull --no-cache -f "$context/docker/capture.Dockerfile" -t pg-extstats-advisor/capture:cleanroom "$context"
-docker build --pull --no-cache -f "$context/docker/advisor.Dockerfile" -t pg-extstats-advisor/advisor:cleanroom "$context"
+docker build "$PULL_FLAG" --no-cache -f "$context/docker/stock-postgres.Dockerfile" -t pg-extstats-advisor/stock-postgres:16.14 "$context"
+docker build "$PULL_FLAG" --no-cache -f "$context/docker/capture.Dockerfile" -t pg-extstats-advisor/capture:cleanroom "$context"
+docker build "$PULL_FLAG" --no-cache -f "$context/docker/advisor.Dockerfile" -t pg-extstats-advisor/advisor:cleanroom "$context"
 
 git_sha=$(git rev-parse HEAD)
 patch_sha=$(sha256sum pg/patches/postgresql-16.14-hypothetical-extstats.patch | awk '{print $1}')
