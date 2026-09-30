@@ -60,6 +60,10 @@ binds IDs rather than only positional arrays and uses explicit
 
 ## Snapshot and sampling semantics
 
+The release-qualified product profile is `fixed_t_single_snapshot`; the
+multi-snapshot and reservoir details below document a retained historical DMV
+prototype instantiation and do not expand the current product profile.
+
 The contract supports `strong_single_snapshot` and
 `best_effort_multi_snapshot`. M2.24 DMV uses the latter: metadata/schema,
 truth, and acquisition identify their own repeatable-read snapshots, while the
@@ -103,19 +107,21 @@ beside the bundle directory; they are not bundle components.
 ## Advisor compatibility
 
 `check_advisor_compatibility()` currently requires exact PostgreSQL 16.14,
-supported portable types (`pg_catalog.text` for the DMV MVP), matching database
+supported portable types (currently `pg_catalog.text` for the fixed-base MVP), matching database
 collation, known statistics target, the supported sample method/serialization,
 the `pg16-mvp-v2` workload analysis version, and the
 `single_relation_base_count` CE scope. PG17, type/collation mismatch, unknown
 sampling/serialization versions, unsupported workload analysis, and joins fail
 closed. Same-major portability is deliberately not claimed.
 
-## Optional and unresolved areas
+## Optional and bounded areas
 
 Capture timing, operational notes, index metadata, frequency sources, and
-broader planner settings are optional/advisory. Still unresolved are stock
-sample fidelity versus native `ANALYZE`, sample-size sufficiency, production
+broader planner settings are optional/advisory. A future production
+`ANALYZE` may produce a different native realization from the persisted
+advisor sample; this accepted realization uncertainty is outside the v1
+same-realization correctness contract. Sample-size sufficiency, production
 truth cost at scale, strong-snapshot ergonomics, portability beyond exact
 16.14, multi-relation execution, privacy/encryption, and live-production
-workload capture. These are outside the v1 contract and are not experimental
-claims of this milestone.
+workload capture are also outside the v1 contract and are not claims of the
+current core.

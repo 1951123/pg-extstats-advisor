@@ -2,6 +2,15 @@
 
 PostgreSQL workload-aware extended-statistics offline physical-design advisor.
 
+This repository currently freezes a Docker-based fixed-`T` research-prototype
+core. The authoritative boundaries are [supported scope](docs/supported-scope.md),
+the [claims-to-evidence matrix](docs/claims-to-evidence.md), and the
+[release-candidate summary](docs/release-candidate.md). The verified first-use
+path is the [Docker quick start](docs/docker.md), followed by the
+[DBA runbook](docs/dba-runbook.md). Artifact formats are defined in
+[`docs/artifact-contracts.md`](docs/artifact-contracts.md), and the audit
+checklist is [`docs/release-readiness.md`](docs/release-readiness.md).
+
 The system acquires candidate payloads once, freezes PostgreSQL-native payloads,
 evaluates hypothetical extended-statistics designs with native PostgreSQL CE,
 replans only structurally affected workload queries, reuses unaffected objective
@@ -111,6 +120,11 @@ M2 adds deterministic deployable SQL, physical deployment with a uniform target,
 fresh native payload fingerprints and CE, and a structured comparison against the
 frozen hypothetical prediction. It does not add runtime validation or maintenance
 cost fitting.
+
+The historical M0--M2 milestone documents and experiment directories are kept
+for provenance. They do not expand the supported product core: joins,
+multi-table execution, target optimization, higher arity, automatic deployment,
+and global-optimality claims remain unsupported.
 
 The product-shaped path also provides a read-only, fail-closed deployment
 preflight and a DBA runbook. Preflight checks exact PostgreSQL 16.14, the fixed

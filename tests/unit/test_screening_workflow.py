@@ -183,7 +183,7 @@ def test_unpriced_singleton_profile_has_no_cost_tiebreak_and_cannot_screen() -> 
         10.0,
         evaluator_provenance={"mode": "test-unpriced", "native_singleton_evaluations": 0},
     )
-    assert profile["maintenance_cost_status"] == "unavailable_for_DMV"
+    assert profile["maintenance_cost_status"] == "unavailable"
     assert profile["ranking_semantics"] == [
         "descending singleton improvement",
         "ascending candidate precedence",

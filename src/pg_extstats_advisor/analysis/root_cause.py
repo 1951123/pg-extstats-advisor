@@ -1,4 +1,4 @@
-"""Pure helpers for M2.28 ordinary-statistics root-cause diagnostics."""
+"""Pure helpers for ordinary-statistics root-cause diagnostics."""
 
 from __future__ import annotations
 
@@ -46,14 +46,14 @@ def parse_predicates(sql: str) -> tuple[str, tuple[Predicate, ...], str]:
 
     statements = parse_sql(sql)
     if len(statements) != 1 or not isinstance(statements[0].stmt, SelectStmt):
-        raise ValueError("M2.28 expects one SELECT statement")
+        raise ValueError("root-cause analysis expects one SELECT statement")
     statement = statements[0].stmt
     if (
         not statement.fromClause
         or len(statement.fromClause) != 1
         or not isinstance(statement.fromClause[0], RangeVar)
     ):
-        raise ValueError("M2.28 expects one base relation")
+        raise ValueError("root-cause analysis expects one base relation")
     relation = ".".join(
         part
         for part in (statement.fromClause[0].schemaname, statement.fromClause[0].relname)

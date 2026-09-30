@@ -80,7 +80,7 @@ def _candidate_rows_from_csv(path: Path) -> list[dict[str, str]]:
         "singleton_improvement",
     }
     if not rows or not required <= set(rows[0]):
-        raise ValueError("singleton CSV lacks the frozen M2.9 fields")
+        raise ValueError("singleton CSV lacks the required frozen-profile fields")
     return rows
 
 
@@ -183,7 +183,7 @@ def build_singleton_profile_from_csv(
         "incidence_digest": prepared.incidence_digest,
         "repository_digest": prepared.repository.digest,
         "maintenance_model_digest": model.digest if model is not None else None,
-        "maintenance_cost_status": "available" if model is not None else "unavailable_for_DMV",
+        "maintenance_cost_status": "available" if model is not None else "unavailable",
         "evaluator_provenance": provenance,
         "candidate_count": len(rows),
         "baseline_objective": baseline,
@@ -279,7 +279,7 @@ def build_singleton_profile_from_rows(
         "incidence_digest": prepared.incidence_digest,
         "repository_digest": prepared.repository.digest,
         "maintenance_model_digest": model.digest if model is not None else None,
-        "maintenance_cost_status": "available" if model is not None else "unavailable_for_DMV",
+        "maintenance_cost_status": "available" if model is not None else "unavailable",
         "evaluator_provenance": evaluator_provenance,
         "candidate_count": len(rows),
         "baseline_objective": baseline_objective,

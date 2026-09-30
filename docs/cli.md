@@ -7,6 +7,12 @@ not a search decision.  The current supported capture profile is
 base-relation selection queries.  Bundle v2 target-grid artifacts remain
 experimental and are not accepted by the product `advise` command.
 
+The release-qualified operational commands are `capture`, `validate`,
+`advise`, `inspect`, `preflight`, `verify-deployment`, and `verify-rollback`.
+Preparation, search, calibration, and singleton-screening commands remain
+development interfaces for producing or inspecting benchmark artifacts; their
+historical milestone names are not public product semantics.
+
 ## Capture
 
 ```text

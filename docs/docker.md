@@ -1,6 +1,6 @@
-# Docker clean-room reproduction (M2.33)
+# Docker clean-room reproduction
 
-This repository contains a local-only clean-room path for reproducing the
+This repository contains the release-qualified local-only clean-room path for reproducing the
 fixed-target MVP without mounting the host virtual environment, PostgreSQL
 source tree, PostgreSQL data directories, or `/root/projects` into a runtime
 container. It is an operational reproduction harness, not a new evaluator or

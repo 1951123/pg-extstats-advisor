@@ -34,7 +34,7 @@ def canonical_digest(value: Any) -> str:
 
 
 def seal_manifest(
-    components: Mapping[str, Any], *, capture_schema_version: int = 1, benchmark: str = "DMV"
+    components: Mapping[str, Any], *, capture_schema_version: int = 1, benchmark: str = "unspecified"
 ) -> dict[str, Any]:
     component_digests = {
         name: canonical_digest(value) for name, value in sorted(components.items())

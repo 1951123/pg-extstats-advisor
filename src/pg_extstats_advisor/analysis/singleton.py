@@ -19,7 +19,7 @@ def classify_improvement(baseline: float, singleton: float) -> str:
 
 
 def linear_quantile(values: Iterable[float], probability: float) -> float | None:
-    """Return the linearly interpolated quantile used by the M2.9 report."""
+    """Return the linearly interpolated quantile used by the profile report."""
 
     ordered = sorted(float(value) for value in values)
     if not ordered:
@@ -94,7 +94,7 @@ def screen_singleton_rows(
 ) -> list[dict[str, Any]]:
     """Retain a deterministic top singleton-utility fraction.
 
-    Ranking is exactly the M2.9 raw ordering: descending singleton improvement,
+    Ranking is the frozen raw ordering: descending singleton improvement,
     ascending maintenance cost, precedence rank, then candidate identity.
     """
 

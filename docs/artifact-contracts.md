@@ -13,6 +13,12 @@ recognized as compatible legacy artifacts but are not accepted by product
 The sample is authoritative for replay of that bundle and is explicitly not
 claimed to be native `ANALYZE`-equivalent.
 
+Candidate definition and payload state are separate. `PRESENT` means the
+requested native payload was materialized; `ABSENT_NATIVE` means PostgreSQL
+registered the definition but legitimately stored no requested payload field;
+`UNREGISTERED` is an acquisition or validation failure. Maintenance cost is
+charged to the candidate definition, not inferred from payload presence.
+
 ## Recommendation bundle
 
 Recommendation format version 1 records the evaluated target, capture digest,
@@ -30,6 +36,10 @@ are not embedded in the recommendation.
 All validators fail closed on corruption, unsupported profiles, target or
 compatibility mismatches, stale identities, unknown candidates, duplicate
 object names, and malformed DDL.
+
+Empirical maintenance models are target-specific. A recommendation at a
+different target is rejected unless a model calibrated for that target is
+supplied; the current core never silently reuses a `T=100` model.
 
 Post-deployment and rollback verification reports are separate immutable
 artifacts. They contain only compact catalog presence/definition/materialization

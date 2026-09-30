@@ -250,7 +250,14 @@ or M3 plan/runtime evidence. Historical Census artifacts remain preserved.
 Capture baseline and selected-design CE and plans, classify plan-shape changes,
 and measure repeated execution latency with medians and distributions.
 
-## Next implementation order
+## M2.34 — core freeze and release-candidate audit — complete
 
-Payload schema and types -> pristine-based PG patch -> clean build -> small fixture
-and acquisition -> workload/incidence -> evaluator -> correctness integration tests.
+The Docker-based fixed-target advisor core is frozen. `docs/supported-scope.md`,
+`docs/claims-to-evidence.md`, `docs/release-candidate.md`, and
+`docs/release-readiness.md` define the supported boundary, evidence chain,
+non-claims, and remaining release actions. Historical target-grid,
+acquisition-fidelity, and robustness artifacts remain unchanged. No new CE,
+search, sampling, deployment, or target-selection capability was added.
+
+Future implementation work requires an explicit author/PI decision; the RC is
+not tagged or published by this milestone.
