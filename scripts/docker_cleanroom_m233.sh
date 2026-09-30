@@ -6,7 +6,7 @@ cd "$ROOT"
 PROJECT=pgextadv_m233
 COMPOSE=(docker compose -p "$PROJECT" -f docker-compose.cleanroom.yml)
 PG_TARBALL=${PG_TARBALL:-/root/projects/extended-stats-optim/postgresql-16.14.tar.bz2}
-EXPECTED_TARBALL_SHA=f6d077142737920858ce958ccdb75c9f58f976f44e3471
+EXPECTED_TARBALL_SHA=f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471
 EXPERIMENT=$ROOT/experiments/m2-33-docker-cleanroom
 RUNTIME=$EXPERIMENT/runtime
 CACHE=$EXPERIMENT/cache

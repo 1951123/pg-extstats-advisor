@@ -7,7 +7,7 @@ RUN apt-get update \
        libssl-dev libxml2-dev libxslt1-dev libicu-dev pkg-config perl \
     && rm -rf /var/lib/apt/lists/*
 COPY postgresql-16.14.tar.bz2 /tmp/postgresql-16.14.tar.bz2
-RUN echo 'f6d077142737920858ce958ccdb75c9f58f976f44e3471  /tmp/postgresql-16.14.tar.bz2' | sha256sum -c - \
+RUN echo 'f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471  /tmp/postgresql-16.14.tar.bz2' | sha256sum -c - \
     && mkdir -p /src/postgresql-16.14 \
     && tar -xjf /tmp/postgresql-16.14.tar.bz2 -C /src/postgresql-16.14 --strip-components=1 \
     && cd /src/postgresql-16.14 \

@@ -8,7 +8,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 COPY postgresql-16.14.tar.bz2 /tmp/postgresql-16.14.tar.bz2
 COPY pg/patches/postgresql-16.14-hypothetical-extstats.patch /tmp/hypothetical.patch
-RUN echo 'f6d077142737920858ce958ccdb75c9f58f976f44e3471  /tmp/postgresql-16.14.tar.bz2' | sha256sum -c - \
+RUN echo 'f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471  /tmp/postgresql-16.14.tar.bz2' | sha256sum -c - \
     && mkdir -p /src/postgresql-16.14 \
     && tar -xjf /tmp/postgresql-16.14.tar.bz2 -C /src/postgresql-16.14 --strip-components=1 \
     && patch -d /src/postgresql-16.14 -p1 --batch --forward < /tmp/hypothetical.patch \
@@ -20,7 +20,7 @@ RUN echo 'f6d077142737920858ce958ccdb75c9f58f976f44e3471  /tmp/postgresql-16.14.
     && printf '%s\n' \
        '{' \
        '  "postgres_version": "16.14",' \
-       '  "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c9f58f976f44e3471",' \
+       '  "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",' \
        '  "patch_sha256": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",' \
        '  "configure_args": ["--prefix=/opt/postgresql-16.14-advisor", "--without-readline", "--without-zlib", "--without-icu"],' \
        '  "compiler": "gcc",' \
