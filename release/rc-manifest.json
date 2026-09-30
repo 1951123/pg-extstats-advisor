@@ -1,0 +1,43 @@
+{
+  "format_version": 1,
+  "release_kind": "research-prototype-release-candidate",
+  "source_commit": "22249dbf1ad3e74dddf45983d6658933327748d4",
+  "package_version": "0.0.1",
+  "supported_postgres_version": "16.14",
+  "deployment_path": "docker",
+  "docker_base": {
+    "name": "ubuntu:24.04",
+    "digest": "sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3"
+  },
+  "capture_bundle": {
+    "schema_version": "production-capture-bundle-v1",
+    "profile": "fixed_t_single_snapshot"
+  },
+  "recommendation_bundle_version": 1,
+  "supported_statistics_kinds": ["mcv", "fd"],
+  "supported_arity": 2,
+  "default_statistics_target": 100,
+  "target_policy": "fixed_external_configuration; not optimized by core workflow",
+  "patch_sha256": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",
+  "upstream_pg_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",
+  "docker_images": [
+    "pg-extstats-advisor/capture:cleanroom",
+    "pg-extstats-advisor/advisor:cleanroom",
+    "pg-extstats-advisor/stock-postgres:16.14"
+  ],
+  "claims_document": "docs/claims-to-evidence.md",
+  "supported_scope_document": "docs/supported-scope.md",
+  "release_candidate_document": "docs/release-candidate.md",
+  "release_readiness_document": "docs/release-readiness.md",
+  "reproducibility_evidence": {
+    "build_provenance": "experiments/m2-33-docker-cleanroom/build-provenance.json",
+    "lifecycle_summary": "experiments/m2-33-docker-cleanroom/lifecycle-summary.json",
+    "status": "PASS"
+  },
+  "no_release_artifacts": {
+    "git_tag": false,
+    "github_release": false,
+    "registry_push": false,
+    "pypi_upload": false
+  }
+}
