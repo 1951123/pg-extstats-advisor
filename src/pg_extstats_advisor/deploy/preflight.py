@@ -17,6 +17,10 @@ SUPPORTED_POSTGRES_VERSION = "16.14"
 PREFLIGHT_SCHEMA_VERSION = 1
 
 
+def _text(value: Any) -> str:
+    return value.decode() if isinstance(value, (bytes, bytearray)) else str(value)
+
+
 def _check(name: str, status: str, expected: Any = None, observed: Any = None, message: str = "") -> dict[str, Any]:
     value: dict[str, Any] = {"name": name, "status": status}
     if expected is not None:
@@ -28,12 +32,12 @@ def _check(name: str, status: str, expected: Any = None, observed: Any = None, m
     return value
 
 
-def _version(value: str) -> str:
-    return str(value).split()[0]
+def _version(value: Any) -> str:
+    return _text(value).split()[0]
 
 
 def _portable_type(type_name: str) -> dict[str, str]:
-    text = str(type_name).strip('"')
+    text = _text(type_name).strip('"')
     if "." not in text:
         text = f"pg_catalog.{text}"
     namespace, name = text.rsplit(".", 1)
@@ -44,7 +48,8 @@ def _portable_collation(namespace: str | None, name: str | None) -> dict[str, st
     if not name or name == "default":
         return {"name": "default", "namespace": "pg_catalog", "portable_name": "pg_catalog.default"}
     namespace = namespace or "pg_catalog"
-    return {"name": str(name), "namespace": str(namespace), "portable_name": f"{namespace}.{name}"}
+    namespace_text, name_text = _text(namespace), _text(name)
+    return {"name": name_text, "namespace": namespace_text, "portable_name": f"{namespace_text}.{name_text}"}
 
 
 def _parse_keys(value: Any) -> tuple[int, ...]:
@@ -52,13 +57,13 @@ def _parse_keys(value: Any) -> tuple[int, ...]:
         return ()
     if isinstance(value, (list, tuple)):
         return tuple(int(item) for item in value)
-    return tuple(int(item) for item in re.findall(r"\d+", str(value)))
+    return tuple(int(item) for item in re.findall(r"\d+", _text(value)))
 
 
 def _parse_kinds(value: Any) -> set[str]:
     if isinstance(value, (list, tuple)):
-        return {str(item).strip("{}\" ") for item in value}
-    return set(re.findall(r"[a-z]", str(value)))
+        return {_text(item).strip("{}\" ") for item in value}
+    return set(re.findall(r"[a-z]", _text(value)))
 
 
 def _permission_query(connection: psycopg.Connection[Any], relation_id: str) -> tuple[dict[str, Any], bool]:
@@ -73,7 +78,7 @@ def _permission_query(connection: psycopg.Connection[Any], relation_id: str) -> 
     if row is None:
         return _check("permissions", "FAIL", message="current role is not visible"), False
     observed = {
-        "role": str(row[0]),
+        "role": _text(row[0]),
         "superuser": bool(row[1]),
         "schema_usage": bool(row[2]),
         "relation_select": bool(row[3]),
@@ -100,11 +105,11 @@ def _schema_columns(connection: psycopg.Connection[Any], relation_oid: int) -> l
     return [
         {
             "attnum": int(row[0]),
-            "name": str(row[1]),
+            "name": _text(row[1]),
             "nullable": not bool(row[6]),
-            "typmod": str(row[3]),
-            "type": _portable_type(str(row[2])),
-            "collation": _portable_collation(str(row[4]) or None, str(row[5]) or None),
+            "typmod": _text(row[3]),
+            "type": _portable_type(row[2]),
+            "collation": _portable_collation(_text(row[4]) or None, _text(row[5]) or None),
             "attstattarget": int(row[7]),
         }
         for row in rows
@@ -141,7 +146,7 @@ def _read_extstats(connection: psycopg.Connection[Any], relation_oid: int) -> li
         {
             "oid": int(row[0]),
             "relation_oid": int(row[1]),
-            "name": str(row[2]),
+            "name": _text(row[2]),
             "kinds": sorted(_parse_kinds(row[3])),
             "keys": list(_parse_keys(row[4])),
             "target": int(row[5]),
@@ -185,7 +190,7 @@ def run_preflight(recommendation_path: Path, production_dsn: str) -> dict[str, A
         raise AdvisorCLIError(f"cannot connect to production for read-only preflight: {error}", ExitCode.PERMISSION) from error
     try:
         connection.execute("BEGIN READ ONLY")
-        observed_version = _version(str(connection.execute("SHOW server_version").fetchone()[0]))
+        observed_version = _version(connection.execute("SHOW server_version").fetchone()[0])
         checks.append(_check("postgres_version", "PASS" if observed_version == SUPPORTED_POSTGRES_VERSION else "FAIL", SUPPORTED_POSTGRES_VERSION, observed_version))
         if observed_version != SUPPORTED_POSTGRES_VERSION:
             failures.append("postgres_version")
@@ -208,9 +213,10 @@ def run_preflight(recommendation_path: Path, production_dsn: str) -> dict[str, A
             failures.append("relation")
         else:
             relation_oid = int(relation[0])
-            checks.append(_check("relation", "PASS", relation_id, relation_id, f"relkind={relation[1]}"))
+            relkind = _text(relation[1])
+            checks.append(_check("relation", "PASS", relation_id, relation_id, f"relkind={relkind}"))
             observed_columns = _schema_columns(connection, relation_oid)
-            schema_ok, observed_schema = _schema_match(bundle.schema_binding, observed_columns, str(relation[1]), relation_id)
+            schema_ok, observed_schema = _schema_match(bundle.schema_binding, observed_columns, relkind, relation_id)
             checks.append(_check("schema", "PASS" if schema_ok else "FAIL", bundle.schema_binding, observed_schema))
             if not schema_ok:
                 failures.append("schema")

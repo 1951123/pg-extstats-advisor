@@ -58,7 +58,9 @@ docker run --rm --entrypoint sh pg-extstats-advisor/advisor:cleanroom -c 'test "
 docker run --rm --entrypoint /opt/venv/bin/python pg-extstats-advisor/capture:cleanroom -c 'import pg_extstats_advisor; print(pg_extstats_advisor.__file__)' > "$RUNTIME/wheel-import.txt"
 
 capture_dsn=postgresql://capture:$PGEXT_CAPTURE_PASSWORD@production:5432/demo
-postgres_dsn=postgresql://postgres:$PGEXT_POSTGRES_PASSWORD@validation-production:5432/demo
+# Validation commands must exercise the least-privilege capture role; DDL
+# below is issued separately through the stock postgres superuser client.
+postgres_dsn=postgresql://capture:$PGEXT_CAPTURE_PASSWORD@validation-production:5432/demo
 
 capture_status=FAIL
 advisor_status=FAIL
@@ -82,7 +84,7 @@ if [[ $rc -eq 0 ]]; then capture_status=PASS; fi
 "${COMPOSE[@]}" run --rm capture validate /artifacts/capture --expected-target 100 > "$RUNTIME/capture-validate.stdout" 2> "$RUNTIME/capture-validate.stderr"
 
 cp -a "$RUNTIME/capture" "$RUNTIME/capture-corrupt"
-printf '\n' >> "$RUNTIME/capture-corrupt/truth.json"
+printf 'x\n' >> "$RUNTIME/capture-corrupt/truth.json"
 set +e
 "${COMPOSE[@]}" run --rm capture validate /artifacts/capture-corrupt --expected-target 100 > "$RUNTIME/corruption.stdout" 2> "$RUNTIME/corruption.stderr"
 rc=$?
@@ -107,13 +109,15 @@ until "${COMPOSE[@]}" exec -T validation-production /opt/postgresql-16.14-stock/
 set +e
 "${COMPOSE[@]}" run --rm capture preflight /artifacts/recommendation-cold/recommendation.json --production-dsn "$postgres_dsn" --json > "$RUNTIME/preflight-wrong-default.stdout" 2> "$RUNTIME/preflight-wrong-default.stderr"
 set -e
-"${COMPOSE[@]}" exec -T validation-production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 -c "ALTER SYSTEM SET default_statistics_target = 50; SELECT pg_reload_conf();" >/dev/null
+"${COMPOSE[@]}" exec -T validation-production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 -c "ALTER SYSTEM SET default_statistics_target = 50;" >/dev/null
+"${COMPOSE[@]}" exec -T validation-production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 -c "SELECT pg_reload_conf();" >/dev/null
 set +e
 "${COMPOSE[@]}" run --rm capture preflight /artifacts/recommendation-cold/recommendation.json --production-dsn "$postgres_dsn" --json > "$RUNTIME/preflight-wrong-t.stdout" 2> "$RUNTIME/preflight-wrong-t.stderr"
 rc=$?
 set -e
 if [[ $rc -ne 0 ]]; then wrong_t_status=PASS; fi
-"${COMPOSE[@]}" exec -T validation-production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 -c "ALTER SYSTEM SET default_statistics_target = 100; SELECT pg_reload_conf();" >/dev/null
+"${COMPOSE[@]}" exec -T validation-production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 -c "ALTER SYSTEM SET default_statistics_target = 100;" >/dev/null
+"${COMPOSE[@]}" exec -T validation-production env PGPASSWORD="$PGEXT_POSTGRES_PASSWORD" /opt/postgresql-16.14-stock/bin/psql -h 127.0.0.1 -U postgres -d demo -v ON_ERROR_STOP=1 -c "SELECT pg_reload_conf();" >/dev/null
 "${COMPOSE[@]}" run --rm capture preflight /artifacts/recommendation-cold/recommendation.json --production-dsn "$postgres_dsn" --json > "$RUNTIME/preflight.stdout" 2> "$RUNTIME/preflight.stderr"
 preflight_status=PASS
 

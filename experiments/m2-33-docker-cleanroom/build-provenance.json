@@ -1,0 +1,57 @@
+{
+  "advisor_postgres_binary_sha256": "7b6868fc26837c0778d8a5ce71f71d3d850f8ed86a002c5596a96383d086f183",
+  "advisor_postgres_build_provenance": {
+    "compiler": "gcc",
+    "compiler_version": "gcc (Ubuntu 24.04 build image)",
+    "configure_args": [
+      "--prefix=/opt/postgresql-16.14-advisor",
+      "--without-readline",
+      "--without-zlib",
+      "--without-icu"
+    ],
+    "patch_sha256": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",
+    "postgres_version": "16.14",
+    "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471"
+  },
+  "base_image": "ubuntu:24.04",
+  "docker_compose_version": "5.5.0",
+  "docker_version": "29.7.2/29.7.2",
+  "expected_upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",
+  "format_version": 1,
+  "git_commit": "95e355ba54918d28171a68beb91ec1053d34f1a5",
+  "image_ids": {
+    "advisor": "sha256:da0fb1766682c4bf0e4c5fbc21ef5be1f38047e12ab7ccf50aa0814b1cec5e55",
+    "capture": "sha256:878a72eaebec8dddcc99897bb7eba2fe67d830737723a1dd52adda83ada5575b",
+    "stock": "sha256:19b9ac1bc849600c26ed1d65fac2a56d5bb51a435ceca381ff289cf24b2399a8"
+  },
+  "patch_sha256": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",
+  "postgresql": {
+    "advisor_patched": true,
+    "configure_args": [
+      "--without-readline",
+      "--without-zlib",
+      "--without-icu"
+    ],
+    "production_stock": true,
+    "version": "16.14"
+  },
+  "python": {
+    "fresh_venv_install": true,
+    "source_tree_pythonpath": false,
+    "wheel_built_inside_docker": true
+  },
+  "reproducibility_scope": "semantic outputs only; no byte-level image or binary reproducibility claim",
+  "roles": [
+    "capture",
+    "advisor",
+    "production",
+    "validation-production"
+  ],
+  "security": {
+    "credentials_committed": false,
+    "host_projects_mounted": false,
+    "runtime_logs_excluded_from_commit": true,
+    "runtime_user": "non-root"
+  },
+  "upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471"
+}

@@ -19,6 +19,7 @@ from pg_extstats_advisor.deploy.preflight import (
     _read_extstats,
     _schema_columns,
     _schema_match,
+    _text,
     _validate_recommendation,
     _version,
 )
@@ -192,7 +193,7 @@ def _run_connection_checks(
     relation_id = str(bundle.schema_binding["relation_id"])
     checks: list[dict[str, Any]] = []
     failures: list[str] = []
-    observed_version = _version(str(connection.execute("SHOW server_version").fetchone()[0]))
+    observed_version = _version(connection.execute("SHOW server_version").fetchone()[0])
     checks.append(_check("postgres_version", "PASS" if observed_version == SUPPORTED_POSTGRES_VERSION else "FAIL", SUPPORTED_POSTGRES_VERSION, observed_version))
     if observed_version != SUPPORTED_POSTGRES_VERSION:
         failures.append("postgres_version")
@@ -211,7 +212,7 @@ def _run_connection_checks(
         return checks, None, observed_version, observed_target, [], failures, [
             "relation does not exist; no selected definitions can be verified"
         ]
-    relation_oid, relkind = int(relation[0]), str(relation[1])
+    relation_oid, relkind = int(relation[0]), _text(relation[1])
     checks.append(_check("relation", "PASS", relation_id, relation_id, f"relkind={relkind}"))
     observed_columns = _schema_columns(connection, relation_oid)
     if full_schema:

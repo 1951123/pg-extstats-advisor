@@ -5,4 +5,5 @@ INSERT INTO public.fixture (a, b, c) VALUES
   ('cold', 'y', 'two'), ('warm', 'z', 'three');
 GRANT USAGE ON SCHEMA public TO capture;
 GRANT SELECT ON public.fixture TO capture;
+GRANT SELECT ON pg_catalog.pg_statistic_ext, pg_catalog.pg_statistic_ext_data TO capture;
 ANALYZE public.fixture;

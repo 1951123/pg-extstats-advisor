@@ -252,6 +252,14 @@ def advise_fixed_t(config: AdviseConfig) -> dict[str, Any]:
             (temporary / "rollback.sql").write_text(";\n".join(rollback) + ";\n")
             _write(temporary / "summary.json", {"artifact_type": "recommendation", "capture_bundle_digest": verification["semantic_digest"], "evaluated_statistics_target": target, "baseline_objective": baseline.aggregate_objective, "final_objective": result.selected_objective, "selected_count": len(result.selected_design.candidate_ids), "selected_maintenance_cost": str(result.selected_maintenance_cost), "cache_hit": cache_hit, "runtime_seconds": runtime, "search": search_metadata})
             validate_recommendation_bundle(temporary / "recommendation.json", candidate_ids={str(item.candidate_id) for item in catalog.candidates}, expected_target=target, expected_capture_digest=verification["semantic_digest"], require_product_profile=True)
+            # Recommendation bundles are shared with the capture/preflight
+            # container, whose non-root user has the common runtime group.
+            # TemporaryDirectory defaults to mode 0700, so make the sealed
+            # bundle group-readable before publishing it atomically.
+            for child in temporary.rglob("*"):
+                mode = child.stat().st_mode
+                child.chmod(mode | (0o070 if child.is_dir() else 0o060))
+            temporary.chmod(temporary.stat().st_mode | 0o070)
             os.replace(temporary, output)
         finally:
             if temporary.exists():

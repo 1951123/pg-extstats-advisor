@@ -1,0 +1,61 @@
+{
+  "checks": {
+    "advisor": "PASS",
+    "capture": "PASS",
+    "corruption": "PASS",
+    "deployment": "PASS",
+    "missing_analyze": "PASS",
+    "preflight": "PASS",
+    "rollback": "PASS",
+    "unavailable_capture": "PASS",
+    "wrong_t": "PASS"
+  },
+  "fixture": {
+    "candidate_count": 2,
+    "contains_sensitive_data": false,
+    "query_count": 1,
+    "relation": "public.fixture"
+  },
+  "format_version": 1,
+  "images": {
+    "advisor": "pg-extstats-advisor/advisor:cleanroom",
+    "capture": "pg-extstats-advisor/capture:cleanroom",
+    "roles": {
+      "advisor": "wheel plus source-built patched PostgreSQL",
+      "capture": "stock client plus wheel",
+      "production": "stock PostgreSQL",
+      "validation-production": "stock PostgreSQL"
+    },
+    "stock": "pg-extstats-advisor/stock-postgres:16.14"
+  },
+  "no_byte_reproducibility_claim": true,
+  "offline_advisor_while_production_stopped": true,
+  "semantic_reproducibility": {
+    "cold": {
+      "artifact_type": "recommendation",
+      "baseline_objective": 1.5,
+      "cache_hit": false,
+      "capture_bundle_digest": "09afb1973b0b8b50d50212b814cddb53d8b67d5757d2bcf0c36bb1c45e67065f",
+      "digest": "1484b90e47f73212509da21057215edcaaff730b4e576361136224897c2b944d",
+      "evaluated_statistics_target": 100,
+      "final_objective": 1.0,
+      "selected_count": 1,
+      "selected_maintenance_cost": "1.000000"
+    },
+    "objective_equal": true,
+    "recommendation_digest_equal": true,
+    "selected_design_equal": true,
+    "warm": {
+      "artifact_type": "recommendation",
+      "baseline_objective": 1.5,
+      "cache_hit": true,
+      "capture_bundle_digest": "09afb1973b0b8b50d50212b814cddb53d8b67d5757d2bcf0c36bb1c45e67065f",
+      "digest": "1484b90e47f73212509da21057215edcaaff730b4e576361136224897c2b944d",
+      "evaluated_statistics_target": 100,
+      "final_objective": 1.0,
+      "selected_count": 1,
+      "selected_maintenance_cost": "1.000000"
+    }
+  },
+  "status": "PASS"
+}

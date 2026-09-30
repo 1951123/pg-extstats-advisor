@@ -200,7 +200,7 @@ def capture_fixed_t(config: CaptureConfig) -> dict[str, Any]:
             # while granting the dedicated runtime group traversal/read access.
             for entry in temporary.rglob("*"):
                 current_mode = entry.stat().st_mode & 0o777
-                os.chmod(entry, current_mode | (0o070 if entry.is_file() else 0o070))
+                os.chmod(entry, current_mode | 0o070)
             os.chmod(temporary, 0o770)
         os.replace(temporary, config.output_path)
         return {"artifact_type": "capture", "profile": "fixed_t_single_snapshot", "semantic_digest": bundle["semantic_digest"], "target": target, "relation": relation, "query_count": len(records), "sample_rows": config.sample_rows, "source_rows": population_rows}
