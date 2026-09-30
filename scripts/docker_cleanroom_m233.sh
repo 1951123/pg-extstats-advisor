@@ -37,10 +37,14 @@ trap cleanup_context EXIT
 git archive --format=tar HEAD | tar -xf - -C "$context"
 cp "$PG_TARBALL" "$context/postgresql-16.14.tar.bz2"
 
-echo "building clean-room images"
-docker build "$PULL_FLAG" --no-cache -f "$context/docker/stock-postgres.Dockerfile" -t pg-extstats-advisor/stock-postgres:16.14 "$context"
-docker build "$PULL_FLAG" --no-cache -f "$context/docker/capture.Dockerfile" -t pg-extstats-advisor/capture:cleanroom "$context"
-docker build "$PULL_FLAG" --no-cache -f "$context/docker/advisor.Dockerfile" -t pg-extstats-advisor/advisor:cleanroom "$context"
+if [[ "${M233_SKIP_BUILD:-0}" == "1" ]]; then
+  echo "using existing clean-room images"
+else
+  echo "building clean-room images"
+  docker build "$PULL_FLAG" --no-cache -f "$context/docker/stock-postgres.Dockerfile" -t pg-extstats-advisor/stock-postgres:16.14 "$context"
+  docker build "$PULL_FLAG" --no-cache -f "$context/docker/capture.Dockerfile" -t pg-extstats-advisor/capture:cleanroom "$context"
+  docker build "$PULL_FLAG" --no-cache -f "$context/docker/advisor.Dockerfile" -t pg-extstats-advisor/advisor:cleanroom "$context"
+fi
 
 git_sha=$(git rev-parse HEAD)
 patch_sha=$(sha256sum pg/patches/postgresql-16.14-hypothetical-extstats.patch | awk '{print $1}')

@@ -13,6 +13,10 @@ from pg_extstats_advisor.payloads.repository import NativePayloadState, PayloadR
 from pg_extstats_advisor.postgres.extraction import extract_target_estimate
 
 
+def _text(value: object) -> str:
+    return value.decode() if isinstance(value, (bytes, bytearray)) else str(value)
+
+
 class PostgresAdapter:
     def __init__(self, connection: Connection[Any], repository: PayloadRepository):
         self.connection = connection
@@ -26,7 +30,7 @@ class PostgresAdapter:
         self._resolved_relation_oids: dict[CandidateId, int] = {}
         with self.connection.cursor(row_factory=tuple_row) as cursor:
             cursor.execute("SHOW server_version")
-            self.postgres_version = str(cursor.fetchone()[0])
+            self.postgres_version = _text(cursor.fetchone()[0])
 
     def reset_overlay(self) -> None:
         self.connection.execute("SELECT pg_hypothetical_extstats_reset()")
@@ -78,7 +82,7 @@ class PostgresAdapter:
             relid, kinds = row
             if int(relid) != resolved_relation_oid:
                 raise ValueError(f"relation mismatch for {candidate.candidate_id}")
-            if candidate.mechanism.postgres_code not in kinds:
+            if candidate.mechanism.postgres_code not in _text(kinds):
                 raise ValueError(f"mechanism kind mismatch for {candidate.candidate_id}")
             self._resolved_backend_oids[candidate.candidate_id] = int(resolved_oid)
             self._resolved_relation_oids[candidate.candidate_id] = resolved_relation_oid
