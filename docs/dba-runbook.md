@@ -15,6 +15,11 @@ relation and must be a non-superuser. It does not need `CREATE`, `INSERT`,
 `ANALYZE`, `ALTER`, or grant-management privilege. The capture client exports
 a sealed bundle; the advisor does not remotely pull production data.
 
+The post-deployment verification role additionally needs read-only catalog
+visibility for `pg_statistic_ext` and `pg_statistic_ext_data` (a DBA may grant
+`SELECT` on those catalogs according to local policy). It still needs no
+`CREATE`, `DROP`, `ANALYZE`, `ALTER`, `INSERT`, or superuser privilege.
+
 Use `.pgpass`, environment/enterprise secret injection, or client
 certificates. Do not put passwords in shell history or commit them. The CLI
 does not persist credentials and does not print a complete DSN by default.
@@ -25,6 +30,11 @@ access, define retention, and securely delete them when no longer required.
 Recommendation bundles may contain schema metadata, workload SQL, constants,
 provenance, and DDL, so they are potentially sensitive as well. This project
 does not implement encryption, secret management, or automatic deletion.
+
+The conceptual lifecycle is `CAPTURED -> ADVISED -> PREFLIGHT_PASS ->
+DEPLOYED -> VERIFIED`, with an optional `ROLLED_BACK -> ROLLBACK_VERIFIED`
+branch. These are audit states, not mutable fields in the immutable
+recommendation artifact; each verification result is a separate report.
 
 ## Workflow
 
@@ -79,6 +89,45 @@ does not implement encryption, secret management, or automatic deletion.
 9. If rollback is required, review and apply `rollback.sql` manually. After
    deployment, a DBA can verify that the selected `pg_statistic_ext` rows
    exist and that `ANALYZE` completed.
+
+## After deployment
+
+Run the read-only verifier after applying `deploy.sql` and running `ANALYZE`:
+
+```text
+pg-extstats-advisor verify-deployment recommendation/recommendation.json \
+  --production-dsn "$PGEXT_PRODUCTION_DSN"
+```
+
+It checks the exact PostgreSQL version and target, relation/schema drift,
+target overrides, every deterministic definition's relation, columns, kind,
+and target semantics, and the presence of its `pg_statistic_ext_data` row. A
+definition without a data row is reported as incomplete with guidance to run
+`ANALYZE`; the verifier never runs it. A native MCV or dependency field may be
+NULL even when the data row is present, so that state is reported as a compact
+native-payload warning rather than confused with missing ANALYZE.
+
+Partial deployment is a hard failure listing present and missing objects. A
+wrong-kind or wrong-column object under a deterministic name is also a hard
+failure. Review the partial state and either complete the manual deployment or
+apply the reviewed rollback; the advisor does not continue or repair it.
+
+## After rollback
+
+After manually applying `rollback.sql`, verify that every selected advisor-owned
+name is absent:
+
+```text
+pg-extstats-advisor verify-rollback recommendation/recommendation.json \
+  --production-dsn "$PGEXT_PRODUCTION_DSN"
+```
+
+Rollback verification does not claim to restore a previous ANALYZE sample. It
+only checks that this recommendation's definitions are gone, the relation and
+fixed target contract remain visible, and no generated rollback action is
+silently treated as a repair. A partial rollback fails and lists remaining
+objects. Preflight is the before-mutation check; these commands are after-
+mutation state checks and together do not provide transaction-level atomicity.
 
 Capture and offline advice write into a temporary sibling, validate the
 artifact, and atomically install it. An interrupted run therefore leaves no

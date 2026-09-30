@@ -119,6 +119,12 @@ name collisions, and equivalent existing extstats before a DBA manually reviews
 `deploy.sql`. It never deploys, changes a target, or runs `ANALYZE`; see
 `docs/dba-runbook.md`.
 
+After manual deployment and `ANALYZE`, `verify-deployment` checks each selected
+definition and its `pg_statistic_ext_data` row. After manual rollback,
+`verify-rollback` checks that all selected advisor-owned names are absent. These
+commands verify deployment state only; they do not compare payload bytes or CE
+objectives and never perform repair.
+
 The fixed-target scope is documented in `docs/statistics-target-scope.md`.
 
 ## Core workflow

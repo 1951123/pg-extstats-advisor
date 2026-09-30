@@ -30,3 +30,9 @@ are not embedded in the recommendation.
 All validators fail closed on corruption, unsupported profiles, target or
 compatibility mismatches, stale identities, unknown candidates, duplicate
 object names, and malformed DDL.
+
+Post-deployment and rollback verification reports are separate immutable
+artifacts. They contain only compact catalog presence/definition/materialization
+metadata, checks, warnings, failures, and an informational verification
+timestamp; they never contain credentials or raw `pg_statistic_ext_data`
+payload bytes and never modify the recommendation digest.

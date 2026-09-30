@@ -17,6 +17,11 @@ from pg_extstats_advisor.capture.fixed import verify_fixed_t_bundle
 from pg_extstats_advisor.capture.workflow import CaptureConfig, capture_fixed_t
 from pg_extstats_advisor.deploy.bundle import RecommendationBundle, validate_recommendation_bundle
 from pg_extstats_advisor.deploy.preflight import run_preflight
+from pg_extstats_advisor.deploy.verification import (
+    verify_deployment,
+    verify_rollback,
+    write_verification_report,
+)
 from pg_extstats_advisor.errors import AdvisorCLIError, ExitCode
 from pg_extstats_advisor.orchestration import (
     cleanup_acquisition_stage,
@@ -119,6 +124,20 @@ def _parser() -> argparse.ArgumentParser:
     preflight.add_argument("recommendation", type=Path)
     preflight.add_argument("--production-dsn", "--dsn", dest="production_dsn")
     preflight.add_argument("--json", action="store_true", help="emit the structured report")
+    verify_deployment_command = commands.add_parser(
+        "verify-deployment", help="read-only verification after manual deployment and ANALYZE"
+    )
+    verify_deployment_command.add_argument("recommendation", type=Path)
+    verify_deployment_command.add_argument("--production-dsn", "--dsn", dest="production_dsn")
+    verify_deployment_command.add_argument("--output", type=Path)
+    verify_deployment_command.add_argument("--json", action="store_true", help="emit the structured report")
+    verify_rollback_command = commands.add_parser(
+        "verify-rollback", help="read-only verification after manual rollback"
+    )
+    verify_rollback_command.add_argument("recommendation", type=Path)
+    verify_rollback_command.add_argument("--production-dsn", "--dsn", dest="production_dsn")
+    verify_rollback_command.add_argument("--output", type=Path)
+    verify_rollback_command.add_argument("--json", action="store_true", help="emit the structured report")
     cleanup = commands.add_parser(
         "cleanup-acquisition", help="drop only this run's acquisition handles"
     )
@@ -282,6 +301,23 @@ def main(argv: list[str] | None = None) -> int:
                             print("  details: rerun with --json for the portable schema diff")
                 print(f"\nPRE-FLIGHT: {report['status']}")
                 print(f"recommendation digest: {report['recommendation_digest']}")
+            return exit_code
+        elif args.command in {"verify-deployment", "verify-rollback"}:
+            runner = verify_deployment if args.command == "verify-deployment" else verify_rollback
+            report = runner(args.recommendation, _dsn(args.production_dsn, "PGEXT_PRODUCTION_DSN"))
+            exit_code = int(report.pop("_exit_code", 0))
+            if args.output is not None:
+                write_verification_report(args.output, report)
+            if args.json:
+                print(json.dumps(report, sort_keys=True))
+            elif args.output is not None:
+                print(f"report: {args.output}")
+            if not args.json:
+                for detail in report.get("objects", []):
+                    if args.verbose or detail["status"] not in {"DEFINITION_PRESENT_DATA_PRESENT", "ABSENT"}:
+                        print(f"{detail['expected_name']}: {detail['status']}")
+                label = "DEPLOYMENT VERIFICATION" if args.command == "verify-deployment" else "ROLLBACK VERIFICATION"
+                print(f"\n{label}: {report['status']}")
             return exit_code
         elif args.command == "cleanup-acquisition":
             with psycopg.connect(_dsn(args.acquisition_dsn, "PGEXT_ACQUISITION_DSN")) as connection:

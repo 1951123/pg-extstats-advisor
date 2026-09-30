@@ -13,6 +13,11 @@ from pg_extstats_advisor.deploy.sql import (
     build_rollback_statements,
     build_search_deployment_plan,
 )
+from pg_extstats_advisor.deploy.verification import (
+    verify_deployment,
+    verify_rollback,
+    write_verification_report,
+)
 
 __all__ = [
     "DeploymentPlan",
@@ -23,4 +28,7 @@ __all__ = [
     "build_search_deployment_plan",
     "run_preflight",
     "validate_recommendation_bundle",
+    "verify_deployment",
+    "verify_rollback",
+    "write_verification_report",
 ]

@@ -29,6 +29,12 @@ closed on PostgreSQL-version, fixed-target, portable-schema, target-override,
 deterministic-name, or equivalent-extstats drift and never performs deployment
 or `ANALYZE`.
 
+After manual deployment and `ANALYZE`, `verify-deployment` checks definitions
+and `pg_statistic_ext_data` materialization. After manual rollback,
+`verify-rollback` checks that the recommendation's deterministic names are
+absent. These are independent read-only reports; neither command mutates
+production or compares frozen payload bytes/objectives.
+
 Cold and warm runs must agree exactly on repository semantic digest, baseline
 estimate vector/objective, selected design, objective, and modeled cost.  A
 cache hit is a derived-artifact optimization, never a replacement for the

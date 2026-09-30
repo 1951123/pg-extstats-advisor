@@ -84,6 +84,35 @@ returns `4`; malformed recommendations return `5`. The preflight role needs
 `CONNECT`, schema `USAGE`, catalog visibility, and `SELECT` on the relation,
 but not `CREATE`, `INSERT`, `ANALYZE`, `ALTER`, or superuser privilege.
 
+## Post-deployment verification
+
+After a DBA manually applies `deploy.sql` and runs `ANALYZE`, verify the
+definitions and materialized catalog state without mutation:
+
+```text
+pg-extstats-advisor verify-deployment recommendation/recommendation.json \
+  --production-dsn "$PGEXT_PRODUCTION_DSN"
+pg-extstats-advisor verify-deployment recommendation/recommendation.json \
+  --production-dsn "$PGEXT_PRODUCTION_DSN" --json --output deployment-report.json
+```
+
+The verifier checks every selected object in `pg_statistic_ext` and the
+corresponding `pg_statistic_ext_data` row. It does not require frozen payload
+bytes or CE/objective equality. A data row with a native NULL MCV/dependency
+field is reported as an allowed native-payload-absent state; a missing data
+row is an incomplete ANALYZE failure.
+
+After manually applying `rollback.sql`, verify removal:
+
+```text
+pg-extstats-advisor verify-rollback recommendation/recommendation.json \
+  --production-dsn "$PGEXT_PRODUCTION_DSN" --json
+```
+
+Both commands use exit code `3` for deployment-state/compatibility mismatch,
+`4` for permission failure, `5` for corrupt recommendations, and `0` only
+when the requested lifecycle state is verified.
+
 The product scope is intentionally limited to PostgreSQL 16.14, one base
 relation, arity-two MCV/dependency candidates, and selection cardinality
 estimation.  Joins, multi-table designs, target optimization, and privacy

@@ -133,12 +133,19 @@ def _schema_match(expected: dict[str, Any], observed_columns: list[dict[str, Any
 
 def _read_extstats(connection: psycopg.Connection[Any], relation_oid: int) -> list[dict[str, Any]]:
     rows = connection.execute(
-        "SELECT e.stxname,e.stxkind::text,e.stxkeys::text,e.stxstattarget "
+        "SELECT e.oid,e.stxrelid,e.stxname,e.stxkind::text,e.stxkeys::text,e.stxstattarget "
         "FROM pg_statistic_ext e WHERE e.stxrelid=%s ORDER BY e.stxname",
         (relation_oid,),
     ).fetchall()
     return [
-        {"name": str(row[0]), "kinds": sorted(_parse_kinds(row[1])), "keys": list(_parse_keys(row[2])), "target": int(row[3])}
+        {
+            "oid": int(row[0]),
+            "relation_oid": int(row[1]),
+            "name": str(row[2]),
+            "kinds": sorted(_parse_kinds(row[3])),
+            "keys": list(_parse_keys(row[4])),
+            "target": int(row[5]),
+        }
         for row in rows
     ]
 
