@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+umask 0007
 
 PG_BIN=${PG_BIN:-/opt/postgresql-16.14-advisor/bin}
 PGDATA=${PGDATA:-/work/advisor-pgdata}
@@ -25,6 +26,7 @@ until "$PG_BIN/pg_isready" -h "$PGSOCKET" -p "$PGPORT" -U advisor >/dev/null 2>&
   kill -0 "$server_pid" 2>/dev/null || { echo 'patched advisor PostgreSQL stopped during startup' >&2; exit 1; }
   sleep 0.2
 done
+"$PG_BIN/createdb" -h "$PGSOCKET" -p "$PGPORT" -U advisor advisor 2>/dev/null || true
 export PGEXT_ADVISOR_DSN="host=$PGSOCKET port=$PGPORT user=advisor dbname=postgres"
 if [[ "${1:-}" == "advise" ]]; then
   exec /opt/venv/bin/pg-extstats-advisor "$@" --advisor-dsn "$PGEXT_ADVISOR_DSN"

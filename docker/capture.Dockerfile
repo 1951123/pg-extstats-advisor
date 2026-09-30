@@ -21,10 +21,11 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && useradd --create-home --uid 10001 --gid 1000 --shell /usr/sbin/nologin advisor
 COPY --from=wheel-builder /wheel/*.whl /tmp/
+COPY docker/capture-entrypoint.sh /usr/local/bin/pg-extstats-capture
 RUN python3 -m venv /opt/venv \
     && /opt/venv/bin/pip install --no-cache-dir /tmp/*.whl 'psycopg[binary]>=3.2,<4' \
     && rm -rf /root/.cache /tmp/*.whl
 RUN mkdir -p /work /artifacts /cache && chown -R advisor:1000 /work /artifacts /cache /opt/venv
 USER advisor
 WORKDIR /work
-ENTRYPOINT ["/opt/venv/bin/pg-extstats-advisor"]
+ENTRYPOINT ["/usr/local/bin/pg-extstats-capture"]
