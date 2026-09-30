@@ -18,11 +18,11 @@
   "docker_version": "29.7.2/29.7.2",
   "expected_upstream_tarball_sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",
   "format_version": 1,
-  "git_commit": "95e355ba54918d28171a68beb91ec1053d34f1a5",
+  "git_commit": "d7509f1f7aa444fd25fdfad42ffa9341c3381cb9",
   "image_ids": {
-    "advisor": "sha256:da0fb1766682c4bf0e4c5fbc21ef5be1f38047e12ab7ccf50aa0814b1cec5e55",
-    "capture": "sha256:878a72eaebec8dddcc99897bb7eba2fe67d830737723a1dd52adda83ada5575b",
-    "stock": "sha256:19b9ac1bc849600c26ed1d65fac2a56d5bb51a435ceca381ff289cf24b2399a8"
+    "advisor": "sha256:4b845ba01cc4e0521ac8398ed684caa21aab8f8da9005a3f4192239f6c90d7e7",
+    "capture": "sha256:5729e28c97254d31d099a67d3aff9118438c7d188e89677b6be941a1eab54dd2",
+    "stock": "sha256:87ab54aef1f6bfa9a8f1a74ac631e775f576ca6af1e1ac92aeda4094e893fbf2"
   },
   "patch_sha256": "22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f",
   "postgresql": {
