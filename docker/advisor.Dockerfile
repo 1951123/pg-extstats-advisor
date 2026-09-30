@@ -57,7 +57,7 @@ RUN python3 -m venv /opt/venv \
     && /opt/venv/bin/pip install --no-cache-dir /tmp/*.whl 'psycopg[binary]>=3.2,<4' \
     && rm -rf /root/.cache /tmp/*.whl \
     && mkdir -p /work /artifacts /cache \
-    && chown -R advisor:advisor /work /artifacts /cache /opt/venv /opt/postgresql-16.14-advisor
+    && chown -R advisor:1000 /work /artifacts /cache /opt/venv /opt/postgresql-16.14-advisor
 USER advisor
 WORKDIR /work
 ENTRYPOINT ["/usr/local/bin/pg-extstats-advisor-local"]
