@@ -47,7 +47,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN apt-get update \
     && apt-get install -y --no-install-recommends python3 python3-venv ca-certificates \
     && rm -rf /var/lib/apt/lists/* \
-    && useradd --create-home --uid 10002 --shell /usr/sbin/nologin advisor
+    && groupadd --gid 1000 advisorio \
+    && useradd --create-home --uid 10002 --gid advisorio --shell /usr/sbin/nologin advisor
 COPY --from=pg-builder /opt/postgresql-16.14-advisor /opt/postgresql-16.14-advisor
 COPY --from=pg-builder /tmp/postgres.sha256 /opt/postgresql-16.14-advisor/postgres.sha256
 COPY --from=pg-builder /tmp/postgres-build-provenance.json /opt/postgresql-16.14-advisor/build-provenance.json

@@ -23,10 +23,10 @@ command -v docker >/dev/null || { echo "Docker is unavailable" >&2; exit 2; }
 
 mkdir -p "$EXPERIMENT" "$RUNTIME" "$CACHE"
 # The capture and advisor images intentionally run as distinct non-root UIDs.
-# These disposable bind-mounted scratch directories therefore need shared
-# write permission while the clean-room run is active; they are ignored and
-# removed from the runtime evidence before commit.
-chmod 0777 "$RUNTIME" "$CACHE"
+# They share a dedicated non-root group for these disposable bind-mounted
+# scratch directories; the directories are ignored and removed from evidence.
+chown root:1000 "$RUNTIME" "$CACHE"
+chmod 0770 "$RUNTIME" "$CACHE"
 find "$RUNTIME" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
 find "$CACHE" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
 "${COMPOSE[@]}" down --volumes --remove-orphans >/dev/null 2>&1 || true
