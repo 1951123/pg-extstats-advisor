@@ -159,11 +159,11 @@ def acquire_payloads(
                 "WHERE n.nspname=%s AND e.stxname=%s",
                 (schema, name),
             ).fetchone()
-            if row is None or candidate.mechanism.postgres_code not in row[2]:
+            if row is None or candidate.mechanism.postgres_code not in _text(row[2]):
                 raise RuntimeError(
                     f"acquisition definition validation failed: {candidate.candidate_id}"
                 )
-            actual[str(candidate.candidate_id)] = (int(row[0]), int(row[1]), str(row[2]), name)
+            actual[str(candidate.candidate_id)] = (int(row[0]), int(row[1]), _text(row[2]), name)
             created.append((schema, name))
         relations = relation_names
         for relation in relations:
