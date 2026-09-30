@@ -5,7 +5,7 @@
     {
       "query_id": "q_hot_x",
       "sql": "SELECT count(*) FROM public.fixture WHERE a = 'hot' AND b = 'x'",
-      "truth": 0,
+      "truth": 3,
       "target_relation": "public.fixture"
     }
   ]
