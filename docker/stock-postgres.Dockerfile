@@ -12,7 +12,7 @@ RUN echo 'f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471  /tmp
     && tar -xjf /tmp/postgresql-16.14.tar.bz2 -C /src/postgresql-16.14 --strip-components=1 \
     && cd /src/postgresql-16.14 \
     && ./configure --prefix=/opt/postgresql-16.14-stock --without-readline --without-zlib --without-icu \
-    && make -j"$(nproc)" \
+    && make -j2 \
     && make install
 
 FROM ubuntu:24.04

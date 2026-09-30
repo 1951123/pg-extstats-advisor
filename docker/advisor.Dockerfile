@@ -14,7 +14,7 @@ RUN echo 'f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471  /tmp
     && patch -d /src/postgresql-16.14 -p1 --batch --forward < /tmp/hypothetical.patch \
     && cd /src/postgresql-16.14 \
     && ./configure --prefix=/opt/postgresql-16.14-advisor --without-readline --without-zlib --without-icu \
-    && make -j"$(nproc)" \
+    && make -j2 \
     && make install \
     && sha256sum /opt/postgresql-16.14-advisor/bin/postgres > /tmp/postgres.sha256 \
     && printf '%s\n' \
