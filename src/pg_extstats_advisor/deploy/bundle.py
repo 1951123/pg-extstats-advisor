@@ -35,6 +35,9 @@ class RecommendationBundle:
     rollback_ddl: tuple[str, ...]
     compatibility: dict[str, Any]
     selected_design_digest: str | None = None
+    capture_bundle_digest: str | None = None
+    selected_objects: tuple[dict[str, Any], ...] = ()
+    scope: dict[str, Any] | None = None
 
     def __post_init__(self) -> None:
         target = validate_global_statistics_target(self.evaluated_statistics_target)
@@ -47,6 +50,15 @@ class RecommendationBundle:
         if self.selected_design_digest not in (None, expected):
             raise ValueError("recommendation selected design digest mismatch")
         object.__setattr__(self, "selected_design_digest", expected)
+        if self.capture_bundle_digest is not None and not self.capture_bundle_digest:
+            raise ValueError("capture bundle digest cannot be empty")
+        if self.selected_objects:
+            ids = {str(item.get("candidate_id", "")) for item in self.selected_objects}
+            if ids != set(map(str, self.selected_design)):
+                raise ValueError("selected object metadata does not match selected design")
+            required = {"candidate_id", "relation", "attributes", "mechanism", "statistics_name", "maintenance_cost", "payload_state"}
+            if any(not required.issubset(item) for item in self.selected_objects):
+                raise ValueError("selected object metadata is incomplete")
         if not self.deployment_ddl:
             raise ValueError("recommendation deployment DDL is required")
         if any("ALTER DATABASE" in statement.upper() for statement in self.deployment_ddl):
@@ -82,6 +94,12 @@ class RecommendationBundle:
             "rollback_ddl": list(self.rollback_ddl),
             "compatibility": self.compatibility,
         }
+        if self.capture_bundle_digest is not None:
+            value["capture_bundle_digest"] = self.capture_bundle_digest
+        if self.selected_objects:
+            value["selected_objects"] = list(self.selected_objects)
+        if self.scope is not None:
+            value["scope"] = self.scope
         if include_digest:
             value["digest"] = self.digest
         return value
@@ -117,6 +135,9 @@ class RecommendationBundle:
             tuple(map(str, raw["rollback_ddl"])),
             dict(raw["compatibility"]),
             str(raw["selected_design_digest"]),
+            raw.get("capture_bundle_digest"),
+            tuple(dict(item) for item in raw.get("selected_objects", [])),
+            (dict(raw["scope"]) if raw.get("scope") is not None else None),
         )
 
 
@@ -125,10 +146,20 @@ def validate_recommendation_bundle(
     *,
     candidate_ids: set[str] | None = None,
     expected_target: int | None = None,
+    expected_capture_digest: str | None = None,
+    require_product_profile: bool = False,
 ) -> dict[str, Any]:
     bundle = RecommendationBundle.load(path)
     if expected_target is not None and bundle.evaluated_statistics_target != validate_global_statistics_target(expected_target):
         raise ValueError("recommendation target mismatch")
+    if expected_capture_digest is not None and bundle.capture_bundle_digest != expected_capture_digest:
+        raise ValueError("recommendation capture bundle binding mismatch")
+    if require_product_profile and not bundle.capture_bundle_digest:
+        raise ValueError("product recommendation is missing capture bundle binding")
+    if bundle.compatibility.get("postgres_version") != "16.14":
+        raise ValueError("recommendation requires PostgreSQL 16.14")
+    if require_product_profile and bundle.compatibility.get("target_precondition") != bundle.evaluated_statistics_target:
+        raise ValueError("recommendation target precondition mismatch")
     if candidate_ids is not None and not set(bundle.selected_design).issubset(candidate_ids):
         raise ValueError("recommendation references unknown candidate")
     allowed_deploy_prefixes = ("CREATE STATISTICS", "ALTER STATISTICS", "ANALYZE")
@@ -136,6 +167,9 @@ def validate_recommendation_bundle(
         raise ValueError("recommendation contains non-standard deployment DDL")
     if not all(statement.upper().startswith("DROP STATISTICS IF EXISTS") for statement in bundle.rollback_ddl):
         raise ValueError("recommendation contains non-standard rollback DDL")
+    names = [str(item.get("statistics_name", "")) for item in bundle.selected_objects]
+    if len(names) != len(set(names)):
+        raise ValueError("recommendation statistics names are not unique")
     return bundle.as_dict()
 
 

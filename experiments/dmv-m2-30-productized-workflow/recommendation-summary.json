@@ -1,0 +1,23 @@
+{
+  "baseline_objective": 87564.20552919351,
+  "capture_bundle_digest": "b6aeedbf4a68c727af1c4ba64f0ec9b59e7b557f1d429c06ae29928ea5fc4f09",
+  "cold_cache_hit": false,
+  "digest": "fdd75c5a3bba5ca4752f5bc75441906f96db42c90e6b9d7b03e42437540187cd",
+  "evaluated_statistics_target": 100,
+  "fd_count": 5,
+  "final_objective": 44998.09562064825,
+  "mcv_count": 12,
+  "product_cli": true,
+  "production_used_during_advise": false,
+  "selected_count": 17,
+  "selected_design_digest": "e43934f3129697b557889e01b2b4fbd349dc229a45951be76c1e3d21dd12f18d",
+  "selected_maintenance_cost": "80.734089665781910",
+  "stock_ddl_smoke": {
+    "created_statistics": 17,
+    "passed": true,
+    "rollback_remaining": 0,
+    "stock_postgres": "16.14"
+  },
+  "warm_cache_hit": true,
+  "warm_digest_equal": true
+}

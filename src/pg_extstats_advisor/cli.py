@@ -4,13 +4,19 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import os
 import sys
+import traceback
 from pathlib import Path
 
 import psycopg
 
 from pg_extstats_advisor.calibration import CalibrationConfig, run_calibration
+from pg_extstats_advisor.capture.fixed import verify_fixed_t_bundle
+from pg_extstats_advisor.capture.workflow import CaptureConfig, capture_fixed_t
+from pg_extstats_advisor.deploy.bundle import RecommendationBundle, validate_recommendation_bundle
+from pg_extstats_advisor.errors import AdvisorCLIError, ExitCode
 from pg_extstats_advisor.orchestration import (
     cleanup_acquisition_stage,
     execute_recommendation_stage,
@@ -29,12 +35,13 @@ from pg_extstats_advisor.screening import (
     load_artifact,
     write_artifact,
 )
+from pg_extstats_advisor.workflow import AdviseConfig, advise_fixed_t
 
 
 def _dsn(value: str | None, env_name: str) -> str:
     result = value or os.environ.get(env_name)
     if not result:
-        raise ValueError(f"DSN required via option or {env_name}")
+        raise AdvisorCLIError(f"DSN required via option or {env_name}", ExitCode.USAGE)
     return result
 
 
@@ -42,7 +49,25 @@ def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="pg-extstats-advisor", description="Offline PostgreSQL extended-statistics advisor"
     )
+    parser.add_argument("--verbose", action="store_true", help="show diagnostic tracebacks")
     commands = parser.add_subparsers(dest="command", required=True)
+    capture = commands.add_parser("capture", help="capture a sealed fixed-target bundle")
+    capture.add_argument("--dsn", help="read-only production connection string")
+    capture.add_argument("--relation", required=True)
+    capture.add_argument("--workload", required=True, type=Path)
+    capture.add_argument("--output", required=True, type=Path)
+    capture.add_argument("--statistics-target", type=int, default=100)
+    capture.add_argument("--sample-rows", type=int, default=30_000)
+    advise = commands.add_parser("advise", help="run the offline advisor from a sealed bundle")
+    advise.add_argument("bundle", type=Path)
+    advise.add_argument("--advisor-dsn", help="disposable patched advisor connection string")
+    advise.add_argument("--candidate-catalog", required=True, type=Path)
+    advise.add_argument("--incidence", required=True, type=Path)
+    advise.add_argument("--maintenance-model", required=True, type=Path)
+    advise.add_argument("--output", required=True, type=Path)
+    advise.add_argument("--cache", required=True, type=Path)
+    advise.add_argument("--budget", required=True)
+    advise.add_argument("--statistics-target", type=int, default=100)
     calibrate = commands.add_parser(
         "calibrate-maintenance", help="run isolated aggregate ANALYZE calibration"
     )
@@ -81,9 +106,12 @@ def _parser() -> argparse.ArgumentParser:
     screen.add_argument("--output", required=True, type=Path)
     recommend = commands.add_parser("recommend", help="render persisted search result")
     recommend.add_argument("run_dir", type=Path)
-    validate = commands.add_parser("validate", help="physically validate persisted selected state")
-    validate.add_argument("run_dir", type=Path)
+    validate = commands.add_parser("validate", help="validate a capture or recommendation artifact")
+    validate.add_argument("artifact", type=Path)
+    validate.add_argument("--expected-target", type=int, default=100)
     validate.add_argument("--validation-dsn")
+    inspect = commands.add_parser("inspect", help="print a recommendation summary")
+    inspect.add_argument("artifact", type=Path)
     cleanup = commands.add_parser(
         "cleanup-acquisition", help="drop only this run's acquisition handles"
     )
@@ -123,7 +151,13 @@ def _prepare(path: Path) -> PreparationConfig:
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
-        if args.command == "calibrate-maintenance":
+        if args.command == "capture":
+            result = capture_fixed_t(CaptureConfig(_dsn(args.dsn, "PGEXT_CAPTURE_DSN"), args.relation, args.workload, args.output, args.statistics_target, args.sample_rows))
+            print(json.dumps(result, sort_keys=True))
+        elif args.command == "advise":
+            result = advise_fixed_t(AdviseConfig(args.bundle, _dsn(args.advisor_dsn, "PGEXT_ADVISOR_DSN"), args.candidate_catalog, args.incidence, args.maintenance_model, args.output, args.cache, args.budget, args.statistics_target))
+            print(json.dumps(result, sort_keys=True))
+        elif args.command == "calibrate-maintenance":
             config = CalibrationConfig.load(args.config)
             with psycopg.connect(config.dsn, autocommit=True) as connection:
                 report = run_calibration(config, connection)
@@ -182,9 +216,46 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "recommend":
             print(f"deployment SQL: {execute_recommendation_stage(args.run_dir)}")
         elif args.command == "validate":
-            with psycopg.connect(_dsn(args.validation_dsn, "PGEXT_VALIDATION_DSN")) as connection:
-                summary = execute_validation_stage(args.run_dir, connection)
-            print(f"fresh objective: {summary['fresh_objective']}")
+            artifact = args.artifact
+            if (artifact / "bundle.json").exists():
+                try:
+                    bundle = json.loads((artifact / "bundle.json").read_text())
+                    if bundle.get("profile") == "fixed_t_single_snapshot":
+                        result = verify_fixed_t_bundle(artifact, expected_target=args.expected_target, require_supported_profile=True)
+                        result["validity"] = "valid"
+                    else:
+                        result = verify_fixed_t_bundle(artifact, expected_target=args.expected_target)
+                        result["validity"] = "valid-historical-compatible-profile"
+                except ValueError as error:
+                    raise AdvisorCLIError(str(error), ExitCode.CORRUPT_ARTIFACT) from error
+                print(json.dumps(result, sort_keys=True))
+            elif (artifact / "recommendation.json").exists() or (artifact.is_file() and artifact.name == "recommendation.json"):
+                recommendation_path = artifact / "recommendation.json" if artifact.is_dir() else artifact
+                try:
+                    raw_recommendation = json.loads(recommendation_path.read_text())
+                    result = validate_recommendation_bundle(
+                        recommendation_path,
+                        expected_target=args.expected_target,
+                        require_product_profile=bool(raw_recommendation.get("capture_bundle_digest")),
+                    )
+                except ValueError as error:
+                    raise AdvisorCLIError(str(error), ExitCode.CORRUPT_ARTIFACT) from error
+                result["validity"] = "valid"
+                print(json.dumps({key: result[key] for key in ("format_version", "evaluated_statistics_target", "selected_design_digest", "digest", "validity")}, sort_keys=True))
+            elif (artifact / "prepare-summary.json").exists():
+                if not args.validation_dsn:
+                    raise AdvisorCLIError("legacy physical validation requires --validation-dsn", ExitCode.USAGE)
+                with psycopg.connect(_dsn(args.validation_dsn, "PGEXT_VALIDATION_DSN")) as connection:
+                    summary = execute_validation_stage(artifact, connection)
+                print(f"fresh objective: {summary['fresh_objective']}")
+            else:
+                raise AdvisorCLIError("artifact is not a capture bundle or recommendation", ExitCode.USAGE)
+        elif args.command == "inspect":
+            bundle = RecommendationBundle.load(args.artifact)
+            selected = bundle.selected_objects
+            mcv = sum(item.get("mechanism") == "mcv" for item in selected)
+            fd = sum(item.get("mechanism") == "fd" for item in selected)
+            print(json.dumps({"evaluated_statistics_target": bundle.evaluated_statistics_target, "baseline_objective": bundle.baseline_objective, "final_objective": bundle.final_objective, "selected_count": len(bundle.selected_design), "mcv_count": mcv, "fd_count": fd, "selected_maintenance_cost": bundle.selected_maintenance_cost, "statistics_names": [item.get("statistics_name") for item in selected]}, sort_keys=True))
         elif args.command == "cleanup-acquisition":
             with psycopg.connect(_dsn(args.acquisition_dsn, "PGEXT_ACQUISITION_DSN")) as connection:
                 cleanup_acquisition_stage(args.run_dir, connection)
@@ -203,9 +274,16 @@ def main(argv: list[str] | None = None) -> int:
                 f"recommendation: {config.output_path / 'recommendation' / 'recommendation.json'}"
             )
         return 0
+    except AdvisorCLIError as error:
+        print(f"error[{error.code.name}]: {error}", file=sys.stderr)
+        if getattr(args, "verbose", False):
+            traceback.print_exc()
+        return int(error.code)
     except Exception as error:  # noqa: BLE001 - CLI boundary converts failures to exit status
-        print(f"error: {error}", file=sys.stderr)
-        return 1
+        print(f"error[{ExitCode.EXECUTION.name}]: {error}", file=sys.stderr)
+        if getattr(args, "verbose", False):
+            traceback.print_exc()
+        return int(ExitCode.EXECUTION)
 
 
 if __name__ == "__main__":

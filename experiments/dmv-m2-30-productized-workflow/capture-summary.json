@@ -1,0 +1,13 @@
+{
+  "artifact_type": "capture",
+  "profile": "fixed_t_single_snapshot",
+  "bundle_semantic_digest": "b6aeedbf4a68c727af1c4ba64f0ec9b59e7b557f1d429c06ae29928ea5fc4f09",
+  "evaluated_statistics_target": 100,
+  "snapshot_mode": "strong_single_snapshot",
+  "query_count": 1965,
+  "effective_query_count": 1963,
+  "sample_rows": 30000,
+  "source_population_rows": 11591877,
+  "production_stopped_before_advise": true,
+  "production_used_during_advise": false
+}

@@ -1,0 +1,7 @@
+validate capture: success
+advise (cold cache): success
+validate recommendation: success
+inspect: success
+advise (warm cache): success
+recommendation digest cold == warm: true
+production pg_isready during advise: unavailable

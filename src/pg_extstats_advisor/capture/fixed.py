@@ -21,7 +21,9 @@ class FixedCaptureVerificationError(ValueError):
     """Raised when a bundle cannot be used as a fixed-T core input."""
 
 
-def verify_fixed_t_bundle(path: Path, *, expected_target: int = 100) -> dict[str, Any]:
+def verify_fixed_t_bundle(
+    path: Path, *, expected_target: int = 100, require_supported_profile: bool = False
+) -> dict[str, Any]:
     """Verify one sealed fixed-T bundle and return its portable identities."""
 
     root = Path(path)
@@ -42,8 +44,17 @@ def verify_fixed_t_bundle(path: Path, *, expected_target: int = 100) -> dict[str
         raise FixedCaptureVerificationError(
             f"fixed-T target mismatch: bundle={target}, expected={expected}"
         )
+    if verification.get("production_version") != "16.14":
+        raise FixedCaptureVerificationError(
+            f"supported product profile requires PostgreSQL 16.14, observed {verification.get('production_version')}"
+        )
     if bundle.get("capture_mode") != FIXED_CAPTURE_MODE:
         raise FixedCaptureVerificationError("bundle is not a fixed-T capture")
+    profile = bundle.get("profile")
+    if require_supported_profile and profile != "fixed_t_single_snapshot":
+        raise FixedCaptureVerificationError(
+            "bundle profile is not the supported fixed_t_single_snapshot profile"
+        )
     if bundle.get("read_only") is not True:
         raise FixedCaptureVerificationError("capture is not marked read-only")
     if bundle["snapshot_consistency"].get("mode") != "strong_single_snapshot":
@@ -65,6 +76,7 @@ def verify_fixed_t_bundle(path: Path, *, expected_target: int = 100) -> dict[str
         "capture_mode": FIXED_CAPTURE_MODE,
         "canonical_realization": True,
         "target_override_status": "passed",
+        "profile": profile or "historical_fixed_t_single_snapshot",
     }
 
 

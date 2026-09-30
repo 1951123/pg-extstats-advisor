@@ -113,3 +113,28 @@ frozen hypothetical prediction. It does not add runtime validation or maintenanc
 cost fitting.
 
 The fixed-target scope is documented in `docs/statistics-target-scope.md`.
+
+## Core workflow
+
+The supported product path evaluates one frozen production-derived statistics
+realization at a fixed external target (default `T=100`). Capture is
+read-only, and the advisor runs offline from the sealed bundle; production is
+not contacted during `advise` and no command deploys automatically.
+
+```bash
+pg-extstats-advisor capture --dsn "$PGEXT_CAPTURE_DSN" \
+  --relation public.example --workload workload.json --output capture-bundle
+pg-extstats-advisor validate capture-bundle
+pg-extstats-advisor advise capture-bundle --advisor-dsn "$PGEXT_ADVISOR_DSN" \
+  --candidate-catalog candidates.json --incidence incidence.json \
+  --maintenance-model maintenance-model.json --budget 10 \
+  --output recommendation --cache .advisor-cache
+pg-extstats-advisor validate recommendation
+pg-extstats-advisor inspect recommendation/recommendation.json
+```
+
+Review the generated standard PostgreSQL `deploy.sql` and
+`rollback.sql`, then apply them manually and run `ANALYZE` under normal DBA
+change control. Samples can contain real production values; privacy and
+encryption remain deployment responsibilities. See `docs/cli.md` and
+`docs/artifact-contracts.md` for the supported scope and contracts.
