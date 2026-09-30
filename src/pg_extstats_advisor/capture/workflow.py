@@ -26,6 +26,11 @@ from pg_extstats_advisor.errors import AdvisorCLIError, ExitCode
 from pg_extstats_advisor.statistics import validate_global_statistics_target
 
 
+def _text(value: Any) -> str:
+    """Normalize text-like catalog values from text or binary psycopg modes."""
+    return value.decode() if isinstance(value, (bytes, bytearray)) else str(value)
+
+
 @dataclass(frozen=True, slots=True)
 class CaptureConfig:
     dsn: str
@@ -88,11 +93,11 @@ def _relation_schema(connection: psycopg.Connection[Any], relation: str, target:
         "FROM pg_attribute a WHERE a.attrelid=%s AND a.attnum>0 AND NOT a.attisdropped ORDER BY a.attnum",
         (row[2],),
     ).fetchall()
-    if not columns or any(str(item[2]) != "text" for item in columns):
+    if not columns or any(_text(item[2]) != "text" for item in columns):
         raise AdvisorCLIError("current product scope supports one relation of text columns", ExitCode.COMPATIBILITY)
     portable_columns = [
         {
-            "attnum": int(attnum), "name": str(name), "nullable": not bool(notnull), "typmod": "-1",
+            "attnum": int(attnum), "name": _text(name), "nullable": not bool(notnull), "typmod": "-1",
             "type": {"kind": "builtin", "name": "text", "namespace": "pg_catalog", "portable_name": "pg_catalog.text"},
             "collation": {"name": "default", "namespace": "pg_catalog", "portable_name": "pg_catalog.default"},
             "statistics": {"target": target, "source_summary_present": False},
@@ -100,8 +105,8 @@ def _relation_schema(connection: psycopg.Connection[Any], relation: str, target:
         for attnum, name, _typ, notnull in columns
     ]
     relation_record: dict[str, Any] = {
-        "relation_id": f"{row[0]}.{row[1]}",
-        "relation_kind": str(row[3]),
+        "relation_id": f"{_text(row[0])}.{_text(row[1])}",
+        "relation_kind": _text(row[3]),
         "columns": portable_columns,
     }
     relation_record["schema_digest"] = canonical_digest(
@@ -123,7 +128,7 @@ def _check_permissions(connection: psycopg.Connection[Any], relation: str) -> di
         raise AdvisorCLIError(f"capture role lacks USAGE on schema {schema}", ExitCode.PERMISSION)
     if not bool(row[3]):
         raise AdvisorCLIError(f"capture role lacks SELECT on relation {schema}.{name}", ExitCode.PERMISSION)
-    return {"role": str(row[0]), "superuser": False, "schema_usage": True, "relation_select": True, "write_privilege_required": False, "create_privilege_required": False, "analyze_privilege_required": False}
+    return {"role": _text(row[0]), "superuser": False, "schema_usage": True, "relation_select": True, "write_privilege_required": False, "create_privilege_required": False, "analyze_privilege_required": False}
 
 
 def capture_fixed_t(config: CaptureConfig) -> dict[str, Any]:
@@ -155,7 +160,7 @@ def capture_fixed_t(config: CaptureConfig) -> dict[str, Any]:
             with connection.cursor().copy(f"COPY (SELECT * FROM {relation}) TO STDOUT WITH (FORMAT text, NULL '\\N')") as copy:
                 for parsed in copy.rows():
                     seen += 1
-                    row = [None if value is None else str(value) for value in parsed]
+                    row = [None if value is None else _text(value) for value in parsed]
                     if len(rows) < config.sample_rows:
                         rows.append(row)
                     else:
@@ -168,11 +173,11 @@ def capture_fixed_t(config: CaptureConfig) -> dict[str, Any]:
                 observed = int(connection.execute(item["sql"]).fetchone()[0])
                 truth_rows.append({"query_id": item["query_id"], "sql": item["sql"], "truth": observed})
             schema = {"relations": [relation_record]}
-            observed_version = str(connection.execute("SHOW server_version").fetchone()[0]).split()[0]
+            observed_version = _text(connection.execute("SHOW server_version").fetchone()[0]).split()[0]
             environment = {
                 "schema_version": 1, "postgres_version": observed_version,
-                "server_version_num": str(connection.execute("SHOW server_version_num").fetchone()[0]),
-                "fields": {"postgres_version": {"classification": "required", "value": "16.14"}, "server_version_num": {"classification": "required", "value": str(connection.execute("SHOW server_version_num").fetchone()[0])}, "default_statistics_target": {"classification": "required", "value": target}, "database_collation": {"classification": "required", "value": str(connection.execute("SELECT datcollate FROM pg_database WHERE datname=current_database()").fetchone()[0])}, "workload_analysis_version": {"classification": "required", "value": "pg16-mvp-v2"}},
+                "server_version_num": _text(connection.execute("SHOW server_version_num").fetchone()[0]),
+                "fields": {"postgres_version": {"classification": "required", "value": "16.14"}, "server_version_num": {"classification": "required", "value": _text(connection.execute("SHOW server_version_num").fetchone()[0])}, "default_statistics_target": {"classification": "required", "value": target}, "database_collation": {"classification": "required", "value": _text(connection.execute("SELECT datcollate FROM pg_database WHERE datname=current_database()").fetchone()[0])}, "workload_analysis_version": {"classification": "required", "value": "pg16-mvp-v2"}},
                 "relation_row_count": population_rows, "permissions": permissions,
             }
             workload = {"schema_version": 1, "queries": records, "raw_query_count": len(records), "effective_query_count": sum(int(item["effective"]) for item in records), "raw_sql_sha256": config.source_sha256 or hashlib.sha256(config.workload_path.read_bytes()).hexdigest(), "effective_workload_digest": canonical_digest({"objective_membership_policy": "positive_truth_only", "queries": [{"query_id": item["query_id"], "sql": item["sql"], "truth": item["truth"], "target_relation": relation.split(".")[-1]} for item in records if item["effective"]]})}
@@ -186,7 +191,7 @@ def capture_fixed_t(config: CaptureConfig) -> dict[str, Any]:
             _write(rel_dir / "manifest.json", sample_manifest)
             _write(temporary / "environment.json", environment); _write(temporary / "schema.json", schema); _write(temporary / "workload.json", workload); _write(temporary / "truth.json", truth)
             components = {"environment.json": canonical_digest(environment), "schema.json": canonical_digest(schema), "workload.json": canonical_digest(workload), "truth.json": canonical_digest(truth), f"acquisition/relations/{relation}/manifest.json": canonical_digest(sample_manifest)}
-            bundle = {"bundle_schema_version": "production-capture-bundle-v1", "profile": "fixed_t_single_snapshot", "sealed": True, "production_identity": {"postgres_version": environment["postgres_version"], "server_version_num": environment["server_version_num"], "source_relation_ids": [relation], "source_kind": "stock_postgresql"}, "snapshot_consistency": {"mode": "strong_single_snapshot", "components": {"environment": snapshot, "schema": snapshot, "workload": snapshot, "truth": snapshot, "acquisition": snapshot}, "transaction_snapshot": tx_snapshot}, "components": components, "relation_inventory": [{"relation_id": relation, "schema_digest": relation_record["schema_digest"], "source_population_rows": str(population_rows)}], "workload_identity": {"effective_workload_digest": workload["effective_workload_digest"], "effective_query_count": workload["effective_query_count"]}, "truth_identity": {"mode": "exact_full_data_count", "query_count": len(truth_rows), "semantic_digest": truth["semantic_digest"]}, "acquisition_identity": {"relation_ids": [relation], "sample_method_id": "deterministic_reservoir_v1", "native_analyze_equivalent": False, "global_statistics_target": target, "canonical_realization": True}, "compatibility": {"required_postgres_version": "16.14", "postgres_version_policy": "exact", "supported_types": ["pg_catalog.text"], "supported_sample_method": ["deterministic_reservoir_v1", 1], "supported_serialization": ["pgextstats_m223_length_prefixed_v1", 1], "workload_analysis_version": "pg16-mvp-v2", "ce_target_scope": "single_relation_base_count", "joins_supported": False, "target_override_policy": "fail_closed_relevant_overrides"}, "capture_mode": FIXED_CAPTURE_MODE, "created_timestamp": datetime.now(UTC).isoformat(), "sensitivity": {"anonymized": False, "contains_exact_truth": True, "contains_full_base_table": False, "contains_sampled_row_values": True, "encrypted": False}, "target_override_evidence": {"status": "passed", "relevant_override_count": 0, "ordinary_columns": [[str(name), int(value)] for name, value in att_overrides], "existing_extstats": [[str(name), int(value)] for name, value in ext_overrides]}, "read_only": True}
+            bundle = {"bundle_schema_version": "production-capture-bundle-v1", "profile": "fixed_t_single_snapshot", "sealed": True, "production_identity": {"postgres_version": environment["postgres_version"], "server_version_num": environment["server_version_num"], "source_relation_ids": [relation], "source_kind": "stock_postgresql"}, "snapshot_consistency": {"mode": "strong_single_snapshot", "components": {"environment": snapshot, "schema": snapshot, "workload": snapshot, "truth": snapshot, "acquisition": snapshot}, "transaction_snapshot": tx_snapshot}, "components": components, "relation_inventory": [{"relation_id": relation, "schema_digest": relation_record["schema_digest"], "source_population_rows": str(population_rows)}], "workload_identity": {"effective_workload_digest": workload["effective_workload_digest"], "effective_query_count": workload["effective_query_count"]}, "truth_identity": {"mode": "exact_full_data_count", "query_count": len(truth_rows), "semantic_digest": truth["semantic_digest"]}, "acquisition_identity": {"relation_ids": [relation], "sample_method_id": "deterministic_reservoir_v1", "native_analyze_equivalent": False, "global_statistics_target": target, "canonical_realization": True}, "compatibility": {"required_postgres_version": "16.14", "postgres_version_policy": "exact", "supported_types": ["pg_catalog.text"], "supported_sample_method": ["deterministic_reservoir_v1", 1], "supported_serialization": ["pgextstats_m223_length_prefixed_v1", 1], "workload_analysis_version": "pg16-mvp-v2", "ce_target_scope": "single_relation_base_count", "joins_supported": False, "target_override_policy": "fail_closed_relevant_overrides"}, "capture_mode": FIXED_CAPTURE_MODE, "created_timestamp": datetime.now(UTC).isoformat(), "sensitivity": {"anonymized": False, "contains_exact_truth": True, "contains_full_base_table": False, "contains_sampled_row_values": True, "encrypted": False}, "target_override_evidence": {"status": "passed", "relevant_override_count": 0, "ordinary_columns": [[_text(name), int(value)] for name, value in att_overrides], "existing_extstats": [[_text(name), int(value)] for name, value in ext_overrides]}, "read_only": True}
             bundle["semantic_binding"] = dict(bundle); bundle["semantic_digest"] = canonical_digest(bundle["semantic_binding"])
             _write(temporary / "bundle.json", bundle)
             verify_fixed_t_bundle(temporary, expected_target=target, require_supported_profile=True)
