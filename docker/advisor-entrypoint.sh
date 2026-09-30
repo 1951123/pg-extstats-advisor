@@ -26,7 +26,8 @@ until "$PG_BIN/pg_isready" -h "$PGSOCKET" -p "$PGPORT" -U advisor >/dev/null 2>&
   kill -0 "$server_pid" 2>/dev/null || { echo 'patched advisor PostgreSQL stopped during startup' >&2; exit 1; }
   sleep 0.2
 done
-"$PG_BIN/createdb" -h "$PGSOCKET" -p "$PGPORT" -U advisor advisor 2>/dev/null || true
+"$PG_BIN/psql" -h "$PGSOCKET" -p "$PGPORT" -U advisor -d postgres \
+  -v ON_ERROR_STOP=0 -c 'CREATE DATABASE advisor' >/dev/null 2>&1 || true
 export PGEXT_ADVISOR_DSN="host=$PGSOCKET port=$PGPORT user=advisor dbname=postgres"
 if [[ "${1:-}" == "advise" ]]; then
   exec /opt/venv/bin/pg-extstats-advisor "$@" --advisor-dsn "$PGEXT_ADVISOR_DSN"
