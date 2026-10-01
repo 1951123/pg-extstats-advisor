@@ -2,7 +2,7 @@
 <text x="450.0" y="25" text-anchor="middle" font-size="18">M2.37 A2 physical materialization</text>
 <line x1="80" y1="35" x2="80" y2="450" stroke="black"/>
 <line x1="80" y1="450" x2="870" y2="450" stroke="black"/>
-<polyline points="83.1,449.5 86.2,449.0 92.3,446.9 104.7,442.2 129.4,428.6 178.8,398.0 277.5,358.6 475.0,261.9 870.0,65.7" fill="none" stroke="#1b5e20" stroke-width="2"/>
+<polyline points="83.1,449.5 86.2,448.9 92.3,446.8 104.7,442.0 129.4,428.5 178.8,398.2 277.5,358.3 475.0,261.5 870.0,65.7" fill="none" stroke="#1b5e20" stroke-width="2"/>
 <text x="876.0" y="65.7" font-size="12">materialization</text>
 <text x="450.0" y="502" text-anchor="middle">evaluated configurations (D)</text>
 <text x="18" y="260.0" transform="rotate(-90 18 260.0)" text-anchor="middle">seconds</text>

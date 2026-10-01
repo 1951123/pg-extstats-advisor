@@ -315,7 +315,7 @@ def main() -> int:
             hv = sum(h_by[(rep, configs[i]["config_id"])] ["per_design_total_s"] for i in range(d))
             hvals.append(hv); h_e2e.append(repo_setup + hv)
         cumulative.append({"D": d, "physical": median_stats(pvals), "hypothetical_steady": median_stats(hvals),
-                           "hypothetical_e2e": median_stats(h_e2e), "materialization_median": median_stats([sum(p_by[(rep, configs[i]["config_id"])] ["analyze_s"] for i in range(d)) for rep in range(1, args.repetitions+1)]),
+                           "hypothetical_e2e": median_stats(h_e2e), "materialization_median": median_stats([sum(p_by[(rep, configs[i]["config_id"])] ["physical_create_s"] + p_by[(rep, configs[i]["config_id"])] ["physical_analyze_s"] + p_by[(rep, configs[i]["config_id"])] ["physical_cleanup_s"] for i in range(d)) for rep in range(1, args.repetitions+1)]),
                            "shared_explain_physical": median_stats([sum(p_by[(rep, configs[i]["config_id"])] ["explain_s"] for i in range(d)) for rep in range(1, args.repetitions+1)]),
                            "shared_explain_hypothetical": median_stats([sum(h_by[(rep, configs[i]["config_id"])] ["explain_s"] for i in range(d)) for rep in range(1, args.repetitions+1)])})
     write_json(SUMMARY / "cumulative.json", {"repository_setup_used_s": repo_setup, "points": cumulative})
