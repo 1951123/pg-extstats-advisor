@@ -17,6 +17,7 @@
   "frozen_implementation_commit": "88797e4b82ff1d5c8bbba28dc27987af78ce78ad",
   "frozen_implementation_tag": "paper-v1-system",
   "harness_commit": "5d32a5bd193f2d30e8599be78abda8a3b8640537",
+  "artifact_normalization_commit": "c3340287712d07c82626838d023b129ebfe1cd45",
   "hypothetical_repository_acquisition_is_charged_from_B72": true,
   "measured_first_crossover_D": 8,
   "milestone": "M2.37",
