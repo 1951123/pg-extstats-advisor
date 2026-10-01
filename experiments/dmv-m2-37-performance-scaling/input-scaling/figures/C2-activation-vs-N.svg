@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520">
+<text x="450.0" y="25" text-anchor="middle" font-size="18">M2.37 C2 hypothetical activation</text>
+<line x1="82" y1="35" x2="82" y2="450" stroke="black"/>
+<line x1="82" y1="450" x2="870" y2="450" stroke="black"/>
+<polyline points="180.5,96.8 279.0,98.5 476.0,82.1 870.0,72.7" fill="none" stroke="#1b5e20" stroke-width="2"/>
+<circle cx="180.5" cy="96.8" r="2.5" fill="#1b5e20"/>
+<circle cx="279.0" cy="98.5" r="2.5" fill="#1b5e20"/>
+<circle cx="476.0" cy="82.1" r="2.5" fill="#1b5e20"/>
+<circle cx="870.0" cy="72.7" r="2.5" fill="#1b5e20"/>
+<text x="876.0" y="72.7" font-size="12">activation</text>
+<text x="450.0" y="502" text-anchor="middle">input rows (N)</text>
+<text x="18" y="260.0" transform="rotate(-90 18 260.0)" text-anchor="middle">seconds</text>
+</svg>

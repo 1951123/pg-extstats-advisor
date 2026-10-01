@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520">
+<text x="450.0" y="25" text-anchor="middle" font-size="18">M2.37 C4 total ratio</text>
+<line x1="82" y1="35" x2="82" y2="450" stroke="black"/>
+<line x1="82" y1="450" x2="870" y2="450" stroke="black"/>
+<polyline points="180.5,102.4 279.0,72.7 476.0,96.1 870.0,96.0" fill="none" stroke="#1b5e20" stroke-width="2"/>
+<circle cx="180.5" cy="102.4" r="2.5" fill="#1b5e20"/>
+<circle cx="279.0" cy="72.7" r="2.5" fill="#1b5e20"/>
+<circle cx="476.0" cy="96.1" r="2.5" fill="#1b5e20"/>
+<circle cx="870.0" cy="96.0" r="2.5" fill="#1b5e20"/>
+<text x="876.0" y="96.0" font-size="12">ratio</text>
+<text x="450.0" y="502" text-anchor="middle">input rows (N)</text>
+<text x="18" y="260.0" transform="rotate(-90 18 260.0)" text-anchor="middle">physical / hypothetical</text>
+</svg>

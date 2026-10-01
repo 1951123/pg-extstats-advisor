@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520">
+<text x="450.0" y="25" text-anchor="middle" font-size="18">M2.37 A3 shared EXPLAIN component</text>
+<line x1="80" y1="35" x2="80" y2="450" stroke="black"/>
+<line x1="80" y1="450" x2="870" y2="450" stroke="black"/>
+<polyline points="83.1,448.8 86.2,447.4 92.3,444.5 104.7,439.0 129.4,426.5 178.8,401.9 277.5,354.8 475.0,252.0 870.0,65.7" fill="none" stroke="#1b5e20" stroke-width="2"/>
+<text x="876.0" y="65.7" font-size="12">physical EXPLAIN</text>
+<polyline points="83.1,448.6 86.2,447.3 92.3,444.4 104.7,438.8 129.4,427.0 178.8,403.3 277.5,356.0 475.0,263.6 870.0,67.3" fill="none" stroke="#1565c0" stroke-width="2"/>
+<text x="876.0" y="67.3" font-size="12">hypothetical EXPLAIN</text>
+<text x="450.0" y="502" text-anchor="middle">evaluated configurations (D)</text>
+<text x="18" y="260.0" transform="rotate(-90 18 260.0)" text-anchor="middle">seconds</text>
+</svg>

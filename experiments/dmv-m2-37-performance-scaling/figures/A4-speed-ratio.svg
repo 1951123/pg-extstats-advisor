@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520">
+<text x="450.0" y="25" text-anchor="middle" font-size="18">M2.37 A4 physical / hypothetical E2E</text>
+<line x1="80" y1="35" x2="80" y2="450" stroke="black"/>
+<line x1="80" y1="450" x2="870" y2="450" stroke="black"/>
+<polyline points="83.1,348.9 86.2,299.5 92.3,230.5 104.7,177.7 129.4,115.6 178.8,73.5 277.5,87.2 475.0,65.7 870.0,77.6" fill="none" stroke="#1b5e20" stroke-width="2"/>
+<text x="876.0" y="77.6" font-size="12">ratio</text>
+<text x="450.0" y="502" text-anchor="middle">evaluated configurations (D)</text>
+<text x="18" y="260.0" transform="rotate(-90 18 260.0)" text-anchor="middle">seconds</text>
+</svg>

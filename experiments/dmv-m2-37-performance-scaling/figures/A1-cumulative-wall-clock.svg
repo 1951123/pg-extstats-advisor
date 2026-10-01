@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520">
+<text x="450.0" y="25" text-anchor="middle" font-size="18">M2.37 A1 cumulative wall-clock</text>
+<line x1="80" y1="35" x2="80" y2="450" stroke="black"/>
+<line x1="80" y1="450" x2="870" y2="450" stroke="black"/>
+<polyline points="83.1,449.0 86.2,448.0 92.3,445.4 104.7,440.2 129.4,427.4 178.8,400.6 277.5,356.4 475.0,255.7 870.0,65.7" fill="none" stroke="#1b5e20" stroke-width="2"/>
+<text x="876.0" y="65.7" font-size="12">physical</text>
+<polyline points="83.1,449.2 86.2,448.3 92.3,446.6 104.7,443.1 129.4,435.9 178.8,421.4 277.5,392.4 475.0,335.8 870.0,215.6" fill="none" stroke="#1565c0" stroke-width="2"/>
+<text x="876.0" y="215.6" font-size="12">hypothetical steady</text>
+<polyline points="83.1,447.8 86.2,447.0 92.3,445.2 104.7,441.8 129.4,434.5 178.8,420.0 277.5,391.0 475.0,334.4 870.0,214.2" fill="none" stroke="#ef6c00" stroke-width="2"/>
+<text x="876.0" y="214.2" font-size="12">hypothetical + repository</text>
+<text x="450.0" y="502" text-anchor="middle">evaluated configurations (D)</text>
+<text x="18" y="260.0" transform="rotate(-90 18 260.0)" text-anchor="middle">seconds</text>
+</svg>

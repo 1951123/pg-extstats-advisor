@@ -1,0 +1,28 @@
+{
+  "candidate_source": "experiments/census-m2-7/prepared-run/repository",
+  "candidate_source_count": 4506,
+  "deterministic_rule": "stable precedence prefix of frozen Census candidate catalog",
+  "frozen_implementation_commit": "88797e4b82ff1d5c8bbba28dc27987af78ce78ad",
+  "frozen_implementation_tag": "paper-v1-system",
+  "harness_commit": "5d32a5bd193f2d30e8599be78abda8a3b8640537",
+  "levels": [
+    8,
+    16,
+    32,
+    72,
+    226,
+    512,
+    1024,
+    2253,
+    4506
+  ],
+  "milestone": "M2.37",
+  "postgres_version": "16.14",
+  "repetitions": 5,
+  "statistics_target": 100,
+  "status": "complete",
+  "suite": "B",
+  "system_head": "5e457160a125c4f33292f59968f511e41fd5fb75",
+  "truth_timing_excluded": true,
+  "warmups": 1
+}

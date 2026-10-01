@@ -1,0 +1,29 @@
+{
+  "derivation": "isolated DMV database: rename original public.dmv to source, create an UNLOGGED public.dmv with deterministic ORDER BY ctid LIMIT N, run normal native ANALYZE, restore original table",
+  "design_suite": [
+    "empty",
+    "prefix-01",
+    "prefix-05",
+    "prefix-16",
+    "prefix-30",
+    "final-31"
+  ],
+  "frozen_implementation_commit": "88797e4b82ff1d5c8bbba28dc27987af78ce78ad",
+  "frozen_implementation_tag": "paper-v1-system",
+  "harness_commit": "5d32a5bd193f2d30e8599be78abda8a3b8640537",
+  "input_sizes": [
+    30000,
+    60000,
+    120000,
+    240000
+  ],
+  "milestone": "M2.37",
+  "postgres_version": "16.14",
+  "repetitions": 5,
+  "statistics_target": 100,
+  "status": "complete",
+  "suite": "C",
+  "system_head": "5e457160a125c4f33292f59968f511e41fd5fb75",
+  "truth_timing_excluded": true,
+  "warmups": 1
+}

@@ -1,0 +1,22 @@
+{
+  "cache_flushed": false,
+  "cache_protocol": "one untimed warmup plus five measured repetitions; no OS/PostgreSQL cache flushing",
+  "cpu_count": 24,
+  "database": "pgextadv_exp16_census_m27_acq",
+  "dsn_socket": "/root/projects/pg-extstats-advisor/.build/pg16.14-experiment-socket",
+  "machine": "x86_64",
+  "memory_total_bytes": 16766877696,
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "postgres_startup_measured": false,
+  "postgres_version": "16.14",
+  "processor": "x86_64",
+  "python_version": "3.12.3",
+  "settings": {
+    "jit": "off",
+    "max_parallel_workers_per_gather": "2",
+    "random_page_cost": "4",
+    "shared_buffers": "128MB",
+    "work_mem": "4MB"
+  },
+  "storage_available_bytes": 819814264832
+}

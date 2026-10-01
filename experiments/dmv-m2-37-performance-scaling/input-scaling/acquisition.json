@@ -1,0 +1,48 @@
+{
+  "input_sizes": [
+    30000,
+    60000,
+    120000,
+    240000
+  ],
+  "rows": [
+    {
+      "absent_native_count": 1,
+      "acquisition_s": 0.4062345459969947,
+      "candidate_count": 72,
+      "input_rows": 30000,
+      "present_count": 71,
+      "repository_bytes": 100969,
+      "repository_digest": "6ca5800531b3ab0ea6a8310d6fe62c943d6be61495416f078f2131b99daa82d1"
+    },
+    {
+      "absent_native_count": 1,
+      "acquisition_s": 0.43366511900239857,
+      "candidate_count": 72,
+      "input_rows": 60000,
+      "present_count": 71,
+      "repository_bytes": 91283,
+      "repository_digest": "ac595b6ee1d7bfc720fc3627ad0897bf540d2779382d2bf374490979baae856f"
+    },
+    {
+      "absent_native_count": 0,
+      "acquisition_s": 0.4315410279959906,
+      "candidate_count": 72,
+      "input_rows": 120000,
+      "present_count": 72,
+      "repository_bytes": 93745,
+      "repository_digest": "2adb9d40128d74904036d1708f38cece22bb9e6d0208f8435fd2bcecd3d65992"
+    },
+    {
+      "absent_native_count": 1,
+      "acquisition_s": 0.43568947599851526,
+      "candidate_count": 72,
+      "input_rows": 240000,
+      "present_count": 71,
+      "repository_bytes": 98344,
+      "repository_digest": "40ff7461b9384b0a558ab75d2985e1e9d82b0885eb93151d1ce37f0d58684044"
+    }
+  ],
+  "suite": "C",
+  "target": 100
+}

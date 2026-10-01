@@ -1,0 +1,313 @@
+{
+  "c72_total_median_s": 0.45391697400191333,
+  "cleanup_gate": "PASS",
+  "component_measurement": "acquire_payloads exposes one total; internal create/analyze/serialization subcomponents were not instrumented to avoid product-code changes",
+  "correctness_gate": "PASS",
+  "fit": {
+    "intercept_s": 0.12566229640322657,
+    "r2": 0.9919508959782476,
+    "slope_s_per_candidate": 0.002717091472583715
+  },
+  "levels": [
+    8,
+    16,
+    32,
+    72,
+    226,
+    512,
+    1024,
+    2253,
+    4506
+  ],
+  "rows": [
+    {
+      "absent_native_count": [
+        0
+      ],
+      "candidate_count": 8,
+      "integrity_gate": true,
+      "present_count": [
+        8
+      ],
+      "repository_bytes": {
+        "max": 14451.0,
+        "median": 14399.0,
+        "min": 14359.0,
+        "p25": 14377.0,
+        "p75": 14403.0
+      },
+      "repository_digests": [
+        "3c54c404f14ba1185176ac6fd2045fa1db1d85a5cc604d1e20b2bc9060f575af",
+        "48e9e8c27b62703489dad40ad17c54fffff422c2ad64d0fa3b58ccd3081a9212",
+        "8a0f63c67751dc6c7624a5e5c5abf164159ad3a53684435794a3b81d8a3e7e00",
+        "abc29105418a8522455196003a33ce5a9a61a884d1cfb7503b49f971ccf7488e",
+        "ca6f173e959101b25032a2ccf1a6b88fd7e23d89293efa12da7b7836b595afbb"
+      ],
+      "total_s": {
+        "max": 0.29655493799509713,
+        "median": 0.29523559199878946,
+        "min": 0.29066623900143895,
+        "p25": 0.290932709001936,
+        "p75": 0.2953613339996082
+      }
+    },
+    {
+      "absent_native_count": [
+        0
+      ],
+      "candidate_count": 16,
+      "integrity_gate": true,
+      "present_count": [
+        16
+      ],
+      "repository_bytes": {
+        "max": 28347.0,
+        "median": 28219.0,
+        "min": 28135.0,
+        "p25": 28215.0,
+        "p75": 28259.0
+      },
+      "repository_digests": [
+        "7803a0864186b8f25da959b696b2da01077b73da4625ce7e1ad7ae8ee808bcf5",
+        "79576164708ecf641cffdc51008b455b63010ef9ef68c75c5d8eb9ff80a73f93",
+        "a896ef5c00b80b7302c1a8d9048453e1713eb91bb8dc33ad23678076d81561e4",
+        "d589abd14b6b7656a1a87920320b61cc9fa002873b8e9949134c3c6e5dfaac71",
+        "f335186df65126e5f0889bd9cbb12456d5df58e894326ad727762d5ece8d0a09"
+      ],
+      "total_s": {
+        "max": 0.3167392769973958,
+        "median": 0.3099247669961187,
+        "min": 0.30814949199702824,
+        "p25": 0.3092626060024486,
+        "p75": 0.3120024289964931
+      }
+    },
+    {
+      "absent_native_count": [
+        0
+      ],
+      "candidate_count": 32,
+      "integrity_gate": true,
+      "present_count": [
+        32
+      ],
+      "repository_bytes": {
+        "max": 51239.0,
+        "median": 50963.0,
+        "min": 50809.0,
+        "p25": 50963.0,
+        "p75": 51055.0
+      },
+      "repository_digests": [
+        "25d703c737640c71915a8c1ef340aef151ef94b590a812d9f546746840c66a78",
+        "34d4ac249041ce4800a26abe09d5efe9f85005ef8dd24d4eea1a82b0540855a1",
+        "7beb9dadbbb7260b6f75cd6a8a4d21f7a715086694cedc071536be94970b5794",
+        "85d2e586f7e64b5ac78ff92d13ee35937b0b571c5a6f0dfdcc385580c4bfd951",
+        "d4738d37fac188140883a1d0901b49f282d80e78b0fd7fe899f186f1396d505c"
+      ],
+      "total_s": {
+        "max": 0.3604091180022806,
+        "median": 0.35144832000514725,
+        "min": 0.34249844399892027,
+        "p25": 0.34376698300184216,
+        "p75": 0.35581562999868765
+      }
+    },
+    {
+      "absent_native_count": [
+        0
+      ],
+      "candidate_count": 72,
+      "integrity_gate": true,
+      "present_count": [
+        72
+      ],
+      "repository_bytes": {
+        "max": 114717.0,
+        "median": 114641.0,
+        "min": 114469.0,
+        "p25": 114561.0,
+        "p75": 114693.0
+      },
+      "repository_digests": [
+        "26b92d241ef6d343ac343042f315a09a3b6d8af48947971f6d4fa8e3f5994338",
+        "633c49f24de3ed345d1d906cc2c49795fc535f2d313a213c6cdf00d9e81ed084",
+        "715adca3e7dd5dab02ab94133c26137625a51c860b0ca7ed3cccf68ada922797",
+        "7ab6e9289b65690100e8d4e855678a04d6c3078b83d6f9fbd36b8ecf9734adca",
+        "856e7de943ca0a67c704ef470e6b7717e1038bec16eeac512ba1977d96b9d11f"
+      ],
+      "total_s": {
+        "max": 0.4656512749934336,
+        "median": 0.45391697400191333,
+        "min": 0.44967415599967353,
+        "p25": 0.45138551499985624,
+        "p75": 0.4595727390042157
+      }
+    },
+    {
+      "absent_native_count": [
+        0
+      ],
+      "candidate_count": 226,
+      "integrity_gate": true,
+      "present_count": [
+        226
+      ],
+      "repository_bytes": {
+        "max": 338595.0,
+        "median": 337664.0,
+        "min": 336347.0,
+        "p25": 336639.0,
+        "p75": 337943.0
+      },
+      "repository_digests": [
+        "6c6948822a6227c88a0b5963324ea3705137fd2fd91825fff0a5742e0441201b",
+        "95f6a8baf0c597b900fcb4ec9aa14faf44d7bcec2cf243c4941697c18b8b96a1",
+        "a0502fbcab11a947f812526cf9b621e0b50686e1ae91deb5d9d5ee382e49930a",
+        "a1534f5055ba95fd5604b682fe808ecc9856e721646764a41153a45a5a9afbe8",
+        "a94134511dbd82a3ee4733d6fc1fd0290b148d1d20d3becf3fc03ee920ce9233"
+      ],
+      "total_s": {
+        "max": 0.7936344779955107,
+        "median": 0.7740492440061644,
+        "min": 0.7426118880030117,
+        "p25": 0.7541464339956292,
+        "p75": 0.7752330680013984
+      }
+    },
+    {
+      "absent_native_count": [
+        0
+      ],
+      "candidate_count": 512,
+      "integrity_gate": true,
+      "present_count": [
+        512
+      ],
+      "repository_bytes": {
+        "max": 730282.0,
+        "median": 729691.0,
+        "min": 727621.0,
+        "p25": 729383.0,
+        "p75": 730122.0
+      },
+      "repository_digests": [
+        "20d5c3d614453e2532a7ad165be02a822275b3213122bc41df2bde350869c6a8",
+        "57da7c35d4375ac4d5965864ae8cd96ef143834c72abfe1c8e3c6ab22568f574",
+        "9e0b51a3cee3e2798bc6bf0db46645feb8157f801bc3df5469e0bbb49caba8f9",
+        "bbccf59f1006d836436138589f25cf17fd56dac080b06d1f0fa35960813fd8c7",
+        "d2235d9555d21d04f9ff6bc3d9b108dd168369aad38034f2e753cff75e62264d"
+      ],
+      "total_s": {
+        "max": 1.4934567020027316,
+        "median": 1.4496069859960699,
+        "min": 1.4408257090035477,
+        "p25": 1.4468215989982127,
+        "p75": 1.458183075999841
+      }
+    },
+    {
+      "absent_native_count": [
+        0
+      ],
+      "candidate_count": 1024,
+      "integrity_gate": true,
+      "present_count": [
+        1024
+      ],
+      "repository_bytes": {
+        "max": 1437244.0,
+        "median": 1435178.0,
+        "min": 1430871.0,
+        "p25": 1432246.0,
+        "p75": 1436373.0
+      },
+      "repository_digests": [
+        "1520d1ebe93bd7f63dd7e658d6b0819c51dbbb4b71f7860f43541da89cdacde5",
+        "32bd346338895170dbfd7d9c7aff17af22b33b6eb3d6ef3d3f6fed413094cac2",
+        "4cc4280d35279235f1f4dbd42b7cb6dc337ba60e8d2e141ec4fc4fae9a4e336a",
+        "a51c7fb2cb67549ff78bff3db05ffcfb9ba09790168843a2ba5dd791c5de4c14",
+        "c6adb579a2ff37185b6e7f2ca6d6278c1ee974c1af42c145855ab7332c930a33"
+      ],
+      "total_s": {
+        "max": 2.832348276999255,
+        "median": 2.7968306389957434,
+        "min": 2.632232767995447,
+        "p25": 2.7681748640025035,
+        "p75": 2.8153260750041227
+      }
+    },
+    {
+      "absent_native_count": [
+        0
+      ],
+      "candidate_count": 2253,
+      "integrity_gate": true,
+      "present_count": [
+        2253
+      ],
+      "repository_bytes": {
+        "max": 3050151.0,
+        "median": 3043188.0,
+        "min": 3037694.0,
+        "p25": 3041260.0,
+        "p75": 3046225.0
+      },
+      "repository_digests": [
+        "601626bab4bce0dc5fbf73d7e8ca3c3aee940d9383d2406f329a7705e458a47c",
+        "74fdc1f7f695f13b70d4424affd875f8830c62612e9632206d9defb0cefeeeb2",
+        "a5112fd410dc52ca035b7f02ab582065ede1f9df8af96fc17ae888f1c4a10da2",
+        "caf9388db2e33898a280235d3f985efd1acf20bd19d7e963b47f30a7ebff22ed",
+        "e89e8ae0d161876ba73a175f5a577e68a71f9aa4f7619f49fb3d85cad228598e"
+      ],
+      "total_s": {
+        "max": 5.80358607800008,
+        "median": 5.360516982000263,
+        "min": 5.1699096169977565,
+        "p25": 5.3239634100027615,
+        "p75": 5.414342853000562
+      }
+    },
+    {
+      "absent_native_count": [
+        1045,
+        1072,
+        1080,
+        1111,
+        1118
+      ],
+      "candidate_count": 4506,
+      "integrity_gate": true,
+      "present_count": [
+        3388,
+        3395,
+        3426,
+        3434,
+        3461
+      ],
+      "repository_bytes": {
+        "max": 5001907.0,
+        "median": 4995187.0,
+        "min": 4992066.0,
+        "p25": 4993963.0,
+        "p75": 4999068.0
+      },
+      "repository_digests": [
+        "2ca63934bb956821cdf40d4d62541c299dba499319a8c5d4036ee15e0bc98abf",
+        "95ee9b7aaccebe9b87755c2f578f28dbed8c9cf82c67313f611610b5e4ecefc1",
+        "a27630dc058bca26c699ae79c54c66873b4d939d076cf54bd5a06ae57d06acf0",
+        "c50f2789b72bd0d760b3b9e5f141ab795f693333b41ce56d209536df5df66e7c",
+        "cbaac4b6f88a4fe101dab91a58137820aef735ba90c3239a3f83f411bc3c65ec"
+      ],
+      "total_s": {
+        "max": 13.448399187996984,
+        "median": 12.83955531000538,
+        "min": 12.160967848998553,
+        "p25": 12.611315454996657,
+        "p75": 13.158750880997104
+      }
+    }
+  ],
+  "status": "complete",
+  "suite": "B"
+}

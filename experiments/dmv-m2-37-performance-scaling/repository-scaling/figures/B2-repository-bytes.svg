@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520">
+<text x="450.0" y="25" text-anchor="middle" font-size="18">M2.37 B2 repository size</text>
+<line x1="82" y1="35" x2="82" y2="450" stroke="black"/>
+<line x1="82" y1="450" x2="870" y2="450" stroke="black"/>
+<polyline points="83.4,448.9 84.8,447.9 87.6,446.2 94.6,441.3 121.5,424.5 171.5,394.9 261.1,341.6 476.0,220.2 870.0,72.7" fill="none" stroke="#1b5e20" stroke-width="2"/>
+<circle cx="83.4" cy="448.9" r="2.5" fill="#1b5e20"/>
+<circle cx="84.8" cy="447.9" r="2.5" fill="#1b5e20"/>
+<circle cx="87.6" cy="446.2" r="2.5" fill="#1b5e20"/>
+<circle cx="94.6" cy="441.3" r="2.5" fill="#1b5e20"/>
+<circle cx="121.5" cy="424.5" r="2.5" fill="#1b5e20"/>
+<circle cx="171.5" cy="394.9" r="2.5" fill="#1b5e20"/>
+<circle cx="261.1" cy="341.6" r="2.5" fill="#1b5e20"/>
+<circle cx="476.0" cy="220.2" r="2.5" fill="#1b5e20"/>
+<circle cx="870.0" cy="72.7" r="2.5" fill="#1b5e20"/>
+<text x="876.0" y="72.7" font-size="12">repository bytes</text>
+<text x="450.0" y="502" text-anchor="middle">candidate states (C)</text>
+<text x="18" y="260.0" transform="rotate(-90 18 260.0)" text-anchor="middle">bytes</text>
+</svg>
