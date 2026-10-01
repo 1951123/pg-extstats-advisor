@@ -1,0 +1,17 @@
+M2.36 bounded DMV physical-per-design materialization pilot
+
+Command:
+  source .venv/bin/activate && PYTHONPATH=src python tools/dmv_m2_36_physical_materialization_pilot.py
+
+Protocol:
+  six deterministic designs; one untimed warmup; three measured repetitions;
+  PostgreSQL 16.14; 1,963 queries per path/design; no cache flushing.
+
+Completed successfully.  Summary is in summary.json and report.md.  The
+runner verified exact physical payload matching for 18/18 measured physical
+rows and verified final cleanup (zero pgextadv_* statistics/data rows and no
+frozen sample relation).
+
+No Census search, new sampling, maintenance calibration, or paper build was
+run by this milestone.
+

@@ -1,0 +1,42 @@
+{
+  "all_planner_call_counts_match": true,
+  "break_even_design_count": 0.32093972627401274,
+  "common_explain_query_count": 1963,
+  "design_count": 6,
+  "hypothetical_activation_median_seconds": 0.00042103700070583727,
+  "hypothetical_activation_range_seconds": [
+    0.0002964870000141673,
+    0.0005417400025180541
+  ],
+  "hypothetical_total_median_seconds": 0.2794524740002089,
+  "hypothetical_total_range_seconds": [
+    0.2563208290011971,
+    0.3045996769978956
+  ],
+  "measured_repetitions_per_design_path": 3,
+  "milestone": "M2.36",
+  "objective_comparison_interpretation": "diagnostic only; timing is primary and M2.18/M2.35 remain authoritative same-realization fidelity evidence",
+  "one_time_hypothetical_setup_seconds": 0.037349549998907605,
+  "physical_materialization_median_seconds": 0.11679662699862092,
+  "physical_materialization_range_seconds": [
+    0.06588731900410494,
+    0.21810792100222898
+  ],
+  "physical_total_median_seconds": 0.39209808149462333,
+  "physical_total_range_seconds": [
+    0.35124957900188747,
+    0.4946634020016063
+  ],
+  "practical_signal": "MODERATE",
+  "ratio_median": 1.4144749293863468,
+  "ratio_range": [
+    1.3261850192104605,
+    1.6680623359890776
+  ],
+  "ratio_span": 0.3418773167786171,
+  "realization_match_counts": {
+    "physical_rows_total": 18,
+    "physical_rows_with_all_payloads_matching": 18
+  },
+  "status": "complete"
+}
