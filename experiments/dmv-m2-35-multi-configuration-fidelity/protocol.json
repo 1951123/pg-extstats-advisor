@@ -758,6 +758,9 @@
     "total_selected_payload_checks": 396,
     "total_wall_seconds": 46.18019511699276
   },
-  "system_head": "336d2cc7274eb68093b984a3b429821120a09209",
+  "frozen_implementation_commit": "88797e4b82ff1d5c8bbba28dc27987af78ce78ad",
+  "frozen_implementation_tag": "paper-v1-system",
+  "harness_source_commit": "acf79a3463595eab7d77983cf781e8cffbb89ae6",
+  "system_head": "acf79a3463595eab7d77983cf781e8cffbb89ae6",
   "workload_digest": "0e8ef80c0da0d6a9810b2e8f8910034f8a743804a3859b2c9b61d461b8d0bf4c"
 }
