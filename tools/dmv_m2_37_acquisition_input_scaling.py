@@ -76,6 +76,9 @@ def physical_one(conn: psycopg.Connection[Any], repository: PayloadRepository, w
         "repetition": repetition, "warmup": warmup, "create_s": create_s, "analyze_s": analyze_s,
         "explain_s": explain["explain_elapsed_seconds"], "cleanup_s": cleanup_before + cleanup_after,
         "physical_materialization_s": materialization, "per_design_total_s": materialization + explain["explain_elapsed_seconds"],
+        "physical_create_s": create_s, "physical_analyze_s": analyze_s,
+        "physical_explain_s": explain["explain_elapsed_seconds"], "physical_cleanup_s": cleanup_before + cleanup_after,
+        "physical_total_s": materialization + explain["explain_elapsed_seconds"],
         "objective": explain["objective"], "estimate_vector_digest": explain["estimate_vector_digest"],
         "planner_calls": explain["planner_calls"], "payload_check": payload,
     }
@@ -91,6 +94,8 @@ def hypothetical_one(conn: psycopg.Connection[Any], adapter: PostgresAdapter, wo
         "path": "hypothetical", "input_rows": config["input_rows"], "config_id": config["config_id"],
         "repetition": repetition, "warmup": warmup, "activation_s": activation_s,
         "explain_s": explain["explain_elapsed_seconds"], "per_design_total_s": activation_s + explain["explain_elapsed_seconds"],
+        "hypothetical_activate_s": activation_s, "hypothetical_explain_s": explain["explain_elapsed_seconds"],
+        "hypothetical_total_s": activation_s + explain["explain_elapsed_seconds"],
         "objective": explain["objective"], "estimate_vector_digest": explain["estimate_vector_digest"],
         "planner_calls": explain["planner_calls"],
     }
