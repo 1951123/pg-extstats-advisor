@@ -1,0 +1,28 @@
+{
+  "all_estimate_vectors_exact": true,
+  "all_objectives_exact": true,
+  "all_payloads_exact": true,
+  "all_same_realization": true,
+  "configuration_count": 26,
+  "milestone": "M2.35",
+  "pass_count": 26,
+  "selected_absent_native_configurations": [
+    "cfg-04",
+    "cfg-06",
+    "cfg-10",
+    "cfg-11",
+    "cfg-13",
+    "cfg-14",
+    "cfg-22",
+    "cfg-23",
+    "cfg-24",
+    "cfg-25",
+    "cfg-26"
+  ],
+  "status": "complete",
+  "total_estimate_comparisons": 51038,
+  "total_full_repository_payload_checks": 1872,
+  "total_q_error_comparisons": 51038,
+  "total_selected_payload_checks": 396,
+  "total_wall_seconds": 46.18019511699276
+}

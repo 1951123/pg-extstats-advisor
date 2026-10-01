@@ -179,7 +179,7 @@ def make_configurations(repository: PayloadRepository) -> list[dict[str, Any]]:
 
     def add(name: str, source: str, items: list[Any] | tuple[Any, ...]) -> None:
         selected = normalized(catalog, items)
-        ids = tuple(str(item.candidate_id) for item in selected)
+        ids = [str(item.candidate_id) for item in selected]
         if any(row["selected_design"] == ids for row in configs):
             return
         configs.append({
@@ -293,6 +293,10 @@ def evaluate_configuration(
         "physical_estimate_vector_digest": p_digest,
         "query_count": len(h_state.query_evaluations),
         "physical_payload_match": True,
+        "estimate_exact_count": len(h_state.query_evaluations),
+        "q_error_exact_count": len(h_state.query_evaluations),
+        "selected_payload_exact_count": len(selected),
+        "full_repository_payload_exact_count": len(all_candidates),
         "ordinary_statistics_digest": h_base,
         "relation_metadata_digest": h_metadata["digest"],
         "h_rebuild_seconds": h_rebuild_seconds,
@@ -322,6 +326,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=None, help="run only the first N configurations")
     parser.add_argument("--resume", action="store_true", help="reuse completed per-configuration JSON files")
+    parser.add_argument("--rerun", action="store_true", help="re-evaluate configurations even when per-run JSON exists")
     args = parser.parse_args()
     if OUT.exists() and not args.resume:
         raise RuntimeError(f"refusing to overwrite existing output directory: {OUT}")
@@ -378,7 +383,7 @@ def main() -> int:
     rows: list[dict[str, Any]] = []
     for config in configs:
         result_path = OUT / "runs" / f"{config['config_id']}.json"
-        if args.resume and result_path.exists():
+        if args.resume and not args.rerun and result_path.exists():
             result = json.loads(result_path.read_text())
         else:
             print(f"[{config['config_id']}/{len(configs)}] {config['name']} ({config['selected_count']} objects)", flush=True)
@@ -395,6 +400,10 @@ def main() -> int:
         "all_payloads_exact": all(item.get("physical_payload_match") for item in rows),
         "all_estimate_vectors_exact": all(item.get("hypothetical_estimate_vector_digest") == item.get("physical_estimate_vector_digest") for item in rows),
         "all_objectives_exact": all(item.get("hypothetical_objective") == item.get("physical_objective") for item in rows),
+        "total_estimate_comparisons": sum(int(item.get("estimate_exact_count", 0)) for item in rows),
+        "total_q_error_comparisons": sum(int(item.get("q_error_exact_count", 0)) for item in rows),
+        "total_selected_payload_checks": sum(int(item.get("selected_payload_exact_count", 0)) for item in rows),
+        "total_full_repository_payload_checks": sum(int(item.get("full_repository_payload_exact_count", 0)) for item in rows),
         "selected_absent_native_configurations": [item["config_id"] for item in rows if item.get("includes_absent_native")],
         "total_wall_seconds": sum(float(item.get("wall_seconds", 0.0)) for item in rows),
     }
