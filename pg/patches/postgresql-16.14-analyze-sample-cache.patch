@@ -1,0 +1,681 @@
+diff --git a/src/backend/commands/Makefile b/src/backend/commands/Makefile
+index 48f7348..4a522e6 100644
+--- a/src/backend/commands/Makefile
++++ b/src/backend/commands/Makefile
+@@ -17,6 +17,7 @@ OBJS = \
+ 	alter.o \
+ 	amcmds.o \
+ 	analyze.o \
++	analyze_sample_cache.o \
+ 	async.o \
+ 	cluster.o \
+ 	collationcmds.o \
+diff --git a/src/backend/commands/analyze.c b/src/backend/commands/analyze.c
+index adfc1dd..5641c1c 100644
+--- a/src/backend/commands/analyze.c
++++ b/src/backend/commands/analyze.c
+@@ -36,6 +36,7 @@
+ #include "catalog/pg_inherits.h"
+ #include "catalog/pg_namespace.h"
+ #include "catalog/pg_statistic_ext.h"
++#include "commands/analyze_sample_cache.h"
+ #include "commands/dbcommands.h"
+ #include "commands/progress.h"
+ #include "commands/tablecmds.h"
+@@ -97,6 +98,10 @@ char	   *pg_extstats_frozen_sample_mode = "off";
+ char	   *pg_extstats_frozen_sample_relation = "";
+ double		pg_extstats_frozen_totalrows = -1.0;
+ 
++/* Optional binary sample cache controls.  Empty paths keep ANALYZE unchanged. */
++char	   *pgextadv_analyze_sample_export = "";
++char	   *pgextadv_analyze_sample_import = "";
++
+ /* A few variables that don't seem worth passing around as parameters */
+ static MemoryContext anl_context = NULL;
+ static BufferAccessStrategy vac_strategy;
+@@ -1190,6 +1195,36 @@ acquire_sample_rows(Relation onerel, int elevel,
+ 				 errmsg("invalid pg_extstats.frozen_sample_mode: \"%s\"",
+ 						pg_extstats_frozen_sample_mode)));
+ 
++	if ((pgextadv_analyze_sample_import != NULL &&
++		 pgextadv_analyze_sample_import[0] != '\0') &&
++		(pgextadv_analyze_sample_export != NULL &&
++		 pgextadv_analyze_sample_export[0] != '\0'))
++		ereport(ERROR,
++				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
++				 errmsg("pgextadv.analyze_sample_export and pgextadv.analyze_sample_import cannot be enabled together")));
++
++	if (pgextadv_analyze_sample_import != NULL &&
++		pgextadv_analyze_sample_import[0] != '\0')
++	{
++		SampleCache *cache;
++		int			i;
++
++		cache = sample_cache_import(onerel, pgextadv_analyze_sample_import,
++									 targrows);
++		for (i = 0; i < (int) cache->tuple_count; i++)
++			rows[i] = cache->tuples[i];
++		numrows = (int) cache->tuple_count;
++		*totalrows = cache->totalrows;
++		*totaldeadrows = 0.0;
++		cache->tuples = NULL;
++		sample_cache_free(cache, false);
++		ereport(elevel,
++				(errmsg("\"%s\": imported %d rows from ANALYZE sample cache, "
++							"%.0f estimated total rows",
++							RelationGetRelationName(onerel), numrows, *totalrows)));
++		return numrows;
++	}
++
+ 	Assert(targrows > 0);
+ 
+ 	totalblocks = RelationGetNumberOfBlocks(onerel);
+@@ -1381,6 +1416,11 @@ acquire_sample_rows(Relation onerel, int elevel,
+ 		strcmp(pg_extstats_frozen_sample_mode, "capture") == 0)
+ 		capture_frozen_sample_rows(onerel, rows, numrows);
+ 
++	if (pgextadv_analyze_sample_export != NULL &&
++		pgextadv_analyze_sample_export[0] != '\0')
++		sample_cache_export(onerel, pgextadv_analyze_sample_export, rows,
++							 numrows, *totalrows);
++
+ 	return numrows;
+ }
+ 
+diff --git a/src/backend/commands/analyze_sample_cache.c b/src/backend/commands/analyze_sample_cache.c
+new file mode 100644
+index 0000000..0926b40
+--- /dev/null
++++ b/src/backend/commands/analyze_sample_cache.c
+@@ -0,0 +1,372 @@
++/*-------------------------------------------------------------------------
++ *
++ * analyze_sample_cache.c
++ *		Binary export/import for ANALYZE acquisition samples.
++ *
++ * This is deliberately an internal, PostgreSQL-native format.  It is tied to
++ * the server binary and relation tuple descriptor; it is not a data export
++ * format and does not contain computed statistics.
++ *
++ *-------------------------------------------------------------------------
++ */
++#include "postgres.h"
++
++#include <stdio.h>
++#include <string.h>
++
++#include "access/heapam.h"
++#include "access/htup_details.h"
++#include "catalog/namespace.h"
++#include "commands/analyze_sample_cache.h"
++#include "miscadmin.h"
++#include "port/pg_crc32c.h"
++#include "storage/fd.h"
++#include "utils/elog.h"
++#include "utils/lsyscache.h"
++#include "utils/memutils.h"
++#include "utils/rel.h"
++
++#define SAMPLE_CACHE_MAGIC "PGEXTSC1"
++#define SAMPLE_CACHE_MAGIC_LEN 8
++#define SAMPLE_CACHE_FORMAT_VERSION 1
++
++static void sample_cache_write_bytes(FILE *file, const void *data, size_t len,
++								 pg_crc32c *crc, const char *path);
++static void sample_cache_read_bytes(FILE *file, void *data, size_t len,
++								pg_crc32c *crc, const char *path);
++static void sample_cache_write_u32(FILE *file, uint32 value, pg_crc32c *crc,
++								  const char *path);
++static uint32 sample_cache_read_u32(FILE *file, pg_crc32c *crc, const char *path);
++static void sample_cache_write_string(FILE *file, const char *value,
++								  pg_crc32c *crc, const char *path);
++static char *sample_cache_read_string(FILE *file, pg_crc32c *crc,
++								 const char *path);
++static char *sample_cache_relation_identity(Relation relation);
++static void sample_cache_check_descriptor(Relation relation, uint32 natts,
++										 FILE *file,
++										 pg_crc32c *crc, const char *path);
++static void sample_cache_file_error(const char *path, const char *operation);
++
++static void
++sample_cache_file_error(const char *path, const char *operation)
++{
++	ereport(ERROR,
++			(errcode_for_file_access(),
++			 errmsg("could not %s ANALYZE sample cache file \"%s\": %m",
++					 operation, path)));
++}
++
++static void
++sample_cache_write_bytes(FILE *file, const void *data, size_t len,
++							 pg_crc32c *crc, const char *path)
++{
++	if (len > 0 && fwrite(data, 1, len, file) != len)
++		sample_cache_file_error(path, "write");
++	if (len > 0)
++		COMP_CRC32C(*crc, data, len);
++}
++
++static void
++sample_cache_read_bytes(FILE *file, void *data, size_t len,
++							pg_crc32c *crc, const char *path)
++{
++	if (len > 0 && fread(data, 1, len, file) != len)
++		sample_cache_file_error(path, "read");
++	if (len > 0)
++		COMP_CRC32C(*crc, data, len);
++}
++
++static void
++sample_cache_write_u32(FILE *file, uint32 value, pg_crc32c *crc,
++							  const char *path)
++{
++	sample_cache_write_bytes(file, &value, sizeof(value), crc, path);
++}
++
++static uint32
++sample_cache_read_u32(FILE *file, pg_crc32c *crc, const char *path)
++{
++	uint32	value;
++
++	sample_cache_read_bytes(file, &value, sizeof(value), crc, path);
++	return value;
++}
++
++static void
++sample_cache_write_string(FILE *file, const char *value, pg_crc32c *crc,
++							  const char *path)
++{
++	uint32	len = (uint32) strlen(value);
++
++	sample_cache_write_u32(file, len, crc, path);
++	sample_cache_write_bytes(file, value, len, crc, path);
++}
++
++static char *
++sample_cache_read_string(FILE *file, pg_crc32c *crc, const char *path)
++{
++	uint32	len = sample_cache_read_u32(file, crc, path);
++	char   *value;
++
++	if (len > MaxAllocSize - 1)
++		ereport(ERROR,
++				(errcode(ERRCODE_DATA_CORRUPTED),
++				 errmsg("ANALYZE sample cache string is too large"),
++				 errdetail("file \"%s\" contains a string of length %u",
++						   path, len)));
++	value = (char *) palloc(len + 1);
++	sample_cache_read_bytes(file, value, len, crc, path);
++	value[len] = '\0';
++	return value;
++}
++
++/* Length-prefix both names so dots or other punctuation in identifiers are unambiguous. */
++static char *
++sample_cache_relation_identity(Relation relation)
++{
++	const char *namespace_name = get_namespace_name(RelationGetNamespace(relation));
++	const char *relation_name = RelationGetRelationName(relation);
++
++	return psprintf("%zu:%s%zu:%s",
++					strlen(namespace_name), namespace_name,
++					strlen(relation_name), relation_name);
++}
++
++static void
++sample_cache_check_descriptor(Relation relation, uint32 natts, FILE *file,
++								  pg_crc32c *crc,
++								  const char *path)
++{
++	uint32	 i;
++
++	if (relation->rd_att->natts != (int) natts)
++		ereport(ERROR,
++				(errcode(ERRCODE_DATATYPE_MISMATCH),
++				 errmsg("ANALYZE sample cache column count does not match relation"),
++				 errdetail("cache has %u columns, relation has %d",
++						   natts, relation->rd_att->natts)));
++
++	for (i = 0; i < natts; i++)
++	{
++		Form_pg_attribute attr = TupleDescAttr(relation->rd_att, i);
++		Oid		typid = sample_cache_read_u32(file, crc, path);
++		int32	typmod;
++		Oid		collation;
++		uint8	dropped;
++		char   *attname;
++
++		sample_cache_read_bytes(file, &typmod, sizeof(typmod), crc, path);
++		collation = sample_cache_read_u32(file, crc, path);
++		sample_cache_read_bytes(file, &dropped, sizeof(dropped), crc, path);
++		attname = sample_cache_read_string(file, crc, path);
++
++		if (attr->atttypid != typid || attr->atttypmod != typmod ||
++			attr->attcollation != collation || attr->attisdropped != (dropped != 0) ||
++			strcmp(NameStr(attr->attname), attname) != 0)
++			ereport(ERROR,
++					(errcode(ERRCODE_DATATYPE_MISMATCH),
++					 errmsg("ANALYZE sample cache column %u does not match relation",
++							i + 1)));
++		pfree(attname);
++	}
++}
++
++void
++sample_cache_export(Relation relation, const char *path, HeapTuple *tuples,
++						int tuple_count, double totalrows)
++{
++	FILE	   *file;
++	pg_crc32c	crc;
++	uint32		i;
++	uint32		natts = (uint32) relation->rd_att->natts;
++	uint32		server_version = PG_VERSION_NUM;
++	const char *server_version_string = PG_VERSION;
++	char	   *relation_identity;
++
++	file = AllocateFile(path, PG_BINARY_W);
++	if (file == NULL)
++		sample_cache_file_error(path, "open");
++
++	INIT_CRC32C(crc);
++	relation_identity = sample_cache_relation_identity(relation);
++	sample_cache_write_bytes(file, SAMPLE_CACHE_MAGIC, SAMPLE_CACHE_MAGIC_LEN,
++							 &crc, path);
++	sample_cache_write_u32(file, SAMPLE_CACHE_FORMAT_VERSION, &crc, path);
++	sample_cache_write_u32(file, server_version, &crc, path);
++	sample_cache_write_string(file, server_version_string, &crc, path);
++	sample_cache_write_u32(file, relation->rd_id, &crc, path);
++	sample_cache_write_string(file, relation_identity, &crc, path);
++	sample_cache_write_u32(file, natts, &crc, path);
++	sample_cache_write_u32(file, (uint32) tuple_count, &crc, path);
++	sample_cache_write_bytes(file, &totalrows, sizeof(totalrows), &crc, path);
++
++	for (i = 0; i < natts; i++)
++	{
++		Form_pg_attribute attr = TupleDescAttr(relation->rd_att, i);
++		uint8	dropped = attr->attisdropped ? 1 : 0;
++
++		sample_cache_write_u32(file, attr->atttypid, &crc, path);
++		sample_cache_write_bytes(file, &attr->atttypmod, sizeof(attr->atttypmod),
++							 &crc, path);
++		sample_cache_write_u32(file, attr->attcollation, &crc, path);
++		sample_cache_write_bytes(file, &dropped, sizeof(dropped), &crc, path);
++		sample_cache_write_string(file, NameStr(attr->attname), &crc, path);
++	}
++
++	for (i = 0; i < (uint32) tuple_count; i++)
++	{
++		uint32	len = tuples[i]->t_len;
++
++		if (len < sizeof(HeapTupleHeaderData) || len > MaxAllocSize)
++			ereport(ERROR,
++					(errcode(ERRCODE_DATA_CORRUPTED),
++					 errmsg("invalid tuple length in ANALYZE sample")));
++		sample_cache_write_u32(file, len, &crc, path);
++		sample_cache_write_bytes(file, tuples[i]->t_data, len, &crc, path);
++	}
++
++	FIN_CRC32C(crc);
++	if (fwrite(&crc, sizeof(crc), 1, file) != 1)
++		sample_cache_file_error(path, "write");
++	if (FreeFile(file) != 0)
++		sample_cache_file_error(path, "close");
++	pfree(relation_identity);
++}
++
++SampleCache *
++sample_cache_import(Relation relation, const char *path, int targrows)
++{
++	SampleCache *cache;
++	FILE	   *file;
++	pg_crc32c	crc;
++	pg_crc32c	stored_crc;
++	char		magic[SAMPLE_CACHE_MAGIC_LEN];
++	uint32		version;
++	uint32		server_version;
++	char	   *server_version_string;
++	uint32		relation_oid;
++	char	   *relation_name;
++	uint32		natts;
++	uint32		i;
++	int		trailing;
++	char	   *relation_identity;
++
++	file = AllocateFile(path, PG_BINARY_R);
++	if (file == NULL)
++		sample_cache_file_error(path, "open");
++
++	INIT_CRC32C(crc);
++	sample_cache_read_bytes(file, magic, sizeof(magic), &crc, path);
++	if (memcmp(magic, SAMPLE_CACHE_MAGIC, sizeof(magic)) != 0)
++		ereport(ERROR,
++				(errcode(ERRCODE_DATA_CORRUPTED),
++				 errmsg("invalid ANALYZE sample cache magic in \"%s\"", path)));
++
++	version = sample_cache_read_u32(file, &crc, path);
++	if (version != SAMPLE_CACHE_FORMAT_VERSION)
++		ereport(ERROR,
++				(errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
++				 errmsg("unsupported ANALYZE sample cache version %u", version)));
++
++	server_version = sample_cache_read_u32(file, &crc, path);
++	server_version_string = sample_cache_read_string(file, &crc, path);
++	if (server_version != PG_VERSION_NUM ||
++		strcmp(server_version_string, PG_VERSION) != 0)
++		ereport(ERROR,
++				(errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
++				 errmsg("ANALYZE sample cache PostgreSQL version is incompatible"),
++				 errdetail("cache is for %u (%s), server is %u (%s)",
++						   server_version, server_version_string,
++						   PG_VERSION_NUM, PG_VERSION)));
++	pfree(server_version_string);
++
++	relation_oid = sample_cache_read_u32(file, &crc, path);
++	relation_name = sample_cache_read_string(file, &crc, path);
++	relation_identity = sample_cache_relation_identity(relation);
++	if (strcmp(relation_name, relation_identity) != 0 &&
++		!(relation_oid == RelationGetRelid(relation) &&
++		  strcmp(relation_name, RelationGetRelationName(relation)) == 0))
++		ereport(ERROR,
++				(errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
++				 errmsg("ANALYZE sample cache relation identity does not match"),
++				 errdetail("cache identity \"%s\" does not match relation \"%s\"",
++						   relation_name, relation_identity)));
++	pfree(relation_identity);
++
++	natts = sample_cache_read_u32(file, &crc, path);
++	cache = (SampleCache *) palloc0(sizeof(SampleCache));
++	cache->format_version = version;
++	cache->relation_oid = relation_oid;
++	cache->relation_name = relation_name;
++	cache->natts = (int) natts;
++	cache->tuple_count = sample_cache_read_u32(file, &crc, path);
++	sample_cache_read_bytes(file, &cache->totalrows, sizeof(cache->totalrows),
++						&crc, path);
++
++	if (cache->tuple_count > (uint32) targrows)
++		ereport(ERROR,
++				(errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
++				 errmsg("ANALYZE sample cache row count is invalid"),
++				 errdetail("cache has %u rows, ANALYZE requested at most %d",
++						   cache->tuple_count, targrows)));
++
++	sample_cache_check_descriptor(relation, natts, file, &crc, path);
++	cache->tuples = (HeapTuple *) palloc(sizeof(HeapTuple) * cache->tuple_count);
++	for (i = 0; i < cache->tuple_count; i++)
++	{
++		uint32		len = sample_cache_read_u32(file, &crc, path);
++		HeapTuple	tuple;
++
++		if (len < sizeof(HeapTupleHeaderData) || len > MaxAllocSize)
++			ereport(ERROR,
++					(errcode(ERRCODE_DATA_CORRUPTED),
++					 errmsg("invalid tuple length in ANALYZE sample cache")));
++		tuple = (HeapTuple) palloc(sizeof(HeapTupleData));
++		tuple->t_len = len;
++		ItemPointerSetInvalid(&tuple->t_self);
++		tuple->t_tableOid = RelationGetRelid(relation);
++		tuple->t_data = (HeapTupleHeader) palloc(len);
++		sample_cache_read_bytes(file, tuple->t_data, len, &crc, path);
++		cache->tuples[i] = tuple;
++	}
++
++	if (fread(&stored_crc, sizeof(stored_crc), 1, file) != 1)
++		sample_cache_file_error(path, "read");
++	FIN_CRC32C(crc);
++	if (stored_crc != crc)
++		ereport(ERROR,
++				(errcode(ERRCODE_DATA_CORRUPTED),
++				 errmsg("checksum mismatch in ANALYZE sample cache \"%s\"",
++						path)));
++	trailing = fgetc(file);
++	if (trailing != EOF)
++		ereport(ERROR,
++				(errcode(ERRCODE_DATA_CORRUPTED),
++				 errmsg("unexpected data after ANALYZE sample cache checksum"),
++				 errdetail("file \"%s\" has trailing bytes", path)));
++	if (ferror(file))
++		sample_cache_file_error(path, "read");
++	if (FreeFile(file) != 0)
++		sample_cache_file_error(path, "close");
++
++	return cache;
++}
++
++void
++sample_cache_free(SampleCache *cache, bool free_tuples)
++{
++	uint32	i;
++
++	if (cache == NULL)
++		return;
++	if (free_tuples && cache->tuples != NULL)
++	{
++		for (i = 0; i < cache->tuple_count; i++)
++			heap_freetuple(cache->tuples[i]);
++	}
++	if (cache->tuples != NULL)
++		pfree(cache->tuples);
++	if (cache->relation_name != NULL)
++		pfree(cache->relation_name);
++	pfree(cache);
++}
+diff --git a/src/backend/commands/meson.build b/src/backend/commands/meson.build
+index 42cced9..cf4d458 100644
+--- a/src/backend/commands/meson.build
++++ b/src/backend/commands/meson.build
+@@ -5,6 +5,7 @@ backend_sources += files(
+   'alter.c',
+   'amcmds.c',
+   'analyze.c',
++  'analyze_sample_cache.c',
+   'async.c',
+   'cluster.c',
+   'collationcmds.c',
+diff --git a/src/backend/utils/misc/guc_tables.c b/src/backend/utils/misc/guc_tables.c
+index 86c287c..250c5a4 100644
+--- a/src/backend/utils/misc/guc_tables.c
++++ b/src/backend/utils/misc/guc_tables.c
+@@ -96,6 +96,8 @@ extern int	CommitDelay;
+ extern int	CommitSiblings;
+ extern char *default_tablespace;
+ extern char *temp_tablespaces;
++extern char *pgextadv_analyze_sample_export;
++extern char *pgextadv_analyze_sample_import;
+ extern char *pg_extstats_frozen_sample_mode;
+ extern char *pg_extstats_frozen_sample_relation;
+ extern double pg_extstats_frozen_totalrows;
+@@ -3818,6 +3820,26 @@ struct config_real ConfigureNamesReal[] =
+ 
+ struct config_string ConfigureNamesString[] =
+ {
++	{
++		{"pgextadv.analyze_sample_export", PGC_USERSET, DEVELOPER_OPTIONS,
++			gettext_noop("Path for exporting the internal ANALYZE sample."),
++			gettext_noop("An empty path disables sample export; the file is a PostgreSQL-native binary cache."),
++			GUC_NOT_IN_SAMPLE
++		},
++		&pgextadv_analyze_sample_export,
++		"",
++		NULL, NULL, NULL
++	},
++	{
++		{"pgextadv.analyze_sample_import", PGC_USERSET, DEVELOPER_OPTIONS,
++			gettext_noop("Path for importing an internal ANALYZE sample."),
++			gettext_noop("An empty path disables sample import; incompatible or corrupt caches are rejected."),
++			GUC_NOT_IN_SAMPLE
++		},
++		&pgextadv_analyze_sample_import,
++		"",
++		NULL, NULL, NULL
++	},
+ 	{
+ 		{"pg_extstats.frozen_sample_mode", PGC_USERSET, DEVELOPER_OPTIONS,
+ 			gettext_noop("Use an experiment-only frozen acquisition sample during ANALYZE."),
+diff --git a/src/include/commands/analyze_sample_cache.h b/src/include/commands/analyze_sample_cache.h
+new file mode 100644
+index 0000000..157b400
+--- /dev/null
++++ b/src/include/commands/analyze_sample_cache.h
+@@ -0,0 +1,34 @@
++/*-------------------------------------------------------------------------
++ *
++ * analyze_sample_cache.h
++ *
++ * Internal export/import support for ANALYZE acquisition samples.
++ *
++ *-------------------------------------------------------------------------
++ */
++#ifndef ANALYZE_SAMPLE_CACHE_H
++#define ANALYZE_SAMPLE_CACHE_H
++
++#include "access/htup.h"
++#include "access/relation.h"
++
++/* The cache contains sampled tuples, never pg_statistic payloads. */
++typedef struct SampleCache
++{
++	uint32		format_version;
++	Oid			relation_oid;
++	char	   *relation_name;
++	int			natts;
++	uint32		tuple_count;
++	double		totalrows;
++	HeapTuple *tuples;
++} SampleCache;
++
++extern void sample_cache_export(Relation relation, const char *path,
++							HeapTuple *tuples, int tuple_count,
++							double totalrows);
++extern SampleCache *sample_cache_import(Relation relation, const char *path,
++									int targrows);
++extern void sample_cache_free(SampleCache *cache, bool free_tuples);
++
++#endif						/* ANALYZE_SAMPLE_CACHE_H */
+diff --git a/src/test/regress/expected/analyze_sample_cache.out b/src/test/regress/expected/analyze_sample_cache.out
+new file mode 100644
+index 0000000..330225f
+--- /dev/null
++++ b/src/test/regress/expected/analyze_sample_cache.out
+@@ -0,0 +1,54 @@
++-- Verify binary ANALYZE sample export/import and deterministic statistics.
++SET client_min_messages = warning;
++CREATE TABLE analyze_sample_cache_test (id integer, category text);
++INSERT INTO analyze_sample_cache_test
++SELECT i, 'category-' || (i % 17)
++FROM generate_series(1, 2000) AS s(i);
++ALTER TABLE analyze_sample_cache_test ALTER COLUMN category SET STATISTICS 1;
++SET pgextadv.analyze_sample_export = '/tmp/pgextadv-analyze-sample-cache-regress.bin';
++ANALYZE analyze_sample_cache_test;
++SELECT (pg_stat_file('/tmp/pgextadv-analyze-sample-cache-regress.bin')).size > 0;
++ ?column? 
++----------
++ t
++(1 row)
++
++CREATE TEMP TABLE analyze_sample_cache_stats AS
++SELECT attname, null_frac, avg_width, n_distinct,
++       most_common_vals::text, most_common_freqs::text,
++       histogram_bounds::text, correlation
++FROM pg_stats
++WHERE tablename = 'analyze_sample_cache_test';
++SET pgextadv.analyze_sample_export = '';
++SET pgextadv.analyze_sample_import = '/tmp/pgextadv-analyze-sample-cache-regress.bin';
++ANALYZE analyze_sample_cache_test;
++SELECT NOT EXISTS (
++    (SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM pg_stats
++     WHERE tablename = 'analyze_sample_cache_test'
++     EXCEPT
++     SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM analyze_sample_cache_stats)
++    UNION ALL
++    (SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM analyze_sample_cache_stats
++     EXCEPT
++     SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM pg_stats
++     WHERE tablename = 'analyze_sample_cache_test')
++);
++ ?column? 
++----------
++ t
++(1 row)
++
++SET pgextadv.analyze_sample_import = '';
++DROP TABLE analyze_sample_cache_test;
+diff --git a/src/test/regress/parallel_schedule b/src/test/regress/parallel_schedule
+index 84e3710..dc1b254 100644
+--- a/src/test/regress/parallel_schedule
++++ b/src/test/regress/parallel_schedule
+@@ -51,6 +51,8 @@ test: create_index create_index_spgist create_view index_including index_includi
+ test: create_aggregate create_function_sql create_cast constraints triggers select inherit typed_table vacuum drop_if_exists updatable_views roleattributes create_am hash_func errors infinite_recurse
+ 
+ # ----------
++test: analyze_sample_cache
++
+ # sanity_check does a vacuum, affecting the sort order of SELECT *
+ # results. So it should not run parallel to other tests.
+ # ----------
+diff --git a/src/test/regress/sql/analyze_sample_cache.sql b/src/test/regress/sql/analyze_sample_cache.sql
+new file mode 100644
+index 0000000..3b330c3
+--- /dev/null
++++ b/src/test/regress/sql/analyze_sample_cache.sql
+@@ -0,0 +1,48 @@
++-- Verify binary ANALYZE sample export/import and deterministic statistics.
++SET client_min_messages = warning;
++CREATE TABLE analyze_sample_cache_test (id integer, category text);
++INSERT INTO analyze_sample_cache_test
++SELECT i, 'category-' || (i % 17)
++FROM generate_series(1, 2000) AS s(i);
++ALTER TABLE analyze_sample_cache_test ALTER COLUMN category SET STATISTICS 1;
++
++SET pgextadv.analyze_sample_export = '/tmp/pgextadv-analyze-sample-cache-regress.bin';
++ANALYZE analyze_sample_cache_test;
++SELECT (pg_stat_file('/tmp/pgextadv-analyze-sample-cache-regress.bin')).size > 0;
++
++CREATE TEMP TABLE analyze_sample_cache_stats AS
++SELECT attname, null_frac, avg_width, n_distinct,
++       most_common_vals::text, most_common_freqs::text,
++       histogram_bounds::text, correlation
++FROM pg_stats
++WHERE tablename = 'analyze_sample_cache_test';
++
++SET pgextadv.analyze_sample_export = '';
++SET pgextadv.analyze_sample_import = '/tmp/pgextadv-analyze-sample-cache-regress.bin';
++ANALYZE analyze_sample_cache_test;
++SELECT NOT EXISTS (
++    (SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM pg_stats
++     WHERE tablename = 'analyze_sample_cache_test'
++     EXCEPT
++     SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM analyze_sample_cache_stats)
++    UNION ALL
++    (SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM analyze_sample_cache_stats
++     EXCEPT
++     SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM pg_stats
++     WHERE tablename = 'analyze_sample_cache_test')
++);
++
++SET pgextadv.analyze_sample_import = '';
++DROP TABLE analyze_sample_cache_test;

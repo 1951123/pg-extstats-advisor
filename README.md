@@ -74,8 +74,9 @@ gates and emitted the frozen model. See
 The PostgreSQL binary used by this project must always be derivable as:
 
 ```text
-immutable postgresql-16.14.tar.bz2
+clean Git checkout of PostgreSQL REL_16_14
     + Git-tracked pg/patches/postgresql-16.14-hypothetical-extstats.patch
+    + Git-tracked pg/patches/postgresql-16.14-analyze-sample-cache.patch
     = disposable patched build and installed binary
 ```
 

@@ -68,3 +68,14 @@ registering the already compiled backend-local
 database-local registration repair only: no PostgreSQL source, tracked patch,
 binary, build input, candidate catalog, or CE semantics changed. The repair is
 recorded in the M2.21 protocol and lineage manifests.
+
+## Sample-cache validation profile
+
+The experimental ANALYZE sample-cache substrate is built only through the
+clean-room two-patch stack documented in `pg/README.md`. Its validation build
+used PostgreSQL REL_16_14, debug and cassert, OpenSSL, and a fresh user-owned
+cluster on port 55438. The binary and sample artifact digests, format identity,
+ordinary/MCV/FD replay results, portable relation-identity check, and negative
+compatibility checks are recorded in `notes/analyze-sample-cache.md`. This
+profile validates the PostgreSQL mechanism on a controlled relation; it is not
+benchmark data or an experiment environment.
