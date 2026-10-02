@@ -12,11 +12,11 @@ patch file:
 - upstream base: PostgreSQL `REL_16_14`,
   `0d1c00c624fa7367d4a895f44381887757289682`;
 - authoritative commit:
-  `7e992ab6438fef2f8eb98c7a9ed30c9f1c816ce7`;
+  `6d7f5c9cd6cf1b0f73e84a4bacc45a31d1cb0cd6`;
 - derived advisor patch:
   `pg/patches/postgresql-16.14-pgextadv.patch`;
 - derived patch SHA256:
-  `fb34b205c4872e8272c42de76384472d13f58fe15e956659b34d68e65228b6ee`.
+  `35736bbb40045394e7a2cc56405c7760392439014343c6ede3fffa490d2197dd`.
 
 The old split patches are retired from the active tree. Their implementations
 remain recoverable through advisor Git history. The canonical derivation is
@@ -59,8 +59,8 @@ rejected.
 
 A clean-room build from the authoritative commit used
 `--enable-debug --enable-cassert --with-openssl`, passed `make -j$(nproc)`,
-`make check` (221/221), and `make install`. Its PostgreSQL 16.14 binary SHA256
-was `ee6be55da350662007c229d81701a4b7fb1637255e38fb06bfeab951e1384f73`.
+`make check` (222/222), and `make install`. Its PostgreSQL 16.14 binary SHA256
+was `3859247d686d758c04d1f5ea899bab35894ab11941730010f5900d18d5fdfbf9`.
 
 A disposable PostgreSQL 16.14 instance on port 55438 used a deterministic
 20,000-row relation with two MCV and two functional-dependency candidates. The

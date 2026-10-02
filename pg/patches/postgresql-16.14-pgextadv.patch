@@ -711,7 +711,7 @@ index 42cced9ebe9c5e62ad7d41d3f56b7f6e30e36166..cf4d4589eb2a9186cf05af5c80a6b55b
    'cluster.c',
    'collationcmds.c',
 diff --git a/src/backend/optimizer/util/plancat.c b/src/backend/optimizer/util/plancat.c
-index d5f0034554892ebd74a2b578ac7a8b0f643bfac3..f3a6fdeca8181b3e9c044c21e1de578663e6c146 100644
+index d5f0034554892ebd74a2b578ac7a8b0f643bfac3..78a120cb7fadea2e1a28544437217ecdb89e9965 100644
 --- a/src/backend/optimizer/util/plancat.c
 +++ b/src/backend/optimizer/util/plancat.c
 @@ -46,6 +46,7 @@
@@ -722,7 +722,15 @@ index d5f0034554892ebd74a2b578ac7a8b0f643bfac3..f3a6fdeca8181b3e9c044c21e1de5786
  #include "storage/bufmgr.h"
  #include "tcop/tcopprot.h"
  #include "utils/builtins.h"
-@@ -1371,7 +1372,42 @@ get_relation_statistics_worker(List **stainfos, RelOptInfo *rel,
+@@ -74,6 +75,7 @@ static List *get_relation_constraints(PlannerInfo *root,
+ static List *build_index_tlist(PlannerInfo *root, IndexOptInfo *index,
+ 							   Relation heapRelation);
+ static List *get_relation_statistics(RelOptInfo *rel, Relation relation);
++static List *append_stat_info(List *list, StatisticExtInfo *info);
+ static void set_relation_partition_info(PlannerInfo *root, RelOptInfo *rel,
+ 										Relation relation);
+ static PartitionScheme find_partition_scheme(PlannerInfo *root,
+@@ -1371,7 +1373,42 @@ get_relation_statistics_worker(List **stainfos, RelOptInfo *rel,
  	dtup = SearchSysCache2(STATEXTDATASTXOID,
  						   ObjectIdGetDatum(statOid), BoolGetDatum(inh));
  	if (!HeapTupleIsValid(dtup))
@@ -765,7 +773,20 @@ index d5f0034554892ebd74a2b578ac7a8b0f643bfac3..f3a6fdeca8181b3e9c044c21e1de5786
  
  	dataForm = (Form_pg_statistic_ext_data) GETSTRUCT(dtup);
  
-@@ -1452,6 +1488,7 @@ get_relation_statistics(RelOptInfo *rel, Relation relation)
+@@ -1435,6 +1472,12 @@ get_relation_statistics_worker(List **stainfos, RelOptInfo *rel,
+ 	ReleaseSysCache(dtup);
+ }
+ 
++static List *
++append_stat_info(List *list, StatisticExtInfo *info)
++{
++	return lappend(list, info);
++}
++
+ /*
+  * get_relation_statistics
+  *		Retrieve extended statistics defined on the table.
+@@ -1452,16 +1495,39 @@ get_relation_statistics(RelOptInfo *rel, Relation relation)
  	ListCell   *l;
  
  	statoidlist = RelationGetStatExtList(relation);
@@ -773,6 +794,38 @@ index d5f0034554892ebd74a2b578ac7a8b0f643bfac3..f3a6fdeca8181b3e9c044c21e1de5786
  
  	foreach(l, statoidlist)
  	{
+ 		Oid			statOid = lfirst_oid(l);
++		char		virtual_kind;
++		Bitmapset  *virtual_keys = NULL;
+ 		Form_pg_statistic_ext staForm;
+ 		HeapTuple	htup;
+ 		Bitmapset  *keys = NULL;
+ 		List	   *exprs = NIL;
+ 		int			i;
+ 
++		/* Catalogless hypothetical definitions already carry their planner
++		 * metadata.  Do not resolve their synthetic identity through
++		 * pg_statistic_ext. */
++		if (hypothetical_extstats_definition(statOid,
++											RelationGetRelid(relation),
++											&virtual_kind, &virtual_keys))
++		{
++			StatisticExtInfo *info = makeNode(StatisticExtInfo);
++
++			info->statOid = statOid;
++			info->inherit = false;
++			info->rel = rel;
++			info->kind = virtual_kind == HYPOTHETICAL_EXTSTATS_MCV ?
++				STATS_EXT_MCV : STATS_EXT_DEPENDENCIES;
++			info->keys = virtual_keys;
++			info->exprs = NIL;
++			stainfos = append_stat_info(stainfos, info);
++			continue;
++		}
++
+ 		htup = SearchSysCache1(STATEXTOID, ObjectIdGetDatum(statOid));
+ 		if (!HeapTupleIsValid(htup))
+ 			elog(ERROR, "cache lookup failed for statistics object %u", statOid);
 diff --git a/src/backend/statistics/Makefile b/src/backend/statistics/Makefile
 index 89cf8c27973db21eb0a8f1dda8d28b6b5be333d7..58318a311d136043a3355067fa2ed06cc6f70f39 100644
 --- a/src/backend/statistics/Makefile
@@ -820,25 +873,36 @@ index edb2e5347d45febf9cb1bc79b34d2ee9c97ad45a..82fe52a407cd86c4b5986b2a51b0ab13
  						   BoolGetDatum(inh));
 diff --git a/src/backend/statistics/hypothetical.c b/src/backend/statistics/hypothetical.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..fcb9e2d013ee344311c61a3ce22c2b777f83f22b
+index 0000000000000000000000000000000000000000..fcb88e34cea2264ecfccabe9f93566515f26dba5
 --- /dev/null
 +++ b/src/backend/statistics/hypothetical.c
-@@ -0,0 +1,364 @@
+@@ -0,0 +1,569 @@
 +/* Backend-local hypothetical extended-statistics overlay. */
 +#include "postgres.h"
 +#include "catalog/pg_statistic_ext.h"
++#include "common/hashfn.h"
 +#include "fmgr.h"
 +#include "access/htup_details.h"
++#include "nodes/bitmapset.h"
 +#include "statistics/extended_stats_internal.h"
 +#include "statistics/hypothetical.h"
 +#include "utils/array.h"
++#include "utils/builtins.h"
 +#include "utils/hsearch.h"
 +#include "utils/memutils.h"
 +#include "utils/syscache.h"
 +
 +typedef struct HypoPayloadKey { Oid statoid; char kind; } HypoPayloadKey;
 +typedef struct HypoPayloadEntry
-+{ HypoPayloadKey key; Oid relid; bytea *payload; bool absent_native; } HypoPayloadEntry;
++{
++	HypoPayloadKey key;
++	Oid relid;
++	bytea *payload;
++	Bitmapset *keys;
++	char *candidate_id;
++	bool absent_native;
++	bool virtual_definition;
++} HypoPayloadEntry;
 +typedef struct HypoActiveEntry { Oid statoid; Oid relid; } HypoActiveEntry;
 +
 +static MemoryContext HypoContext;
@@ -880,22 +944,41 @@ index 0000000000000000000000000000000000000000..fcb9e2d013ee344311c61a3ce22c2b77
 +	HypoEnabled = false;
 +}
 +
++static HypoPayloadEntry *
++repository_entry(Oid statoid, HypotheticalExtStatsKind kind)
++{
++	HypoPayloadKey key;
++
++	if (HypoRepository == NULL)
++		return NULL;
++	MemSet(&key, 0, sizeof(key));
++	key.statoid = statoid;
++	key.kind = kind;
++	return hash_search(HypoRepository, &key, HASH_FIND, NULL);
++}
++
++static HypoPayloadEntry *
++repository_entry_any(Oid statoid)
++{
++	HypoPayloadEntry *entry;
++
++	entry = repository_entry(statoid, HYPOTHETICAL_EXTSTATS_MCV);
++	if (entry == NULL)
++		entry = repository_entry(statoid, HYPOTHETICAL_EXTSTATS_DEPENDENCIES);
++	return entry;
++}
++
++static bool
++active_oid(Oid statoid)
++{
++	return HypoEnabled && HypoActive != NULL &&
++		hash_search(HypoActive, &statoid, HASH_FIND, NULL) != NULL;
++}
++
 +static bool
 +repository_oid(Oid statoid, Oid *relid)
 +{
-+	HypoPayloadKey key;
-+	HypoPayloadEntry *entry;
-+	if (HypoRepository == NULL)
-+		return false;
-+	MemSet(&key, 0, sizeof(key));
-+	key.statoid = statoid;
-+	key.kind = HYPOTHETICAL_EXTSTATS_MCV;
-+	entry = hash_search(HypoRepository, &key, HASH_FIND, NULL);
-+	if (entry == NULL)
-+	{
-+		key.kind = HYPOTHETICAL_EXTSTATS_DEPENDENCIES;
-+		entry = hash_search(HypoRepository, &key, HASH_FIND, NULL);
-+	}
++	HypoPayloadEntry *entry = repository_entry_any(statoid);
 +	if (entry == NULL)
 +		return false;
 +	*relid = entry->relid;
@@ -905,15 +988,10 @@ index 0000000000000000000000000000000000000000..fcb9e2d013ee344311c61a3ce22c2b77
 +bool
 +hypothetical_extstats_absent_native(Oid statoid, HypotheticalExtStatsKind kind)
 +{
-+	HypoPayloadKey key;
 +	HypoPayloadEntry *entry;
-+	if (!HypoEnabled || HypoActive == NULL ||
-+		hash_search(HypoActive, &statoid, HASH_FIND, NULL) == NULL)
++	if (!active_oid(statoid))
 +		return false;
-+	MemSet(&key, 0, sizeof(key));
-+	key.statoid = statoid;
-+	key.kind = kind;
-+	entry = hash_search(HypoRepository, &key, HASH_FIND, NULL);
++	entry = repository_entry(statoid, kind);
 +	if (entry == NULL)
 +		ereport(ERROR, (errmsg("active statistics object %u has no registered payload for kind %c",
 +			statoid, kind)));
@@ -923,18 +1001,156 @@ index 0000000000000000000000000000000000000000..fcb9e2d013ee344311c61a3ce22c2b77
 +bool
 +hypothetical_extstats_registered(Oid statoid, HypotheticalExtStatsKind kind)
 +{
-+	HypoPayloadKey key;
++	HypoPayloadEntry *entry;
 +
-+	if (!HypoEnabled || HypoActive == NULL || HypoRepository == NULL ||
-+		hash_search(HypoActive, &statoid, HASH_FIND, NULL) == NULL)
++	if (!active_oid(statoid))
 +		return false;
++	entry = repository_entry(statoid, kind);
++	return entry != NULL && !entry->absent_native;
++}
++
++bool
++hypothetical_extstats_definition(Oid statoid, Oid relid, char *kind,
++								 Bitmapset **keys)
++{
++	HypoPayloadEntry *entry = repository_entry_any(statoid);
++
++	if (entry == NULL || !entry->virtual_definition || entry->relid != relid ||
++		!active_oid(statoid) || entry->absent_native)
++		return false;
++	*kind = entry->key.kind;
++	*keys = bms_copy(entry->keys);
++	return true;
++}
++
++static void
++validate_kind(HypotheticalExtStatsKind kind)
++{
++	if (kind != HYPOTHETICAL_EXTSTATS_MCV &&
++		kind != HYPOTHETICAL_EXTSTATS_DEPENDENCIES)
++		ereport(ERROR, (errmsg("unsupported hypothetical statistics kind: %c", kind)));
++}
++
++static Oid
++allocate_virtual_oid(const char *candidate_id, Oid relid,
++					 HypotheticalExtStatsKind kind)
++{
++	char identity[256];
++	uint32 hash;
++	Oid statoid;
++
++	snprintf(identity, sizeof(identity), "%u:%c:%s", relid, kind, candidate_id);
++	hash = DatumGetUInt32(hash_any((const unsigned char *) identity,
++									 strlen(identity)));
++	/* OID zero is InvalidOid; the high bit marks backend-local values. */
++	statoid = (Oid) (hash | 0x80000000U);
++	if (!OidIsValid(statoid))
++		statoid = FirstNormalObjectId;
++
++	for (;; statoid++)
++	{
++		HeapTuple tuple;
++
++		if (statoid == InvalidOid)
++			continue;
++		if (repository_entry_any(statoid) != NULL)
++			continue;
++		/* This lookup is collision hygiene only.  Planner resolution of a
++		 * virtual identity never consults pg_statistic_ext. */
++		tuple = SearchSysCache1(STATEXTOID, ObjectIdGetDatum(statoid));
++		if (!HeapTupleIsValid(tuple))
++			return statoid;
++		ReleaseSysCache(tuple);
++	}
++}
++
++static Bitmapset *
++keys_from_array(ArrayType *array)
++{
++	Datum *datums;
++	bool *nulls;
++	int count;
++	Bitmapset *keys = NULL;
++	int i;
++
++	deconstruct_array_builtin(array, INT2OID, &datums, &nulls, &count);
++	if (count < 2 || count > STATS_MAX_DIMENSIONS)
++		ereport(ERROR, (errmsg("hypothetical statistics require 2..%d attribute keys",
++						  STATS_MAX_DIMENSIONS)));
++	for (i = 0; i < count; i++)
++	{
++		AttrNumber attnum;
++
++		if (nulls[i])
++			ereport(ERROR, (errmsg("hypothetical attribute keys cannot contain NULL")));
++		attnum = DatumGetInt16(datums[i]);
++		if (attnum <= 0 || bms_is_member(attnum, keys))
++			ereport(ERROR, (errmsg("hypothetical attribute keys must be positive and unique")));
++		keys = bms_add_member(keys, attnum);
++	}
++	pfree(datums);
++	pfree(nulls);
++	return keys;
++}
++
++static Oid
++register_definition_internal(const char *candidate_id, Oid relid,
++							 HypotheticalExtStatsKind kind, Bitmapset *keys,
++							 const bytea *payload, bool absent_native)
++{
++	HypoPayloadKey key;
++	HypoPayloadEntry *entry;
++	MemoryContext oldcontext;
++	bool found;
++	Oid statoid;
++	void *decoded = NULL;
++
++	if (candidate_id == NULL || candidate_id[0] == '\0' || !OidIsValid(relid))
++		ereport(ERROR, (errmsg("invalid catalogless hypothetical definition")));
++	validate_kind(kind);
++	if (keys == NULL || bms_num_members(keys) < 2)
++		ereport(ERROR, (errmsg("catalogless hypothetical definition has no attribute keys")));
++	if (!absent_native)
++	{
++		if (payload == NULL || VARSIZE_ANY_EXHDR(payload) == 0)
++			ereport(ERROR, (errmsg("empty hypothetical statistics payload")));
++		if (kind == HYPOTHETICAL_EXTSTATS_MCV)
++			decoded = statext_mcv_deserialize((bytea *) payload);
++		else
++			decoded = statext_dependencies_deserialize((bytea *) payload);
++		pfree(decoded);
++	}
++	hypothetical_extstats_init();
++	statoid = allocate_virtual_oid(candidate_id, relid, kind);
 +	MemSet(&key, 0, sizeof(key));
 +	key.statoid = statoid;
 +	key.kind = kind;
-+	{
-+		HypoPayloadEntry *entry = hash_search(HypoRepository, &key, HASH_FIND, NULL);
-+		return entry != NULL && !entry->absent_native;
-+	}
++	entry = hash_search(HypoRepository, &key, HASH_ENTER, &found);
++	Assert(!found);
++	oldcontext = MemoryContextSwitchTo(HypoRepositoryContext);
++	entry->relid = relid;
++	entry->keys = bms_copy(keys);
++	entry->candidate_id = pstrdup(candidate_id);
++	entry->payload = payload ? PG_DETOAST_DATUM_COPY(PointerGetDatum(payload)) : NULL;
++	entry->absent_native = absent_native;
++	entry->virtual_definition = true;
++	MemoryContextSwitchTo(oldcontext);
++	return statoid;
++}
++
++Oid
++hypothetical_extstats_register_definition(const char *candidate_id, Oid relid,
++							 HypotheticalExtStatsKind kind, Bitmapset *keys,
++							 const bytea *payload)
++{
++	return register_definition_internal(candidate_id, relid, kind, keys, payload, false);
++}
++
++Oid
++hypothetical_extstats_register_definition_absent(const char *candidate_id, Oid relid,
++											 HypotheticalExtStatsKind kind, Bitmapset *keys)
++{
++	return register_definition_internal(candidate_id, relid, kind, keys, NULL, true);
 +}
 +
 +void
@@ -981,7 +1197,10 @@ index 0000000000000000000000000000000000000000..fcb9e2d013ee344311c61a3ce22c2b77
 +	oldcontext = MemoryContextSwitchTo(HypoRepositoryContext);
 +	entry->relid = relid;
 +	entry->payload = PG_DETOAST_DATUM_COPY(PointerGetDatum(payload));
++	entry->keys = NULL;
++	entry->candidate_id = NULL;
 +	entry->absent_native = false;
++	entry->virtual_definition = false;
 +	MemoryContextSwitchTo(oldcontext);
 +}
 +
@@ -1018,7 +1237,10 @@ index 0000000000000000000000000000000000000000..fcb9e2d013ee344311c61a3ce22c2b77
 +			statoid, kind)));
 +	entry->relid = relid;
 +	entry->payload = NULL;
++	entry->keys = NULL;
++	entry->candidate_id = NULL;
 +	entry->absent_native = true;
++	entry->virtual_definition = false;
 +}
 +
 +void
@@ -1037,7 +1259,7 @@ index 0000000000000000000000000000000000000000..fcb9e2d013ee344311c61a3ce22c2b77
 +	foreach(lc, ordered_oids)
 +	{
 +		Oid oid = lfirst_oid(lc);
-+		Oid relid;
++		Oid relid = InvalidOid;
 +		ListCell *prior;
 +		if (!repository_oid(oid, &relid))
 +			ereport(ERROR, (errmsg("cannot activate unregistered statistics object %u", oid)));
@@ -1062,7 +1284,7 @@ index 0000000000000000000000000000000000000000..fcb9e2d013ee344311c61a3ce22c2b77
 +	foreach(lc, ordered_oids)
 +	{
 +		Oid oid = lfirst_oid(lc);
-+		Oid relid;
++		Oid relid = InvalidOid;
 +		HypoActiveEntry *active;
 +		bool found;
 +		(void) repository_oid(oid, &relid);
@@ -1086,22 +1308,31 @@ index 0000000000000000000000000000000000000000..fcb9e2d013ee344311c61a3ce22c2b77
 +{
 +	List *result = NIL;
 +	ListCell *lc;
++	HASH_SEQ_STATUS status;
++	HypoPayloadEntry *entry;
 +	int i;
 +	bool targeted = false;
 +	if (!HypoEnabled)
 +		return catalog_oids;
-+	foreach(lc, catalog_oids)
++	hash_seq_init(&status, HypoRepository);
++	while ((entry = hash_seq_search(&status)) != NULL)
 +	{
-+		Oid registered_relid;
-+		if (repository_oid(lfirst_oid(lc), &registered_relid) && registered_relid == relid)
++		if (entry->relid == relid)
++		{
 +			targeted = true;
++			hash_seq_term(&status);
++			break;
++		}
 +	}
 +	if (!targeted)
 +		return catalog_oids;
 +	for (i = 0; i < HypoOrderLength; i++)
 +	{
 +		HypoActiveEntry *active = hash_search(HypoActive, &HypoOrder[i], HASH_FIND, NULL);
-+		if (active->relid == relid && list_member_oid(catalog_oids, HypoOrder[i]))
++		HypoPayloadEntry *definition = repository_entry_any(HypoOrder[i]);
++		if (active->relid == relid && definition != NULL &&
++			!definition->absent_native &&
++			(definition->virtual_definition || list_member_oid(catalog_oids, HypoOrder[i])))
 +			result = lappend_oid(result, HypoOrder[i]);
 +	}
 +	foreach(lc, catalog_oids)
@@ -1130,7 +1361,9 @@ index 0000000000000000000000000000000000000000..fcb9e2d013ee344311c61a3ce22c2b77
 +	entry = hash_search(HypoRepository, &key, HASH_FIND, NULL);
 +	if (entry == NULL)
 +		ereport(ERROR, (errmsg("active statistics object %u has no registered payload for kind %c",
-+			statoid, kind)));
++						  statoid, kind)));
++	if (entry->absent_native)
++		return false;
 +	*payload = entry->payload;
 +	return true;
 +}
@@ -1150,6 +1383,31 @@ index 0000000000000000000000000000000000000000..fcb9e2d013ee344311c61a3ce22c2b77
 +	hypothetical_extstats_register_absent(PG_GETARG_OID(0), PG_GETARG_OID(1),
 +			(HypotheticalExtStatsKind) PG_GETARG_CHAR(2));
 +	PG_RETURN_VOID();
++}
++
++Datum pg_hypothetical_extstats_register_definition(PG_FUNCTION_ARGS)
++{
++	text *candidate = PG_GETARG_TEXT_PP(0);
++	ArrayType *array = PG_GETARG_ARRAYTYPE_P(3);
++	Bitmapset *keys = keys_from_array(array);
++	Oid statoid = hypothetical_extstats_register_definition(
++			text_to_cstring(candidate), PG_GETARG_OID(1),
++			(HypotheticalExtStatsKind) PG_GETARG_CHAR(2), keys,
++			PG_GETARG_BYTEA_PP(4));
++	bms_free(keys);
++	PG_RETURN_OID(statoid);
++}
++
++Datum pg_hypothetical_extstats_register_definition_absent(PG_FUNCTION_ARGS)
++{
++	text *candidate = PG_GETARG_TEXT_PP(0);
++	ArrayType *array = PG_GETARG_ARRAYTYPE_P(3);
++	Bitmapset *keys = keys_from_array(array);
++	Oid statoid = hypothetical_extstats_register_definition_absent(
++			text_to_cstring(candidate), PG_GETARG_OID(1),
++			(HypotheticalExtStatsKind) PG_GETARG_CHAR(2), keys);
++	bms_free(keys);
++	PG_RETURN_OID(statoid);
 +}
 +
 +Datum pg_hypothetical_extstats_activate(PG_FUNCTION_ARGS)
@@ -1315,10 +1573,10 @@ index 093567535bdff5c444ef35a23bb2d1a67e96281a..e3c935bd40699d01be7c3efdce1149ce
  		{"archive_command", PGC_SIGHUP, WAL_ARCHIVING,
  			gettext_noop("Sets the shell command that will be called to archive a WAL file."),
 diff --git a/src/include/catalog/pg_proc.dat b/src/include/catalog/pg_proc.dat
-index 6996073989a5dda2244f77f0320b26f16a46906f..94906632714a2537966bbc3ef30a99c2c38ab3e1 100644
+index 6996073989a5dda2244f77f0320b26f16a46906f..aefa9996314961e45d4eb9d4251ee70fa84cf06c 100644
 --- a/src/include/catalog/pg_proc.dat
 +++ b/src/include/catalog/pg_proc.dat
-@@ -12043,4 +12043,26 @@
+@@ -12043,4 +12043,34 @@
    proname => 'any_value_transfn', prorettype => 'anyelement',
    proargtypes => 'anyelement anyelement', prosrc => 'any_value_transfn' },
  
@@ -1335,6 +1593,14 @@ index 6996073989a5dda2244f77f0320b26f16a46906f..94906632714a2537966bbc3ef30a99c2
 +  proname => 'pg_hypothetical_extstats_register_absent', provolatile => 'v',
 +  prorettype => 'void', proargtypes => 'oid oid char',
 +  prosrc => 'pg_hypothetical_extstats_register_absent' },
++{ oid => '10000', descr => 'register a catalogless hypothetical statistics definition',
++  proname => 'pg_hypothetical_extstats_register_definition', provolatile => 'v',
++  prorettype => 'oid', proargtypes => 'text oid char _int2 bytea',
++  prosrc => 'pg_hypothetical_extstats_register_definition' },
++{ oid => '10001', descr => 'register an absent catalogless hypothetical statistics definition',
++  proname => 'pg_hypothetical_extstats_register_definition_absent', provolatile => 'v',
++  prorettype => 'oid', proargtypes => 'text oid char _int2',
++  prosrc => 'pg_hypothetical_extstats_register_definition_absent' },
 +{ oid => '9997', descr => 'activate an ordered hypothetical statistics design',
 +  proname => 'pg_hypothetical_extstats_activate', provolatile => 'v',
 +  prorettype => 'void', proargtypes => '_oid',
@@ -1387,10 +1653,10 @@ index 0000000000000000000000000000000000000000..157b400315fda33b7b953f7f6ed5cf96
 +#endif						/* ANALYZE_SAMPLE_CACHE_H */
 diff --git a/src/include/statistics/hypothetical.h b/src/include/statistics/hypothetical.h
 new file mode 100644
-index 0000000000000000000000000000000000000000..f6876fd60bbb652f1eaffe60a7d93cd2d913e7b4
+index 0000000000000000000000000000000000000000..845e940c28f83c00fb8a1554c60958386d9ec9cf
 --- /dev/null
 +++ b/src/include/statistics/hypothetical.h
-@@ -0,0 +1,52 @@
+@@ -0,0 +1,67 @@
 +/*-------------------------------------------------------------------------
 + *
 + * hypothetical.h
@@ -1422,7 +1688,18 @@ index 0000000000000000000000000000000000000000..f6876fd60bbb652f1eaffe60a7d93cd2
 +/* Replace the active design; ordered_oids defines effective precedence. */
 +extern void hypothetical_extstats_activate(List *ordered_oids);
 +extern void hypothetical_extstats_register_absent(Oid statoid, Oid relid,
-+											HypotheticalExtStatsKind kind);
++										HypotheticalExtStatsKind kind);
++
++/* Register a catalogless definition and return its backend-local identity. */
++extern Oid hypothetical_extstats_register_definition(const char *candidate_id,
++											Oid relid,
++											HypotheticalExtStatsKind kind,
++											Bitmapset *keys,
++											const bytea *payload);
++extern Oid hypothetical_extstats_register_definition_absent(const char *candidate_id,
++											Oid relid,
++											HypotheticalExtStatsKind kind,
++											Bitmapset *keys);
 +
 +/* Filter and reorder catalog definitions for the registered relation. */
 +extern List *hypothetical_extstats_filter(Oid relid, List *catalog_oids);
@@ -1435,10 +1712,14 @@ index 0000000000000000000000000000000000000000..f6876fd60bbb652f1eaffe60a7d93cd2
 +										  HypotheticalExtStatsKind kind);
 +extern bool hypothetical_extstats_registered(Oid statoid,
 +										 HypotheticalExtStatsKind kind);
++extern bool hypothetical_extstats_definition(Oid statoid, Oid relid,
++											char *kind, Bitmapset **keys);
 +
 +extern Datum pg_hypothetical_extstats_reset(PG_FUNCTION_ARGS);
 +extern Datum pg_hypothetical_extstats_register(PG_FUNCTION_ARGS);
 +extern Datum pg_hypothetical_extstats_register_absent(PG_FUNCTION_ARGS);
++extern Datum pg_hypothetical_extstats_register_definition(PG_FUNCTION_ARGS);
++extern Datum pg_hypothetical_extstats_register_definition_absent(PG_FUNCTION_ARGS);
 +extern Datum pg_hypothetical_extstats_activate(PG_FUNCTION_ARGS);
 +extern Datum pg_hypothetical_extstats_active(PG_FUNCTION_ARGS);
 +
@@ -1503,8 +1784,185 @@ index 0000000000000000000000000000000000000000..330225f1ef61e05f911c81aa300e17e1
 +
 +SET pgextadv.analyze_sample_import = '';
 +DROP TABLE analyze_sample_cache_test;
+diff --git a/src/test/regress/expected/catalogless_hypothetical.out b/src/test/regress/expected/catalogless_hypothetical.out
+new file mode 100644
+index 0000000000000000000000000000000000000000..1777aaba9f87516c6494d7792f63b63c65043e11
+--- /dev/null
++++ b/src/test/regress/expected/catalogless_hypothetical.out
+@@ -0,0 +1,171 @@
++-- Catalogless hypothetical extended-statistics definitions.
++SET client_min_messages = warning;
++CREATE TABLE catalogless_hypothetical_test (a integer, b integer, c integer);
++INSERT INTO catalogless_hypothetical_test
++SELECT i % 7, i % 7, i % 3
++FROM generate_series(1, 1000) AS s(i);
++-- Acquire native payloads once, then remove every physical definition.
++CREATE STATISTICS catalogless_seed (mcv, dependencies)
++ON a, b FROM catalogless_hypothetical_test;
++ANALYZE catalogless_hypothetical_test;
++CREATE TEMP TABLE catalogless_payload AS
++SELECT d.stxdmcv AS mcv, d.stxddependencies AS fd
++FROM pg_statistic_ext AS e
++JOIN pg_statistic_ext_data AS d ON d.stxoid = e.oid
++WHERE e.stxname = 'catalogless_seed';
++DROP STATISTICS catalogless_seed;
++SELECT count(*) = 0 AS no_physical_target
++FROM pg_statistic_ext
++WHERE stxrelid = 'catalogless_hypothetical_test'::regclass;
++ no_physical_target 
++--------------------
++ t
++(1 row)
++
++-- An unrelated physical object must remain outside the overlay.
++CREATE TABLE catalogless_unrelated_test (x integer, y integer);
++INSERT INTO catalogless_unrelated_test
++SELECT i % 5, i % 11 FROM generate_series(1, 100) AS s(i);
++CREATE STATISTICS catalogless_unrelated_stats (mcv)
++ON x, y FROM catalogless_unrelated_test;
++ANALYZE catalogless_unrelated_test;
++SELECT pg_hypothetical_extstats_reset() AS reset_before;
++ reset_before 
++--------------
++ 
++(1 row)
++
++SELECT pg_hypothetical_extstats_register_definition(
++    'catalogless-mcv', 'catalogless_hypothetical_test'::regclass,
++    'm', ARRAY[1, 2]::smallint[], (SELECT mcv FROM catalogless_payload)) AS mcv_oid
++\gset
++SELECT pg_hypothetical_extstats_register_definition(
++    'catalogless-fd', 'catalogless_hypothetical_test'::regclass,
++    'f', ARRAY[1, 2]::smallint[], (SELECT fd FROM catalogless_payload)) AS fd_oid
++\gset
++SELECT pg_hypothetical_extstats_register_definition_absent(
++    'catalogless-absent', 'catalogless_hypothetical_test'::regclass,
++    'm', ARRAY[1, 2]::smallint[]) AS absent_oid
++\gset
++-- Empty active state is the ordinary baseline and leaves unrelated objects.
++SELECT pg_hypothetical_extstats_activate(ARRAY[]::oid[]) AS empty_active
++\gset
++SELECT pg_hypothetical_extstats_active() IS NOT NULL AS empty_set_visible;
++ empty_set_visible 
++-------------------
++ t
++(1 row)
++
++EXPLAIN
++SELECT * FROM catalogless_hypothetical_test WHERE a = 1 AND b = 1;
++                                   QUERY PLAN                                   
++--------------------------------------------------------------------------------
++ Seq Scan on catalogless_hypothetical_test  (cost=0.00..21.00 rows=20 width=12)
++   Filter: ((a = 1) AND (b = 1))
++(2 rows)
++
++SELECT count(*) = 1 AS unrelated_preserved
++FROM pg_statistic_ext
++WHERE stxname = 'catalogless_unrelated_stats';
++ unrelated_preserved 
++---------------------
++ t
++(1 row)
++
++-- Each catalogless PRESENT kind is planner-visible without a catalog row.
++SELECT pg_hypothetical_extstats_activate(ARRAY[:mcv_oid]::oid[]) AS activate_mcv
++\gset
++SELECT cardinality(pg_hypothetical_extstats_active()) = 1 AS mcv_active;
++ mcv_active 
++------------
++ t
++(1 row)
++
++EXPLAIN
++SELECT * FROM catalogless_hypothetical_test WHERE a = 1 AND b = 1;
++                                   QUERY PLAN                                    
++---------------------------------------------------------------------------------
++ Seq Scan on catalogless_hypothetical_test  (cost=0.00..21.00 rows=143 width=12)
++   Filter: ((a = 1) AND (b = 1))
++(2 rows)
++
++SELECT pg_hypothetical_extstats_activate(ARRAY[:fd_oid]::oid[]) AS activate_fd
++\gset
++SELECT cardinality(pg_hypothetical_extstats_active()) = 1 AS fd_active;
++ fd_active 
++-----------
++ t
++(1 row)
++
++EXPLAIN
++SELECT * FROM catalogless_hypothetical_test WHERE a = 1 AND b = 1;
++                                   QUERY PLAN                                    
++---------------------------------------------------------------------------------
++ Seq Scan on catalogless_hypothetical_test  (cost=0.00..21.00 rows=143 width=12)
++   Filter: ((a = 1) AND (b = 1))
++(2 rows)
++
++-- Multiple candidates can be switched deterministically.
++SELECT pg_hypothetical_extstats_activate(ARRAY[:mcv_oid, :fd_oid]::oid[]) AS activate_both
++\gset
++SELECT cardinality(pg_hypothetical_extstats_active()) = 2 AS both_active;
++ both_active 
++-------------
++ t
++(1 row)
++
++EXPLAIN
++SELECT * FROM catalogless_hypothetical_test WHERE a = 1 AND b = 1;
++                                   QUERY PLAN                                    
++---------------------------------------------------------------------------------
++ Seq Scan on catalogless_hypothetical_test  (cost=0.00..21.00 rows=143 width=12)
++   Filter: ((a = 1) AND (b = 1))
++(2 rows)
++
++SELECT pg_hypothetical_extstats_activate(ARRAY[:absent_oid]::oid[]) AS activate_absent
++\gset
++SELECT cardinality(pg_hypothetical_extstats_active()) = 1 AS absent_active;
++ absent_active 
++---------------
++ t
++(1 row)
++
++EXPLAIN
++SELECT * FROM catalogless_hypothetical_test WHERE a = 1 AND b = 1;
++                                   QUERY PLAN                                   
++--------------------------------------------------------------------------------
++ Seq Scan on catalogless_hypothetical_test  (cost=0.00..21.00 rows=20 width=12)
++   Filter: ((a = 1) AND (b = 1))
++(2 rows)
++
++-- Reset removes all backend-local identities and restores stock behavior.
++SELECT pg_hypothetical_extstats_reset() AS reset_after;
++ reset_after 
++-------------
++ 
++(1 row)
++
++SELECT pg_hypothetical_extstats_active() IS NULL AS reset_clears_active;
++ reset_clears_active 
++---------------------
++ t
++(1 row)
++
++SELECT count(*) = 0 AS no_physical_target_after_reset
++FROM pg_statistic_ext
++WHERE stxrelid = 'catalogless_hypothetical_test'::regclass;
++ no_physical_target_after_reset 
++--------------------------------
++ t
++(1 row)
++
++SELECT count(*) = 1 AS unrelated_preserved_after_reset
++FROM pg_statistic_ext
++WHERE stxname = 'catalogless_unrelated_stats';
++ unrelated_preserved_after_reset 
++---------------------------------
++ t
++(1 row)
++
++DROP TABLE catalogless_unrelated_test;
++DROP TABLE catalogless_hypothetical_test;
 diff --git a/src/test/regress/parallel_schedule b/src/test/regress/parallel_schedule
-index 84e3710fb68e6480b2a5545e0767f88b8f1aaa7f..dc1b254094ea9e6347cf29d3b98bb0558da130e9 100644
+index 84e3710fb68e6480b2a5545e0767f88b8f1aaa7f..5c4006c52399b4ff04f2b1ea4f447ad777100cb5 100644
 --- a/src/test/regress/parallel_schedule
 +++ b/src/test/regress/parallel_schedule
 @@ -51,6 +51,8 @@ test: create_index create_index_spgist create_view index_including index_includi
@@ -1516,6 +1974,16 @@ index 84e3710fb68e6480b2a5545e0767f88b8f1aaa7f..dc1b254094ea9e6347cf29d3b98bb055
  # sanity_check does a vacuum, affecting the sort order of SELECT *
  # results. So it should not run parallel to other tests.
  # ----------
+@@ -134,6 +136,9 @@ test: compression compression_pglz
+ # oidjoins is read-only, though, and should run late for best coverage
+ test: event_trigger oidjoins
+ 
++# Catalogless hypothetical extended statistics are backend-local.
++test: catalogless_hypothetical
++
+ # this test also uses event triggers, so likewise run it by itself
+ test: fast_default
+ 
 diff --git a/src/test/regress/sql/analyze_sample_cache.sql b/src/test/regress/sql/analyze_sample_cache.sql
 new file mode 100644
 index 0000000000000000000000000000000000000000..3b330c33842a62ee24895680d8fbfb16b2c4868b
@@ -1570,3 +2038,101 @@ index 0000000000000000000000000000000000000000..3b330c33842a62ee24895680d8fbfb16
 +
 +SET pgextadv.analyze_sample_import = '';
 +DROP TABLE analyze_sample_cache_test;
+diff --git a/src/test/regress/sql/catalogless_hypothetical.sql b/src/test/regress/sql/catalogless_hypothetical.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..5d0b27d3fb76e8c77a6bbf2ef0998be20cfb4bbd
+--- /dev/null
++++ b/src/test/regress/sql/catalogless_hypothetical.sql
+@@ -0,0 +1,92 @@
++-- Catalogless hypothetical extended-statistics definitions.
++SET client_min_messages = warning;
++
++CREATE TABLE catalogless_hypothetical_test (a integer, b integer, c integer);
++INSERT INTO catalogless_hypothetical_test
++SELECT i % 7, i % 7, i % 3
++FROM generate_series(1, 1000) AS s(i);
++
++-- Acquire native payloads once, then remove every physical definition.
++CREATE STATISTICS catalogless_seed (mcv, dependencies)
++ON a, b FROM catalogless_hypothetical_test;
++ANALYZE catalogless_hypothetical_test;
++CREATE TEMP TABLE catalogless_payload AS
++SELECT d.stxdmcv AS mcv, d.stxddependencies AS fd
++FROM pg_statistic_ext AS e
++JOIN pg_statistic_ext_data AS d ON d.stxoid = e.oid
++WHERE e.stxname = 'catalogless_seed';
++DROP STATISTICS catalogless_seed;
++SELECT count(*) = 0 AS no_physical_target
++FROM pg_statistic_ext
++WHERE stxrelid = 'catalogless_hypothetical_test'::regclass;
++
++-- An unrelated physical object must remain outside the overlay.
++CREATE TABLE catalogless_unrelated_test (x integer, y integer);
++INSERT INTO catalogless_unrelated_test
++SELECT i % 5, i % 11 FROM generate_series(1, 100) AS s(i);
++CREATE STATISTICS catalogless_unrelated_stats (mcv)
++ON x, y FROM catalogless_unrelated_test;
++ANALYZE catalogless_unrelated_test;
++
++SELECT pg_hypothetical_extstats_reset() AS reset_before;
++SELECT pg_hypothetical_extstats_register_definition(
++    'catalogless-mcv', 'catalogless_hypothetical_test'::regclass,
++    'm', ARRAY[1, 2]::smallint[], (SELECT mcv FROM catalogless_payload)) AS mcv_oid
++\gset
++SELECT pg_hypothetical_extstats_register_definition(
++    'catalogless-fd', 'catalogless_hypothetical_test'::regclass,
++    'f', ARRAY[1, 2]::smallint[], (SELECT fd FROM catalogless_payload)) AS fd_oid
++\gset
++SELECT pg_hypothetical_extstats_register_definition_absent(
++    'catalogless-absent', 'catalogless_hypothetical_test'::regclass,
++    'm', ARRAY[1, 2]::smallint[]) AS absent_oid
++\gset
++
++-- Empty active state is the ordinary baseline and leaves unrelated objects.
++SELECT pg_hypothetical_extstats_activate(ARRAY[]::oid[]) AS empty_active
++\gset
++SELECT pg_hypothetical_extstats_active() IS NOT NULL AS empty_set_visible;
++EXPLAIN
++SELECT * FROM catalogless_hypothetical_test WHERE a = 1 AND b = 1;
++SELECT count(*) = 1 AS unrelated_preserved
++FROM pg_statistic_ext
++WHERE stxname = 'catalogless_unrelated_stats';
++
++-- Each catalogless PRESENT kind is planner-visible without a catalog row.
++SELECT pg_hypothetical_extstats_activate(ARRAY[:mcv_oid]::oid[]) AS activate_mcv
++\gset
++SELECT cardinality(pg_hypothetical_extstats_active()) = 1 AS mcv_active;
++EXPLAIN
++SELECT * FROM catalogless_hypothetical_test WHERE a = 1 AND b = 1;
++
++SELECT pg_hypothetical_extstats_activate(ARRAY[:fd_oid]::oid[]) AS activate_fd
++\gset
++SELECT cardinality(pg_hypothetical_extstats_active()) = 1 AS fd_active;
++EXPLAIN
++SELECT * FROM catalogless_hypothetical_test WHERE a = 1 AND b = 1;
++
++-- Multiple candidates can be switched deterministically.
++SELECT pg_hypothetical_extstats_activate(ARRAY[:mcv_oid, :fd_oid]::oid[]) AS activate_both
++\gset
++SELECT cardinality(pg_hypothetical_extstats_active()) = 2 AS both_active;
++EXPLAIN
++SELECT * FROM catalogless_hypothetical_test WHERE a = 1 AND b = 1;
++
++SELECT pg_hypothetical_extstats_activate(ARRAY[:absent_oid]::oid[]) AS activate_absent
++\gset
++SELECT cardinality(pg_hypothetical_extstats_active()) = 1 AS absent_active;
++EXPLAIN
++SELECT * FROM catalogless_hypothetical_test WHERE a = 1 AND b = 1;
++
++-- Reset removes all backend-local identities and restores stock behavior.
++SELECT pg_hypothetical_extstats_reset() AS reset_after;
++SELECT pg_hypothetical_extstats_active() IS NULL AS reset_clears_active;
++SELECT count(*) = 0 AS no_physical_target_after_reset
++FROM pg_statistic_ext
++WHERE stxrelid = 'catalogless_hypothetical_test'::regclass;
++SELECT count(*) = 1 AS unrelated_preserved_after_reset
++FROM pg_statistic_ext
++WHERE stxname = 'catalogless_unrelated_stats';
++
++DROP TABLE catalogless_unrelated_test;
++DROP TABLE catalogless_hypothetical_test;

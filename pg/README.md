@@ -8,7 +8,7 @@ PostgreSQL ancestry and is consumed at a frozen commit by this advisor.
 - upstream tag: `REL_16_14`
 - upstream base commit: `0d1c00c624fa7367d4a895f44381887757289682`
 - authoritative repository: `https://github.com/1951123/postgresql-pgextadv`
-- current authoritative commit: `7e992ab6438fef2f8eb98c7a9ed30c9f1c816ce7`
+- current authoritative commit: `6d7f5c9cd6cf1b0f73e84a4bacc45a31d1cb0cd6`
 
 ## Preferred build
 
@@ -20,7 +20,7 @@ scripts/build_postgres16_authoritative.sh \
   "$HOME/projects/postgresql-src-pgextadv" \
   "$HOME/projects/postgresql-build-pgextadv-authoritative-16.14" \
   "$HOME/projects/postgresql-install-pgextadv-authoritative-16.14" \
-  7e992ab6438fef2f8eb98c7a9ed30c9f1c816ce7
+  6d7f5c9cd6cf1b0f73e84a4bacc45a31d1cb0cd6
 ```
 
 The source checkout must be clean and descend from the upstream base. Build
@@ -36,7 +36,7 @@ source of truth. Generate it with:
 ```bash
 scripts/export_postgres_patch.sh \
   "$HOME/projects/postgresql-src-pgextadv" \
-  7e992ab6438fef2f8eb98c7a9ed30c9f1c816ce7
+  6d7f5c9cd6cf1b0f73e84a4bacc45a31d1cb0cd6
 ```
 
 The script runs the canonical command:
@@ -44,7 +44,7 @@ The script runs the canonical command:
 ```text
 git diff --binary --full-index --no-ext-diff --no-renames \
   0d1c00c624fa7367d4a895f44381887757289682 \
-  7e992ab6438fef2f8eb98c7a9ed30c9f1c816ce7
+  6d7f5c9cd6cf1b0f73e84a4bacc45a31d1cb0cd6
 ```
 
 It refuses dirty source trees, validates ancestry, writes only below this

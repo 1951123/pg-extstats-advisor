@@ -8,7 +8,7 @@ readonly UPSTREAM_SOURCE=${1:?usage: $0 CLEAN_REL_16_14_SOURCE BUILD_DIR INSTALL
 readonly BUILD_DIR=${2:?usage: $0 CLEAN_REL_16_14_SOURCE BUILD_DIR INSTALL_DIR}
 readonly INSTALL_DIR=${3:?usage: $0 CLEAN_REL_16_14_SOURCE BUILD_DIR INSTALL_DIR}
 readonly PATCH_AGGREGATE=${REPO_ROOT}/pg/patches/postgresql-16.14-pgextadv.patch
-readonly PGEXTADV_COMMIT=7e992ab6438fef2f8eb98c7a9ed30c9f1c816ce7
+readonly PGEXTADV_COMMIT=6d7f5c9cd6cf1b0f73e84a4bacc45a31d1cb0cd6
 readonly SOURCE_DIR=${BUILD_DIR}-src
 
 [[ -d "$UPSTREAM_SOURCE/.git" ]] || {

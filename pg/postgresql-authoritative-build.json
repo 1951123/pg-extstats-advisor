@@ -2,13 +2,13 @@
   "format_version": 1,
   "postgres_version": "16.14",
   "upstream_commit": "0d1c00c624fa7367d4a895f44381887757289682",
-  "pgextadv_commit": "7e992ab6438fef2f8eb98c7a9ed30c9f1c816ce7",
+  "pgextadv_commit": "6d7f5c9cd6cf1b0f73e84a4bacc45a31d1cb0cd6",
   "configure_args": [
     "--enable-debug",
     "--enable-cassert",
     "--with-openssl"
   ],
   "compiler": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-  "make_check": "221/221 PASS",
-  "postgres_binary_sha256": "42269178123301ccedf4db5d54bd7d8885ae3b17ef6ba987456cc231e0d930e4"
+  "make_check": "222/222 PASS",
+  "postgres_binary_sha256": "3859247d686d758c04d1f5ea899bab35894ab11941730010f5900d18d5fdfbf9"
 }
