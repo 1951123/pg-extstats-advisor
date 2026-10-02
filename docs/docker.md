@@ -19,10 +19,11 @@ The three images are built from Ubuntu 24.04:
   PostgreSQL 16.14 image used for the disposable production and validation
   roles.
 
-The advisor build verifies the upstream tarball against
-`pg/SHA256SUMS`, applies only the tracked patch, records the configure flags,
-compiler, and resulting `postgres` checksum, and does not use the host
-`.build/` tree. The stock image is compiled from the same tarball without the
+The advisor image build uses the derived aggregate patch
+`pg/patches/postgresql-16.14-pgextadv.patch`, whose source of truth is the
+frozen `postgresql-pgextadv` Git commit recorded in `pg/postgresql-source.json`.
+It verifies the upstream tarball, records the configure flags, compiler, and
+resulting `postgres` checksum, and does not use the host `.build/` tree. The stock image is compiled from the same tarball without the
 patch. No image is pushed to a registry and no image tarball is checked in.
 
 ## Run the tracked fixture

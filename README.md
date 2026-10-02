@@ -74,10 +74,13 @@ gates and emitted the frozen model. See
 The PostgreSQL binary used by this project must always be derivable as:
 
 ```text
-clean Git checkout of PostgreSQL REL_16_14
-    + Git-tracked pg/patches/postgresql-16.14-hypothetical-extstats.patch
-    + Git-tracked pg/patches/postgresql-16.14-analyze-sample-cache.patch
-    = disposable patched build and installed binary
+PostgreSQL upstream Git REL_16_14
+    -> postgresql-pgextadv frozen commit
+    = authoritative experimental PostgreSQL source
+
+postgresql-pgextadv frozen commit
+    -> build directly, or
+    -> derived pg/patches/postgresql-16.14-pgextadv.patch
 ```
 
 The extracted reference tree is read-only and never used as a mutable build

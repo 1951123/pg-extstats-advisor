@@ -5,21 +5,25 @@
 Avoid incomplete duplication of PostgreSQL estimator semantics. The advisor
 controls hypothetical state; PostgreSQL computes CE.
 
-## DD-002 — Upstream PostgreSQL source is immutable
+## DD-002 — PostgreSQL authority is a Git commit
 
-`/root/projects/extended-stats-optim/postgresql-16.14.tar.bz2` is the sole upstream
-source of truth. All project modifications are Git-tracked patches in this repo.
+Official PostgreSQL `REL_16_14` at
+`0d1c00c624fa7367d4a895f44381887757289682` is the immutable base. The modified
+experimental source of truth is the frozen commit in
+`postgresql-pgextadv`; advisor patch files are generated derivatives.
 
-## DD-003 — The reference tree is read-only
+## DD-003 — Source and build trees are separate
 
-`/root/projects/postgresql-reference/postgresql-16.14` exists only for inspection
-and navigation. It is never patched or used as an authoritative build checkout.
+The clean `postgresql-pgextadv` checkout is read-only build input. Build and
+install directories are separate generated paths. The preferred flow builds
+directly from the authoritative commit; applying the generated aggregate patch
+to official PostgreSQL is an equivalent alternate path.
 
-## DD-004 — Build trees are disposable
+## DD-004 — Derived patch output is reproducible
 
-Every clean build begins with the verified tarball, applies the current tracked
-patch to a freshly extracted `.build/postgresql-16.14-src`, and installs under
-`.build/postgresql-16.14-install`.
+`pg/patches/postgresql-16.14-pgextadv.patch` is generated only by
+`scripts/export_postgres_patch.sh` from the upstream base and a clean frozen
+authoritative commit. It is not an independent implementation unit.
 
 ## DD-005 — Payloads are acquired once and frozen
 

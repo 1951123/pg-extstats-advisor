@@ -1,0 +1,1572 @@
+diff --git a/PGEXTADV.md b/PGEXTADV.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..c0e35d0e0271446a6266b2d1402cd2a03f2f2567
+--- /dev/null
++++ b/PGEXTADV.md
+@@ -0,0 +1,20 @@
++# pg-extstats-advisor PostgreSQL source
++
++This repository is the authoritative experimental PostgreSQL source used by
++`pg-extstats-advisor`. It retains official PostgreSQL Git ancestry.
++
++- Upstream base tag: `REL_16_14`
++- Upstream base commit: `0d1c00c624fa7367d4a895f44381887757289682`
++- Authoritative branch: `main`
++
++The source currently contains two pgextadv capabilities:
++
++- a backend-local hypothetical extended-statistics substrate;
++- deterministic `ANALYZE` sample export/import using the
++  `pgextadv.analyze_sample_export` and `pgextadv.analyze_sample_import` GUCs.
++
++The repository is the source of truth for those changes. `pg-extstats-advisor`
++consumes a frozen commit from this history; any PostgreSQL patch stored there
++is a derived reproduction artifact generated from the upstream base and that
++commit. This repository makes no claim of upstream PostgreSQL support or
++acceptance.
+diff --git a/src/backend/commands/Makefile b/src/backend/commands/Makefile
+index 48f7348f91c72274edda9723f42ccc7f246917d6..4a522e6c195fba1e23baebe912a1341941e3132b 100644
+--- a/src/backend/commands/Makefile
++++ b/src/backend/commands/Makefile
+@@ -17,6 +17,7 @@ OBJS = \
+ 	alter.o \
+ 	amcmds.o \
+ 	analyze.o \
++	analyze_sample_cache.o \
+ 	async.o \
+ 	cluster.o \
+ 	collationcmds.o \
+diff --git a/src/backend/commands/analyze.c b/src/backend/commands/analyze.c
+index bda364552cacc020b4dd4f9986ca5c0843ef633b..4cd6e3fc5c0a5298bcb999d408a61080617ab0c7 100644
+--- a/src/backend/commands/analyze.c
++++ b/src/backend/commands/analyze.c
+@@ -18,6 +18,7 @@
+ 
+ #include "access/detoast.h"
+ #include "access/genam.h"
++#include "access/heapam.h"
+ #include "access/multixact.h"
+ #include "access/relation.h"
+ #include "access/sysattr.h"
+@@ -30,10 +31,12 @@
+ #include "catalog/catalog.h"
+ #include "catalog/index.h"
+ #include "catalog/indexing.h"
++#include "catalog/namespace.h"
+ #include "catalog/pg_collation.h"
+ #include "catalog/pg_inherits.h"
+ #include "catalog/pg_namespace.h"
+ #include "catalog/pg_statistic_ext.h"
++#include "commands/analyze_sample_cache.h"
+ #include "commands/dbcommands.h"
+ #include "commands/progress.h"
+ #include "commands/tablecmds.h"
+@@ -62,11 +65,14 @@
+ #include "utils/lsyscache.h"
+ #include "utils/memutils.h"
+ #include "utils/pg_rusage.h"
++#include "utils/regproc.h"
++#include "utils/snapmgr.h"
+ #include "utils/sampling.h"
+ #include "utils/sortsupport.h"
+ #include "utils/spccache.h"
+ #include "utils/syscache.h"
+ #include "utils/timestamp.h"
++#include "utils/varlena.h"
+ 
+ 
+ /* Per-index data for ANALYZE */
+@@ -82,6 +88,20 @@ typedef struct AnlIndexData
+ /* Default statistics target (GUC parameter) */
+ int			default_statistics_target = 100;
+ 
++/*
++ * Experiment-only frozen-sample controls.  The normal ANALYZE path remains
++ * unchanged while mode is "off".  Capture stores the native reservoir in an
++ * auxiliary relation; replay reads that exact relation and bypasses heap
++ * sampling entirely.
++ */
++char	   *pg_extstats_frozen_sample_mode = "off";
++char	   *pg_extstats_frozen_sample_relation = "";
++double		pg_extstats_frozen_totalrows = -1.0;
++
++/* Optional binary sample cache controls.  Empty paths keep ANALYZE unchanged. */
++char	   *pgextadv_analyze_sample_export = "";
++char	   *pgextadv_analyze_sample_import = "";
++
+ /* A few variables that don't seem worth passing around as parameters */
+ static MemoryContext anl_context = NULL;
+ static BufferAccessStrategy vac_strategy;
+@@ -100,6 +120,11 @@ static VacAttrStats *examine_attribute(Relation onerel, int attnum,
+ static int	acquire_sample_rows(Relation onerel, int elevel,
+ 								HeapTuple *rows, int targrows,
+ 								double *totalrows, double *totaldeadrows);
++static int	acquire_frozen_sample_rows(Relation onerel, int elevel,
++								 HeapTuple *rows, int targrows,
++								 double *totalrows, double *totaldeadrows);
++static void capture_frozen_sample_rows(Relation onerel, HeapTuple *rows,
++									   int numrows);
+ static int	compare_rows(const void *a, const void *b, void *arg);
+ static int	acquire_inherited_sample_rows(Relation onerel, int elevel,
+ 										  HeapTuple *rows, int targrows,
+@@ -1157,6 +1182,49 @@ acquire_sample_rows(Relation onerel, int elevel,
+ 	BlockSamplerData prefetch_bs;
+ #endif
+ 
++	if ((pgextadv_analyze_sample_import != NULL &&
++		 pgextadv_analyze_sample_import[0] != '\0') &&
++		(pgextadv_analyze_sample_export != NULL &&
++		 pgextadv_analyze_sample_export[0] != '\0'))
++		ereport(ERROR,
++				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
++				 errmsg("pgextadv.analyze_sample_export and pgextadv.analyze_sample_import cannot be enabled together")));
++
++	if (pgextadv_analyze_sample_import != NULL &&
++		pgextadv_analyze_sample_import[0] != '\0')
++	{
++		SampleCache *cache;
++		int			i;
++
++		cache = sample_cache_import(onerel, pgextadv_analyze_sample_import,
++									 targrows);
++		for (i = 0; i < (int) cache->tuple_count; i++)
++			rows[i] = cache->tuples[i];
++		numrows = (int) cache->tuple_count;
++		*totalrows = cache->totalrows;
++		*totaldeadrows = 0.0;
++		cache->tuples = NULL;
++		sample_cache_free(cache, false);
++		ereport(elevel,
++				(errmsg("\"%s\": imported %d rows from ANALYZE sample cache, "
++						"%.0f estimated total rows",
++						RelationGetRelationName(onerel), numrows, *totalrows)));
++		return numrows;
++	}
++
++	if (pg_extstats_frozen_sample_mode != NULL &&
++		strcmp(pg_extstats_frozen_sample_mode, "replay") == 0)
++		return acquire_frozen_sample_rows(onerel, elevel, rows, targrows,
++									  totalrows, totaldeadrows);
++	if (pg_extstats_frozen_sample_mode != NULL &&
++		pg_extstats_frozen_sample_mode[0] != '\0' &&
++		strcmp(pg_extstats_frozen_sample_mode, "off") != 0 &&
++		strcmp(pg_extstats_frozen_sample_mode, "capture") != 0)
++		ereport(ERROR,
++				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
++				 errmsg("invalid pg_extstats.frozen_sample_mode: \"%s\"",
++						pg_extstats_frozen_sample_mode)));
++
+ 	Assert(targrows > 0);
+ 
+ 	totalblocks = RelationGetNumberOfBlocks(onerel);
+@@ -1344,9 +1412,160 @@ acquire_sample_rows(Relation onerel, int elevel,
+ 					liverows, deadrows,
+ 					numrows, *totalrows)));
+ 
++	if (pg_extstats_frozen_sample_mode != NULL &&
++		strcmp(pg_extstats_frozen_sample_mode, "capture") == 0)
++		capture_frozen_sample_rows(onerel, rows, numrows);
++
++	if (pgextadv_analyze_sample_export != NULL &&
++		pgextadv_analyze_sample_export[0] != '\0')
++		sample_cache_export(onerel, pgextadv_analyze_sample_export, rows,
++							 numrows, *totalrows);
++
++	return numrows;
++}
++
++/*
++ * Read an exact, persisted acquisition sample.  This deliberately does not
++ * call any table sampling API: the auxiliary relation is scanned
++ * sequentially and its tuples are copied directly into ANALYZE's shared
++ * sample array, which is then consumed by both ordinary and extended stats
++ * builders.
++ */
++static int
++acquire_frozen_sample_rows(Relation onerel, int elevel,
++						   HeapTuple *rows, int targrows,
++						   double *totalrows, double *totaldeadrows)
++{
++	List		*names;
++	RangeVar   *rv;
++	Relation	sample_rel;
++	TableScanDesc scan;
++	TupleTableSlot *slot;
++	int			numrows = 0;
++	int			i;
++
++	if (pg_extstats_frozen_sample_relation == NULL ||
++		pg_extstats_frozen_sample_relation[0] == '\0')
++		ereport(ERROR,
++				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
++				 errmsg("frozen sample replay requires pg_extstats.frozen_sample_relation")));
++
++	names = stringToQualifiedNameList(pg_extstats_frozen_sample_relation, NULL);
++	rv = makeRangeVarFromNameList(names);
++	sample_rel = table_openrv(rv, AccessShareLock);
++
++	if (sample_rel->rd_att->natts != onerel->rd_att->natts)
++		ereport(ERROR,
++				(errcode(ERRCODE_DATATYPE_MISMATCH),
++				 errmsg("frozen sample column count does not match analyzed relation")));
++	for (i = 0; i < onerel->rd_att->natts; i++)
++	{
++		Form_pg_attribute expected = TupleDescAttr(onerel->rd_att, i);
++		Form_pg_attribute actual = TupleDescAttr(sample_rel->rd_att, i);
++
++		if (expected->atttypid != actual->atttypid ||
++			expected->atttypmod != actual->atttypmod ||
++			expected->attcollation != actual->attcollation)
++			ereport(ERROR,
++					(errcode(ERRCODE_DATATYPE_MISMATCH),
++					 errmsg("frozen sample column %d type metadata does not match analyzed relation",
++						i + 1)));
++	}
++
++	scan = table_beginscan(sample_rel, GetLatestSnapshot(), 0, NULL);
++	slot = table_slot_create(sample_rel, NULL);
++	while (table_scan_getnextslot(scan, ForwardScanDirection, slot))
++	{
++		if (numrows >= targrows)
++			ereport(ERROR,
++					(errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
++					 errmsg("frozen sample has more rows than ANALYZE requested"),
++					 errdetail("sample rows exceed target %d", targrows)));
++		rows[numrows++] = ExecCopySlotHeapTuple(slot);
++	}
++	table_endscan(scan);
++	ExecDropSingleTupleTableSlot(slot);
++	table_close(sample_rel, AccessShareLock);
++
++	if (numrows <= 0)
++		ereport(ERROR,
++				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
++				 errmsg("frozen sample relation is empty")));
++	if (pg_extstats_frozen_totalrows < 0.0)
++		ereport(ERROR,
++				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
++				 errmsg("frozen sample replay requires pg_extstats.frozen_totalrows")));
++
++	*totalrows = pg_extstats_frozen_totalrows;
++	*totaldeadrows = 0.0;
++	ereport(elevel,
++			(errmsg("frozen sample replay: %d rows, %.0f estimated total rows",
++					numrows, *totalrows)));
+ 	return numrows;
+ }
+ 
++/* Persist the native reservoir in deterministic physical insertion order. */
++static void
++capture_frozen_sample_rows(Relation onerel, HeapTuple *rows, int numrows)
++{
++	List		*names;
++	RangeVar   *rv;
++	Relation	sample_rel;
++	TableScanDesc scan;
++	TupleTableSlot *slot;
++	int			existing = 0;
++	int			i;
++
++	if (pg_extstats_frozen_sample_relation == NULL ||
++		pg_extstats_frozen_sample_relation[0] == '\0')
++		ereport(ERROR,
++				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
++				 errmsg("frozen sample capture requires pg_extstats.frozen_sample_relation")));
++
++	names = stringToQualifiedNameList(pg_extstats_frozen_sample_relation, NULL);
++	rv = makeRangeVarFromNameList(names);
++	sample_rel = table_openrv(rv, RowExclusiveLock);
++	if (sample_rel->rd_att->natts != onerel->rd_att->natts)
++		ereport(ERROR,
++				(errcode(ERRCODE_DATATYPE_MISMATCH),
++				 errmsg("frozen sample column count does not match analyzed relation")));
++	for (i = 0; i < onerel->rd_att->natts; i++)
++	{
++		Form_pg_attribute expected = TupleDescAttr(onerel->rd_att, i);
++		Form_pg_attribute actual = TupleDescAttr(sample_rel->rd_att, i);
++
++		if (expected->atttypid != actual->atttypid ||
++			expected->atttypmod != actual->atttypmod ||
++			expected->attcollation != actual->attcollation)
++			ereport(ERROR,
++					(errcode(ERRCODE_DATATYPE_MISMATCH),
++					 errmsg("frozen sample column %d type metadata does not match analyzed relation",
++						i + 1)));
++	}
++
++	scan = table_beginscan(sample_rel, GetLatestSnapshot(), 0, NULL);
++	slot = table_slot_create(sample_rel, NULL);
++	while (table_scan_getnextslot(scan, ForwardScanDirection, slot))
++		existing++;
++	table_endscan(scan);
++	ExecDropSingleTupleTableSlot(slot);
++	if (existing != 0)
++		ereport(ERROR,
++				(errcode(ERRCODE_DUPLICATE_OBJECT),
++				 errmsg("frozen sample capture relation is not empty"),
++				 errdetail("found %d existing rows", existing)));
++
++	for (i = 0; i < numrows; i++)
++	{
++		HeapTuple copy = heap_copytuple(rows[i]);
++
++		heap_insert(sample_rel, copy, GetCurrentCommandId(true), 0, NULL);
++		heap_freetuple(copy);
++	}
++	CommandCounterIncrement();
++	table_close(sample_rel, RowExclusiveLock);
++}
++
+ /*
+  * Comparator for sorting rows[] array
+  */
+diff --git a/src/backend/commands/analyze_sample_cache.c b/src/backend/commands/analyze_sample_cache.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..0926b40979ab93952ac0cb22451feed24a21b8c3
+--- /dev/null
++++ b/src/backend/commands/analyze_sample_cache.c
+@@ -0,0 +1,372 @@
++/*-------------------------------------------------------------------------
++ *
++ * analyze_sample_cache.c
++ *		Binary export/import for ANALYZE acquisition samples.
++ *
++ * This is deliberately an internal, PostgreSQL-native format.  It is tied to
++ * the server binary and relation tuple descriptor; it is not a data export
++ * format and does not contain computed statistics.
++ *
++ *-------------------------------------------------------------------------
++ */
++#include "postgres.h"
++
++#include <stdio.h>
++#include <string.h>
++
++#include "access/heapam.h"
++#include "access/htup_details.h"
++#include "catalog/namespace.h"
++#include "commands/analyze_sample_cache.h"
++#include "miscadmin.h"
++#include "port/pg_crc32c.h"
++#include "storage/fd.h"
++#include "utils/elog.h"
++#include "utils/lsyscache.h"
++#include "utils/memutils.h"
++#include "utils/rel.h"
++
++#define SAMPLE_CACHE_MAGIC "PGEXTSC1"
++#define SAMPLE_CACHE_MAGIC_LEN 8
++#define SAMPLE_CACHE_FORMAT_VERSION 1
++
++static void sample_cache_write_bytes(FILE *file, const void *data, size_t len,
++								 pg_crc32c *crc, const char *path);
++static void sample_cache_read_bytes(FILE *file, void *data, size_t len,
++								pg_crc32c *crc, const char *path);
++static void sample_cache_write_u32(FILE *file, uint32 value, pg_crc32c *crc,
++								  const char *path);
++static uint32 sample_cache_read_u32(FILE *file, pg_crc32c *crc, const char *path);
++static void sample_cache_write_string(FILE *file, const char *value,
++								  pg_crc32c *crc, const char *path);
++static char *sample_cache_read_string(FILE *file, pg_crc32c *crc,
++								 const char *path);
++static char *sample_cache_relation_identity(Relation relation);
++static void sample_cache_check_descriptor(Relation relation, uint32 natts,
++										 FILE *file,
++										 pg_crc32c *crc, const char *path);
++static void sample_cache_file_error(const char *path, const char *operation);
++
++static void
++sample_cache_file_error(const char *path, const char *operation)
++{
++	ereport(ERROR,
++			(errcode_for_file_access(),
++			 errmsg("could not %s ANALYZE sample cache file \"%s\": %m",
++					 operation, path)));
++}
++
++static void
++sample_cache_write_bytes(FILE *file, const void *data, size_t len,
++							 pg_crc32c *crc, const char *path)
++{
++	if (len > 0 && fwrite(data, 1, len, file) != len)
++		sample_cache_file_error(path, "write");
++	if (len > 0)
++		COMP_CRC32C(*crc, data, len);
++}
++
++static void
++sample_cache_read_bytes(FILE *file, void *data, size_t len,
++							pg_crc32c *crc, const char *path)
++{
++	if (len > 0 && fread(data, 1, len, file) != len)
++		sample_cache_file_error(path, "read");
++	if (len > 0)
++		COMP_CRC32C(*crc, data, len);
++}
++
++static void
++sample_cache_write_u32(FILE *file, uint32 value, pg_crc32c *crc,
++							  const char *path)
++{
++	sample_cache_write_bytes(file, &value, sizeof(value), crc, path);
++}
++
++static uint32
++sample_cache_read_u32(FILE *file, pg_crc32c *crc, const char *path)
++{
++	uint32	value;
++
++	sample_cache_read_bytes(file, &value, sizeof(value), crc, path);
++	return value;
++}
++
++static void
++sample_cache_write_string(FILE *file, const char *value, pg_crc32c *crc,
++							  const char *path)
++{
++	uint32	len = (uint32) strlen(value);
++
++	sample_cache_write_u32(file, len, crc, path);
++	sample_cache_write_bytes(file, value, len, crc, path);
++}
++
++static char *
++sample_cache_read_string(FILE *file, pg_crc32c *crc, const char *path)
++{
++	uint32	len = sample_cache_read_u32(file, crc, path);
++	char   *value;
++
++	if (len > MaxAllocSize - 1)
++		ereport(ERROR,
++				(errcode(ERRCODE_DATA_CORRUPTED),
++				 errmsg("ANALYZE sample cache string is too large"),
++				 errdetail("file \"%s\" contains a string of length %u",
++						   path, len)));
++	value = (char *) palloc(len + 1);
++	sample_cache_read_bytes(file, value, len, crc, path);
++	value[len] = '\0';
++	return value;
++}
++
++/* Length-prefix both names so dots or other punctuation in identifiers are unambiguous. */
++static char *
++sample_cache_relation_identity(Relation relation)
++{
++	const char *namespace_name = get_namespace_name(RelationGetNamespace(relation));
++	const char *relation_name = RelationGetRelationName(relation);
++
++	return psprintf("%zu:%s%zu:%s",
++					strlen(namespace_name), namespace_name,
++					strlen(relation_name), relation_name);
++}
++
++static void
++sample_cache_check_descriptor(Relation relation, uint32 natts, FILE *file,
++								  pg_crc32c *crc,
++								  const char *path)
++{
++	uint32	 i;
++
++	if (relation->rd_att->natts != (int) natts)
++		ereport(ERROR,
++				(errcode(ERRCODE_DATATYPE_MISMATCH),
++				 errmsg("ANALYZE sample cache column count does not match relation"),
++				 errdetail("cache has %u columns, relation has %d",
++						   natts, relation->rd_att->natts)));
++
++	for (i = 0; i < natts; i++)
++	{
++		Form_pg_attribute attr = TupleDescAttr(relation->rd_att, i);
++		Oid		typid = sample_cache_read_u32(file, crc, path);
++		int32	typmod;
++		Oid		collation;
++		uint8	dropped;
++		char   *attname;
++
++		sample_cache_read_bytes(file, &typmod, sizeof(typmod), crc, path);
++		collation = sample_cache_read_u32(file, crc, path);
++		sample_cache_read_bytes(file, &dropped, sizeof(dropped), crc, path);
++		attname = sample_cache_read_string(file, crc, path);
++
++		if (attr->atttypid != typid || attr->atttypmod != typmod ||
++			attr->attcollation != collation || attr->attisdropped != (dropped != 0) ||
++			strcmp(NameStr(attr->attname), attname) != 0)
++			ereport(ERROR,
++					(errcode(ERRCODE_DATATYPE_MISMATCH),
++					 errmsg("ANALYZE sample cache column %u does not match relation",
++							i + 1)));
++		pfree(attname);
++	}
++}
++
++void
++sample_cache_export(Relation relation, const char *path, HeapTuple *tuples,
++						int tuple_count, double totalrows)
++{
++	FILE	   *file;
++	pg_crc32c	crc;
++	uint32		i;
++	uint32		natts = (uint32) relation->rd_att->natts;
++	uint32		server_version = PG_VERSION_NUM;
++	const char *server_version_string = PG_VERSION;
++	char	   *relation_identity;
++
++	file = AllocateFile(path, PG_BINARY_W);
++	if (file == NULL)
++		sample_cache_file_error(path, "open");
++
++	INIT_CRC32C(crc);
++	relation_identity = sample_cache_relation_identity(relation);
++	sample_cache_write_bytes(file, SAMPLE_CACHE_MAGIC, SAMPLE_CACHE_MAGIC_LEN,
++							 &crc, path);
++	sample_cache_write_u32(file, SAMPLE_CACHE_FORMAT_VERSION, &crc, path);
++	sample_cache_write_u32(file, server_version, &crc, path);
++	sample_cache_write_string(file, server_version_string, &crc, path);
++	sample_cache_write_u32(file, relation->rd_id, &crc, path);
++	sample_cache_write_string(file, relation_identity, &crc, path);
++	sample_cache_write_u32(file, natts, &crc, path);
++	sample_cache_write_u32(file, (uint32) tuple_count, &crc, path);
++	sample_cache_write_bytes(file, &totalrows, sizeof(totalrows), &crc, path);
++
++	for (i = 0; i < natts; i++)
++	{
++		Form_pg_attribute attr = TupleDescAttr(relation->rd_att, i);
++		uint8	dropped = attr->attisdropped ? 1 : 0;
++
++		sample_cache_write_u32(file, attr->atttypid, &crc, path);
++		sample_cache_write_bytes(file, &attr->atttypmod, sizeof(attr->atttypmod),
++							 &crc, path);
++		sample_cache_write_u32(file, attr->attcollation, &crc, path);
++		sample_cache_write_bytes(file, &dropped, sizeof(dropped), &crc, path);
++		sample_cache_write_string(file, NameStr(attr->attname), &crc, path);
++	}
++
++	for (i = 0; i < (uint32) tuple_count; i++)
++	{
++		uint32	len = tuples[i]->t_len;
++
++		if (len < sizeof(HeapTupleHeaderData) || len > MaxAllocSize)
++			ereport(ERROR,
++					(errcode(ERRCODE_DATA_CORRUPTED),
++					 errmsg("invalid tuple length in ANALYZE sample")));
++		sample_cache_write_u32(file, len, &crc, path);
++		sample_cache_write_bytes(file, tuples[i]->t_data, len, &crc, path);
++	}
++
++	FIN_CRC32C(crc);
++	if (fwrite(&crc, sizeof(crc), 1, file) != 1)
++		sample_cache_file_error(path, "write");
++	if (FreeFile(file) != 0)
++		sample_cache_file_error(path, "close");
++	pfree(relation_identity);
++}
++
++SampleCache *
++sample_cache_import(Relation relation, const char *path, int targrows)
++{
++	SampleCache *cache;
++	FILE	   *file;
++	pg_crc32c	crc;
++	pg_crc32c	stored_crc;
++	char		magic[SAMPLE_CACHE_MAGIC_LEN];
++	uint32		version;
++	uint32		server_version;
++	char	   *server_version_string;
++	uint32		relation_oid;
++	char	   *relation_name;
++	uint32		natts;
++	uint32		i;
++	int		trailing;
++	char	   *relation_identity;
++
++	file = AllocateFile(path, PG_BINARY_R);
++	if (file == NULL)
++		sample_cache_file_error(path, "open");
++
++	INIT_CRC32C(crc);
++	sample_cache_read_bytes(file, magic, sizeof(magic), &crc, path);
++	if (memcmp(magic, SAMPLE_CACHE_MAGIC, sizeof(magic)) != 0)
++		ereport(ERROR,
++				(errcode(ERRCODE_DATA_CORRUPTED),
++				 errmsg("invalid ANALYZE sample cache magic in \"%s\"", path)));
++
++	version = sample_cache_read_u32(file, &crc, path);
++	if (version != SAMPLE_CACHE_FORMAT_VERSION)
++		ereport(ERROR,
++				(errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
++				 errmsg("unsupported ANALYZE sample cache version %u", version)));
++
++	server_version = sample_cache_read_u32(file, &crc, path);
++	server_version_string = sample_cache_read_string(file, &crc, path);
++	if (server_version != PG_VERSION_NUM ||
++		strcmp(server_version_string, PG_VERSION) != 0)
++		ereport(ERROR,
++				(errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
++				 errmsg("ANALYZE sample cache PostgreSQL version is incompatible"),
++				 errdetail("cache is for %u (%s), server is %u (%s)",
++						   server_version, server_version_string,
++						   PG_VERSION_NUM, PG_VERSION)));
++	pfree(server_version_string);
++
++	relation_oid = sample_cache_read_u32(file, &crc, path);
++	relation_name = sample_cache_read_string(file, &crc, path);
++	relation_identity = sample_cache_relation_identity(relation);
++	if (strcmp(relation_name, relation_identity) != 0 &&
++		!(relation_oid == RelationGetRelid(relation) &&
++		  strcmp(relation_name, RelationGetRelationName(relation)) == 0))
++		ereport(ERROR,
++				(errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
++				 errmsg("ANALYZE sample cache relation identity does not match"),
++				 errdetail("cache identity \"%s\" does not match relation \"%s\"",
++						   relation_name, relation_identity)));
++	pfree(relation_identity);
++
++	natts = sample_cache_read_u32(file, &crc, path);
++	cache = (SampleCache *) palloc0(sizeof(SampleCache));
++	cache->format_version = version;
++	cache->relation_oid = relation_oid;
++	cache->relation_name = relation_name;
++	cache->natts = (int) natts;
++	cache->tuple_count = sample_cache_read_u32(file, &crc, path);
++	sample_cache_read_bytes(file, &cache->totalrows, sizeof(cache->totalrows),
++						&crc, path);
++
++	if (cache->tuple_count > (uint32) targrows)
++		ereport(ERROR,
++				(errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
++				 errmsg("ANALYZE sample cache row count is invalid"),
++				 errdetail("cache has %u rows, ANALYZE requested at most %d",
++						   cache->tuple_count, targrows)));
++
++	sample_cache_check_descriptor(relation, natts, file, &crc, path);
++	cache->tuples = (HeapTuple *) palloc(sizeof(HeapTuple) * cache->tuple_count);
++	for (i = 0; i < cache->tuple_count; i++)
++	{
++		uint32		len = sample_cache_read_u32(file, &crc, path);
++		HeapTuple	tuple;
++
++		if (len < sizeof(HeapTupleHeaderData) || len > MaxAllocSize)
++			ereport(ERROR,
++					(errcode(ERRCODE_DATA_CORRUPTED),
++					 errmsg("invalid tuple length in ANALYZE sample cache")));
++		tuple = (HeapTuple) palloc(sizeof(HeapTupleData));
++		tuple->t_len = len;
++		ItemPointerSetInvalid(&tuple->t_self);
++		tuple->t_tableOid = RelationGetRelid(relation);
++		tuple->t_data = (HeapTupleHeader) palloc(len);
++		sample_cache_read_bytes(file, tuple->t_data, len, &crc, path);
++		cache->tuples[i] = tuple;
++	}
++
++	if (fread(&stored_crc, sizeof(stored_crc), 1, file) != 1)
++		sample_cache_file_error(path, "read");
++	FIN_CRC32C(crc);
++	if (stored_crc != crc)
++		ereport(ERROR,
++				(errcode(ERRCODE_DATA_CORRUPTED),
++				 errmsg("checksum mismatch in ANALYZE sample cache \"%s\"",
++						path)));
++	trailing = fgetc(file);
++	if (trailing != EOF)
++		ereport(ERROR,
++				(errcode(ERRCODE_DATA_CORRUPTED),
++				 errmsg("unexpected data after ANALYZE sample cache checksum"),
++				 errdetail("file \"%s\" has trailing bytes", path)));
++	if (ferror(file))
++		sample_cache_file_error(path, "read");
++	if (FreeFile(file) != 0)
++		sample_cache_file_error(path, "close");
++
++	return cache;
++}
++
++void
++sample_cache_free(SampleCache *cache, bool free_tuples)
++{
++	uint32	i;
++
++	if (cache == NULL)
++		return;
++	if (free_tuples && cache->tuples != NULL)
++	{
++		for (i = 0; i < cache->tuple_count; i++)
++			heap_freetuple(cache->tuples[i]);
++	}
++	if (cache->tuples != NULL)
++		pfree(cache->tuples);
++	if (cache->relation_name != NULL)
++		pfree(cache->relation_name);
++	pfree(cache);
++}
+diff --git a/src/backend/commands/meson.build b/src/backend/commands/meson.build
+index 42cced9ebe9c5e62ad7d41d3f56b7f6e30e36166..cf4d4589eb2a9186cf05af5c80a6b55bd512eabc 100644
+--- a/src/backend/commands/meson.build
++++ b/src/backend/commands/meson.build
+@@ -5,6 +5,7 @@ backend_sources += files(
+   'alter.c',
+   'amcmds.c',
+   'analyze.c',
++  'analyze_sample_cache.c',
+   'async.c',
+   'cluster.c',
+   'collationcmds.c',
+diff --git a/src/backend/optimizer/util/plancat.c b/src/backend/optimizer/util/plancat.c
+index d5f0034554892ebd74a2b578ac7a8b0f643bfac3..f3a6fdeca8181b3e9c044c21e1de578663e6c146 100644
+--- a/src/backend/optimizer/util/plancat.c
++++ b/src/backend/optimizer/util/plancat.c
+@@ -46,6 +46,7 @@
+ #include "partitioning/partdesc.h"
+ #include "rewrite/rewriteManip.h"
+ #include "statistics/statistics.h"
++#include "statistics/hypothetical.h"
+ #include "storage/bufmgr.h"
+ #include "tcop/tcopprot.h"
+ #include "utils/builtins.h"
+@@ -1371,7 +1372,42 @@ get_relation_statistics_worker(List **stainfos, RelOptInfo *rel,
+ 	dtup = SearchSysCache2(STATEXTDATASTXOID,
+ 						   ObjectIdGetDatum(statOid), BoolGetDatum(inh));
+ 	if (!HeapTupleIsValid(dtup))
++	{
++		/*
++		 * A hypothetical realization may intentionally have no physical
++		 * pg_statistic_ext_data row.  Treat only registered PRESENT kinds
++		 * as built; ordinary PostgreSQL definitions still produce no info.
++		 */
++		if (hypothetical_extstats_registered(statOid,
++										 HYPOTHETICAL_EXTSTATS_DEPENDENCIES))
++		{
++			StatisticExtInfo *info = makeNode(StatisticExtInfo);
++
++			info->statOid = statOid;
++			info->inherit = inh;
++			info->rel = rel;
++			info->kind = STATS_EXT_DEPENDENCIES;
++			info->keys = bms_copy(keys);
++			info->exprs = exprs;
++			*stainfos = lappend(*stainfos, info);
++		}
++
++		if (hypothetical_extstats_registered(statOid,
++										 HYPOTHETICAL_EXTSTATS_MCV))
++		{
++			StatisticExtInfo *info = makeNode(StatisticExtInfo);
++
++			info->statOid = statOid;
++			info->inherit = inh;
++			info->rel = rel;
++			info->kind = STATS_EXT_MCV;
++			info->keys = bms_copy(keys);
++			info->exprs = exprs;
++			*stainfos = lappend(*stainfos, info);
++		}
++
+ 		return;
++	}
+ 
+ 	dataForm = (Form_pg_statistic_ext_data) GETSTRUCT(dtup);
+ 
+@@ -1452,6 +1488,7 @@ get_relation_statistics(RelOptInfo *rel, Relation relation)
+ 	ListCell   *l;
+ 
+ 	statoidlist = RelationGetStatExtList(relation);
++	statoidlist = hypothetical_extstats_filter(RelationGetRelid(relation), statoidlist);
+ 
+ 	foreach(l, statoidlist)
+ 	{
+diff --git a/src/backend/statistics/Makefile b/src/backend/statistics/Makefile
+index 89cf8c27973db21eb0a8f1dda8d28b6b5be333d7..58318a311d136043a3355067fa2ed06cc6f70f39 100644
+--- a/src/backend/statistics/Makefile
++++ b/src/backend/statistics/Makefile
+@@ -15,6 +15,7 @@ include $(top_builddir)/src/Makefile.global
+ OBJS = \
+ 	dependencies.o \
+ 	extended_stats.o \
++	hypothetical.o \
+ 	mcv.o \
+ 	mvdistinct.o
+ 
+diff --git a/src/backend/statistics/dependencies.c b/src/backend/statistics/dependencies.c
+index edb2e5347d45febf9cb1bc79b34d2ee9c97ad45a..82fe52a407cd86c4b5986b2a51b0ab139aaab21e 100644
+--- a/src/backend/statistics/dependencies.c
++++ b/src/backend/statistics/dependencies.c
+@@ -26,6 +26,7 @@
+ #include "optimizer/optimizer.h"
+ #include "parser/parsetree.h"
+ #include "statistics/extended_stats_internal.h"
++#include "statistics/hypothetical.h"
+ #include "statistics/statistics.h"
+ #include "utils/bytea.h"
+ #include "utils/fmgroids.h"
+@@ -621,10 +622,20 @@ MVDependencies *
+ statext_dependencies_load(Oid mvoid, bool inh)
+ {
+ 	MVDependencies *result;
++	const bytea *hypothetical;
+ 	bool		isnull;
+ 	Datum		deps;
+ 	HeapTuple	htup;
+ 
++	if (!inh && hypothetical_extstats_payload(mvoid,
++											 HYPOTHETICAL_EXTSTATS_DEPENDENCIES,
++											 &hypothetical))
++		return statext_dependencies_deserialize((bytea *) hypothetical);
++
++	if (!inh && hypothetical_extstats_absent_native(mvoid,
++											 HYPOTHETICAL_EXTSTATS_DEPENDENCIES))
++		return NULL;
++
+ 	htup = SearchSysCache2(STATEXTDATASTXOID,
+ 						   ObjectIdGetDatum(mvoid),
+ 						   BoolGetDatum(inh));
+diff --git a/src/backend/statistics/hypothetical.c b/src/backend/statistics/hypothetical.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..fcb9e2d013ee344311c61a3ce22c2b777f83f22b
+--- /dev/null
++++ b/src/backend/statistics/hypothetical.c
+@@ -0,0 +1,364 @@
++/* Backend-local hypothetical extended-statistics overlay. */
++#include "postgres.h"
++#include "catalog/pg_statistic_ext.h"
++#include "fmgr.h"
++#include "access/htup_details.h"
++#include "statistics/extended_stats_internal.h"
++#include "statistics/hypothetical.h"
++#include "utils/array.h"
++#include "utils/hsearch.h"
++#include "utils/memutils.h"
++#include "utils/syscache.h"
++
++typedef struct HypoPayloadKey { Oid statoid; char kind; } HypoPayloadKey;
++typedef struct HypoPayloadEntry
++{ HypoPayloadKey key; Oid relid; bytea *payload; bool absent_native; } HypoPayloadEntry;
++typedef struct HypoActiveEntry { Oid statoid; Oid relid; } HypoActiveEntry;
++
++static MemoryContext HypoContext;
++static MemoryContext HypoRepositoryContext;
++static MemoryContext HypoActiveContext;
++static HTAB *HypoRepository;
++static HTAB *HypoActive;
++static Oid *HypoOrder;
++static int HypoOrderLength;
++static bool HypoEnabled;
++
++static void
++hypothetical_extstats_init(void)
++{
++	HASHCTL ctl;
++	if (HypoContext != NULL)
++		return;
++	HypoContext = AllocSetContextCreate(TopMemoryContext,
++			"HypotheticalExtStatsContext", ALLOCSET_DEFAULT_SIZES);
++	HypoRepositoryContext = AllocSetContextCreate(HypoContext,
++			"HypotheticalExtStatsRepository", ALLOCSET_DEFAULT_SIZES);
++	MemSet(&ctl, 0, sizeof(ctl));
++	ctl.keysize = sizeof(HypoPayloadKey);
++	ctl.entrysize = sizeof(HypoPayloadEntry);
++	ctl.hcxt = HypoRepositoryContext;
++	HypoRepository = hash_create("hypothetical extstats payloads", 32, &ctl,
++			HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
++}
++
++void
++hypothetical_extstats_reset(void)
++{
++	if (HypoContext != NULL)
++		MemoryContextDelete(HypoContext);
++	HypoContext = HypoRepositoryContext = HypoActiveContext = NULL;
++	HypoRepository = HypoActive = NULL;
++	HypoOrder = NULL;
++	HypoOrderLength = 0;
++	HypoEnabled = false;
++}
++
++static bool
++repository_oid(Oid statoid, Oid *relid)
++{
++	HypoPayloadKey key;
++	HypoPayloadEntry *entry;
++	if (HypoRepository == NULL)
++		return false;
++	MemSet(&key, 0, sizeof(key));
++	key.statoid = statoid;
++	key.kind = HYPOTHETICAL_EXTSTATS_MCV;
++	entry = hash_search(HypoRepository, &key, HASH_FIND, NULL);
++	if (entry == NULL)
++	{
++		key.kind = HYPOTHETICAL_EXTSTATS_DEPENDENCIES;
++		entry = hash_search(HypoRepository, &key, HASH_FIND, NULL);
++	}
++	if (entry == NULL)
++		return false;
++	*relid = entry->relid;
++	return true;
++}
++
++bool
++hypothetical_extstats_absent_native(Oid statoid, HypotheticalExtStatsKind kind)
++{
++	HypoPayloadKey key;
++	HypoPayloadEntry *entry;
++	if (!HypoEnabled || HypoActive == NULL ||
++		hash_search(HypoActive, &statoid, HASH_FIND, NULL) == NULL)
++		return false;
++	MemSet(&key, 0, sizeof(key));
++	key.statoid = statoid;
++	key.kind = kind;
++	entry = hash_search(HypoRepository, &key, HASH_FIND, NULL);
++	if (entry == NULL)
++		ereport(ERROR, (errmsg("active statistics object %u has no registered payload for kind %c",
++			statoid, kind)));
++	return entry->absent_native;
++}
++
++bool
++hypothetical_extstats_registered(Oid statoid, HypotheticalExtStatsKind kind)
++{
++	HypoPayloadKey key;
++
++	if (!HypoEnabled || HypoActive == NULL || HypoRepository == NULL ||
++		hash_search(HypoActive, &statoid, HASH_FIND, NULL) == NULL)
++		return false;
++	MemSet(&key, 0, sizeof(key));
++	key.statoid = statoid;
++	key.kind = kind;
++	{
++		HypoPayloadEntry *entry = hash_search(HypoRepository, &key, HASH_FIND, NULL);
++		return entry != NULL && !entry->absent_native;
++	}
++}
++
++void
++hypothetical_extstats_register(Oid statoid, Oid relid,
++		HypotheticalExtStatsKind kind, const bytea *payload)
++{
++	HypoPayloadKey key;
++	HypoPayloadEntry *entry;
++	HeapTuple tuple;
++	Oid actual_relid;
++	MemoryContext oldcontext;
++	bool found;
++	void *decoded;
++
++	if (!OidIsValid(statoid) || !OidIsValid(relid))
++		ereport(ERROR, (errmsg("invalid hypothetical statistics identity")));
++	if (kind != HYPOTHETICAL_EXTSTATS_MCV &&
++		kind != HYPOTHETICAL_EXTSTATS_DEPENDENCIES)
++		ereport(ERROR, (errmsg("unsupported hypothetical statistics kind: %c", kind)));
++	if (payload == NULL || VARSIZE_ANY_EXHDR(payload) == 0)
++		ereport(ERROR, (errmsg("empty hypothetical statistics payload")));
++	tuple = SearchSysCache1(STATEXTOID, ObjectIdGetDatum(statoid));
++	if (!HeapTupleIsValid(tuple))
++		ereport(ERROR, (errmsg("statistics object %u does not exist", statoid)));
++	actual_relid = ((Form_pg_statistic_ext) GETSTRUCT(tuple))->stxrelid;
++	ReleaseSysCache(tuple);
++	if (actual_relid != relid)
++		ereport(ERROR, (errmsg("statistics object %u belongs to relation %u, not %u",
++			statoid, actual_relid, relid)));
++	if (kind == HYPOTHETICAL_EXTSTATS_MCV)
++		decoded = statext_mcv_deserialize((bytea *) payload);
++	else
++		decoded = statext_dependencies_deserialize((bytea *) payload);
++	pfree(decoded);
++
++	hypothetical_extstats_init();
++	MemSet(&key, 0, sizeof(key));
++	key.statoid = statoid;
++	key.kind = kind;
++	entry = hash_search(HypoRepository, &key, HASH_ENTER, &found);
++	if (found)
++		ereport(ERROR, (errmsg("hypothetical payload for statistics object %u kind %c is already registered",
++			statoid, kind)));
++	oldcontext = MemoryContextSwitchTo(HypoRepositoryContext);
++	entry->relid = relid;
++	entry->payload = PG_DETOAST_DATUM_COPY(PointerGetDatum(payload));
++	entry->absent_native = false;
++	MemoryContextSwitchTo(oldcontext);
++}
++
++void
++hypothetical_extstats_register_absent(Oid statoid, Oid relid,
++		HypotheticalExtStatsKind kind)
++{
++	HypoPayloadKey key;
++	HypoPayloadEntry *entry;
++	HeapTuple tuple;
++	Oid actual_relid;
++	bool found;
++
++	if (!OidIsValid(statoid) || !OidIsValid(relid))
++		ereport(ERROR, (errmsg("invalid hypothetical statistics identity")));
++	if (kind != HYPOTHETICAL_EXTSTATS_MCV &&
++		kind != HYPOTHETICAL_EXTSTATS_DEPENDENCIES)
++		ereport(ERROR, (errmsg("unsupported hypothetical statistics kind: %c", kind)));
++	tuple = SearchSysCache1(STATEXTOID, ObjectIdGetDatum(statoid));
++	if (!HeapTupleIsValid(tuple))
++		ereport(ERROR, (errmsg("statistics object %u does not exist", statoid)));
++	actual_relid = ((Form_pg_statistic_ext) GETSTRUCT(tuple))->stxrelid;
++	ReleaseSysCache(tuple);
++	if (actual_relid != relid)
++		ereport(ERROR, (errmsg("statistics object %u belongs to relation %u, not %u",
++			statoid, actual_relid, relid)));
++	hypothetical_extstats_init();
++	MemSet(&key, 0, sizeof(key));
++	key.statoid = statoid;
++	key.kind = kind;
++	entry = hash_search(HypoRepository, &key, HASH_ENTER, &found);
++	if (found)
++		ereport(ERROR, (errmsg("hypothetical payload for statistics object %u kind %c is already registered",
++			statoid, kind)));
++	entry->relid = relid;
++	entry->payload = NULL;
++	entry->absent_native = true;
++}
++
++void
++hypothetical_extstats_activate(List *ordered_oids)
++{
++	MemoryContext newcontext;
++	MemoryContext oldcontext;
++	HTAB *newactive;
++	HASHCTL ctl;
++	Oid *neworder;
++	ListCell *lc;
++	int index = 0;
++
++	hypothetical_extstats_init();
++	/* Validate before allocating replacement state, so activation is atomic. */
++	foreach(lc, ordered_oids)
++	{
++		Oid oid = lfirst_oid(lc);
++		Oid relid;
++		ListCell *prior;
++		if (!repository_oid(oid, &relid))
++			ereport(ERROR, (errmsg("cannot activate unregistered statistics object %u", oid)));
++		for_each_cell(prior, ordered_oids, list_head(ordered_oids))
++		{
++			if (prior == lc)
++				break;
++			if (lfirst_oid(prior) == oid)
++				ereport(ERROR, (errmsg("duplicate active statistics object %u", oid)));
++		}
++	}
++	newcontext = AllocSetContextCreate(HypoContext,
++			"HypotheticalExtStatsActiveDesign", ALLOCSET_DEFAULT_SIZES);
++	oldcontext = MemoryContextSwitchTo(newcontext);
++	MemSet(&ctl, 0, sizeof(ctl));
++	ctl.keysize = sizeof(Oid);
++	ctl.entrysize = sizeof(HypoActiveEntry);
++	ctl.hcxt = newcontext;
++	newactive = hash_create("active hypothetical extstats", 32, &ctl,
++			HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
++	neworder = palloc(sizeof(Oid) * Max(1, list_length(ordered_oids)));
++	foreach(lc, ordered_oids)
++	{
++		Oid oid = lfirst_oid(lc);
++		Oid relid;
++		HypoActiveEntry *active;
++		bool found;
++		(void) repository_oid(oid, &relid);
++		active = hash_search(newactive, &oid, HASH_ENTER, &found);
++		Assert(!found);
++		active->relid = relid;
++		neworder[index++] = oid;
++	}
++	MemoryContextSwitchTo(oldcontext);
++	if (HypoActiveContext != NULL)
++		MemoryContextDelete(HypoActiveContext);
++	HypoActiveContext = newcontext;
++	HypoActive = newactive;
++	HypoOrder = neworder;
++	HypoOrderLength = index;
++	HypoEnabled = true;
++}
++
++List *
++hypothetical_extstats_filter(Oid relid, List *catalog_oids)
++{
++	List *result = NIL;
++	ListCell *lc;
++	int i;
++	bool targeted = false;
++	if (!HypoEnabled)
++		return catalog_oids;
++	foreach(lc, catalog_oids)
++	{
++		Oid registered_relid;
++		if (repository_oid(lfirst_oid(lc), &registered_relid) && registered_relid == relid)
++			targeted = true;
++	}
++	if (!targeted)
++		return catalog_oids;
++	for (i = 0; i < HypoOrderLength; i++)
++	{
++		HypoActiveEntry *active = hash_search(HypoActive, &HypoOrder[i], HASH_FIND, NULL);
++		if (active->relid == relid && list_member_oid(catalog_oids, HypoOrder[i]))
++			result = lappend_oid(result, HypoOrder[i]);
++	}
++	foreach(lc, catalog_oids)
++	{
++		Oid oid = lfirst_oid(lc);
++		Oid registered_relid;
++		if (!repository_oid(oid, &registered_relid))
++			result = lappend_oid(result, oid);
++	}
++	list_free(catalog_oids);
++	return result;
++}
++
++bool
++hypothetical_extstats_payload(Oid statoid, HypotheticalExtStatsKind kind,
++		const bytea **payload)
++{
++	HypoPayloadKey key;
++	HypoPayloadEntry *entry;
++	if (!HypoEnabled || HypoActive == NULL ||
++		hash_search(HypoActive, &statoid, HASH_FIND, NULL) == NULL)
++		return false;
++	MemSet(&key, 0, sizeof(key));
++	key.statoid = statoid;
++	key.kind = kind;
++	entry = hash_search(HypoRepository, &key, HASH_FIND, NULL);
++	if (entry == NULL)
++		ereport(ERROR, (errmsg("active statistics object %u has no registered payload for kind %c",
++			statoid, kind)));
++	*payload = entry->payload;
++	return true;
++}
++
++Datum pg_hypothetical_extstats_reset(PG_FUNCTION_ARGS)
++{ hypothetical_extstats_reset(); PG_RETURN_VOID(); }
++
++Datum pg_hypothetical_extstats_register(PG_FUNCTION_ARGS)
++{
++	hypothetical_extstats_register(PG_GETARG_OID(0), PG_GETARG_OID(1),
++			(HypotheticalExtStatsKind) PG_GETARG_CHAR(2), PG_GETARG_BYTEA_PP(3));
++	PG_RETURN_VOID();
++}
++
++Datum pg_hypothetical_extstats_register_absent(PG_FUNCTION_ARGS)
++{
++	hypothetical_extstats_register_absent(PG_GETARG_OID(0), PG_GETARG_OID(1),
++			(HypotheticalExtStatsKind) PG_GETARG_CHAR(2));
++	PG_RETURN_VOID();
++}
++
++Datum pg_hypothetical_extstats_activate(PG_FUNCTION_ARGS)
++{
++	ArrayType *array = PG_GETARG_ARRAYTYPE_P(0);
++	Datum *datums;
++	bool *nulls;
++	int count;
++	int i;
++	List *oids = NIL;
++	deconstruct_array_builtin(array, OIDOID, &datums, &nulls, &count);
++	for (i = 0; i < count; i++)
++	{
++		if (nulls[i])
++			ereport(ERROR, (errmsg("active hypothetical design cannot contain NULL")));
++		oids = lappend_oid(oids, DatumGetObjectId(datums[i]));
++	}
++	hypothetical_extstats_activate(oids);
++	list_free(oids);
++	pfree(datums);
++	pfree(nulls);
++	PG_RETURN_VOID();
++}
++
++Datum pg_hypothetical_extstats_active(PG_FUNCTION_ARGS)
++{
++	Datum *datums;
++	ArrayType *result;
++	int i;
++	if (!HypoEnabled)
++		PG_RETURN_NULL();
++	datums = palloc(sizeof(Datum) * Max(1, HypoOrderLength));
++	for (i = 0; i < HypoOrderLength; i++)
++		datums[i] = ObjectIdGetDatum(HypoOrder[i]);
++	result = construct_array_builtin(datums, HypoOrderLength, OIDOID);
++	pfree(datums);
++	PG_RETURN_ARRAYTYPE_P(result);
++}
+diff --git a/src/backend/statistics/mcv.c b/src/backend/statistics/mcv.c
+index 627bc81c58f29b162fb2242fbb0a8b34e43fe5ab..c544c342cbdabc55919534f6f02c1621abc40d3f 100644
+--- a/src/backend/statistics/mcv.c
++++ b/src/backend/statistics/mcv.c
+@@ -25,6 +25,7 @@
+ #include "nodes/nodeFuncs.h"
+ #include "optimizer/clauses.h"
+ #include "statistics/extended_stats_internal.h"
++#include "statistics/hypothetical.h"
+ #include "statistics/statistics.h"
+ #include "utils/array.h"
+ #include "utils/builtins.h"
+@@ -562,9 +563,20 @@ MCVList *
+ statext_mcv_load(Oid mvoid, bool inh)
+ {
+ 	MCVList    *result;
++	const bytea *hypothetical;
+ 	bool		isnull;
+ 	Datum		mcvlist;
+-	HeapTuple	htup = SearchSysCache2(STATEXTDATASTXOID,
++	HeapTuple	htup;
++
++	if (!inh && hypothetical_extstats_payload(mvoid, HYPOTHETICAL_EXTSTATS_MCV,
++											 &hypothetical))
++		return statext_mcv_deserialize((bytea *) hypothetical);
++
++	if (!inh && hypothetical_extstats_absent_native(mvoid,
++											 HYPOTHETICAL_EXTSTATS_MCV))
++		return NULL;
++
++	htup = SearchSysCache2(STATEXTDATASTXOID,
+ 									   ObjectIdGetDatum(mvoid), BoolGetDatum(inh));
+ 
+ 	if (!HeapTupleIsValid(htup))
+diff --git a/src/backend/statistics/meson.build b/src/backend/statistics/meson.build
+index e12737b011eac5aabdccf2c0a9ded3e8a1123bf4..99310235d0c3135ebfc329030bfdb538d8e24c10 100644
+--- a/src/backend/statistics/meson.build
++++ b/src/backend/statistics/meson.build
+@@ -3,6 +3,7 @@
+ backend_sources += files(
+   'dependencies.c',
+   'extended_stats.c',
++  'hypothetical.c',
+   'mcv.c',
+   'mvdistinct.c',
+ )
+diff --git a/src/backend/utils/misc/guc_tables.c b/src/backend/utils/misc/guc_tables.c
+index 093567535bdff5c444ef35a23bb2d1a67e96281a..e3c935bd40699d01be7c3efdce1149ceccde92b7 100644
+--- a/src/backend/utils/misc/guc_tables.c
++++ b/src/backend/utils/misc/guc_tables.c
+@@ -96,6 +96,11 @@ extern int	CommitDelay;
+ extern int	CommitSiblings;
+ extern char *default_tablespace;
+ extern char *temp_tablespaces;
++extern char *pg_extstats_frozen_sample_mode;
++extern char *pg_extstats_frozen_sample_relation;
++extern double pg_extstats_frozen_totalrows;
++extern char *pgextadv_analyze_sample_export;
++extern char *pgextadv_analyze_sample_import;
+ extern bool ignore_checksum_failure;
+ extern bool ignore_invalid_pages;
+ 
+@@ -3524,6 +3529,16 @@ struct config_int ConfigureNamesInt[] =
+ 
+ struct config_real ConfigureNamesReal[] =
+ {
++	{
++		{"pg_extstats.frozen_totalrows", PGC_USERSET, DEVELOPER_OPTIONS,
++			gettext_noop("Original relation cardinality used by frozen-sample ANALYZE replay."),
++			NULL,
++			GUC_NOT_IN_SAMPLE
++		},
++		&pg_extstats_frozen_totalrows,
++		-1.0, -1.0, DBL_MAX,
++		NULL, NULL, NULL
++	},
+ 	{
+ 		{"seq_page_cost", PGC_USERSET, QUERY_TUNING_COST,
+ 			gettext_noop("Sets the planner's estimate of the cost of a "
+@@ -3805,6 +3820,46 @@ struct config_real ConfigureNamesReal[] =
+ 
+ struct config_string ConfigureNamesString[] =
+ {
++	{
++		{"pg_extstats.frozen_sample_mode", PGC_USERSET, DEVELOPER_OPTIONS,
++			gettext_noop("Use an experiment-only frozen acquisition sample during ANALYZE."),
++			gettext_noop("The default off mode preserves normal PostgreSQL sampling; capture and replay are fail-closed modes."),
++			GUC_NOT_IN_SAMPLE
++		},
++		&pg_extstats_frozen_sample_mode,
++		"off",
++		NULL, NULL, NULL
++	},
++	{
++		{"pg_extstats.frozen_sample_relation", PGC_USERSET, DEVELOPER_OPTIONS,
++			gettext_noop("Auxiliary relation containing an exact frozen ANALYZE sample."),
++			NULL,
++		GUC_NOT_IN_SAMPLE
++		},
++		&pg_extstats_frozen_sample_relation,
++		"",
++		NULL, NULL, NULL
++	},
++	{
++		{"pgextadv.analyze_sample_export", PGC_USERSET, DEVELOPER_OPTIONS,
++			gettext_noop("Path for exporting the internal ANALYZE sample."),
++			gettext_noop("An empty path disables sample export; the file is a PostgreSQL-native binary cache."),
++			GUC_NOT_IN_SAMPLE
++		},
++		&pgextadv_analyze_sample_export,
++		"",
++		NULL, NULL, NULL
++	},
++	{
++		{"pgextadv.analyze_sample_import", PGC_USERSET, DEVELOPER_OPTIONS,
++			gettext_noop("Path for importing an internal ANALYZE sample."),
++			gettext_noop("An empty path disables sample import; incompatible or corrupt caches are rejected."),
++			GUC_NOT_IN_SAMPLE
++		},
++		&pgextadv_analyze_sample_import,
++		"",
++		NULL, NULL, NULL
++	},
+ 	{
+ 		{"archive_command", PGC_SIGHUP, WAL_ARCHIVING,
+ 			gettext_noop("Sets the shell command that will be called to archive a WAL file."),
+diff --git a/src/include/catalog/pg_proc.dat b/src/include/catalog/pg_proc.dat
+index 6996073989a5dda2244f77f0320b26f16a46906f..94906632714a2537966bbc3ef30a99c2c38ab3e1 100644
+--- a/src/include/catalog/pg_proc.dat
++++ b/src/include/catalog/pg_proc.dat
+@@ -12043,4 +12043,26 @@
+   proname => 'any_value_transfn', prorettype => 'anyelement',
+   proargtypes => 'anyelement anyelement', prosrc => 'any_value_transfn' },
+ 
++# Backend-local hypothetical extended-statistics test/control surface.
++{ oid => '9995', descr => 'reset backend-local hypothetical extended statistics',
++  proname => 'pg_hypothetical_extstats_reset', provolatile => 'v',
++  prorettype => 'void', proargtypes => '',
++  prosrc => 'pg_hypothetical_extstats_reset' },
++{ oid => '9996', descr => 'register a native hypothetical statistics payload',
++  proname => 'pg_hypothetical_extstats_register', provolatile => 'v',
++  prorettype => 'void', proargtypes => 'oid oid char bytea',
++  prosrc => 'pg_hypothetical_extstats_register' },
++{ oid => '9999', descr => 'register an absent native hypothetical statistics realization',
++  proname => 'pg_hypothetical_extstats_register_absent', provolatile => 'v',
++  prorettype => 'void', proargtypes => 'oid oid char',
++  prosrc => 'pg_hypothetical_extstats_register_absent' },
++{ oid => '9997', descr => 'activate an ordered hypothetical statistics design',
++  proname => 'pg_hypothetical_extstats_activate', provolatile => 'v',
++  prorettype => 'void', proargtypes => '_oid',
++  prosrc => 'pg_hypothetical_extstats_activate' },
++{ oid => '9998', descr => 'inspect the active hypothetical statistics design',
++  proname => 'pg_hypothetical_extstats_active', provolatile => 'v',
++  prorettype => '_oid', proargtypes => '',
++  prosrc => 'pg_hypothetical_extstats_active' },
++
+ ]
+diff --git a/src/include/commands/analyze_sample_cache.h b/src/include/commands/analyze_sample_cache.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..157b400315fda33b7b953f7f6ed5cf96256e45cb
+--- /dev/null
++++ b/src/include/commands/analyze_sample_cache.h
+@@ -0,0 +1,34 @@
++/*-------------------------------------------------------------------------
++ *
++ * analyze_sample_cache.h
++ *
++ * Internal export/import support for ANALYZE acquisition samples.
++ *
++ *-------------------------------------------------------------------------
++ */
++#ifndef ANALYZE_SAMPLE_CACHE_H
++#define ANALYZE_SAMPLE_CACHE_H
++
++#include "access/htup.h"
++#include "access/relation.h"
++
++/* The cache contains sampled tuples, never pg_statistic payloads. */
++typedef struct SampleCache
++{
++	uint32		format_version;
++	Oid			relation_oid;
++	char	   *relation_name;
++	int			natts;
++	uint32		tuple_count;
++	double		totalrows;
++	HeapTuple *tuples;
++} SampleCache;
++
++extern void sample_cache_export(Relation relation, const char *path,
++							HeapTuple *tuples, int tuple_count,
++							double totalrows);
++extern SampleCache *sample_cache_import(Relation relation, const char *path,
++									int targrows);
++extern void sample_cache_free(SampleCache *cache, bool free_tuples);
++
++#endif						/* ANALYZE_SAMPLE_CACHE_H */
+diff --git a/src/include/statistics/hypothetical.h b/src/include/statistics/hypothetical.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..f6876fd60bbb652f1eaffe60a7d93cd2d913e7b4
+--- /dev/null
++++ b/src/include/statistics/hypothetical.h
+@@ -0,0 +1,52 @@
++/*-------------------------------------------------------------------------
++ *
++ * hypothetical.h
++ *    Backend-local hypothetical extended-statistics state.
++ *
++ *-------------------------------------------------------------------------
++ */
++#ifndef HYPOTHETICAL_H
++#define HYPOTHETICAL_H
++
++#include "postgres.h"
++
++#include "nodes/pg_list.h"
++
++typedef enum HypotheticalExtStatsKind
++{
++	HYPOTHETICAL_EXTSTATS_MCV = 'm',
++	HYPOTHETICAL_EXTSTATS_DEPENDENCIES = 'f'
++} HypotheticalExtStatsKind;
++
++/* Reset all repository and active-design state in the current backend. */
++extern void hypothetical_extstats_reset(void);
++
++/* Copy and validate one native serialized payload into backend-local state. */
++extern void hypothetical_extstats_register(Oid statoid, Oid relid,
++											HypotheticalExtStatsKind kind,
++											const bytea *payload);
++
++/* Replace the active design; ordered_oids defines effective precedence. */
++extern void hypothetical_extstats_activate(List *ordered_oids);
++extern void hypothetical_extstats_register_absent(Oid statoid, Oid relid,
++											HypotheticalExtStatsKind kind);
++
++/* Filter and reorder catalog definitions for the registered relation. */
++extern List *hypothetical_extstats_filter(Oid relid, List *catalog_oids);
++
++/* Return a registered native payload, or false when the overlay is inactive. */
++extern bool hypothetical_extstats_payload(Oid statoid,
++										  HypotheticalExtStatsKind kind,
++										  const bytea **payload);
++extern bool hypothetical_extstats_absent_native(Oid statoid,
++										  HypotheticalExtStatsKind kind);
++extern bool hypothetical_extstats_registered(Oid statoid,
++										 HypotheticalExtStatsKind kind);
++
++extern Datum pg_hypothetical_extstats_reset(PG_FUNCTION_ARGS);
++extern Datum pg_hypothetical_extstats_register(PG_FUNCTION_ARGS);
++extern Datum pg_hypothetical_extstats_register_absent(PG_FUNCTION_ARGS);
++extern Datum pg_hypothetical_extstats_activate(PG_FUNCTION_ARGS);
++extern Datum pg_hypothetical_extstats_active(PG_FUNCTION_ARGS);
++
++#endif							/* HYPOTHETICAL_H */
+diff --git a/src/test/regress/expected/analyze_sample_cache.out b/src/test/regress/expected/analyze_sample_cache.out
+new file mode 100644
+index 0000000000000000000000000000000000000000..330225f1ef61e05f911c81aa300e17e1319e609f
+--- /dev/null
++++ b/src/test/regress/expected/analyze_sample_cache.out
+@@ -0,0 +1,54 @@
++-- Verify binary ANALYZE sample export/import and deterministic statistics.
++SET client_min_messages = warning;
++CREATE TABLE analyze_sample_cache_test (id integer, category text);
++INSERT INTO analyze_sample_cache_test
++SELECT i, 'category-' || (i % 17)
++FROM generate_series(1, 2000) AS s(i);
++ALTER TABLE analyze_sample_cache_test ALTER COLUMN category SET STATISTICS 1;
++SET pgextadv.analyze_sample_export = '/tmp/pgextadv-analyze-sample-cache-regress.bin';
++ANALYZE analyze_sample_cache_test;
++SELECT (pg_stat_file('/tmp/pgextadv-analyze-sample-cache-regress.bin')).size > 0;
++ ?column? 
++----------
++ t
++(1 row)
++
++CREATE TEMP TABLE analyze_sample_cache_stats AS
++SELECT attname, null_frac, avg_width, n_distinct,
++       most_common_vals::text, most_common_freqs::text,
++       histogram_bounds::text, correlation
++FROM pg_stats
++WHERE tablename = 'analyze_sample_cache_test';
++SET pgextadv.analyze_sample_export = '';
++SET pgextadv.analyze_sample_import = '/tmp/pgextadv-analyze-sample-cache-regress.bin';
++ANALYZE analyze_sample_cache_test;
++SELECT NOT EXISTS (
++    (SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM pg_stats
++     WHERE tablename = 'analyze_sample_cache_test'
++     EXCEPT
++     SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM analyze_sample_cache_stats)
++    UNION ALL
++    (SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM analyze_sample_cache_stats
++     EXCEPT
++     SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM pg_stats
++     WHERE tablename = 'analyze_sample_cache_test')
++);
++ ?column? 
++----------
++ t
++(1 row)
++
++SET pgextadv.analyze_sample_import = '';
++DROP TABLE analyze_sample_cache_test;
+diff --git a/src/test/regress/parallel_schedule b/src/test/regress/parallel_schedule
+index 84e3710fb68e6480b2a5545e0767f88b8f1aaa7f..dc1b254094ea9e6347cf29d3b98bb0558da130e9 100644
+--- a/src/test/regress/parallel_schedule
++++ b/src/test/regress/parallel_schedule
+@@ -51,6 +51,8 @@ test: create_index create_index_spgist create_view index_including index_includi
+ test: create_aggregate create_function_sql create_cast constraints triggers select inherit typed_table vacuum drop_if_exists updatable_views roleattributes create_am hash_func errors infinite_recurse
+ 
+ # ----------
++test: analyze_sample_cache
++
+ # sanity_check does a vacuum, affecting the sort order of SELECT *
+ # results. So it should not run parallel to other tests.
+ # ----------
+diff --git a/src/test/regress/sql/analyze_sample_cache.sql b/src/test/regress/sql/analyze_sample_cache.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..3b330c33842a62ee24895680d8fbfb16b2c4868b
+--- /dev/null
++++ b/src/test/regress/sql/analyze_sample_cache.sql
+@@ -0,0 +1,48 @@
++-- Verify binary ANALYZE sample export/import and deterministic statistics.
++SET client_min_messages = warning;
++CREATE TABLE analyze_sample_cache_test (id integer, category text);
++INSERT INTO analyze_sample_cache_test
++SELECT i, 'category-' || (i % 17)
++FROM generate_series(1, 2000) AS s(i);
++ALTER TABLE analyze_sample_cache_test ALTER COLUMN category SET STATISTICS 1;
++
++SET pgextadv.analyze_sample_export = '/tmp/pgextadv-analyze-sample-cache-regress.bin';
++ANALYZE analyze_sample_cache_test;
++SELECT (pg_stat_file('/tmp/pgextadv-analyze-sample-cache-regress.bin')).size > 0;
++
++CREATE TEMP TABLE analyze_sample_cache_stats AS
++SELECT attname, null_frac, avg_width, n_distinct,
++       most_common_vals::text, most_common_freqs::text,
++       histogram_bounds::text, correlation
++FROM pg_stats
++WHERE tablename = 'analyze_sample_cache_test';
++
++SET pgextadv.analyze_sample_export = '';
++SET pgextadv.analyze_sample_import = '/tmp/pgextadv-analyze-sample-cache-regress.bin';
++ANALYZE analyze_sample_cache_test;
++SELECT NOT EXISTS (
++    (SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM pg_stats
++     WHERE tablename = 'analyze_sample_cache_test'
++     EXCEPT
++     SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM analyze_sample_cache_stats)
++    UNION ALL
++    (SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM analyze_sample_cache_stats
++     EXCEPT
++     SELECT attname, null_frac, avg_width, n_distinct,
++            most_common_vals::text, most_common_freqs::text,
++            histogram_bounds::text, correlation
++     FROM pg_stats
++     WHERE tablename = 'analyze_sample_cache_test')
++);
++
++SET pgextadv.analyze_sample_import = '';
++DROP TABLE analyze_sample_cache_test;

@@ -1,49 +1,57 @@
 # PostgreSQL source discipline
 
-The authoritative upstream source is the clean Git checkout
-`~/projects/postgresql-src` at `REL_16_14`, commit
-`0d1c00c624fa7367d4a895f44381887757289682`. It is read-only input: never patch
-or build in that tree.
+The authoritative modified PostgreSQL source is the separate Git repository
+`git@github.com:1951123/postgresql-pgextadv.git`. It retains official
+PostgreSQL ancestry and is consumed at a frozen commit by this advisor.
 
-## Three separate trees
+- upstream repository: `https://github.com/postgres/postgres.git`
+- upstream tag: `REL_16_14`
+- upstream base commit: `0d1c00c624fa7367d4a895f44381887757289682`
+- authoritative repository: `https://github.com/1951123/postgresql-pgextadv`
+- current authoritative commit: `7e992ab6438fef2f8eb98c7a9ed30c9f1c816ce7`
 
-1. `~/projects/postgresql-src` is the clean upstream source.
-2. `~/projects/postgresql-build-pgextadv-cleanroom-<run>-src` is a disposable
-   source archive produced by the clean-room script and patched in place.
-3. `~/projects/postgresql-build-pgextadv-cleanroom-<run>` and
-   `~/projects/postgresql-install-pgextadv-cleanroom-<run>` are generated build
-   and install prefixes.
+## Preferred build
 
-A binary is attributable to this project only when the clean build script
-verified the upstream SHA, extracted a fresh source tree, applied both tracked
-patches, ran the build and regression suite, and printed the resulting binary
-SHA256.
-
-## Tracked patch stack
-
-Patches are applied with GNU `patch -p1 --batch --forward` in this order:
-
-1. `patches/postgresql-16.14-hypothetical-extstats.patch` (SHA256
-   `22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f`).
-2. `patches/postgresql-16.14-analyze-sample-cache.patch` (SHA256
-   `0d8c3fb24d59c52e2548875b04403d81c3fc1dfe22c1cfd12c935fb7f1691bc5`).
-
-The second patch is intentionally generated against the tree produced by the
-first, so its context and application order are part of provenance. The sample
-cache source fix is recorded in PostgreSQL source commit `960bfebc9c4`.
-
-## Clean-room workflow
-
-From the advisor repository:
+Build directly from a clean checkout of the authoritative commit with
+`scripts/build_postgres16_authoritative.sh`:
 
 ```bash
-scripts/build_postgres16_cleanroom.sh \
-  "$HOME/projects/postgresql-src" \
-  "$HOME/projects/postgresql-build-pgextadv-cleanroom-<run>" \
-  "$HOME/projects/postgresql-install-pgextadv-cleanroom-<run>"
+scripts/build_postgres16_authoritative.sh \
+  "$HOME/projects/postgresql-src-pgextadv" \
+  "$HOME/projects/postgresql-build-pgextadv-authoritative-16.14" \
+  "$HOME/projects/postgresql-install-pgextadv-authoritative-16.14" \
+  7e992ab6438fef2f8eb98c7a9ed30c9f1c816ce7
 ```
 
-The script refuses a dirty or wrong upstream checkout and refuses to replace
-existing output paths. It configures with debug symbols, assertions, and
-OpenSSL, then runs `make -j$(nproc)`, `make check`, and `make install` without
-sudo. It performs no recursive cleanup.
+The source checkout must be clean and descend from the upstream base. Build
+and install directories are separate and existing paths are refused. The
+script uses `--enable-debug --enable-cassert --with-openssl`, runs `make -j`,
+`make check`, and `make install` without sudo.
+
+## Derived patch reproduction
+
+`pg/patches/postgresql-16.14-pgextadv.patch` is a derived artifact, never a
+source of truth. Generate it with:
+
+```bash
+scripts/export_postgres_patch.sh \
+  "$HOME/projects/postgresql-src-pgextadv" \
+  7e992ab6438fef2f8eb98c7a9ed30c9f1c816ce7
+```
+
+The script runs the canonical command:
+
+```text
+git diff --binary --full-index --no-ext-diff --no-renames \
+  0d1c00c624fa7367d4a895f44381887757289682 \
+  7e992ab6438fef2f8eb98c7a9ed30c9f1c816ce7
+```
+
+It refuses dirty source trees, validates ancestry, writes only below this
+advisor repository, and reports the SHA256. Applying the generated patch to a
+clean official `REL_16_14` checkout must produce the same tracked source tree
+as the authoritative commit.
+
+The former split patches are retired from the active tree; their provenance is
+preserved by Git history. No PostgreSQL implementation is manually maintained
+in this repository.

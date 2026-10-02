@@ -1,40 +1,34 @@
 # ANALYZE sample-cache provenance and determinism
 
-This note closes the provenance boundary for the experimental PostgreSQL-side
-ANALYZE sample cache. The cache stores the acquisition sample (sampled
-`HeapTuple` values and the estimated live-row count), not `pg_statistic` or
-`pg_statistic_ext_data` payloads.
+This note records the experimental PostgreSQL-side ANALYZE sample cache. The
+cache stores the acquisition sample (sampled `HeapTuple` values and estimated
+live-row count), not `pg_statistic` or `pg_statistic_ext_data` payloads.
 
-## Reproducible source stack
+## Authoritative source
 
-The clean-room build starts from vanilla PostgreSQL `REL_16_14`, commit
-`0d1c00c624fa7367d4a895f44381887757289682`, and applies these tracked advisor
-patches in order:
+The source of truth is the clean `postgresql-pgextadv` Git repository, not a
+patch file:
 
-1. `pg/patches/postgresql-16.14-hypothetical-extstats.patch` — SHA256
-   `22c7f48632585e81fd8a557dc8bffba873ac5da070aca31713e22c60261c3b4f`.
-2. `pg/patches/postgresql-16.14-analyze-sample-cache.patch` — SHA256
-   `0d8c3fb24d59c52e2548875b04403d81c3fc1dfe22c1cfd12c935fb7f1691bc5`.
+- upstream base: PostgreSQL `REL_16_14`,
+  `0d1c00c624fa7367d4a895f44381887757289682`;
+- authoritative commit:
+  `7e992ab6438fef2f8eb98c7a9ed30c9f1c816ce7`;
+- derived advisor patch:
+  `pg/patches/postgresql-16.14-pgextadv.patch`;
+- derived patch SHA256:
+  `fb34b205c4872e8272c42de76384472d13f58fe15e956659b34d68e65228b6ee`.
 
-The sample-cache source history is based on commit
-`54d4d01c829dc895ec4577d8c7902c3931ff7de2`; commit
-`960bfebc9c492edbcf733b26db60f988488f327f` adds the portable relation-identity fix. The clean-room source is
-an archive of the clean upstream checkout plus the two patches; the mutable
-`postgresql-src-pgextadv` development checkout is not used as build input.
+The old split patches are retired from the active tree. Their implementations
+remain recoverable through advisor Git history. The canonical derivation is
+`git diff --binary --full-index --no-ext-diff --no-renames` between the upstream
+base and the frozen authoritative commit, implemented by
+`scripts/export_postgres_patch.sh`.
 
-The build used:
-
-```text
-scripts/build_postgres16_cleanroom.sh \
-  /home/wqts/projects/postgresql-src \
-  /home/wqts/projects/postgresql-build-pgextadv-cleanroom-20261002c \
-  /home/wqts/projects/postgresql-install-pgextadv-cleanroom-20261002c
-```
-
-Configure arguments were `--enable-debug --enable-cassert --with-openssl` with
-an explicit user-owned prefix. `make -j$(nproc)`, `make check` (221/221), and
-`make install` passed. The resulting `postgres` binary SHA256 is
-`ee6be55da350662007c229d81701a4b7fb1637255e38fb06bfeab951e1384f73`.
+The authoritative source history contains the sample-cache commits
+`54d4d01c829dc895ec4577d8c7902c3931ff7de2` and
+`960bfebc9c492edbcf733b26db60f988488f327f`, plus the hypothetical-statistics
+commit `f1c50b9d5543933fc38f3493a571857c0c0de9d3`. `PGEXTADV.md` documents the
+repository role.
 
 ## Controls and format
 
@@ -50,50 +44,53 @@ The binary format is `PGEXTSC1`, format version 1. It records the exact
 PostgreSQL version number/string, a diagnostic relation OID, a canonical
 length-prefixed schema/relation identity, ordered tuple-descriptor metadata
 (column name, type OID, typmod, collation, and dropped flag), tuple count,
-estimated total rows, and raw sampled heap-tuple bytes. CRC32C covers the
-header and payload. Import rejects wrong magic/version/server version,
-identity or descriptor mismatch, invalid tuple lengths/counts, checksum
-failures, and trailing bytes.
+estimated total rows, raw sampled heap-tuple bytes, and CRC32C.
 
-The canonical identity is `length(schema):schema length(relation):relation`;
+The canonical identity is `length(schema):schema length(relation):relation`,
 for example `6:public16:sample_cache_det`. OID is retained for diagnostics and
-legacy compatibility. A new artifact can therefore be imported by a relation
-with the same schema/name and descriptor but a different OID. A legacy v1
-artifact containing only a bare relation name is accepted only when its OID
-still matches. This keeps old files safe while making new files portable across
-recreated catalogs.
+legacy compatibility. A new artifact can be imported by a relation with the
+same schema/name and descriptor but a different OID. A legacy v1 artifact
+containing only a bare relation name is accepted only when its OID still
+matches. Bad magic/version/server version, identity or descriptor mismatch,
+invalid tuple lengths/counts, checksum failures, and trailing bytes are
+rejected.
 
-## Validation evidence
+## Build and validation evidence
+
+A clean-room build from the authoritative commit used
+`--enable-debug --enable-cassert --with-openssl`, passed `make -j$(nproc)`,
+`make check` (221/221), and `make install`. Its PostgreSQL 16.14 binary SHA256
+was `ee6be55da350662007c229d81701a4b7fb1637255e38fb06bfeab951e1384f73`.
 
 A disposable PostgreSQL 16.14 instance on port 55438 used a deterministic
-20,000-row relation with two MCV and two functional-dependency candidates.
-The exported artifact was 1,085,375 bytes with SHA256
+20,000-row relation with two MCV and two functional-dependency candidates. The
+exported artifact was 1,085,375 bytes with SHA256
 `957b698b48145b329202acc4103508090fff17afe7836edf6b51ede6c46ad6e7`; its
 header reported `PGEXTSC1`, format 1, PostgreSQL 16.14, and identity
 `6:public16:sample_cache_det`.
 
 The export run followed by three imports produced identical digests for:
 
-- ordinary column statistics (`3b1df2fe8f4e1c92dd989769d46446a1`),
-- both MCV payloads (`27e7a8f2e4ce675d329b4582ce464d74`), and
-- both dependency payloads (`257fa208b5c1b8237ab48c9944dd14ff`).
+- ordinary column statistics: `3b1df2fe8f4e1c92dd989769d46446a1`;
+- both MCV payloads: `27e7a8f2e4ce675d329b4582ce464d74`;
+- both dependency payloads: `257fa208b5c1b8237ab48c9944dd14ff`.
 
 All four extended-statistics rows were present after each run, so one imported
-sample fed multiple candidates in one `ANALYZE`. Recreating the relation under
+sample fed multiple candidates in one ANALYZE. Recreating the relation under
 the same `public.sample_cache_det` identity yielded a different OID and a
 successful import. Separate negative checks rejected a wrong relation name,
 wrong descriptor, corrupted checksum, and unsupported format version.
 
-The repository regression test also passed its export/import ordinary-statistics
-comparison. No benchmark data, workload, q-error experiment, planner
-comparison, or extension-statistics experiment was run as part of this task.
+No benchmark data, workload, q-error experiment, planner comparison, or
+extension-statistics experiment was run for this validation.
 
 ## Limitations
 
-The cache is tied to this PostgreSQL 16.14 binary format and relation descriptor; a DDL change, incompatible server build, or different relation
+The cache is tied to PostgreSQL 16.14 binary and relation-descriptor
+compatibility. A DDL change, incompatible server build, or different relation
 identity requires a fresh export. It supports one relation per path, has no
 locking or concurrent-writer coordination, and does not capture dead tuples,
 planner estimates, query results, or final statistics payloads. The evidence
-above establishes deterministic replay for this controlled relation and these
+establishes deterministic replay for this controlled relation and these
 statistics kinds; it does not claim workload-level or benchmark-level
 reproducibility.

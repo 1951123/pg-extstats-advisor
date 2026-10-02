@@ -65,9 +65,9 @@ copies unaffected contributions.
 2. Implement manifest/schema validation, blob hashing, and acquisition provenance.
 3. **Complete (M0-A):** implement the PostgreSQL backend-local repository,
    ordered design activation, visibility/load hooks, and integration tests in
-   the tracked patch.
-4. **Complete (M0-A):** prove forward/reverse patch validation and pristine 16.14
-   build/install from scratch.
+   the authoritative `postgresql-pgextadv` history.
+4. **Complete (M0-A):** prove authoritative Git build/install and equivalent
+   aggregate-patch reproduction from pristine 16.14.
 5. Create one isolated acquisition fixture and freeze MCV/FD native payloads.
 6. Implement workload parsing, positive-truth validation, and conservative
    candidate-query incidence.

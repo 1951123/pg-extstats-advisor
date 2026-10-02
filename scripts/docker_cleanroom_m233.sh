@@ -47,7 +47,7 @@ else
 fi
 
 git_sha=$(git rev-parse HEAD)
-patch_sha=$(sha256sum pg/patches/postgresql-16.14-hypothetical-extstats.patch | awk '{print $1}')
+patch_sha=$(sha256sum pg/patches/postgresql-16.14-pgextadv.patch | awk '{print $1}')
 docker_version=$(docker version --format '{{.Client.Version}}/{{.Server.Version}}')
 advisor_image_id=$(docker image inspect --format '{{.Id}}' pg-extstats-advisor/advisor:cleanroom)
 capture_image_id=$(docker image inspect --format '{{.Id}}' pg-extstats-advisor/capture:cleanroom)

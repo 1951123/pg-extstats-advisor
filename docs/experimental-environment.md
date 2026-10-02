@@ -9,8 +9,10 @@ experiment environments.
 
 1. `/root/projects/postgresql-reference/postgresql-16.14` is a read-only source
    reference for audit, grep, and line citations. It is never patched or built.
-2. `.build/postgresql-16.14-install` is recreated from the immutable 16.14 tarball,
-   the tracked patch, and `scripts/build_postgres16.sh`. This release-like profile
+2. `.build/postgresql-16.14-install` is recreated from a frozen
+   `postgresql-pgextadv` commit using `scripts/build_postgres16_authoritative.sh`.
+   The aggregate patch in `pg/patches/` is a derived alternate reproduction path.
+   This release-like profile
    uses the configure defaults plus `--without-readline --without-zlib
    --without-icu`, effective `-O2`, no assertions, no debug build, and no LLVM/JIT
    build. Build provenance is tracked in
@@ -23,8 +25,8 @@ experiment environments.
 The frozen upstream archive SHA256 is
 `f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471`.
 The build recipe digest excludes its creation timestamp. It is a composite build-input
-identity over the upstream tarball, tracked patch, configure arguments, compiler
-identity, and CFLAGS (including effective PostgreSQL CFLAGS); the binary digest is
+identity over the authoritative source commit (or derived aggregate patch), configure
+arguments, compiler identity, and CFLAGS (including effective PostgreSQL CFLAGS); the binary digest is
 recorded separately. The upstream and patch identities are also recorded as separate
 fields, so historical artifacts can distinguish source/patch changes from compiler
 or configuration changes. The current timing build remains release-like.
@@ -65,8 +67,8 @@ singleton, search, and physical-validation stages consume that sample. During
 the initial capture preflight, the pre-existing Census database was repaired by
 registering the already compiled backend-local
 `pg_hypothetical_extstats_register_absent` internal function. This was a
-database-local registration repair only: no PostgreSQL source, tracked patch,
-binary, build input, candidate catalog, or CE semantics changed. The repair is
+database-local registration repair only: no PostgreSQL source, authoritative commit,
+build input, candidate catalog, or CE semantics changed. The repair is
 recorded in the M2.21 protocol and lineage manifests.
 
 ## Sample-cache validation profile

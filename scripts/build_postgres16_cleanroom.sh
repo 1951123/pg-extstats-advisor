@@ -7,8 +7,8 @@ readonly REPO_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 readonly UPSTREAM_SOURCE=${1:?usage: $0 CLEAN_REL_16_14_SOURCE BUILD_DIR INSTALL_DIR}
 readonly BUILD_DIR=${2:?usage: $0 CLEAN_REL_16_14_SOURCE BUILD_DIR INSTALL_DIR}
 readonly INSTALL_DIR=${3:?usage: $0 CLEAN_REL_16_14_SOURCE BUILD_DIR INSTALL_DIR}
-readonly PATCH_HYPOTHETICAL=${REPO_ROOT}/pg/patches/postgresql-16.14-hypothetical-extstats.patch
-readonly PATCH_SAMPLE_CACHE=${REPO_ROOT}/pg/patches/postgresql-16.14-analyze-sample-cache.patch
+readonly PATCH_AGGREGATE=${REPO_ROOT}/pg/patches/postgresql-16.14-pgextadv.patch
+readonly PGEXTADV_COMMIT=7e992ab6438fef2f8eb98c7a9ed30c9f1c816ce7
 readonly SOURCE_DIR=${BUILD_DIR}-src
 
 [[ -d "$UPSTREAM_SOURCE/.git" ]] || {
@@ -33,8 +33,7 @@ done
 
 mkdir -p "$SOURCE_DIR"
 git -C "$UPSTREAM_SOURCE" archive --format=tar HEAD | tar -xf - -C "$SOURCE_DIR"
-patch -d "$SOURCE_DIR" -p1 --batch --forward < "$PATCH_HYPOTHETICAL"
-patch -d "$SOURCE_DIR" -p1 --batch --forward < "$PATCH_SAMPLE_CACHE"
+patch -d "$SOURCE_DIR" -p1 --batch --forward < "$PATCH_AGGREGATE"
 
 mkdir -p "$BUILD_DIR"
 (
@@ -54,10 +53,9 @@ mkdir -p "$BUILD_DIR"
   exit 1
 }
 
-printf 'hypothetical patch sha256: '
-sha256sum "$PATCH_HYPOTHETICAL" | awk '{print $1}'
-printf 'sample-cache patch sha256: '
-sha256sum "$PATCH_SAMPLE_CACHE" | awk '{print $1}'
+printf 'authoritative commit: %s\n' "$PGEXTADV_COMMIT"
+printf 'aggregate patch sha256: '
+sha256sum "$PATCH_AGGREGATE" | awk '{print $1}'
 printf 'clean-room postgres sha256: '
 sha256sum "$INSTALL_DIR/bin/postgres" | awk '{print $1}'
 printf 'clean-room install: %s\n' "$INSTALL_DIR"
