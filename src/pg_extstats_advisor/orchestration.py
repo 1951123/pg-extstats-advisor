@@ -31,6 +31,7 @@ from pg_extstats_advisor.models import (
     QueryId,
     WorkloadQuery,
 )
+from pg_extstats_advisor.optimization.budget import OptimizationStatus
 from pg_extstats_advisor.payloads.repository import PayloadRepository
 from pg_extstats_advisor.postgres.adapter import PostgresAdapter
 from pg_extstats_advisor.prepare.acquisition import AcquisitionResult, cleanup_acquisition
@@ -364,6 +365,19 @@ def persist_search_result(root: Path, result: SearchResult) -> None:
         "bound_pruned_no_improvement_count": result.bound_pruned_no_improvement_count,
         "bound_pruned_incumbent_count": result.bound_pruned_incumbent_count,
         "termination_reason": result.termination_reason,
+        "optimization": {
+            "status": result.optimization_status.value,
+            "budget_seconds": result.optimization_budget_seconds,
+            "elapsed_seconds": result.optimization_elapsed_seconds,
+            "budget_exhausted": result.optimization_budget_exhausted,
+            "stop_phase": result.optimization_stop_phase,
+            "stop_reason": result.optimization_stop_reason,
+            "planner_calls_completed": result.planner_calls_completed,
+            "baseline_planner_calls": result.baseline_planner_calls,
+            "singleton_planner_calls": result.singleton_planner_calls,
+            "greedy_planner_calls": result.greedy_planner_calls,
+            "phase_elapsed_seconds": dict(result.phase_elapsed_seconds),
+        },
         "config": asdict(result.config),
         "workload_digest": result.workload_digest,
         "repository_digest": result.repository_digest,
@@ -447,6 +461,20 @@ def load_search_result(root: Path) -> SearchResult:
         int(value.get("total_neighbor_moves_considered", 0)),
         int(value.get("bound_pruned_no_improvement_count", 0)),
         int(value.get("bound_pruned_incumbent_count", 0)),
+        OptimizationStatus(str(value.get("optimization", {}).get("status", "LOCAL_OPTIMUM"))),
+        value.get("optimization", {}).get("budget_seconds"),
+        value.get("optimization", {}).get("elapsed_seconds"),
+        bool(value.get("optimization", {}).get("budget_exhausted", False)),
+        value.get("optimization", {}).get("stop_phase"),
+        value.get("optimization", {}).get("stop_reason"),
+        int(value.get("optimization", {}).get("planner_calls_completed", 0)),
+        int(value.get("optimization", {}).get("baseline_planner_calls", 0)),
+        int(value.get("optimization", {}).get("singleton_planner_calls", 0)),
+        int(value.get("optimization", {}).get("greedy_planner_calls", 0)),
+        tuple(
+            (str(key), float(value))
+            for key, value in value.get("optimization", {}).get("phase_elapsed_seconds", {}).items()
+        ),
     )
     if (
         result.selected_state.design != result.selected_design

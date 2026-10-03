@@ -2,16 +2,19 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
 
 from pg_extstats_advisor.candidates.model import CandidateCatalog
 from pg_extstats_advisor.incidence.index import IncidenceIndex
+from pg_extstats_advisor.optimization.budget import OptimizationBudget
 from pg_extstats_advisor.models import (
     Design,
     EvaluationState,
     Move,
     QueryEvaluation,
     QueryId,
+    WorkloadQuery,
 )
 from pg_extstats_advisor.objective.qerror import aggregate_objective, q_error
 from pg_extstats_advisor.payloads.repository import PayloadRepository
@@ -26,6 +29,8 @@ class NativeEvaluator:
     incidence: IncidenceIndex
     adapter: PostgresAdapter
     provenance: str = "m0-b-native-evaluator-v1"
+    optimization_budget: OptimizationBudget | None = None
+    optimization_phase: str = "baseline"
 
     def __post_init__(self) -> None:
         if self.adapter.repository.digest != self.repository.digest:
@@ -33,6 +38,12 @@ class NativeEvaluator:
         if self.incidence.known_queries != frozenset(self.workload.by_id):
             raise ValueError("incidence/workload query universe mismatch")
         self.adapter.register_repository()
+
+    def bind_optimization_budget(self, budget: OptimizationBudget | None, phase: str) -> None:
+        """Bind the shared advisor deadline and its current optimization phase."""
+
+        self.optimization_budget = budget
+        self.optimization_phase = phase
 
     @property
     def catalog(self) -> CandidateCatalog:
@@ -69,11 +80,15 @@ class NativeEvaluator:
         )
 
     def evaluate_design(self, design: Design) -> EvaluationState:
+        if self.optimization_budget is not None:
+            self.optimization_budget.check(self.optimization_phase)
         self.catalog.validate_design(design)
         self.adapter.activate_design(design)
         self.adapter.start_measurement()
         queries = tuple(sorted(self.workload.queries, key=lambda item: item.query_id))
-        estimates = self.adapter.estimate_queries(queries)
+        estimates = self._estimate_queries_budgeted(queries)
+        if self.optimization_budget is not None:
+            self.optimization_budget.check(self.optimization_phase)
         evaluations = {
             query.query_id: self._evaluation(query.query_id, estimates[query.query_id])
             for query in queries
@@ -98,10 +113,33 @@ class NativeEvaluator:
             raise ValueError("current state query universe mismatch")
         self.adapter.activate_design(counterfactual)
         self.adapter.start_measurement()
-        estimates = self.adapter.estimate_queries(
+        estimates = self._estimate_queries_budgeted(
             self.workload.by_id[item] for item in sorted(affected)
         )
+        if self.optimization_budget is not None:
+            self.optimization_budget.check(self.optimization_phase)
         evaluations = dict(previous)
         for query_id, estimate in estimates.items():
             evaluations[query_id] = self._evaluation(query_id, estimate)
         return self._state(counterfactual, evaluations, affected, reused)
+
+    def _estimate_queries_budgeted(
+        self, queries: Iterable[WorkloadQuery]
+    ) -> dict[QueryId, float]:
+        """Run one adapter request per query so the deadline is checked finely.
+
+        The adapter API remains unchanged for external evaluators.  Calling it
+        with a one-query iterable lets the native path check both before and
+        after every individual PostgreSQL EXPLAIN, including adapters used by
+        the catalogless benchmark bridge.
+        """
+
+        result: dict[QueryId, float] = {}
+        for query in queries:
+            if self.optimization_budget is not None:
+                self.optimization_budget.check(self.optimization_phase)
+            estimate = self.adapter.estimate_queries((query,))[query.query_id]
+            result[query.query_id] = estimate
+            if self.optimization_budget is not None:
+                self.optimization_budget.check(self.optimization_phase)
+        return result

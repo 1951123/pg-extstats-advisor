@@ -10,6 +10,7 @@ from typing import Protocol
 
 from pg_extstats_advisor.cost.model import MaintenanceBudget
 from pg_extstats_advisor.models import Candidate, Design, EvaluationState, Move
+from pg_extstats_advisor.optimization.budget import OptimizationStatus
 from pg_extstats_advisor.statistics import (
     DEFAULT_GLOBAL_STATISTICS_TARGET,
     validate_global_statistics_target,
@@ -82,6 +83,35 @@ class SearchResult:
     total_neighbor_moves_considered: int = 0
     bound_pruned_no_improvement_count: int = 0
     bound_pruned_incumbent_count: int = 0
+    optimization_status: OptimizationStatus = OptimizationStatus.LOCAL_OPTIMUM
+    optimization_budget_seconds: float | None = None
+    optimization_elapsed_seconds: float | None = None
+    optimization_budget_exhausted: bool = False
+    optimization_stop_phase: str | None = None
+    optimization_stop_reason: str | None = None
+    planner_calls_completed: int = 0
+    baseline_planner_calls: int = 0
+    singleton_planner_calls: int = 0
+    greedy_planner_calls: int = 0
+    phase_elapsed_seconds: tuple[tuple[str, float], ...] = ()
+
+
+@dataclass(frozen=True, slots=True)
+class OptimizationSearchOutcome:
+    """Bounded search outcome, including a missing state for baseline timeout."""
+
+    status: OptimizationStatus
+    search_result: SearchResult | None
+    budget_seconds: float
+    elapsed_seconds: float
+    budget_exhausted: bool
+    stop_phase: str | None
+    stop_reason: str | None
+    planner_calls_completed: int
+    baseline_planner_calls: int
+    singleton_planner_calls: int
+    greedy_planner_calls: int
+    phase_elapsed_seconds: tuple[tuple[str, float], ...]
 
 
 def candidate_catalog_digest(candidates: list[Candidate] | tuple[Candidate, ...]) -> str:

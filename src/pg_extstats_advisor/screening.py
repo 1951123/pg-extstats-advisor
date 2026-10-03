@@ -18,6 +18,11 @@ from pg_extstats_advisor.analysis.singleton import (
 )
 from pg_extstats_advisor.candidates.model import CandidateCatalog
 from pg_extstats_advisor.models import Design, Move
+from pg_extstats_advisor.optimization.budget import (
+    OptimizationBudget,
+    OptimizationBudgetExhausted,
+    OptimizationStatus,
+)
 from pg_extstats_advisor.search.model import candidate_catalog_digest
 
 PROFILE_FORMAT_VERSION = 1
@@ -34,6 +39,11 @@ UNPRICED_RANKING_SEMANTICS = (
     "ascending candidate precedence",
     "ascending candidate ID",
 )
+
+
+def _planner_calls(evaluator: Any) -> int:
+    adapter = getattr(evaluator, "adapter", None)
+    return int(getattr(adapter, "planner_calls_total", getattr(adapter, "explain_calls", 0)))
 
 
 def _canonical_digest(value: dict[str, Any]) -> str:
@@ -194,10 +204,133 @@ def build_singleton_profile_from_csv(
     return value
 
 
+def profile_singletons_native(
+    evaluator: Any,
+    candidates: list[Any] | tuple[Any, ...],
+    baseline_state: Any,
+    *,
+    budget: OptimizationBudget,
+    prepared: Any | None = None,
+    model: Any | None = None,
+) -> dict[str, Any]:
+    """Evaluate a complete candidate pool under one shared optimization budget.
+
+    A partial profile is deliberately returned as a diagnostic artifact only;
+    callers must not derive precedence or start greedy search from it.
+    """
+
+    budget.start()
+    binder = getattr(evaluator, "bind_optimization_budget", None)
+    if binder is not None:
+        binder(budget, "singleton")
+    started = time.perf_counter()
+    rows: list[dict[str, Any]] = []
+    planner_before = _planner_calls(evaluator)
+    stop: OptimizationBudgetExhausted | None = None
+    for candidate in candidates:
+        try:
+            budget.check("singleton")
+            cell_started = time.perf_counter()
+            before_calls = _planner_calls(evaluator)
+            state = evaluator.evaluate_move(
+                baseline_state.design,
+                Move.add_candidate(candidate.candidate_id),
+                baseline_state,
+            )
+            baseline_by_query = baseline_state.by_query()
+            candidate_by_query = state.by_query()
+            changes = [
+                classify_improvement(
+                    baseline_by_query[qid].contribution,
+                    candidate_by_query[qid].contribution,
+                )
+                for qid in baseline_by_query
+            ]
+            rows.append(
+                {
+                    "candidate_id": str(candidate.candidate_id),
+                    "precedence_rank": candidate.precedence_rank,
+                    "mechanism": candidate.mechanism.value,
+                    "realization_state": (
+                        prepared.repository.by_candidate[candidate.candidate_id].state.value
+                        if prepared is not None
+                        else "UNKNOWN"
+                    ),
+                    "maintenance_cost_numeric": (
+                        float(model.estimate_candidate(candidate)) if model is not None else None
+                    ),
+                    "singleton_objective": state.aggregate_objective,
+                    "singleton_improvement": baseline_state.aggregate_objective - state.aggregate_objective,
+                    "affected_query_count": len(state.affected_query_ids),
+                    "improved_query_count": changes.count("positive"),
+                    "unchanged_query_count": changes.count("zero"),
+                    "worsened_query_count": changes.count("negative"),
+                    "elapsed_seconds": time.perf_counter() - cell_started,
+                    "planner_calls": _planner_calls(evaluator) - before_calls,
+                }
+            )
+            # A candidate whose last EXPLAIN completed is a completed profile
+            # cell, but the profile is still incomplete if the deadline is now
+            # reached.  No precedence may be constructed from this result.
+            budget.check("singleton")
+        except OptimizationBudgetExhausted as error:
+            stop = error
+            break
+    completed = len(rows)
+    total = len(candidates)
+    status = OptimizationStatus.COMPLETED if completed == total else OptimizationStatus.BUDGET_EXHAUSTED_DURING_SINGLETON
+    planner_calls = _planner_calls(evaluator) - planner_before
+    result = {
+        "status": status.value,
+        "singleton_profile_complete": completed == total,
+        "total_singleton_candidates": total,
+        "completed_singleton_candidates": completed,
+        "remaining_singleton_candidates": total - completed,
+        "elapsed_seconds": time.perf_counter() - started,
+        "planner_calls": planner_calls,
+        "rows": rows,
+        "budget_seconds": budget.limit_seconds,
+        "budget_elapsed_seconds": budget.elapsed_seconds,
+        "budget_exhausted": budget.exhausted,
+        "stop_phase": stop.phase if stop is not None else None,
+        "stop_reason": str(stop) if stop is not None else None,
+    }
+    return result
+
+
+def freeze_singleton_precedence(
+    rows: list[dict[str, Any]],
+    *,
+    profile_complete: bool,
+    expected_candidate_count: int | None = None,
+    optimization_budget: OptimizationBudget | None = None,
+) -> list[dict[str, Any]]:
+    """Freeze complete singleton precedence only after the profile is complete."""
+
+    if not profile_complete:
+        raise ValueError("cannot freeze precedence from an incomplete singleton profile")
+    if expected_candidate_count is not None and len(rows) != expected_candidate_count:
+        raise ValueError("singleton profile candidate count is incomplete")
+    if optimization_budget is not None:
+        optimization_budget.check("singleton-precedence")
+    if any("singleton_improvement" not in row for row in rows):
+        raise ValueError("singleton precedence requires singleton utility rows")
+    ordered = deterministic_order(rows, "singleton_improvement")
+    result = [
+        {**row, "singleton_rank": rank}
+        for rank, row in enumerate(ordered, start=1)
+    ]
+    if optimization_budget is not None:
+        optimization_budget.check("singleton-precedence")
+    return result
+
+
 def build_singleton_profile_native(
     prepared: Any,
     model: Any,
     connection: Any,
+    *,
+    optimization_budget: OptimizationBudget | None = None,
 ) -> dict[str, Any]:
     """Profile all raw candidates with the frozen native evaluator."""
 
@@ -210,43 +343,83 @@ def build_singleton_profile_native(
         prepared.incidence,
         PostgresAdapter(connection, prepared.repository),
     )
-    baseline_state = evaluator.evaluate_design(Design(()))
-    rows: list[dict[str, Any]] = []
-    for candidate in prepared.catalog.candidates:
-        before_calls = evaluator.adapter.planner_calls_total
-        started = time.perf_counter()
-        state = evaluator.evaluate_move(
-            Design(()), Move.add_candidate(candidate.candidate_id), baseline_state
+    if optimization_budget is not None:
+        optimization_budget.start()
+        evaluator.bind_optimization_budget(optimization_budget, "baseline")
+    try:
+        baseline_state = evaluator.evaluate_design(Design(()))
+    except OptimizationBudgetExhausted as stop:
+        return {
+            "format_version": PROFILE_FORMAT_VERSION,
+            "artifact_type": "singleton-profile-partial",
+            "status": OptimizationStatus.BUDGET_EXHAUSTED_DURING_BASELINE.value,
+            "singleton_profile_complete": False,
+            "candidate_count": len(prepared.catalog.candidates),
+            "total_singleton_candidates": len(prepared.catalog.candidates),
+            "completed_singleton_candidates": 0,
+            "remaining_singleton_candidates": len(prepared.catalog.candidates),
+            "rows": [],
+            "budget_seconds": optimization_budget.limit_seconds,
+            "budget_elapsed_seconds": optimization_budget.elapsed_seconds,
+            "budget_exhausted": True,
+            "stop_phase": stop.phase,
+            "stop_reason": str(stop),
+            "planner_calls": evaluator.adapter.planner_calls_total,
+        }
+    if optimization_budget is not None:
+        profiled = profile_singletons_native(
+            evaluator,
+            list(prepared.catalog.candidates),
+            baseline_state,
+            budget=optimization_budget,
+            prepared=prepared,
+            model=model,
         )
-        elapsed = time.perf_counter() - started
-        baseline_by_query = baseline_state.by_query()
-        candidate_by_query = state.by_query()
-        changes = [
-            classify_improvement(
-                baseline_by_query[qid].contribution, candidate_by_query[qid].contribution
-            )
-            for qid in baseline_by_query
-        ]
-        rows.append(
-            {
-                "candidate_id": str(candidate.candidate_id),
-                "precedence_rank": candidate.precedence_rank,
-                "mechanism": candidate.mechanism.value,
-                "realization_state": prepared.repository.by_candidate[candidate.candidate_id].state.value,
-                "maintenance_cost_numeric": (
-                    float(model.estimate_candidate(candidate)) if model is not None else None
-                ),
-                "singleton_objective": state.aggregate_objective,
-                "singleton_improvement": baseline_state.aggregate_objective - state.aggregate_objective,
-                "affected_query_count": len(state.affected_query_ids),
-                "improved_query_count": changes.count("positive"),
-                "unchanged_query_count": changes.count("zero"),
-                "worsened_query_count": changes.count("negative"),
-                "elapsed_seconds": elapsed,
-                "planner_calls": evaluator.adapter.planner_calls_total - before_calls,
+        if not profiled["singleton_profile_complete"]:
+            return {
+                "format_version": PROFILE_FORMAT_VERSION,
+                "artifact_type": "singleton-profile-partial",
+                **profiled,
+                "candidate_count": len(prepared.catalog.candidates),
             }
-        )
-    return build_singleton_profile_from_rows(
+        rows = profiled["rows"]
+    else:
+        rows = []
+        for candidate in prepared.catalog.candidates:
+            before_calls = evaluator.adapter.planner_calls_total
+            started = time.perf_counter()
+            state = evaluator.evaluate_move(
+                Design(()), Move.add_candidate(candidate.candidate_id), baseline_state
+            )
+            elapsed = time.perf_counter() - started
+            baseline_by_query = baseline_state.by_query()
+            candidate_by_query = state.by_query()
+            changes = [
+                classify_improvement(
+                    baseline_by_query[qid].contribution, candidate_by_query[qid].contribution
+                )
+                for qid in baseline_by_query
+            ]
+            rows.append(
+                {
+                    "candidate_id": str(candidate.candidate_id),
+                    "precedence_rank": candidate.precedence_rank,
+                    "mechanism": candidate.mechanism.value,
+                    "realization_state": prepared.repository.by_candidate[candidate.candidate_id].state.value,
+                    "maintenance_cost_numeric": (
+                        float(model.estimate_candidate(candidate)) if model is not None else None
+                    ),
+                    "singleton_objective": state.aggregate_objective,
+                    "singleton_improvement": baseline_state.aggregate_objective - state.aggregate_objective,
+                    "affected_query_count": len(state.affected_query_ids),
+                    "improved_query_count": changes.count("positive"),
+                    "unchanged_query_count": changes.count("zero"),
+                    "worsened_query_count": changes.count("negative"),
+                    "elapsed_seconds": elapsed,
+                    "planner_calls": evaluator.adapter.planner_calls_total - before_calls,
+                }
+            )
+    result = build_singleton_profile_from_rows(
         rows,
         prepared,
         model,
@@ -261,6 +434,20 @@ def build_singleton_profile_native(
             "total_singleton_elapsed_seconds": sum(float(row["elapsed_seconds"]) for row in rows),
         },
     )
+    if optimization_budget is not None:
+        result.update(
+            {
+                "status": profiled["status"],
+                "singleton_profile_complete": True,
+                "budget_seconds": profiled["budget_seconds"],
+                "budget_elapsed_seconds": profiled["budget_elapsed_seconds"],
+                "budget_exhausted": False,
+                "stop_phase": None,
+                "stop_reason": None,
+                "planner_calls": _planner_calls(evaluator),
+            }
+        )
+    return result
 
 
 def build_singleton_profile_from_rows(
@@ -314,9 +501,12 @@ def build_candidate_set(
     model: Any,
     *,
     top_fraction: float,
+    optimization_budget: OptimizationBudget | None = None,
 ) -> dict[str, Any]:
     if model is None:
         raise ValueError("screening requires a validated maintenance cost model")
+    if optimization_budget is not None:
+        optimization_budget.check("screening")
     validate_profile(profile, prepared, model)
     if not math.isfinite(top_fraction) or not 0 < top_fraction <= 1:
         raise ValueError("top_fraction must be finite and in (0, 1]")
@@ -353,6 +543,8 @@ def build_candidate_set(
         "heuristic_restriction": True,
     }
     value["digest"] = _canonical_digest(value)
+    if optimization_budget is not None:
+        optimization_budget.check("screening")
     return value
 
 

@@ -13,13 +13,24 @@ from pg_extstats_advisor.candidates.model import CandidateCatalog
 from pg_extstats_advisor.cost.model import MaintenanceBudget, MaintenanceCostModel
 from pg_extstats_advisor.incidence.index import IncidenceIndex
 from pg_extstats_advisor.models import CandidateId, Design, EvaluationState, Move, MoveKind
+from pg_extstats_advisor.optimization.budget import (
+    OptimizationBudget,
+    OptimizationBudgetExhausted,
+    OptimizationStatus,
+)
 from pg_extstats_advisor.search.model import (
     DesignEvaluator,
     MoveRecord,
+    OptimizationSearchOutcome,
     SearchConfig,
     SearchResult,
     candidate_catalog_digest,
 )
+
+
+def _planner_calls(evaluator: DesignEvaluator) -> int:
+    adapter = getattr(evaluator, "adapter", None)
+    return int(getattr(adapter, "planner_calls_total", getattr(adapter, "explain_calls", 0)))
 
 
 @dataclass(frozen=True, slots=True)
@@ -74,6 +85,15 @@ class DeterministicBudgetSearch:
         self._incidence_by_candidate = (
             self.incidence.by_candidate if self.incidence is not None else {}
         )
+        self._optimization_budget: OptimizationBudget | None = None
+        self._optimization_status = OptimizationStatus.LOCAL_OPTIMUM
+        self._optimization_stop: OptimizationBudgetExhausted | None = None
+        self._phase_started: dict[str, float] = {}
+        self._phase_elapsed: dict[str, float] = {}
+        self._baseline_planner_calls = 0
+        self._singleton_planner_calls = 0
+        self._greedy_planner_calls = 0
+        self._last_accepted_state: EvaluationState | None = None
         self._candidate_costs = {
             candidate.candidate_id: self.cost_model.estimate_candidate(candidate)
             for candidate in self.catalog.candidates
@@ -89,6 +109,34 @@ class DeterministicBudgetSearch:
         self._considered = 0
         self._bound_pruned_no_improvement = 0
         self._bound_pruned_incumbent = 0
+        self._optimization_status = OptimizationStatus.LOCAL_OPTIMUM
+        self._optimization_stop = None
+        self._phase_started = {}
+        self._phase_elapsed = {}
+        self._baseline_planner_calls = 0
+        self._singleton_planner_calls = 0
+        self._greedy_planner_calls = 0
+        self._last_accepted_state = None
+
+    def _bind_budget(self, budget: OptimizationBudget | None, phase: str) -> None:
+        self._optimization_budget = budget
+        binder = getattr(self.evaluator, "bind_optimization_budget", None)
+        if binder is not None:
+            binder(budget, phase)
+
+    def _check_budget(self, phase: str) -> None:
+        if self._optimization_budget is not None:
+            self._optimization_budget.check(phase)
+
+    def _start_phase(self, phase: str) -> None:
+        self._phase_started[phase] = time.perf_counter()
+
+    def _finish_phase(self, phase: str) -> None:
+        started = self._phase_started.pop(phase, None)
+        if started is not None:
+            self._phase_elapsed[phase] = self._phase_elapsed.get(phase, 0.0) + (
+                time.perf_counter() - started
+            )
 
     def _ordered_ids(self, selected: bool, design: Design) -> list[CandidateId]:
         membership = set(design.candidate_ids)
@@ -193,6 +241,7 @@ class DeterministicBudgetSearch:
         current_cost: Decimal,
         incumbent: _EvaluatedMove | None = None,
     ) -> _EvaluatedMove | None:
+        self._check_budget("greedy" if phase == "greedy-add" else phase)
         self._considered += 1
         counterfactual = self.catalog.apply_move(current.design, move)
         before_cost = current_cost
@@ -253,6 +302,7 @@ class DeterministicBudgetSearch:
                 )
                 return None
         state = self._evaluate(current, move, counterfactual)
+        self._check_budget("greedy" if phase == "greedy-add" else phase)
         return _EvaluatedMove(
             move,
             state,
@@ -295,6 +345,7 @@ class DeterministicBudgetSearch:
         current_cost: Decimal,
         options: list[_EvaluatedMove],
     ) -> _EvaluatedMove | None:
+        self._check_budget("greedy" if phase == "greedy-add" else phase)
         best = self._best(options)
         for option in options:
             accepted = (
@@ -331,6 +382,7 @@ class DeterministicBudgetSearch:
         best: _EvaluatedMove | None = None
         best_index: int | None = None
         for move in moves:
+            self._check_budget("greedy" if phase == "greedy-add" else phase)
             move_type = move.kind.value
             metric = metrics.get(move_type) if metrics is not None else None
             if metric is not None:
@@ -381,6 +433,7 @@ class DeterministicBudgetSearch:
             ) < (best.state.aggregate_objective, best.cost, best.rank_key):
                 best = evaluated
                 best_index = index
+        self._check_budget("greedy" if phase == "greedy-add" else phase)
         if best is None or best.state.aggregate_objective >= current.aggregate_objective:
             return None
         assert best_index is not None
@@ -453,6 +506,7 @@ class DeterministicBudgetSearch:
             if accepted is None:
                 return current
             current = accepted.state
+            self._last_accepted_state = current
             current_cost = accepted.cost
 
     def _local(self, current: EvaluationState) -> EvaluationState:
@@ -474,18 +528,23 @@ class DeterministicBudgetSearch:
             if accepted is None:
                 return current
             current = accepted.state
+            self._last_accepted_state = current
             current_cost = accepted.cost
 
-    def run(self) -> SearchResult:
-        self._reset_run_state()
-        initial = Design(())
-        self._calls += 1
-        current = self.evaluator.evaluate_design(initial)
-        current = self._greedy(current)
-        if not self.config.add_only:
-            current = self._local(current)
+    def _make_result(
+        self,
+        initial: Design,
+        current: EvaluationState,
+        *,
+        status: OptimizationStatus,
+        budget: OptimizationBudget | None = None,
+        baseline_planner_calls: int = 0,
+        singleton_planner_calls: int = 0,
+        greedy_planner_calls: int = 0,
+    ) -> SearchResult:
         cost = self.cost_model.estimate_design(current.design, self.catalog)
         catalog_digest = candidate_catalog_digest(self.catalog.candidates)
+        stop = self._optimization_stop
         return SearchResult(
             selected_state=current,
             selected_design=current.design,
@@ -501,7 +560,14 @@ class DeterministicBudgetSearch:
             evaluator_calls_count=self._calls,
             accepted_moves_count=self._accepted,
             termination_reason=(
-                "add-local-optimum" if self.config.add_only else "one-move-local-optimum"
+                "budget-exhausted"
+                if status in {
+                    OptimizationStatus.BUDGET_EXHAUSTED_DURING_GREEDY,
+                    OptimizationStatus.BUDGET_EXHAUSTED_DURING_LOCAL,
+                }
+                else "add-local-optimum"
+                if self.config.add_only
+                else "one-move-local-optimum"
             ),
             config=self.config,
             workload_digest=current.workload_digest,
@@ -510,4 +576,146 @@ class DeterministicBudgetSearch:
             total_neighbor_moves_considered=self._considered,
             bound_pruned_no_improvement_count=self._bound_pruned_no_improvement,
             bound_pruned_incumbent_count=self._bound_pruned_incumbent,
+            optimization_status=status,
+            optimization_budget_seconds=budget.limit_seconds if budget is not None else None,
+            optimization_elapsed_seconds=budget.elapsed_seconds if budget is not None else None,
+            optimization_budget_exhausted=budget.exhausted if budget is not None else False,
+            optimization_stop_phase=stop.phase if stop is not None else None,
+            optimization_stop_reason=str(stop) if stop is not None else None,
+            planner_calls_completed=(
+                baseline_planner_calls + singleton_planner_calls + greedy_planner_calls
+            ),
+            baseline_planner_calls=baseline_planner_calls,
+            singleton_planner_calls=singleton_planner_calls,
+            greedy_planner_calls=greedy_planner_calls,
+            phase_elapsed_seconds=tuple(sorted(self._phase_elapsed.items())),
+        )
+
+    def run(self) -> SearchResult:
+        """Run the historical unbounded search API.
+
+        New deadline-aware callers must use :meth:`run_bounded`; retaining this
+        method keeps existing maintenance-budget experiments source-compatible.
+        """
+
+        self._reset_run_state()
+        self._optimization_budget = None
+        self._bind_budget(None, "baseline")
+        initial = Design(())
+        self._calls += 1
+        current = self.evaluator.evaluate_design(initial)
+        self._last_accepted_state = current
+        current = self._greedy(current)
+        if not self.config.add_only:
+            current = self._local(current)
+        return self._make_result(initial, current, status=OptimizationStatus.LOCAL_OPTIMUM)
+
+    def run_bounded(
+        self,
+        budget: OptimizationBudget,
+        *,
+        initial_state: EvaluationState | None = None,
+        baseline_planner_calls: int = 0,
+        singleton_planner_calls: int = 0,
+    ) -> OptimizationSearchOutcome:
+        """Run search under a monotonic deadline.
+
+        ``initial_state`` is used by a complete singleton-profile workflow: the
+        caller starts the same budget before baseline, profiles singletons, then
+        passes the last accepted state here.  This avoids charging setup or
+        re-running baseline while preserving one deadline for the whole advisor
+        invocation.
+        """
+
+        self._reset_run_state()
+        budget.start()
+        self._optimization_budget = budget
+        planner_before = _planner_calls(self.evaluator)
+        initial = Design(())
+        current: EvaluationState | None = initial_state
+        if current is None:
+            self._start_phase("baseline")
+            self._bind_budget(budget, "baseline")
+            try:
+                budget.check("baseline")
+                self._calls += 1
+                current = self.evaluator.evaluate_design(initial)
+                budget.check("baseline")
+            except OptimizationBudgetExhausted as stop:
+                self._optimization_stop = stop
+                self._optimization_status = OptimizationStatus.BUDGET_EXHAUSTED_DURING_BASELINE
+                self._finish_phase("baseline")
+                calls = _planner_calls(self.evaluator) - planner_before
+                return OptimizationSearchOutcome(
+                    self._optimization_status,
+                    None,
+                    budget.limit_seconds,
+                    budget.elapsed_seconds,
+                    True,
+                    stop.phase,
+                    str(stop),
+                    calls,
+                    calls,
+                    singleton_planner_calls,
+                    0,
+                    tuple(sorted(self._phase_elapsed.items())),
+                )
+            self._finish_phase("baseline")
+            baseline_planner_calls = _planner_calls(self.evaluator) - planner_before
+        else:
+            self._calls += 0
+        assert current is not None
+        self._last_accepted_state = current
+        self._start_phase("greedy")
+        self._bind_budget(budget, "greedy")
+        status = OptimizationStatus.LOCAL_OPTIMUM
+        try:
+            budget.check("greedy")
+            current = self._greedy(current)
+            if not self.config.add_only:
+                self._start_phase("local")
+                self._bind_budget(budget, "local")
+                current = self._local(current)
+        except OptimizationBudgetExhausted as stop:
+            self._optimization_stop = stop
+            status = (
+                OptimizationStatus.BUDGET_EXHAUSTED_DURING_LOCAL
+                if stop.phase == "local"
+                else OptimizationStatus.BUDGET_EXHAUSTED_DURING_GREEDY
+            )
+            self._optimization_status = status
+            current = self._last_accepted_state or current
+        finally:
+            self._finish_phase("greedy")
+            self._finish_phase("local")
+        self._optimization_status = status
+        planner_after = _planner_calls(self.evaluator)
+        greedy_calls = max(
+            0,
+            planner_after - planner_before
+            if initial_state is not None
+            else planner_after - planner_before - baseline_planner_calls,
+        )
+        result = self._make_result(
+            initial,
+            current,
+            status=status,
+            budget=budget,
+            baseline_planner_calls=baseline_planner_calls,
+            singleton_planner_calls=singleton_planner_calls,
+            greedy_planner_calls=greedy_calls,
+        )
+        return OptimizationSearchOutcome(
+            status,
+            result,
+            budget.limit_seconds,
+            budget.elapsed_seconds,
+            budget.exhausted,
+            result.optimization_stop_phase,
+            result.optimization_stop_reason,
+            result.planner_calls_completed,
+            result.baseline_planner_calls,
+            result.singleton_planner_calls,
+            result.greedy_planner_calls,
+            result.phase_elapsed_seconds,
         )

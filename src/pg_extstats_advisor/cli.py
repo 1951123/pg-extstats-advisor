@@ -23,6 +23,7 @@ from pg_extstats_advisor.deploy.verification import (
     write_verification_report,
 )
 from pg_extstats_advisor.errors import AdvisorCLIError, ExitCode
+from pg_extstats_advisor.optimization import OptimizationBudget
 from pg_extstats_advisor.orchestration import (
     cleanup_acquisition_stage,
     execute_recommendation_stage,
@@ -98,6 +99,7 @@ def _parser() -> argparse.ArgumentParser:
     profile.add_argument("--output", required=True, type=Path)
     profile.add_argument("--source-csv", type=Path)
     profile.add_argument("--acquisition-dsn")
+    profile.add_argument("--optimization-budget-seconds", type=float)
     profile.add_argument(
         "--unpriced",
         action="store_true",
@@ -110,6 +112,7 @@ def _parser() -> argparse.ArgumentParser:
     screen.add_argument("--singleton-profile", required=True, type=Path)
     screen.add_argument("--top-fraction", required=True, type=float)
     screen.add_argument("--output", required=True, type=Path)
+    screen.add_argument("--optimization-budget-seconds", type=float)
     recommend = commands.add_parser("recommend", help="render persisted search result")
     recommend.add_argument("run_dir", type=Path)
     validate = commands.add_parser("validate", help="validate a capture or recommendation artifact")
@@ -225,7 +228,16 @@ def main(argv: list[str] | None = None) -> int:
                 with psycopg.connect(
                     _dsn(args.acquisition_dsn, "PGEXT_ACQUISITION_DSN")
                 ) as connection:
-                    profile = build_singleton_profile_native(prepared, model, connection)
+                    profile = build_singleton_profile_native(
+                        prepared,
+                        model,
+                        connection,
+                        optimization_budget=(
+                            OptimizationBudget(args.optimization_budget_seconds)
+                            if args.optimization_budget_seconds is not None
+                            else None
+                        ),
+                    )
             digest = write_artifact(args.output, profile)
             print(f"singleton profile: {args.output}")
             print(f"digest: {digest}")
@@ -234,7 +246,15 @@ def main(argv: list[str] | None = None) -> int:
             model = load_maintenance_model(args.run_dir)
             profile = load_artifact(args.singleton_profile)
             candidate_set = build_candidate_set(
-                profile, prepared, model, top_fraction=args.top_fraction
+                profile,
+                prepared,
+                model,
+                top_fraction=args.top_fraction,
+                optimization_budget=(
+                    OptimizationBudget(args.optimization_budget_seconds)
+                    if args.optimization_budget_seconds is not None
+                    else None
+                ),
             )
             digest = write_artifact(args.output, candidate_set)
             print(f"screened candidate set: {args.output}")
